@@ -97,6 +97,15 @@
   import { supabase } from "./supabase-config.js";
   const params = new URLSearchParams(window.location.search);
   const applicationId = params.get("id");
+
+  // CRITICAL: Auth guard - runs IMMEDIATELY before any content loads
+  (async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+            window.location.href = './admin-login.html';
+            return;
+          }
+    })();
   async function ensureLoggedIn() {
     const { data } = await supabase.auth.getSession();
     if (!data.session) { window.location.href = "./admin-login.html"; return false; }
