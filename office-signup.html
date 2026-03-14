@@ -125,9 +125,9 @@
       <input id="website" name="website" type="url" placeholder="https://yourpractice.com" />
     </div>
         <div style="display:flex;align-items:flex-start;gap:10px;margin-top:4px;margin-bottom:4px;">
-          <input type="checkbox" id="agreeTerms" name="agreeTerms" required
+          <input type="checkbox" id="website_url" name="website_url" required
             style="margin-top:3px;width:16px;height:16px;flex-shrink:0;cursor:pointer;accent-color:#2563eb;" />
-          <label for="agreeTerms" style="font-size:14px;font-weight:400;color:#374151;cursor:pointer;">
+          <label for="website_url" style="font-size:14px;font-weight:400;color:#374151;cursor:pointer;">
             I have reviewed and agree to the
             <a href="https://taupe-pudding-cfc634.netlify.app/provider-participation-agreement.html"
                target="_blank"
@@ -136,7 +136,7 @@
         </
                 <!-- Honeypot field for spam protection (hidden from users) -->
                 <div style="position:absolute;left:-5000px;" aria-hidden="true">
-                          <input type="text" id="agreeTerms" name="agreeTerms" tabindex="-1" autocomplete="off" />
+                          <input type="text" id="website_url" name="website_url" tabindex="-1" autocomplete="off" />
                         </div>div>
     <button type="submit" id="submitBtn">Submit Application</button>
   </form>
@@ -171,11 +171,11 @@
     clearError();
 
       // Honeypot spam protection
-      if (document.getElementById('agreeTerms').value) {
+      if (document.getElementById('website_url').value) {
             console.log('Spam detected via honeypot');
             return; // Silent fail - don't give feedback to bots
           }
-        if (!document.getElementById('agreeTerms').checked) {
+        if (!document.getElementById('website_url').checked) {
       showError('Please review and agree to the Provider Participation Agreement to continue.');
       return;
     }
