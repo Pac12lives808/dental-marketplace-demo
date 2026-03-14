@@ -197,3 +197,217 @@ footer {
     padding: 40px 20px;
   }
 }
+
+/* Hero Buttons */
+.hero-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-top: 24px;
+}
+
+.btn-large {
+    padding: 14px 36px;
+    font-size: 1.1rem;
+}
+
+.btn-secondary {
+    display: inline-block;
+    background: white;
+    color: #2563eb;
+    border: 2px solid #2563eb;
+    padding: 12px 32px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.btn-secondary:hover {
+    background: #f0f7ff;
+}
+
+/* How It Works Section */
+.how-it-works {
+    background: white;
+    border-radius: 12px;
+    padding: 48px 40px;
+    margin-bottom: 40px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.how-it-works h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 2rem;
+    color: #1a202c;
+}
+
+.steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+}
+
+.step {
+    text-align: center;
+}
+
+.step-number {
+    width: 60px;
+    height: 60px;
+    background: #2563eb;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 auto 20px;
+}
+
+.step h3 {
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+    color: #1a202c;
+}
+
+.step p {
+    color: #4a5568;
+}
+
+/* Benefits Section */
+.benefits {
+    background: white;
+    border-radius: 12px;
+    padding: 48px 40px;
+    margin-bottom: 40px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.benefits h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 2rem;
+    color: #1a202c;
+}
+
+.benefit-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+.benefit-card {
+    background: #f8fafc;
+    padding: 32px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+}
+
+.benefit-icon {
+    font-size: 2.5rem;
+    margin-bottom: 16px;
+}
+
+.benefit-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+    color: #1a202c;
+}
+
+.benefit-card p {
+    color: #4a5568;
+}
+
+/* Dentist Section */
+.dentist-section {
+    background: white;
+    border-radius: 12px;
+    padding: 48px 40px;
+    margin-bottom: 40px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.dentist-section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 16px;
+    color: #1a202c;
+}
+
+.dentist-section p {
+    color: #4a5568;
+    margin-bottom: 20px;
+}
+
+.dentist-benefits {
+    list-style: none;
+    margin-bottom: 32px;
+}
+
+.dentist-benefits li {
+    padding: 12px 0;
+    padding-left: 32px;
+    position: relative;
+    color: #1a202c;
+}
+
+.dentist-benefits li:before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #2563eb;
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+/* Final CTA Section */
+.final-cta {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    border-radius: 12px;
+    padding: 60px 40px;
+    margin-bottom: 40px;
+    text-align: center;
+    color: white;
+}
+
+.final-cta h2 {
+    font-size: 2rem;
+    margin-bottom: 16px;
+    color: white;
+}
+
+.final-cta p {
+    font-size: 1.1rem;
+    margin-bottom: 24px;
+    color: rgba(255,255,255,0.9);
+}
+
+.final-cta .btn-primary {
+    background: white;
+    color: #2563eb;
+}
+
+.final-cta .btn-primary:hover {
+    background: #f8fafc;
+}
+
+/* Responsive Updates */
+@media (max-width: 768px) {
+    .steps {
+        grid-template-columns: 1fr;
+    }
+    
+    .benefit-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+    }
+    
+    .hero-buttons a {
+        width: 100%;
+        text-align: center;
+    }
+}
