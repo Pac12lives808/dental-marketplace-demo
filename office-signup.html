@@ -142,6 +142,17 @@
   const form = document.getElementById("officeForm");
   const submitBtn = document.getElementById("submitBtn");
   const errorBox = document.getElementById("errorBox");
+
+  // Admin authentication check
+  async function checkAdminAuth() {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+            window.location.href = '/admin-login.html';
+            return false;
+          }
+      return true;
+    }
+  checkAdminAuth();
   function showError(msg) {
     errorBox.textContent = msg;
     errorBox.style.display = "block";
