@@ -184,7 +184,7 @@
     fetch('https://fxfwytxfeuwsbeapiyqw.supabase.co/functions/v1/send-application-email', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ full_name: payload.full_name, email: payload.email })
+      body: JSON.stringify({ full_name: payload.full_name, email: payload.email, phone: payload.phone, practice_name: payload.practice_name, city: payload.city, state: payload.state, specialty: payload.specialty, dental_license_number: payload.dental_license_number })
     }).catch(() => {}); // non-blocking, do not delay redirect
     window.location.href = "./office-pending.html";
   });
