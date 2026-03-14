@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Review Application — Dental Dash Pro</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f9fafb;
+      margin: 0;
+      padding: 32px 16px;
+      color: #111827;
+    }
+    .wrap { max-width: 800px; margin: 0 auto; }
+    .back-link { margin-bottom: 20px; }
+    .back-link a { color: #2563eb; text-decoration: none; font-weight: 600; font-size: 14px; }
+    .back-link a:hover { text-decoration: underline; }
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 32px 28px;
+      box-shadow: 0 6px 22px rgba(0,0,0,0.06);
+    }
+    .card h1 { margin: 0 0 24px; font-size: 22px; color: #111827; }
+    .field { margin-bottom: 14px; line-height: 1.6; font-size: 15px; }
+    .field-label { font-weight: 700; color: #374151; }
+    .field-value { color: #111827; }
+    .divider { border: none; border-top: 1px solid #e5e7eb; margin: 24px 0; }
+    .badge {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .badge-PENDING { background: #fef3c7; color: #92400e; }
+    .badge-APPROVED { background: #d1fae5; color: #065f46; }
+    .badge-REJECTED { background: #fee2e2; color: #991b1b; }
+    label.section-label { display: block; font-weight: 700; color: #374151; margin-bottom: 8px; font-size: 14px; }
+    textarea {
+      width: 100%;
+      min-height: 110px;
+      padding: 12px 14px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      font-size: 15px;
+      resize: vertical;
+    }
+    textarea:focus { outline: none; border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+    .actions { display: flex; gap: 12px; margin-top: 20px; flex-wrap: wrap; }
+    .btn {
+      padding: 13px 24px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      color: white;
+      font-weight: 700;
+      font-size: 15px;
+      transition: opacity 0.2s;
+    }
+    .btn:hover:not(:disabled) { opacity: 0.88; }
+    .btn:disabled { opacity: 0.55; cursor: not-allowed; }
+    .btn-approve { background: #059669; }
+    .btn-reject { background: #dc2626; }
+    #loading { text-align: center; padding: 40px; color: #6b7280; }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <div class="back-link"><a href="./admin-approvals.html">← Back to Applications</a></div>
+  <div id="loading">Loading application...</div>
+  <div id="card" class="card" style="display:none;">
+    <h1>Office Application Review</h1>
+    <div class="field"><span class="field-label">Full Name: </span><span id="full_name" class="field-value"></span></div>
+    <div class="field"><span class="field-label">Email: </span><span id="email" class="field-value"></span></div>
+    <div class="field"><span class="field-label">Phone: </span><span id="phone" class="field-value"></span></div>
+    <div class="field"><span class="field-label">Practice Name: </span><span id="practice_name" class="field-value"></span></div>
+    <div class="field"><span class="field-label">City: </span><span id="city" class="field-value"></span></div>
+    <div class="field"><span class="field-label">State: </span><span id="state" class="field-value"></span></div>
+    <div class="field"><span class="field-label">Dental License #: </span><span id="dental_license_number" class="field-value"></span></div>
+    <div class="field"><span class="field-label">Specialty: </span><span id="specialty" class="field-value"></span></div>
+    <div class="field"><span class="field-label">Website: </span><span id="website" class="field-value"></span></div>
+    <div class="field"><span class="field-label">Status: </span><span id="status"></span></div>
+    <div class="field"><span class="field-label">Submitted: </span><span id="created_at" class="field-value"></span></div>
+    <hr class="divider" />
+    <label class="section-label" for="review_notes">Review Notes (optional)</label>
+    <textarea id="review_notes" placeholder="Add internal notes..."></textarea>
+    <div class="actions">
+      <button class="btn btn-approve" id="approveBtn">✓ Approve</button>
+      <button class="btn btn-reject" id="rejectBtn">✕ Reject</button>
+    </div>
+  </div>
+</div>
+<script type="module">
+  import { supabase } from "./supabase-config.js";
+  const params = new URLSearchParams(window.location.search);
+  const applicationId = params.get("id");
+  async function ensureLoggedIn() {
+    const { data } = await supabase.auth.getSession();
+    if (!data.session) { window.location.href = "./admin-login.html"; return false; }
+    return true;
+  }
+  async function loadApplication() {
+    const ok = await ensureLoggedIn();
+    if (!ok) return;
+    if (!applicationId) { alert("Missing application ID."); window.location.href = "./admin-approvals.html"; return; }
+    const { data, error } = await supabase
+      .from("office_applications")
+      .select("*")
+      .eq("id", applicationId)
+      .single();
+    if (error) { alert(error.message || "Failed to load application."); return; }
+    document.getElementById("full_name").textContent = data.full_name || "";
+    document.getElementById("email").textContent = data.email || "";
+    document.getElementById("phone").textContent = data.phone || "";
+    document.getElementById("practice_name").textContent = data.practice_name || "";
+    document.getElementById("city").textContent = data.city || "";
+    document.getElementById("state").textContent = data.state || "";
+    document.getElementById("dental_license_number").textContent = data.dental_license_number || "";
+    document.getElementById("specialty").textContent = data.specialty || "";
+    document.getElementById("website").textContent = data.website || "—";
+    const statusEl = document.getElementById("status");
+    statusEl.innerHTML = `<span class="badge badge-${data.status}">${data.status}</span>`;
+    document.getElementById("created_at").textContent = new Date(data.created_at).toLocaleString();
+    document.getElementById("review_notes").value = data.review_notes || "";
+    document.getElementById("loading").style.display = "none";
+    document.getElementById("card").style.display = "block";
+  }
+  async function updateStatus(newStatus) {
+    const approveBtn = document.getElementById("approveBtn");
+    const rejectBtn = document.getElementById("rejectBtn");
+    approveBtn.disabled = true;
+    rejectBtn.disabled = true;
+    const reviewNotes = document.getElementById("review_notes").value.trim() || null;
+    const { error } = await supabase
+      .from("office_applications")
+      .update({ status: newStatus, review_notes: reviewNotes, reviewed_at: new Date().toISOString() })
+      .eq("id", applicationId);
+    if (error) {
+      alert(error.message || "Failed to update application.");
+      approveBtn.disabled = false;
+      rejectBtn.disabled = false;
+      return;
+    }
+    window.location.href = "./admin-approvals.html";
+  }
+  document.getElementById("approveBtn").addEventListener("click", () => updateStatus("APPROVED"));
+  document.getElementById("rejectBtn").addEventListener("click", () => updateStatus("REJECTED"));
+  loadApplication();
+</script>
+</body>
+</html>
