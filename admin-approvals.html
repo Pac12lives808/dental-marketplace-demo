@@ -169,6 +169,15 @@
 <script type="module">
     import { supabase } from "./supabase-config.js";
 
+    // CRITICAL: Auth guard - runs IMMEDIATELY before any content loads
+    (async () => {
+          const { data: { session } } = await supabase.auth.getSession();
+          if (!session) {
+                  window.location.href = './admin-login.html';
+                  return;
+                }
+        })();
+
     let allApps = [];
     let currentFilter = "ALL";
     let activeApp = null;
