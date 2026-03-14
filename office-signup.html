@@ -133,7 +133,11 @@
                target="_blank"
                style="color:#2563eb;text-decoration:underline;">Provider Participation Agreement</a>
           </label>
-        </div>
+        </
+                <!-- Honeypot field for spam protection (hidden from users) -->
+                <div style="position:absolute;left:-5000px;" aria-hidden="true">
+                          <input type="text" id="agreeTerms" name="agreeTerms" tabindex="-1" autocomplete="off" />
+                        </div>div>
     <button type="submit" id="submitBtn">Submit Application</button>
   </form>
 </div>
@@ -165,6 +169,12 @@
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     clearError();
+
+      // Honeypot spam protection
+      if (document.getElementById('agreeTerms').value) {
+            console.log('Spam detected via honeypot');
+            return; // Silent fail - don't give feedback to bots
+          }
         if (!document.getElementById('agreeTerms').checked) {
       showError('Please review and agree to the Provider Participation Agreement to continue.');
       return;
