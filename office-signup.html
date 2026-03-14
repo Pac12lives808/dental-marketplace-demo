@@ -166,6 +166,12 @@
       submitBtn.textContent = "Submit Application";
       return;
     }
+    // Fire-and-forget: send confirmation email via Edge Function
+    fetch('https://fxfwytxfeuwsbeapiyqw.supabase.co/functions/v1/send-application-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ full_name: payload.full_name, email: payload.email })
+    }).catch(() => {}); // non-blocking, do not delay redirect
     window.location.href = "./office-pending.html";
   });
 </script>
