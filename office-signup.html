@@ -154,6 +154,10 @@
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     clearError();
+        if (!document.getElementById('agreeTerms').checked) {
+      showError('Please review and agree to the Provider Participation Agreement to continue.');
+      return;
+    }
     submitBtn.disabled = true;
     submitBtn.textContent = "Submitting...";
     const fd = new FormData(form);
