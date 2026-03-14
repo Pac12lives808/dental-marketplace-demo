@@ -1,355 +1,305 @@
-/* Dental Dash Pro - Main Stylesheet */
+/* Dental Dash Pro - Modern 2026 Startup Stylesheet */
 
+/* ===== RESET & BASE ===== */
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background: #f8fafc;
-  color: #1a202c;
-  line-height: 1.6;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', Roboto, sans-serif;
+    background: #fafbfc;
+    color: #1a202c;
+    line-height: 1.7;
+    font-size: 16px;
 }
 
+/* ===== CONTAINER ===== */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 32px;
+}
+
+/* ===== HEADER ===== */
 header {
-  background: #2563eb;
-  color: white;
-  padding: 20px 40px;
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    color: white;
+    padding: 32px 0;
+    box-shadow: 0 4px 20px rgba(37, 99, 235, 0.15);
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 32px;
 }
 
 header h1 {
-  font-size: 1.8rem;
-  margin-bottom: 4px;
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    letter-spacing: -0.02em;
 }
 
+header p {
+    font-size: 0.95rem;
+    opacity: 0.95;
+    font-weight: 400;
+}
+
+/* ===== MAIN CONTENT ===== */
 main {
-  max-width: 1000px;
-  margin: 40px auto;
-  padding: 0 20px;
+    padding-bottom: 80px;
 }
 
+/* ===== TYPOGRAPHY ===== */
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 48px;
+    color: #0f172a;
+    letter-spacing: -0.03em;
+}
+
+/* ===== HERO SECTION ===== */
 .hero {
-  background: white;
-  border-radius: 12px;
-  padding: 60px 40px;
-  text-align: center;
-  margin-bottom: 40px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    background: linear-gradient(to bottom, white 0%, #f8fafc 100%);
+    padding: 80px 0 100px;
 }
 
-.hero h2 {
-  font-size: 2rem;
-  margin-bottom: 16px;
-  color: #1a202c;
+.hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
 }
 
-.btn-primary {
-  display: inline-block;
-  background: #2563eb;
-  color: white;
-  padding: 12px 32px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 600;
-  margin-top: 20px;
+.hero-title {
+    font-size: 3.25rem;
+    font-weight: 800;
+    line-height: 1.15;
+    color: #0f172a;
+    margin-bottom: 24px;
+    letter-spacing: -0.04em;
 }
 
-.btn-primary:hover {
-  background: #1d4ed8;
+.hero-subtitle {
+    font-size: 1.25rem;
+    color: #475569;
+    line-height: 1.7;
+    margin-bottom: 36px;
+    font-weight: 400;
 }
 
-.features {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-}
-
-.feature {
-  background: white;
-  border-radius: 12px;
-  padding: 32px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-}
-
-.feature h3 {
-  font-size: 1.2rem;
-  margin-bottom: 12px;
-  color: #2563eb;
-}
-
-.feature a {
-  color: #2563eb;
-  text-decoration: none;
-  font-weight: 500;
-}
-
-form {
-  background: white;
-  border-radius: 12px;
-  padding: 40px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-form h2 {
-  margin-bottom: 24px;
-  color: #1a202c;
-}
-
-label {
-  display: block;
-  margin-bottom: 6px;
-  font-weight: 500;
-  color: #4a5568;
-}
-
-input, textarea, select {
-  width: 100%;
-  padding: 10px 14px;
-  border: 1px solid #e2e8f0;
-  border-radius: 6px;
-  margin-bottom: 20px;
-  font-size: 1rem;
-}
-
-button[type="submit"] {
-  background: #2563eb;
-  color: white;
-  border: none;
-  padding: 12px 32px;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  width: 100%;
-}
-
-.nav-links {
-  margin-top: 20px;
-  text-align: center;
-}
-
-.nav-links a {
-  color: #2563eb;
-  text-decoration: none;
-  margin: 0 12px;
-}
-
-.success-box {
-  background: #f0fdf4;
-  border: 2px solid #22c55e;
-  border-radius: 12px;
-  padding: 40px;
-  text-align: center;
-  max-width: 500px;
-  margin: 40px auto;
-}
-
-.success-box h2 {
-  color: #16a34a;
-  font-size: 1.8rem;
-  margin-bottom: 16px;
-}
-
-.dashboard {
-  background: white;
-  border-radius: 12px;
-  padding: 32px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-}
-
-.dashboard h2 {
-  margin-bottom: 24px;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-th, td {
-  text-align: left;
-  padding: 12px 16px;
-  border-bottom: 1px solid #e2e8f0;
-}
-
-th {
-  background: #f8fafc;
-  font-weight: 600;
-  color: #4a5568;
-}
-
-footer {
-  text-align: center;
-  padding: 32px;
-  color: #718096;
-  margin-top: 60px;
-}
-
-@media (max-width: 640px) {
-  .features {
-    grid-template-columns: 1fr;
-  }
-  .hero {
-    padding: 40px 20px;
-  }
-}
-
-/* Hero Buttons */
 .hero-buttons {
     display: flex;
-    gap: 16px;
+    gap: 20px;
     justify-content: center;
-    margin-top: 24px;
+    flex-wrap: wrap;
+}
+
+/* ===== BUTTONS ===== */
+.btn {
+    display: inline-block;
+    padding: 14px 32px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    border: none;
 }
 
 .btn-large {
-    padding: 14px 36px;
+    padding: 16px 40px;
     font-size: 1.1rem;
 }
 
+.btn-primary {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    color: white;
+    box-shadow: 0 4px 16px rgba(37, 99, 235, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(37, 99, 235, 0.4);
+}
+
 .btn-secondary {
-    display: inline-block;
     background: white;
     color: #2563eb;
     border: 2px solid #2563eb;
-    padding: 12px 32px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.1);
 }
 
 .btn-secondary:hover {
-    background: #f0f7ff;
+    background: #eff6ff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(37, 99, 235, 0.2);
 }
 
-/* How It Works Section */
-.how-it-works {
+.btn-cta {
     background: white;
-    border-radius: 12px;
-    padding: 48px 40px;
-    margin-bottom: 40px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    color: #2563eb;
+    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
 }
 
-.how-it-works h2 {
-    text-align: center;
-    margin-bottom: 40px;
-    font-size: 2rem;
-    color: #1a202c;
+.btn-cta:hover {
+    background: #f0f7ff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(255, 255, 255, 0.4);
 }
 
-.steps {
+/* ===== HOW IT WORKS SECTION ===== */
+.how-it-works {
+    padding: 100px 0;
+    background: white;
+}
+
+.steps-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 32px;
 }
 
-.step {
+.step-card {
+    background: #ffffff;
+    border: 2px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 48px 32px;
     text-align: center;
+    transition: all 0.3s ease;
+}
+
+.step-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+    border-color: #cbd5e1;
 }
 
 .step-number {
-    width: 60px;
-    height: 60px;
-    background: #2563eb;
+    width: 72px;
+    height: 72px;
+    background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
     color: white;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5rem;
+    font-size: 1.75rem;
+    font-weight: 800;
+    margin: 0 auto 28px;
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
+}
+
+.step-card h3 {
+    font-size: 1.4rem;
     font-weight: 700;
-    margin: 0 auto 20px;
+    margin-bottom: 16px;
+    color: #0f172a;
+    letter-spacing: -0.02em;
 }
 
-.step h3 {
-    font-size: 1.2rem;
-    margin-bottom: 12px;
-    color: #1a202c;
+.step-card p {
+    color: #64748b;
+    font-size: 1rem;
+    line-height: 1.7;
 }
 
-.step p {
-    color: #4a5568;
-}
-
-/* Benefits Section */
+/* ===== BENEFITS SECTION ===== */
 .benefits {
-    background: white;
-    border-radius: 12px;
-    padding: 48px 40px;
-    margin-bottom: 40px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    padding: 100px 0;
+    background: linear-gradient(to bottom, #fafbfc 0%, #f1f5f9 100%);
 }
 
-.benefits h2 {
-    text-align: center;
-    margin-bottom: 40px;
-    font-size: 2rem;
-    color: #1a202c;
-}
-
-.benefit-cards {
+.benefits-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
+    gap: 28px;
 }
 
 .benefit-card {
-    background: #f8fafc;
-    padding: 32px;
-    border-radius: 12px;
+    background: white;
+    padding: 42px;
+    border-radius: 20px;
     border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.benefit-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+    border-color: #cbd5e1;
 }
 
 .benefit-icon {
-    font-size: 2.5rem;
-    margin-bottom: 16px;
+    font-size: 3rem;
+    margin-bottom: 20px;
+    display: block;
 }
 
 .benefit-card h3 {
-    font-size: 1.2rem;
+    font-size: 1.35rem;
+    font-weight: 700;
     margin-bottom: 12px;
-    color: #1a202c;
+    color: #0f172a;
+    letter-spacing: -0.02em;
 }
 
 .benefit-card p {
-    color: #4a5568;
+    color: #64748b;
+    font-size: 1rem;
+    line-height: 1.7;
 }
 
-/* Dentist Section */
+/* ===== DENTIST SECTION ===== */
 .dentist-section {
+    padding: 100px 0;
     background: white;
-    border-radius: 12px;
-    padding: 48px 40px;
-    margin-bottom: 40px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
-.dentist-section h2 {
-    font-size: 1.8rem;
-    margin-bottom: 16px;
-    color: #1a202c;
+.dentist-card {
+    max-width: 900px;
+    margin: 0 auto;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border-radius: 24px;
+    padding: 60px;
+    border: 2px solid #e2e8f0;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
 }
 
-.dentist-section p {
-    color: #4a5568;
+.dentist-content h2 {
+    font-size: 2.25rem;
+    font-weight: 800;
     margin-bottom: 20px;
+    color: #0f172a;
+    letter-spacing: -0.03em;
+}
+
+.dentist-intro {
+    font-size: 1.15rem;
+    color: #475569;
+    margin-bottom: 32px;
+    line-height: 1.7;
 }
 
 .dentist-benefits {
     list-style: none;
-    margin-bottom: 32px;
+    margin-bottom: 40px;
 }
 
 .dentist-benefits li {
-    padding: 12px 0;
-    padding-left: 32px;
+    padding: 16px 0;
+    padding-left: 40px;
     position: relative;
-    color: #1a202c;
+    color: #1e293b;
+    font-size: 1.05rem;
+    line-height: 1.6;
 }
 
 .dentist-benefits li:before {
@@ -357,57 +307,133 @@ footer {
     position: absolute;
     left: 0;
     color: #2563eb;
-    font-weight: 700;
-    font-size: 1.2rem;
+    font-weight: 800;
+    font-size: 1.4rem;
 }
 
-/* Final CTA Section */
+/* ===== FINAL CTA SECTION ===== */
 .final-cta {
-    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-    border-radius: 12px;
-    padding: 60px 40px;
-    margin-bottom: 40px;
+    padding: 100px 0;
+    background: linear-gradient(135deg, #1e40af 0%, #2563eb 50%, #3b82f6 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.final-cta::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    border-radius: 50%;
+}
+
+.cta-content {
+    max-width: 800px;
+    margin: 0 auto;
     text-align: center;
-    color: white;
+    position: relative;
+    z-index: 1;
 }
 
 .final-cta h2 {
-    font-size: 2rem;
-    margin-bottom: 16px;
+    font-size: 2.75rem;
+    font-weight: 800;
+    margin-bottom: 20px;
     color: white;
+    letter-spacing: -0.03em;
 }
 
 .final-cta p {
-    font-size: 1.1rem;
-    margin-bottom: 24px;
-    color: rgba(255,255,255,0.9);
+    font-size: 1.2rem;
+    margin-bottom: 36px;
+    color: rgba(255, 255, 255, 0.95);
+    line-height: 1.7;
 }
 
-.final-cta .btn-primary {
-    background: white;
-    color: #2563eb;
+/* ===== FOOTER ===== */
+footer {
+    background: #0f172a;
+    color: #94a3b8;
+    padding: 48px 0;
+    text-align: center;
 }
 
-.final-cta .btn-primary:hover {
-    background: #f8fafc;
+footer p {
+    font-size: 0.95rem;
 }
 
-/* Responsive Updates */
-@media (max-width: 768px) {
-    .steps {
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 1024px) {
+    .steps-grid {
         grid-template-columns: 1fr;
+        gap: 24px;
     }
     
-    .benefit-cards {
+    .benefits-grid {
         grid-template-columns: 1fr;
+        gap: 24px;
+    }
+    
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 20px;
+    }
+    
+    .hero {
+        padding: 60px 0 80px;
+    }
+    
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.1rem;
     }
     
     .hero-buttons {
         flex-direction: column;
+        gap: 16px;
     }
     
-    .hero-buttons a {
+    .hero-buttons .btn {
         width: 100%;
         text-align: center;
+    }
+    
+    .section-title {
+        font-size: 1.75rem;
+    }
+    
+    .how-it-works,
+    .benefits,
+    .dentist-section,
+    .final-cta {
+        padding: 60px 0;
+    }
+    
+    .step-card,
+    .benefit-card {
+        padding: 32px 24px;
+    }
+    
+    .dentist-card {
+        padding: 40px 28px;
+    }
+    
+    .final-cta h2 {
+        font-size: 2rem;
     }
 }
