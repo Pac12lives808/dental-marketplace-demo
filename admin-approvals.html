@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Approvals — Dental Dash Pro</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            margin: 0;
+            background: #f9fafb;
+            padding: 32px 16px;
+            color: #111827;
+        }
+        .wrap { max-width: 1200px; margin: 0 auto; }
+        .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; gap: 16px; flex-wrap: wrap; }
+        .topbar h1 { margin: 0; font-size: 24px; }
+        .btn {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-dark { background: #111827; color: #fff; }
+        .btn-dark:hover { background: #374151; }
+        .btn-primary { background: #2563eb; color: #fff; }
+        .btn-primary:hover { background: #1d4ed8; }
+        .btn-success { background: #059669; color: #fff; }
+        .btn-danger { background: #dc2626; color: #fff; }
+        
+        /* Dashboard Metrics */
+        .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
+        .metric-card { background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border: 1px solid #e5e7eb; }
+        .metric-label { font-size: 13px; color: #6b7280; font-weight: 600; margin-bottom: 4px; }
+        .metric-value { font-size: 24px; font-weight: 700; color: #111827; }
+
+        /* Search & Filter Bar */
+        .toolbar { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 20px; align-items: center; }
+        .search-box { flex: 1; min-width: 250px; position: relative; }
+        .search-input { width: 100%; padding: 10px 16px; border: 1.5px solid #d1d5db; border-radius: 10px; font-size: 14px; }
+        .status-filter { display: flex; gap: 8px; flex-wrap: wrap; }
+        .filter-btn {
+            padding: 7px 16px;
+            border: 1.5px solid #d1d5db;
+            border-radius: 20px;
+            background: #fff;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            color: #374151;
+        }
+        .filter-btn.active { background: #2563eb; color: #fff; border-color: #2563eb; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 6px 22px rgba(0,0,0,0.06);
+        }
+        th, td { padding: 14px 16px; border-bottom: 1px solid #e5e7eb; text-align: left; vertical-align: middle; font-size: 14px; }
+        th { background: #f3f4f6; font-weight: 700; color: #374151; }
+        tr.urgent { background: #fffbeb; }
+        tr.urgent td { border-left: 4px solid #f59e0b; }
+        .badge { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; }
+        .badge-PENDING { background: #fef3c7; color: #92400e; }
+        .badge-APPROVED { background: #d1fae5; color: #065f46; }
+        .badge-REJECTED { background: #fee2e2; color: #991b1b; }
+        .duplicate-tag { font-size: 11px; background: #fee2e2; color: #dc2626; padding: 2px 6px; border-radius: 4px; margin-top: 4px; display: inline-block; font-weight: 600; }
+        
+        /* Modal Styles */
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 20px; }
+        .modal { background: #fff; width: 100%; max-width: 700px; max-height: 90vh; border-radius: 16px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); }
+        .modal-header { padding: 20px 24px; border-bottom: 1px solid #e5e7eb; display: flex; justify-content: space-between; align-items: center; }
+        .modal-header h2 { margin: 0; font-size: 20px; }
+        .modal-body { padding: 24px; overflow-y: auto; flex: 1; }
+        .modal-footer { padding: 16px 24px; border-top: 1px solid #e5e7eb; display: flex; justify-content: flex-end; gap: 12px; background: #f9fafb; }
+        .field-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 24px; }
+        .field-label { font-size: 12px; color: #6b7280; font-weight: 600; margin-bottom: 4px; text-transform: uppercase; }
+        .field-value { font-size: 15px; color: #111827; }
+        .notes-area { width: 100%; height: 100px; padding: 12px; border: 1.5px solid #d1d5db; border-radius: 10px; font-size: 14px; margin-top: 8px; resize: none; }
+
+        .close-modal { background: none; border: none; font-size: 24px; cursor: pointer; color: #9ca3af; }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="topbar">
+        <h1>Office Applications Dashboard</h1>
+        <div style="display: flex; gap: 12px;">
+            <button class="btn btn-dark" id="exportBtn">Export Approved (CSV)</button>
+            <button class="btn btn-dark" id="logoutBtn">Log Out</button>
+        </div>
+    </div>
+
+    <div class="metrics">
+        <div class="metric-card">
+            <div class="metric-label">Total Applications</div>
+            <div class="metric-value" id="countTotal">0</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-label">Pending Review</div>
+            <div class="metric-value" id="countPending">0</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-label">Approved Offices</div>
+            <div class="metric-value" id="countApproved">0</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-label">Rejected</div>
+            <div class="metric-value" id="countRejected">0</div>
+        </div>
+    </div>
+
+    <div class="toolbar">
+        <div class="search-box">
+            <input type="text" class="search-input" id="searchInput" placeholder="Search practice, contact, city, or specialty...">
+        </div>
+        <div class="status-filter">
+            <button class="filter-btn active" data-status="ALL">All</button>
+            <button class="filter-btn" data-status="PENDING">Pending</button>
+            <button class="filter-btn" data-status="APPROVED">Approved</button>
+            <button class="filter-btn" data-status="REJECTED">Rejected</button>
+        </div>
+    </div>
+
+    <table id="appsTable">
+        <thead>
+            <tr>
+                <th>Submitted</th>
+                <th>Practice & Specialty</th>
+                <th>Contact Information</th>
+                <th>Location</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="appsBody"></tbody>
+    </table>
+</div>
+
+<!-- Application Detail Modal -->
+<div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+        <div class="modal-header">
+            <h2 id="modalPracticeName">Application Details</h2>
+            <button class="close-modal" id="closeModal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="field-grid" id="modalDetails"></div>
+            <div>
+                <label class="field-label">Internal Notes</label>
+                <textarea id="internalNotes" class="notes-area" placeholder="Add private notes about this application..."></textarea>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-dark" id="saveNotesBtn">Save Notes Only</button>
+            <button class="btn btn-danger" id="rejectBtn">Reject Application</button>
+            <button class="btn btn-success" id="approveBtn">Approve Office</button>
+        </div>
+    </div>
+</div>
+
+<script type="module">
+    import { supabase } from "./supabase-config.js";
+
+    // CRITICAL: Auth guard - runs IMMEDIATELY before any content loads
+    (async () => {
+          const { data: { session } } = await supabase.auth.getSession();
+          if (!session) {
+                  window.location.href = './admin-login.html';
+                  return;
+                }
+
+          // Verify user is in admin_users table
+          const { data: { user } } = await supabase.auth.getUser();
+          const { data: adminCheck, error: adminError } = await supabase
+            .from('admin_users')
+            .select('email')
+            .eq('email', user.email)
+            .single();
+
+          if (!adminCheck || adminError) {
+                  await supabase.auth.signOut();
+                  window.location.href = './admin-login.html';
+                  return;
+                }
+                }
+        })();
+
+    let allApps = [];
+    let currentFilter = "ALL";
+    let activeApp = null;
+
+    function getRelativeTime(dateString) {
+        const date = new Date(dateString);
+        const now = new Date();
+        const diffInSeconds = Math.floor((now - date) / 1000);
+        
+        if (diffInSeconds < 60) return "Just now";
+        if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)}m ago`;
+        if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)}h ago`;
+        return `${Math.floor(diffInSeconds / 86400)}d ago`;
+    }
+
+    async function loadApplications() {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session) { window.location.href = "./admin-login.html"; return; }
+
+        const { data, error } = await supabase
+            .from("office_applications")
+            .select("*")
+            .order("created_at", { ascending: false });
+
+        if (error) { console.error(error); return; }
+        allApps = data || [];
+        updateMetrics();
+        renderTable();
+    }
+
+    function updateMetrics() {
+        document.getElementById("countTotal").textContent = allApps.length;
+        document.getElementById("countPending").textContent = allApps.filter(a => a.status === 'PENDING').length;
+        document.getElementById("countApproved").textContent = allApps.filter(a => a.status === 'APPROVED').length;
+        document.getElementById("countRejected").textContent = allApps.filter(a => a.status === 'REJECTED').length;
+    }
+
+    function renderTable() {
+        const searchTerm = document.getElementById("searchInput").value.toLowerCase();
+        
+        const filtered = allApps.filter(app => {
+            const matchesStatus = currentFilter === "ALL" || app.status === currentFilter;
+            const matchesSearch = !searchTerm || 
+                app.practice_name.toLowerCase().includes(searchTerm) ||
+                app.full_name.toLowerCase().includes(searchTerm) ||
+                app.email.toLowerCase().includes(searchTerm) ||
+                app.city.toLowerCase().includes(searchTerm) ||
+                app.specialty.toLowerCase().includes(searchTerm);
+            return matchesStatus && matchesSearch;
+        });
+
+        const body = document.getElementById("appsBody");
+        body.innerHTML = "";
+
+        filtered.forEach(app => {
+            const isUrgent = app.status === 'PENDING' && (new Date() - new Date(app.created_at)) > (3 * 24 * 60 * 60 * 1000);
+            const isDuplicate = allApps.some(other => 
+                other.id !== app.id && 
+                (other.email === app.email || other.dental_license_number === app.dental_license_number)
+            );
+
+            const tr = document.createElement("tr");
+            if (isUrgent) tr.className = "urgent";
+            
+            tr.innerHTML = `
+                <td>${getRelativeTime(app.created_at)}</td>
+                <td>
+                    <strong>${app.practice_name}</strong><br>
+                    <small>${app.specialty}</small>
+                </td>
+                <td>
+                    ${app.full_name}<br>
+                    <small>${app.email}</small>
+                    ${isDuplicate ? '<br><span class="duplicate-tag">POSSIBLE DUPLICATE</span>' : ''}
+                </td>
+                <td>${app.city}, ${app.state}</td>
+                <td><span class="badge badge-${app.status}">${app.status}</span></td>
+                <td><button class="btn btn-primary btn-sm review-btn" data-id="${app.id}">Review</button></td>
+            `;
+            body.appendChild(tr);
+        });
+
+        document.querySelectorAll(".review-btn").forEach(btn => {
+            btn.onclick = () => openModal(btn.dataset.id);
+        });
+    }
+
+    function openModal(id) {
+        activeApp = allApps.find(a => a.id === id);
+        document.getElementById("modalPracticeName").textContent = activeApp.practice_name;
+        document.getElementById("internalNotes").value = activeApp.internal_notes || "";
+        
+        const details = document.getElementById("modalDetails");
+        details.innerHTML = "";
+        
+        const fields = [
+            ["Contact Name", activeApp.full_name],
+            ["Email", activeApp.email],
+            ["Phone", activeApp.phone],
+            ["Dental License", activeApp.dental_license_number],
+            ["Practice Name", activeApp.practice_name],
+            ["Specialty", activeApp.specialty],
+            ["City", activeApp.city],
+            ["State", activeApp.state],
+            ["Status", activeApp.status],
+            ["Submitted At", new Date(activeApp.created_at).toLocaleString()]
+        ];
+
+        fields.forEach(([label, value]) => {
+            const div = document.createElement("div");
+            div.innerHTML = `<div class="field-label">${label}</div><div class="field-value">${value || 'N/A'}</div>`;
+            details.appendChild(div);
+        });
+
+        document.getElementById("modalOverlay").style.display = "flex";
+    }
+
+    async function updateApp(status, notesOnly = false) {
+        const notes = document.getElementById("internalNotes").value;
+        const updates = { internal_notes: notes };
+        
+        if (!notesOnly) {
+            updates.status = status;
+            updates.reviewed_at = new Date().toISOString();
+        }
+
+        const { error } = await supabase
+            .from("office_applications")
+            .update(updates)
+            .eq("id", activeApp.id);
+
+        if (error) { alert("Error updating: " + error.message); return; }
+        
+        if (status === 'APPROVED' && !notesOnly) {
+            // Trigger Edge Function for approval email
+            await fetch("https://fxfwytxfeuwsbeapiyqw.supabase.co/functions/v1/send-application-email", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ 
+                    full_name: activeApp.full_name, 
+                    email: activeApp.email,
+                    status: 'APPROVED'
+                })
+            });
+        }
+
+        closeModal();
+        loadApplications();
+    }
+
+    function closeModal() {
+        document.getElementById("modalOverlay").style.display = "none";
+        activeApp = null;
+    }
+
+    // CSV Export
+    document.getElementById("exportBtn").onclick = () => {
+        const approved = allApps.filter(a => a.status === 'APPROVED');
+        if (approved.length === 0) { alert("No approved offices to export."); return; }
+        
+        const headers = ["practice_name", "full_name", "email", "phone", "specialty", "city", "state", "approved_at"];
+        const rows = approved.map(a => [
+            a.practice_name, a.full_name, a.email, a.phone, a.specialty, a.city, a.state, a.reviewed_at
+        ]);
+        
+        let csvContent = headers.join(",") + "
+" + rows.map(r => r.join(",")).join("
+");
+        const blob = new Blob([csvContent], { type: 'text/csv' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `approved_offices_${new Date().toISOString().split('T')[0]}.csv`;
+        a.click();
+    };
+
+    // Event Listeners
+    document.getElementById("searchInput").oninput = renderTable;
+    document.getElementById("closeModal").onclick = closeModal;
+    document.getElementById("saveNotesBtn").onclick = () => updateApp(null, true);
+    document.getElementById("approveBtn").onclick = () => updateApp('APPROVED');
+    document.getElementById("rejectBtn").onclick = () => updateApp('REJECTED');
+    
+    document.querySelectorAll(".filter-btn").forEach(btn => {
+        btn.onclick = () => {
+            document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+            currentFilter = btn.dataset.status;
+            renderTable();
+        };
+    });
+
+    document.getElementById("logoutBtn").onclick = async () => {
+        await supabase.auth.signOut();
+        window.location.href = "./admin-login.html";
+    };
+
+    loadApplications();
+</script>
+</body>
+</html>

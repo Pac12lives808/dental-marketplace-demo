@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dental Dash Pro — Office Application</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f3f7fb;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 16px;
+    }
+    .card {
+      width: 100%;
+      max-width: 640px;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+      padding: 36px 28px;
+    }
+    h1 { margin: 0 0 8px; font-size: 28px; color: #1d4ed8; }
+    .subtitle { margin: 0 0 28px; color: #4b5563; font-size: 15px; }
+    .grid { display: grid; gap: 18px; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    label { display: block; font-size: 14px; font-weight: 600; color: #374151; margin-bottom: 6px; }
+    input, select {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      font-size: 15px;
+      background: #fff;
+    }
+    input:focus, select:focus { outline: none; border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+    .error {
+      display: none;
+      margin-bottom: 20px;
+      padding: 12px 16px;
+      border-radius: 10px;
+      background: #fef2f2;
+      color: #b91c1c;
+      font-size: 14px;
+      border: 1px solid #fecaca;
+    }
+    button[type="submit"] {
+      margin-top: 8px;
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 10px;
+      background: #2563eb;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    button[type="submit"]:hover:not(:disabled) { background: #1d4ed8; }
+    button[type="submit"]:disabled { opacity: 0.65; cursor: not-allowed; }
+    @media (max-width: 580px) { .row { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<div class="card">
+  <h1>Apply as a Dental Office</h1>
+  <p class="subtitle">Submit your office for review. Access is manually approved.</p>
+  <div id="errorBox" class="error"></div>
+  <form id="officeForm" class="grid" novalidate>
+    <div>
+      <label for="full_name">Full Name *</label>
+      <input id="full_name" name="full_name" type="text" required placeholder="Dr. Jane Smith" />
+    </div>
+    <div class="row">
+      <div>
+        <label for="email">Email *</label>
+        <input id="email" name="email" type="email" required placeholder="jane@practice.com" />
+      </div>
+      <div>
+        <label for="phone">Phone *</label>
+        <input id="phone" name="phone" type="text" required placeholder="(480) 555-0100" />
+      </div>
+    </div>
+    <div>
+      <label for="practice_name">Practice Name *</label>
+      <input id="practice_name" name="practice_name" type="text" required placeholder="Smith Family Dentistry" />
+    </div>
+    <div class="row">
+      <div>
+        <label for="city">City *</label>
+        <input id="city" name="city" type="text" required placeholder="Gilbert" />
+      </div>
+      <div>
+        <label for="state">State *</label>
+        <input id="state" name="state" type="text" maxlength="50" required placeholder="AZ" />
+      </div>
+    </div>
+    <div>
+      <label for="dental_license_number">Dental License Number *</label>
+      <input id="dental_license_number" name="dental_license_number" type="text" required placeholder="AZ-12345" />
+    </div>
+    <div>
+      <label for="specialty">Specialty *</label>
+      <select id="specialty" name="specialty" required>
+        <option value="">Select specialty</option>
+        <option>General Dentistry</option>
+        <option>Orthodontics</option>
+        <option>Oral Surgery</option>
+        <option>Periodontics</option>
+        <option>Endodontics</option>
+        <option>Pediatric Dentistry</option>
+        <option>Prosthodontics</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div>
+      <label for="website">Website (optional)</label>
+      <input id="website" name="website" type="url" placeholder="https://yourpractice.com" />
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:10px;">
+      <input type="checkbox" id="agree_terms" name="agree_terms" required style="margin-top:3px;width:16px;height:16px;flex-shrink:0;cursor:pointer;accent-color:#2563eb;" />
+      <label for="agree_terms" style="margin:0;font-weight:400;">I have reviewed and agree to the <a href="https://taupe-pudding-cfc634.netlify.app/provider-participation-agreement.html" target="_blank" style="color:#2563eb;">Provider Participation Agreement</a></label>
+    </div>
+    <!-- Honeypot: hidden field, bots fill it, humans don't -->
+    <input type="text" id="hp_website" name="hp_website" tabindex="-1" autocomplete="off" style="display:none;" />
+    <div>
+      <button type="submit" id="submitBtn">Submit Application</button>
+    </div>
+  </form>
+</div>
+<script type="module">
+  import { supabase } from "./supabase-config.js";
+
+  const form = document.getElementById("officeForm");
+  const submitBtn = document.getElementById("submitBtn");
+  const errorBox = document.getElementById("errorBox");
+
+  function showError(msg) {
+    errorBox.textContent = msg;
+    errorBox.style.display = "block";
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function clearError() {
+    errorBox.textContent = "";
+    errorBox.style.display = "none";
+  }
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    clearError();
+
+    // Honeypot spam protection
+    if (document.getElementById('hp_website').value) {
+      return; // Silent fail - don't give feedback to bots
+    }
+
+    if (!document.getElementById('agree_terms').checked) {
+      showError('Please review and agree to the Provider Participation Agreement to continue.');
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Submitting...";
+
+    const fd = new FormData(form);
+    const payload = {
+      full_name: String(fd.get("full_name") || "").trim(),
+      email: String(fd.get("email") || "").trim().toLowerCase(),
+      phone: String(fd.get("phone") || "").trim(),
+      practice_name: String(fd.get("practice_name") || "").trim(),
+      city: String(fd.get("city") || "").trim(),
+      state: String(fd.get("state") || "").trim(),
+      dental_license_number: String(fd.get("dental_license_number") || "").trim(),
+      specialty: String(fd.get("specialty") || "").trim(),
+      website: String(fd.get("website") || "").trim() || null,
+      status: "PENDING"
+    };
+
+    const { error } = await supabase.from("office_applications").insert([payload]);
+    if (error) {
+      showError(error.message || "Submission failed. Please try again.");
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Submit Application";
+      return;
+    }
+
+    // Fire-and-forget: send confirmation email via Edge Function
+    fetch('https://fxfwytxfeuwsbeapiyqw.supabase.co/functions/v1/send-application-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        full_name: payload.full_name,
+        email: payload.email,
+        phone: payload.phone,
+        practice_name: payload.practice_name,
+        city: payload.city,
+        state: payload.state,
+        specialty: payload.specialty,
+        dental_license_number: payload.dental_license_number
+      })
+    }).catch(() => {}); // non-blocking, do not delay redirect
+
+    window.location.href = "./office-pending.html";
+  });
+</script>
+</body>
+</html>
