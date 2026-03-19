@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estimate Submitted - Dental Dash Pro</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .confirm-wrap {
+      max-width: 600px;
+      margin: 64px auto;
+      padding: 0 24px;
+      text-align: center;
+    }
+    .confirm-icon { font-size: 4rem; margin-bottom: 20px; }
+    .confirm-wrap h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+    .confirm-wrap p {
+      color: #475569;
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+    .status-card {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 16px;
+      padding: 28px 32px;
+      margin: 32px 0;
+      text-align: left;
+    }
+    .status-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #166534;
+      margin-bottom: 16px;
+    }
+    .status-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .status-card li {
+      padding: 8px 0;
+      padding-left: 28px;
+      position: relative;
+      color: #1e293b;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      border-bottom: 1px solid #dcfce7;
+    }
+    .status-card li:last-child { border-bottom: none; }
+    .status-card li::before {
+      content: "\2713";
+      position: absolute;
+      left: 0;
+      color: #16a34a;
+      font-weight: 700;
+    }
+    .disclaimer-box {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin: 24px 0;
+      color: #1e40af;
+      font-size: 0.83rem;
+      line-height: 1.6;
+      text-align: left;
+    }
+    .btn-primary {
+      display: inline-block;
+      padding: 13px 28px;
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      color: white;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      box-shadow: 0 4px 14px rgba(37,99,235,0.25);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <h1><a href="index.html" style="color:white;text-decoration:none;">Dental Dash Pro</a></h1>
+      <p>Estimate Confirmation</p>
+    </div>
+  </header>
+
+  <main>
+    <div class="confirm-wrap">
+      <div class="confirm-icon">&#10003;</div>
+      <h2>Your Estimate Has Been Submitted!</h2>
+      <p>Thank you for providing your professional treatment estimate. The patient will be able to review your recommendation along with estimates from other participating offices.</p>
+
+      <div class="status-card">
+        <h3>What Happens Next</h3>
+        <ul>
+          <li>Your treatment estimate is now visible to the patient</li>
+          <li>The patient will review all treatment options received</li>
+          <li>If the patient selects your office, you will receive a consultation request notification</li>
+          <li>You may be contacted to schedule an in-person evaluation</li>
+        </ul>
+      </div>
+
+      <div class="disclaimer-box">
+        <strong>Clinical Reminder:</strong> Your submitted estimate is based on the information provided by the patient. All treatment plans and pricing must be confirmed during an in-office visit and clinical examination.
+      </div>
+
+      <a href="office-dashboard.html" class="btn-primary">Back to Dashboard</a>
+    </div>
+
+    <div class="nav-links" style="text-align:center; margin-top:24px;">
+      <a href="office-dashboard.html">&larr; Dashboard</a>
+      <a href="index.html">Home</a>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Dental Dash Pro. All rights reserved.</p>
+  </footer>
+</body>
+</html>
