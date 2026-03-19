@@ -1,60 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Submit a Request - Dental Dash Pro</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit a Treatment Request - Dental Dash Pro</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        main { max-width: 680px; margin: 48px auto; padding: 0 24px 80px; }
+        main h2 { font-size: 1.6rem; font-weight: 700; color: #0f172a; margin-bottom: 8px; letter-spacing: -0.02em; }
+        .page-sub { color: #475569; font-size: 1rem; margin-bottom: 32px; line-height: 1.6; }
+        label { display: block; font-size: 0.875rem; font-weight: 600; color: #374151; margin-bottom: 6px; margin-top: 18px; }
+        input[type="text"], input[type="email"], input[type="tel"], select, textarea {
+            width: 100%; padding: 11px 14px; border: 1px solid #d1d5db;
+            border-radius: 10px; font-size: 0.95rem; color: #1a202c;
+            background: #fff; box-sizing: border-box;
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none; border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37,99,235,0.08);
+        }
+        textarea { resize: vertical; min-height: 90px; }
+        .upload-group { margin-top: 18px; }
+        .upload-group label { margin-top: 0; }
+        .upload-box {
+            border: 2px dashed #cbd5e1; border-radius: 10px;
+            padding: 16px 18px; background: #f8fafc; margin-top: 6px;
+        }
+        .upload-box input[type="file"] { width: 100%; font-size: 0.9rem; }
+        .upload-help { font-size: 0.8rem; color: #64748b; margin-top: 4px; }
+        .helper-note {
+            background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px;
+            padding: 14px 18px; margin: 24px 0 8px; color: #166534;
+            font-size: 0.88rem; line-height: 1.6;
+        }
+        .disclaimer-box {
+            background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 10px;
+            padding: 16px 20px; margin: 20px 0; color: #1e40af;
+            font-size: 0.85rem; line-height: 1.6;
+        }
+        .disclaimer-box strong { display: block; margin-bottom: 4px; }
+        button[type="submit"] {
+            margin-top: 8px; width: 100%; padding: 15px;
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: #fff; border: none; border-radius: 12px;
+            font-size: 1rem; font-weight: 700; cursor: pointer;
+            box-shadow: 0 4px 16px rgba(37,99,235,0.25); transition: all 0.2s;
+        }
+        button[type="submit"]:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,99,235,0.35); }
+    </style>
 </head>
 <body>
-  <header>
-    <h1><a href="index.html" style="color:white;text-decoration:none;">Dental Dash Pro</a></h1>
-    <p>Submit a Treatment Request</p>
-  </header>
-  <main>
-    <form action="success.html" method="get">
-      <h2>Request Dental Treatment Bids</h2>
-      <label for="name">Your Name</label>
-      <input type="text" id="name" name="name" placeholder="Jane Smith" required>
+    <header>
+        <div class="header-container">
+            <h1><a href="index.html" style="color:white;text-decoration:none;">Dental Dash Pro</a></h1>
+            <p>Submit a Treatment Request</p>
+        </div>
+    </header>
 
-      <label for="email">Email Address</label>
-      <input type="email" id="email" name="email" placeholder="jane@example.com" required>
+    <main>
+        <h2>Request Dental Treatment Estimates</h2>
+        <p class="page-sub">Tell us about your treatment and share any documentation you have. Licensed dental offices in your area will review your request and provide professional estimates.</p>
 
-      <label for="phone">Phone Number</label>
-      <input type="tel" id="phone" name="phone" placeholder="(480) 555-0100">
+        <form action="success.html" method="get">
 
-      <label for="zip">ZIP Code</label>
-      <input type="text" id="zip" name="zip" placeholder="85234" required>
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" placeholder="Jane Smith" required>
 
-      <label for="treatment">Treatment Needed</label>
-      <select id="treatment" name="treatment" required>
-        <option value="">Select treatment type...</option>
-        <option value="cleaning">Cleaning &amp; Exam</option>
-        <option value="filling">Cavity Filling</option>
-        <option value="crown">Crown</option>
-        <option value="root-canal">Root Canal</option>
-        <option value="extraction">Tooth Extraction</option>
-        <option value="implant">Dental Implant</option>
-        <option value="whitening">Teeth Whitening</option>
-        <option value="other">Other</option>
-      </select>
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="jane@example.com" required>
 
-      <label for="insurance">Insurance (if any)</label>
-      <input type="text" id="insurance" name="insurance" placeholder="Delta Dental, Cigna, None, etc.">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="(480) 555-0100">
 
-      <label for="notes">Additional Notes</label>
-      <textarea id="notes" name="notes" rows="4" placeholder="Any additional information about your dental needs..."></textarea>
+            <label for="zip">ZIP Code</label>
+            <input type="text" id="zip" name="zip" placeholder="85234" required>
 
-      <button type="submit">Submit Request</button>
+            <label for="treatment">Treatment Needed</label>
+            <select id="treatment" name="treatment" required>
+                <option value="">Select treatment type...</option>
+                <option value="cleaning">Cleaning &amp; Exam</option>
+                <option value="filling">Cavity Filling</option>
+                <option value="crown">Crown</option>
+                <option value="root-canal">Root Canal</option>
+                <option value="extraction">Tooth Extraction</option>
+                <option value="implant">Dental Implant</option>
+                <option value="whitening">Teeth Whitening</option>
+                <option value="other">Other</option>
+            </select>
 
-      <div class="nav-links">
-        <a href="get-started.html">&larr; Back</a>
-        <a href="index.html">Home</a>
-      </div>
-    </form>
-  </main>
-  <footer>
-    <p>&copy; 2026 Dental Dash Pro. All rights reserved.</p>
-  </footer>
+            <label for="insurance">Insurance (if any)</label>
+            <input type="text" id="insurance" name="insurance" placeholder="Delta Dental, Cigna, None, etc.">
+
+            <!-- Document Uploads -->
+            <div class="upload-group">
+                <label>Findings Letter</label>
+                <div class="upload-box">
+                    <input type="file" name="findings_letter" accept=".pdf,.doc,.docx,.jpg,.png">
+                    <p class="upload-help">Upload your dentist's written findings or treatment recommendation (PDF, Word, or image)</p>
+                </div>
+            </div>
+
+            <div class="upload-group">
+                <label>X-rays</label>
+                <div class="upload-box">
+                    <input type="file" name="xrays" accept=".jpg,.jpeg,.png,.pdf" multiple>
+                    <p class="upload-help">Upload any X-ray images you have (JPG, PNG, or PDF)</p>
+                </div>
+            </div>
+
+            <div class="upload-group">
+                <label>Photos</label>
+                <div class="upload-box">
+                    <input type="file" name="photos" accept=".jpg,.jpeg,.png" multiple>
+                    <p class="upload-help">Upload photos of the affected area if available (JPG or PNG)</p>
+                </div>
+            </div>
+
+            <div class="helper-note">
+                <strong>Tip:</strong> More detailed submissions receive more accurate treatment estimates. Including your findings letter, X-rays, and photos helps dental offices provide the most relevant professional recommendations.
+            </div>
+
+            <label for="notes">Additional Notes</label>
+            <textarea id="notes" name="notes" rows="4" placeholder="Any additional information about your dental needs, concerns, or questions for the dental offices..."></textarea>
+
+            <div class="disclaimer-box">
+                <strong>Important Notice</strong>
+                Treatment estimates provided through Dental Dash Pro are based on the information you submit and are for informational purposes only. All estimates must be confirmed during an in-office visit. Dental Dash Pro does not provide medical or dental advice.
+            </div>
+
+            <button type="submit">Submit Treatment Request</button>
+
+        </form>
+
+        <div class="nav-links" style="margin-top: 28px;">
+            <a href="get-started.html">&larr; Back</a>
+            <a href="index.html">Home</a>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Dental Dash Pro. All rights reserved.</p>
+    </footer>
 </body>
 </html>
