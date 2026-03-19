@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Treatment Options - Dental Dash Pro</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .results-wrap { max-width: 860px; margin: 48px auto; padding: 0 24px 80px; }
+    .results-wrap h2 { font-size: 1.6rem; font-weight: 700; color: #0f172a; margin-bottom: 6px; letter-spacing: -0.02em; }
+    .results-sub { color: #475569; font-size: 1rem; margin-bottom: 8px; line-height: 1.6; }
+    .request-summary {
+      background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px;
+      padding: 14px 20px; margin-bottom: 32px; font-size: 0.9rem; color: #475569;
+    }
+    .request-summary strong { color: #0f172a; }
+    .options-label {
+      font-size: 0.85rem; font-weight: 600; color: #64748b;
+      text-transform: uppercase; letter-spacing: 0.06em;
+      margin-bottom: 16px;
+    }
+    .option-card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 20px;
+      padding: 32px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      transition: all 0.2s;
+    }
+    .option-card:hover {
+      box-shadow: 0 8px 24px rgba(0,0,0,0.09);
+      transform: translateY(-2px);
+    }
+    .option-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .office-name {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 4px;
+    }
+    .office-creds {
+      font-size: 0.82rem;
+      color: #64748b;
+    }
+    .price-range {
+      text-align: right;
+    }
+    .price-amount {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #0f172a;
+      display: block;
+    }
+    .price-label { font-size: 0.78rem; color: #64748b; }
+    .confidence-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
+    .confidence-high { background: #eff6ff; color: #1e40af; }
+    .confidence-moderate { background: #fefce8; color: #854d0e; }
+    .confidence-low { background: #fef2f2; color: #991b1b; }
+    .option-section { margin-bottom: 16px; }
+    .option-section-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #94a3b8;
+      margin-bottom: 4px;
+    }
+    .option-section p {
+      font-size: 0.92rem;
+      color: #334155;
+      line-height: 1.6;
+      margin: 0;
+    }
+    .why-choose-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px;
+      margin-top: 8px;
+    }
+    .why-item {
+      background: #f8fafc;
+      border-radius: 10px;
+      padding: 10px 14px;
+    }
+    .why-item-label { font-size: 0.72rem; color: #94a3b8; font-weight: 600; text-transform: uppercase; margin-bottom: 2px; }
+    .why-item-val { font-size: 0.85rem; color: #1e293b; font-weight: 500; }
+    .consult-btn {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+      margin-top: 20px;
+      box-shadow: 0 4px 14px rgba(37,99,235,0.22);
+      transition: all 0.2s;
+    }
+    .consult-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(37,99,235,0.32); }
+    .disclaimer-footer {
+      background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 10px;
+      padding: 14px 18px; margin-top: 32px; color: #1e40af;
+      font-size: 0.82rem; line-height: 1.6;
+    }
+    @media (max-width: 640px) { .option-header { flex-direction: column; } .price-range { text-align: left; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <h1><a href="index.html" style="color:white;text-decoration:none;">Dental Dash Pro</a></h1>
+      <p>Your Treatment Options</p>
+    </div>
+  </header>
+
+  <main>
+    <div class="results-wrap">
+      <h2>Your Treatment Options</h2>
+      <p class="results-sub">Review the professional estimates and treatment recommendations below. Each estimate includes the office's recommended approach and clinical credentials.</p>
+
+      <div class="request-summary">
+        <strong>Your Request:</strong> Crown &nbsp;&bull;&nbsp; ZIP: 85234 &nbsp;&bull;&nbsp; Insurance: Delta Dental &nbsp;&bull;&nbsp;
+        <em>3 treatment options received &mdash; Demo</em>
+      </div>
+
+      <p class="options-label">3 Treatment Options</p>
+
+      <!-- Option Card 1 -->
+      <div class="option-card">
+        <div class="option-header">
+          <div>
+            <div class="office-name">Sunrise Family Dental</div>
+            <div class="office-creds">Dr. Maria Chen, DDS &mdash; 15 years experience, AGD Fellow</div>
+          </div>
+          <div class="price-range">
+            <span class="price-amount">$950 &ndash; $1,200</span>
+            <span class="price-label">Estimated range</span>
+          </div>
+        </div>
+
+        <span class="confidence-badge confidence-high">Confidence: High &mdash; Based on clear documentation</span>
+
+        <div class="option-section">
+          <div class="option-section-label">Recommended Treatment Approach</div>
+          <p>All-porcelain CEREC same-day crown. Patient can expect a single-visit procedure with digital impressions, in-office milling, and same-day placement. No temporary crown required.</p>
+        </div>
+
+        <div class="option-section">
+          <div class="option-section-label">Why Choose This Office</div>
+          <div class="why-choose-grid">
+            <div class="why-item">
+              <div class="why-item-label">Technology</div>
+              <div class="why-item-val">CEREC same-day crowns, 3D scanning</div>
+            </div>
+            <div class="why-item">
+              <div class="why-item-label">Materials</div>
+              <div class="why-item-val">Emax porcelain</div>
+            </div>
+            <div class="why-item">
+              <div class="why-item-label">Warranty</div>
+              <div class="why-item-val">3-year warranty</div>
+            </div>
+            <div class="why-item">
+              <div class="why-item-label">Sedation</div>
+              <div class="why-item-val">Nitrous oxide available</div>
+            </div>
+          </div>
+        </div>
+
+        <a href="#" class="consult-btn">Request In-Person Consultation</a>
+      </div>
+
+      <!-- Option Card 2 -->
+      <div class="option-card">
+        <div class="option-header">
+          <div>
+            <div class="office-name">Desert Ridge Dental Group</div>
+            <div class="office-creds">Dr. James Patel, DMD &mdash; 22 years experience, Prosthodontics focus</div>
+          </div>
+          <div class="price-range">
+            <span class="price-amount">$1,100 &ndash; $1,400</span>
+            <span class="price-label">Estimated range</span>
+          </div>
+        </div>
+
+        <span class="confidence-badge confidence-moderate">Confidence: Moderate &mdash; Likely accurate but needs confirmation</span>
+
+        <div class="option-section">
+          <div class="option-section-label">Recommended Treatment Approach</div>
+          <p>Zirconia crown with two-visit traditional protocol. Digital X-rays and full-mouth exam included with first visit. Temporary crown placed while permanent is fabricated at our partner lab.</p>
+        </div>
+
+        <div class="option-section">
+          <div class="option-section-label">Why Choose This Office</div>
+          <div class="why-choose-grid">
+            <div class="why-item">
+              <div class="why-item-label">Technology</div>
+              <div class="why-item-val">Digital X-rays, digital impressions</div>
+            </div>
+            <div class="why-item">
+              <div class="why-item-label">Materials</div>
+              <div class="why-item-val">Zirconia, BPA-free</div>
+            </div>
+            <div class="why-item">
+              <div class="why-item-label">Warranty</div>
+              <div class="why-item-val">5-year warranty</div>
+            </div>
+            <div class="why-item">
+              <div class="why-item-label">Sedation</div>
+              <div class="why-item-val">Oral sedation available</div>
+            </div>
+          </div>
+        </div>
+
+        <a href="#" class="consult-btn">Request In-Person Consultation</a>
+      </div>
+
+      <!-- Option Card 3 -->
+      <div class="option-card">
+        <div class="option-header">
+          <div>
+            <div class="office-name">Valley View Dental</div>
+            <div class="office-creds">Dr. Sarah Kim, DDS &mdash; 9 years experience, Invisalign certified</div>
+          </div>
+          <div class="price-range">
+            <span class="price-amount">$800 &ndash; $1,100</span>
+            <span class="price-label">Estimated range</span>
+          </div>
+        </div>
+
+        <span class="confidence-badge confidence-low">Confidence: Low &mdash; Requires in-person evaluation</span>
+
+        <div class="option-section">
+          <div class="option-section-label">Recommended Treatment Approach</div>
+          <p>Estimate based on limited information. An in-person evaluation with updated X-rays is recommended before confirming the treatment approach and final pricing.</p>
+        </div>
+
+        <div class="option-section">
+          <div class="option-section-label">Why Choose This Office</div>
+          <div class="why-choose-grid">
+            <div class="why-item">
+              <div class="why-item-label">Technology</div>
+              <div class="why-item-val">Digital X-rays</div>
+            </div>
+            <div class="why-item">
+              <div class="why-item-label">Materials</div>
+              <div class="why-item-val">Porcelain or zirconia (TBD)</div>
+            </div>
+            <div class="why-item">
+              <div class="why-item-label">Warranty</div>
+              <div class="why-item-val">2-year warranty</div>
+            </div>
+            <div class="why-item">
+              <div class="why-item-label">Sedation</div>
+              <div class="why-item-val">Nitrous oxide</div>
+            </div>
+          </div>
+        </div>
+
+        <a href="#" class="consult-btn">Request In-Person Consultation</a>
+      </div>
+
+      <div class="disclaimer-footer">
+        <strong>Important:</strong> All treatment estimates are based on the information provided in your request and are for informational purposes only. Final treatment plans and pricing must be confirmed during an in-office visit and clinical examination. Dental Dash Pro does not provide medical or dental advice.
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 Dental Dash Pro. All rights reserved.</p>
+      <p style="margin-top:6px;font-size:0.8rem;opacity:0.7;">Estimates are informational only and must be confirmed in-office.</p>
+    </div>
+  </footer>
+</body>
+</html>
