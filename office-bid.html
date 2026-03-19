@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Submit Treatment Estimate - Dental Dash Pro</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .bid-form-wrap {
+      max-width: 760px;
+      margin: 48px auto;
+      padding: 0 24px;
+    }
+    .bid-form-wrap h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+    .bid-form-wrap .page-sub {
+      color: #475569;
+      font-size: 1rem;
+      margin-bottom: 36px;
+      line-height: 1.6;
+    }
+    .form-section {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .form-section h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #e2e8f0;
+      letter-spacing: -0.01em;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .form-group {
+      margin-bottom: 18px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 6px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      color: #1a202c;
+      background: #fff;
+      transition: border-color 0.2s;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.08);
+    }
+    .form-group textarea {
+      resize: vertical;
+      min-height: 110px;
+    }
+    .confidence-badge {
+      display: inline-block;
+      margin-top: 6px;
+      font-size: 0.8rem;
+      color: #64748b;
+    }
+    .disclaimer-box {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      color: #1e40af;
+      font-size: 0.88rem;
+      line-height: 1.6;
+    }
+    .disclaimer-box strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+    .submit-btn {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 4px 16px rgba(37,99,235,0.25);
+    }
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(37,99,235,0.35);
+    }
+    .patient-summary {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 28px;
+      font-size: 0.9rem;
+      color: #475569;
+    }
+    .patient-summary strong { color: #0f172a; }
+    @media (max-width: 600px) {
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <h1><a href="index.html" style="color:white;text-decoration:none;">Dental Dash Pro</a></h1>
+      <p>Submit a Treatment Estimate</p>
+    </div>
+  </header>
+
+  <main>
+    <div class="bid-form-wrap">
+      <h2>Provide Your Treatment Estimate</h2>
+      <p class="page-sub">Review the patient's request below and provide your professional treatment approach. This estimate will be shared with the patient for their review.</p>
+
+      <div class="patient-summary">
+        <strong>Patient Request &mdash; Demo</strong><br>
+        Treatment: Crown &nbsp;|&nbsp; ZIP: 85234 &nbsp;|&nbsp; Insurance: Delta Dental &nbsp;|&nbsp; Posted: 2 hours ago
+      </div>
+
+      <form action="estimate-submitted.html" method="get">
+
+        <!-- Estimate Details -->
+        <div class="form-section">
+          <h3>Estimate Details</h3>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="price_low">Estimated Price &mdash; Low ($)</label>
+              <input type="number" id="price_low" name="price_low" placeholder="e.g. 950" min="0">
+            </div>
+            <div class="form-group">
+              <label for="price_high">Estimated Price &mdash; High ($)</label>
+              <input type="number" id="price_high" name="price_high" placeholder="e.g. 1400" min="0">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="confidence">Estimate Confidence Level</label>
+            <select id="confidence" name="confidence">
+              <option value="">Select confidence level...</option>
+              <option value="high">High &mdash; Based on clear documentation</option>
+              <option value="moderate">Moderate &mdash; Likely accurate but needs confirmation</option>
+              <option value="low">Low &mdash; Requires in-person evaluation</option>
+            </select>
+            <span class="confidence-badge">Be transparent &mdash; patients appreciate honest estimates.</span>
+          </div>
+
+          <div class="form-group">
+            <label for="approach">Your Recommended Treatment Approach</label>
+            <textarea id="approach" name="approach" rows="5" placeholder="Describe your recommended treatment plan, clinical approach, and what the patient can expect from this procedure at your office..."></textarea>
+          </div>
+        </div>
+
+        <!-- Why Choose This Office -->
+        <div class="form-section">
+          <h3>Why Choose This Office</h3>
+
+          <div class="form-group">
+            <label for="credentials">Experience &amp; Credentials</label>
+            <input type="text" id="credentials" name="credentials" placeholder="e.g. 15 years general dentistry, AGD Fellow">
+          </div>
+
+          <div class="form-group">
+            <label for="technology">Technology Used</label>
+            <input type="text" id="technology" name="technology" placeholder="e.g. Digital X-rays, CEREC same-day crowns, 3D scanning">
+          </div>
+
+          <div class="form-group">
+            <label for="materials">Materials</label>
+            <input type="text" id="materials" name="materials" placeholder="e.g. Emax porcelain, zirconia, BPA-free composites">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="warranty">Warranty</label>
+              <input type="text" id="warranty" name="warranty" placeholder="e.g. 3-year warranty on crowns">
+            </div>
+            <div class="form-group">
+              <label for="sedation">Sedation Options</label>
+              <input type="text" id="sedation" name="sedation" placeholder="e.g. Nitrous oxide, oral sedation">
+            </div>
+          </div>
+        </div>
+
+        <!-- Disclaimer -->
+        <div class="disclaimer-box">
+          <strong>Clinical Disclaimer</strong>
+          All treatment estimates are based on provided information and must be confirmed during an in-office visit. Final treatment plans and pricing may vary based on clinical examination, updated X-rays, and patient-specific factors.
+        </div>
+
+        <button type="submit" class="submit-btn">Submit Treatment Estimate</button>
+
+      </form>
+
+      <div class="nav-links" style="margin-top:28px;">
+        <a href="office-dashboard.html">&larr; Back to Dashboard</a>
+        <a href="index.html">Home</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Dental Dash Pro. All rights reserved.</p>
+  </footer>
+</body>
+</html>
