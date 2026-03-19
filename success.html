@@ -3,28 +3,127 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Request Submitted - Dental Dash Pro</title>
+  <title>Request Received - Dental Dash Pro</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    .success-wrap {
+      max-width: 600px;
+      margin: 64px auto;
+      padding: 0 24px;
+      text-align: center;
+    }
+    .success-icon {
+      font-size: 4rem;
+      margin-bottom: 20px;
+    }
+    .success-wrap h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+    .success-wrap p {
+      color: #475569;
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+    .next-steps {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 28px 32px;
+      margin: 32px 0;
+      text-align: left;
+    }
+    .next-steps h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 16px;
+    }
+    .next-steps ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .next-steps li {
+      padding: 8px 0;
+      padding-left: 28px;
+      position: relative;
+      color: #1e293b;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    .next-steps li::before {
+      content: "\2713";
+      position: absolute;
+      left: 0;
+      color: #2563eb;
+      font-weight: 700;
+    }
+    .disclaimer-box {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin: 24px 0;
+      color: #1e40af;
+      font-size: 0.83rem;
+      line-height: 1.6;
+      text-align: left;
+    }
+    .btn-primary {
+      display: inline-block;
+      padding: 13px 28px;
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      color: white;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      box-shadow: 0 4px 14px rgba(37,99,235,0.25);
+    }
+  </style>
 </head>
 <body>
   <header>
-    <h1><a href="index.html" style="color:white;text-decoration:none;">Dental Dash Pro</a></h1>
-    <p>Confirmation</p>
+    <div class="header-container">
+      <h1><a href="index.html" style="color:white;text-decoration:none;">Dental Dash Pro</a></h1>
+      <p>Request Confirmation</p>
+    </div>
   </header>
+
   <main>
-    <div class="success-box">
-      <h2>Request Submitted!</h2>
-      <p>Your dental treatment request has been received. Local dental offices will review your request and send you competitive bids within 24-48 hours.</p>
-      <br>
-      <p>Check your email for confirmation and bid notifications.</p>
-      <br>
+    <div class="success-wrap">
+      <div class="success-icon">&#10003;</div>
+      <h2>Your Request Has Been Submitted!</h2>
+      <p>Thank you for submitting your treatment request. Licensed dental offices in your area will review your request and provide professional treatment estimates.</p>
+
+      <div class="next-steps">
+        <h3>What Happens Next</h3>
+        <ul>
+          <li>Participating dental offices will review your treatment details</li>
+          <li>You will receive professional treatment estimates by email within 24&ndash;48 hours</li>
+          <li>Each estimate will include the office's recommended treatment approach and clinical credentials</li>
+          <li>Review your treatment options and request an in-person consultation with the office that fits your needs</li>
+        </ul>
+      </div>
+
+      <div class="disclaimer-box">
+        <strong>Important:</strong> Treatment estimates are based on the information you provided and are for informational purposes only. All estimates must be confirmed during an in-office visit. Dental Dash Pro does not provide medical or dental advice.
+      </div>
+
       <a href="index.html" class="btn-primary">Return to Home</a>
     </div>
-    <div class="nav-links">
+
+    <div class="nav-links" style="text-align:center; margin-top:24px;">
       <a href="submit.html">Submit Another Request</a>
       <a href="index.html">Home</a>
     </div>
   </main>
+
   <footer>
     <p>&copy; 2026 Dental Dash Pro. All rights reserved.</p>
   </footer>
