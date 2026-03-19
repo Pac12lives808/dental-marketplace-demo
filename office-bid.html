@@ -1,234 +1,234 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Provide Treatment Estimate - Dental Dash Pro</title>
-  <link rel="stylesheet" href="style.css">
-  <style>
-    .bid-form-wrap {
-      max-width: 760px;
-      margin: 40px auto;
-      padding: 0 24px;
-    }
-    .bid-form-wrap h2 {
-      font-size: 1.75rem;
-      font-weight: 700;
-      color: #0f1c2e;
-      margin-bottom: 8px;
-    }
-    .bid-form-wrap .page-sub {
-      color: #475569;
-      font-size: 1rem;
-      margin-bottom: 36px;
-      line-height: 1.6;
-    }
-    .form-section {
-      background: #fff;
-      border: 1px solid #e2e8f0;
-      border-radius: 16px;
-      padding: 32px;
-      margin-bottom: 24px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-    }
-    .form-section h3 {
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: #1e293b;
-      margin-bottom: 12px;
-    }
-    .form-group {
-      margin-bottom: 24px;
-    }
-    .form-group label {
-      display: block;
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: #334155;
-      margin-bottom: 8px;
-    }
-    .form-group input[type="text"],
-    .form-group input[type="number"],
-    .form-group textarea,
-    .form-group select {
-      width: 100%;
-      padding: 12px 16px;
-      border: 2px solid #e2e8f0;
-      border-radius: 8px;
-      font-size: 1rem;
-      transition: all 0.2s;
-    }
-    .form-group input:focus,
-    .form-group textarea:focus,
-    .form-group select:focus {
-      outline: none;
-      border-color: #3b82f6;
-      box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
-    }
-    .form-group textarea {
-      min-height: 120px;
-      resize: vertical;
-      font-family: inherit;
-    }
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
-    .disclaimer-box {
-      background: #fef3c7;
-      border: 1px solid #fcd34d;
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 24px;
-    }
-    .disclaimer-box strong {
-      display: block;
-      color: #92400e;
-      font-size: 1.05rem;
-      margin-bottom: 8px;
-    }
-    .disclaimer-box p {
-      color: #92400e;
-      font-size: 0.9rem;
-      line-height: 1.5;
-      margin: 0;
-    }
-    .submit-btn {
-      background: #3b82f6;
-      color: white;
-      border: none;
-      padding: 16px 32px;
-      font-size: 1.05rem;
-      font-weight: 600;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: all 0.3s;
-      width: 100%;
-    }
-    .submit-btn:hover {
-      background: #2563eb;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(59,130,246,0.3);
-    }
-    .nav-links {
-      margin-top: 20px;
-      text-align: center;
-    }
-    .nav-links a {
-      color: #3b82f6;
-      text-decoration: none;
-      margin: 0 12px;
-      font-size: 0.95rem;
-    }
-    .nav-links a:hover {
-      text-decoration: underline;
-    }
-    @media (max-width: 640px) {
-      .form-row {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Provide Treatment Estimate - Dental Dash Pro</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .bid-form-wrap {
+            max-width: 760px;
+            margin: 40px auto;
+            padding: 0 24px;
+        }
+        .bid-form-wrap h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #0f1c2e;
+            margin-bottom: 8px;
+        }
+        .bid-form-wrap .page-sub {
+            color: #475569;
+            font-size: 1rem;
+            margin-bottom: 36px;
+            line-height: 1.6;
+        }
+        .form-section {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .form-section h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 12px;
+        }
+        .form-group {
+            margin-bottom: 24px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 8px;
+        }
+        .form-group input[type="text"],
+        .form-group input[type="number"],
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
+        }
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+            font-family: inherit;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        .disclaimer-box {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+        .disclaimer-box strong {
+            display: block;
+            color: #92400e;
+            font-size: 1.05rem;
+            margin-bottom: 8px;
+        }
+        .disclaimer-box p {
+            color: #92400e;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+        .submit-btn {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+        }
+        .submit-btn:hover {
+            background: #2563eb;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(59,130,246,0.3);
+        }
+        .nav-links {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .nav-links a {
+            color: #3b82f6;
+            text-decoration: none;
+            margin: 0 12px;
+            font-size: 0.95rem;
+        }
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+        @media (max-width: 640px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-
-<div class="bid-form-wrap">
-  <h2>Provide Treatment Estimate</h2>
-  <p class="page-sub">Submit your professional estimate for this treatment case. All estimates must be confirmed during an in-office visit.</p>
-
-  <form>
-    <div class="form-section">
-      <h3>Treatment Details</h3>
-      
-      <div class="form-group">
-        <label for="treatment">Treatment Type</label>
-        <input type="text" id="treatment" name="treatment" value="Crown" readonly>
-      </div>
-
-      <div class="form-group">
-        <label for="approach">Your Treatment Approach</label>
-        <textarea id="approach" name="approach" placeholder="e.g. Porcelain crown with full coverage, digital impressions, single visit using CEREC technology" required></textarea>
-      </div>
-
-      <div class="form-row">
-        <div class="form-group">
-          <label for="estimate">Estimate Range</label>
-          <input type="text" id="estimate" name="estimate" placeholder="e.g. $1,200 - $1,500" required>
+    <div class="bid-form-wrap">
+        <h2>Provide Treatment Estimate</h2>
+        <p class="page-sub">Submit your professional estimate for this treatment case. All estimates must be confirmed during an in-office consultation.</p>
+        
+        <form>
+            <div class="form-section">
+                <h3>Treatment Details</h3>
+                
+                <div class="form-group">
+                    <label for="treatment">Treatment Type</label>
+                    <input type="text" id="treatment" name="treatment" value="Crown" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="approach">Your Treatment Approach</label>
+                    <textarea id="approach" name="approach" placeholder="e.g. Porcelain crown with full coverage, digital impressions, single visit using CEREC technology" required></textarea>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <h3>Pricing & Timeline</h3>
+                
+                <div class="form-group">
+                    <label for="estimate">Estimate Range</label>
+                    <input type="text" id="estimate" name="estimate" placeholder="e.g. $1,200 - $1,500" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confidence">Confidence Level</label>
+                    <select id="confidence" name="confidence" required>
+                        <option value="">Select...</option>
+                        <option value="high">High - Can confirm estimate quickly</option>
+                        <option value="medium">Medium - May need X-rays first</option>
+                        <option value="needs-exam">Requires full examination</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <h3>Materials & Options</h3>
+                
+                <div class="form-group">
+                    <label for="materials">Materials Used</label>
+                    <textarea id="materials" name="materials" placeholder="e.g. Porcelain-fused-to-metal crown, high-quality ceramic" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="alternatives">Alternative Options Available</label>
+                    <textarea id="alternatives" name="alternatives" placeholder="e.g. All-ceramic crown option available at higher cost"></textarea>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <h3>Timeline & Availability</h3>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="availability">Next Available Consultation</label>
+                        <input type="text" id="availability" name="availability" placeholder="e.g. Within 3 days" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="completion">Estimated Completion Time</label>
+                        <input type="text" id="completion" name="completion" placeholder="e.g. 2-3 weeks" required>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <h3>Why Choose Our Office?</h3>
+                
+                <div class="form-group">
+                    <label for="unique">What makes your approach unique?</label>
+                    <textarea id="unique" name="unique" placeholder="e.g. Same-day crowns using digital CAD/CAM technology, no temporary crown needed"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="experience">Relevant Experience & Credentials</label>
+                    <textarea id="experience" name="experience" placeholder="e.g. 15+ years specializing in restorative dentistry, Board-certified prosthodontist"></textarea>
+                </div>
+            </div>
+            
+            <div class="disclaimer-box">
+                <strong>Clinical Disclaimer</strong>
+                <p>All treatment estimates are based on provided information and must be confirmed during an in-office consultation. Final treatment plans and pricing may vary based on clinical examination, updated X-rays, and patient-specific factors.</p>
+            </div>
+            
+            <button type="submit" class="submit-btn">Submit Treatment Estimate</button>
+        </form>
+        
+        <div class="nav-links">
+            <a href="office-dashboard.html">← Back to Dashboard</a>
+            <a href="office-cases.html">Browse Cases</a>
         </div>
-        <div class="form-group">
-          <label for="confidence">Confidence Level</label>
-          <select id="confidence" name="confidence" required>
-            <option value="">Select...</option>
-            <option value="high">High - Can confirm estimate quickly</option>
-            <option value="medium">Medium - May need X-rays first</option>
-            <option value="needs-exam">Requires full examination</option>
-          </select>
-        </div>
-      </div>
     </div>
-
-    <div class="form-section">
-      <h3>Materials & Options</h3>
-      
-      <div class="form-group">
-        <label for="materials">Materials Used</label>
-        <textarea id="materials" name="materials" placeholder="e.g. EMAX porcelain, zirconia composite, biocompatible materials" required></textarea>
-      </div>
-
-      <div class="form-group">
-        <label for="options">Alternative Options Available</label>
-        <textarea id="options" name="options" placeholder="List any alternative treatment options you can offer" required></textarea>
-      </div>
-    </div>
-
-    <div class="form-section">
-      <h3>Timeline & Availability</h3>
-      
-      <div class="form-row">
-        <div class="form-group">
-          <label for="availability">Next Available Consultation</label>
-          <input type="text" id="availability" name="availability" placeholder="e.g. Within 3 days" required>
-        </div>
-        <div class="form-group">
-          <label for="completion">Estimated Completion Time</label>
-          <input type="text" id="completion" name="completion" placeholder="e.g. 2-3 weeks" required>
-        </div>
-      </div>
-    </div>
-
-    <div class="form-section">
-      <h3>Why Choose Our Office?</h3>
-      
-      <div class="form-group">
-        <label for="why-choose">What makes your approach unique?</label>
-        <textarea id="why-choose" name="why-choose" placeholder="Highlight your technology, experience, patient care approach, or warranty/guarantees" required></textarea>
-      </div>
-
-      <div class="form-group">
-        <label for="credentials">Relevant Experience & Credentials</label>
-        <textarea id="credentials" name="credentials" placeholder="e.g. 15 years experience, specialized training in cosmetic dentistry, 500+ crown placements" required></textarea>
-      </div>
-    </div>
-
-    <!-- Disclaimer -->
-    <div class="disclaimer-box">
-      <strong>Clinical Disclaimer</strong>
-      <p>All treatment estimates are based on provided information and must be confirmed during an in-office visit. Final treatment plans and pricing may vary based on clinical examination, updated X-rays, and patient-specific factors.</p>
-    </div>
-
-    <button type="submit" class="submit-btn">Submit Treatment Estimate</button>
-
-    <div class="nav-links">
-      <a href="office-dashboard.html">&larr; Back to Dashboard</a>
-      <a href="office-cases.html">Browse Cases</a>
-    </div>
-  </form>
-</div>
-
-<footer>
-  <p>&copy; 2025 Dental Dash Pro. All rights reserved.</p>
-</footer>
-
+    
+    <footer style="text-align: center; padding: 24px; color: #64748b; font-size: 0.875rem;">
+        © 2025 Dental Dash Pro. All rights reserved.
+    </footer>
 </body>
 </html>
