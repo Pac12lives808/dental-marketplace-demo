@@ -3,143 +3,235 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Submit a Treatment Request - Dental Dash Pro</title>
+    <title>Submit Treatment Case - Dental Dash Pro</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        main { max-width: 680px; margin: 48px auto; padding: 0 24px 80px; }
-        main h2 { font-size: 1.6rem; font-weight: 700; color: #0f172a; margin-bottom: 8px; letter-spacing: -0.02em; }
-        .page-sub { color: #475569; font-size: 1rem; margin-bottom: 32px; line-height: 1.6; }
-        label { display: block; font-size: 0.875rem; font-weight: 600; color: #374151; margin-bottom: 6px; margin-top: 18px; }
+        main {
+            max-width: 680px;
+            margin: 48px auto;
+            padding: 0 24px 80px;
+        }
+        main h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+        .page-sub {
+            color: #475569;
+            font-size: 1.05rem;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+        .trust-banner {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 32px;
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+        .trust-banner p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #475569;
+        }
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin: 32px 0 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 6px;
+            margin-top: 18px;
+        }
         input[type="text"], input[type="email"], input[type="tel"], select, textarea {
-            width: 100%; padding: 11px 14px; border: 1px solid #d1d5db;
-            border-radius: 10px; font-size: 0.95rem; color: #1a202c;
-            background: #fff; box-sizing: border-box;
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #d1d5db;
+            border-radius: 10px;
+            font-size: 1rem;
+            color: #1a202c;
+            background: #fff;
+            box-sizing: border-box;
         }
         input:focus, select:focus, textarea:focus {
-            outline: none; border-color: #2563eb;
+            outline: none;
+            border-color: #2563eb;
             box-shadow: 0 0 0 3px rgba(37,99,235,0.08);
         }
-        textarea { resize: vertical; min-height: 90px; }
-        .upload-group { margin-top: 18px; }
-        .upload-group label { margin-top: 0; }
-        .upload-box {
-            border: 2px dashed #cbd5e1; border-radius: 10px;
-            padding: 16px 18px; background: #f8fafc; margin-top: 6px;
+        textarea {
+            resize: vertical;
+            min-height: 100px;
         }
-        .upload-box input[type="file"] { width: 100%; font-size: 0.9rem; }
-        .upload-help { font-size: 0.8rem; color: #64748b; margin-top: 4px; }
-        .helper-note {
-            background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px;
-            padding: 14px 18px; margin: 24px 0 8px; color: #166534;
-            font-size: 0.88rem; line-height: 1.6;
+        .upload-group {
+            margin-top: 18px;
+        }
+        .upload-box {
+            border: 2px dashed #cbd5e1;
+            border-radius: 10px;
+            padding: 20px;
+            background: #f8fafc;
+            margin-top: 8px;
+            text-align: center;
+        }
+        .upload-help {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-bottom: 12px;
+            display: block;
+        }
+        .next-steps-card {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 24px;
+            margin: 40px 0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .next-steps-card h3 {
+            margin-top: 0;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: #0f172a;
+        }
+        .step-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        @media (max-width: 500px) {
+            .step-list { grid-template-columns: 1fr; }
+        }
+        .step-item {
+            font-size: 0.9rem;
+            color: #475569;
+            line-height: 1.5;
+        }
+        .step-item strong {
+            display: block;
+            color: #1e293b;
+            margin-bottom: 4px;
         }
         .disclaimer-box {
-            background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 10px;
-            padding: 16px 20px; margin: 20px 0; color: #1e40af;
-            font-size: 0.85rem; line-height: 1.6;
+            background: #fff9f0;
+            border: 1px solid #ffedd5;
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin: 24px 0;
+            color: #9a3412;
+            font-size: 0.85rem;
+            line-height: 1.6;
         }
-        .disclaimer-box strong { display: block; margin-bottom: 4px; }
         button[type="submit"] {
-            margin-top: 8px; width: 100%; padding: 15px;
-            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-            color: #fff; border: none; border-radius: 12px;
-            font-size: 1rem; font-weight: 700; cursor: pointer;
-            box-shadow: 0 4px 16px rgba(37,99,235,0.25); transition: all 0.2s;
+            margin-top: 12px;
+            width: 100%;
+            padding: 16px;
+            background: #0f172a;
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
         }
-        button[type="submit"]:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,99,235,0.35); }
+        button[type="submit"]:hover {
+            background: #1e293b;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
     </style>
 </head>
 <body>
     <header>
         <div class="header-container">
             <h1><a href="index.html" style="color:white;text-decoration:none;">Dental Dash Pro</a></h1>
-            <p>Submit a Treatment Request</p>
         </div>
     </header>
-
     <main>
-        <h2>Request Dental Treatment Estimates</h2>
-        <p class="page-sub">Tell us about your treatment and share any documentation you have. Licensed dental offices in your area will review your request and provide professional estimates.</p>
+        <h2>Submit Treatment Case</h2>
+        <p class="page-sub">Provide your clinical details and documentation to receive professional treatment approaches and preliminary estimates from top-rated local offices.</p>
+
+        <div class="trust-banner">
+            <div>
+                <p><strong>Professional Review:</strong> Your case will be reviewed by licensed dental professionals. Documentation like X-rays or findings helps offices provide significantly more accurate treatment approaches.</p>
+            </div>
+        </div>
 
         <form action="success.html" method="get">
+            <div class="section-title">Patient Information</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                <div>
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" placeholder="Jane Smith" required>
+                </div>
+                <div>
+                    <label for="zip">ZIP Code</label>
+                    <input type="text" id="zip" name="zip" placeholder="85234" required>
+                </div>
+            </div>
 
-            <label for="name">Your Name</label>
-            <input type="text" id="name" name="name" placeholder="Jane Smith" required>
-
-            <label for="email">Email Address</label>
-            <input type="email" id="email" name="email" placeholder="jane@example.com" required>
-
-            <label for="phone">Phone Number</label>
-            <input type="tel" id="phone" name="phone" placeholder="(480) 555-0100">
-
-            <label for="zip">ZIP Code</label>
-            <input type="text" id="zip" name="zip" placeholder="85234" required>
-
-            <label for="treatment">Treatment Needed</label>
+            <div class="section-title">Case Details</div>
+            <label for="treatment">Primary Treatment Needed</label>
             <select id="treatment" name="treatment" required>
                 <option value="">Select treatment type...</option>
-                <option value="cleaning">Cleaning &amp; Exam</option>
-                <option value="filling">Cavity Filling</option>
-                <option value="crown">Crown</option>
-                <option value="root-canal">Root Canal</option>
-                <option value="extraction">Tooth Extraction</option>
-                <option value="implant">Dental Implant</option>
-                <option value="whitening">Teeth Whitening</option>
-                <option value="other">Other</option>
+                <option>Dental Implant</option>
+                <option>Full Arch / All-on-X</option>
+                <option>Invisalign / Ortho</option>
+                <option>Cosmetic Veneers</option>
+                <option>Root Canal & Crown</option>
             </select>
 
-            <label for="insurance">Insurance (if any)</label>
-            <input type="text" id="insurance" name="insurance" placeholder="Delta Dental, Cigna, None, etc.">
+            <label for="details">Describe your situation or concerns</label>
+            <textarea id="details" name="details" placeholder="Please describe any symptoms, previous diagnoses, or specific goals you have for your smile..."></textarea>
 
-            <!-- Document Uploads -->
+            <div class="section-title">Clinical Documentation</div>
             <div class="upload-group">
-                <label>Findings Letter</label>
+                <span class="upload-help">Upload your X-rays, clinical findings, or photos if available. This data allows doctors to provide a specific clinical perspective.</span>
                 <div class="upload-box">
-                    <input type="file" name="findings_letter" accept=".pdf,.doc,.docx,.jpg,.png">
-                    <p class="upload-help">Upload your dentist's written findings or treatment recommendation (PDF, Word, or image)</p>
+                    <input type="file" multiple>
                 </div>
             </div>
 
-            <div class="upload-group">
-                <label>X-rays</label>
-                <div class="upload-box">
-                    <input type="file" name="xrays" accept=".jpg,.jpeg,.png,.pdf" multiple>
-                    <p class="upload-help">Upload any X-ray images you have (JPG, PNG, or PDF)</p>
+            <div class="next-steps-card">
+                <h3>What happens next</h3>
+                <div class="step-list">
+                    <div class="step-item">
+                        <strong>1. Submit Treatment Case</strong>
+                        Your details are securely shared with qualified offices in your area.
+                    </div>
+                    <div class="step-item">
+                        <strong>2. Professional Review</strong>
+                        Offices review your details and clinical documentation.
+                    </div>
+                    <div class="step-item">
+                        <strong>3. Receive Estimates</strong>
+                        You'll receive treatment estimate options and specific clinical approaches.
+                    </div>
+                    <div class="step-item">
+                        <strong>4. Compare & Consult</strong>
+                        Compare approaches and choose an office for your in-person consultation.
+                    </div>
                 </div>
             </div>
-
-            <div class="upload-group">
-                <label>Photos</label>
-                <div class="upload-box">
-                    <input type="file" name="photos" accept=".jpg,.jpeg,.png" multiple>
-                    <p class="upload-help">Upload photos of the affected area if available (JPG or PNG)</p>
-                </div>
-            </div>
-
-            <div class="helper-note">
-                <strong>Tip:</strong> More detailed submissions receive more accurate treatment estimates. Including your findings letter, X-rays, and photos helps dental offices provide the most relevant professional recommendations.
-            </div>
-
-            <label for="notes">Additional Notes</label>
-            <textarea id="notes" name="notes" rows="4" placeholder="Any additional information about your dental needs, concerns, or questions for the dental offices..."></textarea>
 
             <div class="disclaimer-box">
-                <strong>Important Notice</strong>
-                Treatment estimates provided through Dental Dash Pro are based on the information you submit and are for informational purposes only. All estimates must be confirmed during an in-office visit. Dental Dash Pro does not provide medical or dental advice.
+                Offices may provide different treatment approaches based on the information submitted. All estimates are preliminary until confirmed during an in-office consultation.
             </div>
 
-            <button type="submit">Submit Treatment Request</button>
-
+            <button type="submit">Submit Case for Review</button>
         </form>
-
-        <div class="nav-links" style="margin-top: 28px;">
-            <a href="get-started.html">&larr; Back</a>
-            <a href="index.html">Home</a>
-        </div>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Dental Dash Pro. All rights reserved.</p>
-    </footer>
 </body>
 </html>
