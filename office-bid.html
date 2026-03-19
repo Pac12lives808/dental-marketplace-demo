@@ -7,21 +7,72 @@
     <link rel="stylesheet" href="style.css">
     <style>
         .bid-form-wrap {
-            max-width: 760px;
+            max-width: 900px;
             margin: 40px auto;
             padding: 0 24px;
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 32px;
         }
-        .bid-form-wrap h2 {
+        @media (max-width: 850px) {
+            .bid-form-wrap {
+                grid-template-columns: 1fr;
+            }
+        }
+        .main-content {
+        }
+        .sidebar {
+        }
+        h2 {
             font-size: 1.75rem;
             font-weight: 700;
             color: #0f1c2e;
             margin-bottom: 8px;
         }
-        .bid-form-wrap .page-sub {
+        .page-sub {
             color: #475569;
             font-size: 1rem;
-            margin-bottom: 36px;
+            margin-bottom: 8px;
             line-height: 1.6;
+        }
+        .role-note {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-bottom: 32px;
+            font-style: italic;
+        }
+        .case-overview-header {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 32px;
+        }
+        .case-overview-header h3 {
+            margin-top: 0;
+            margin-bottom: 16px;
+            font-size: 1.1rem;
+            color: #1e293b;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .case-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+        }
+        .case-item label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #64748b;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+        .case-item span {
+            font-size: 1rem;
+            color: #0f172a;
+            font-weight: 500;
         }
         .form-section {
             background: #fff;
@@ -32,10 +83,12 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.04);
         }
         .form-section h3 {
-            font-size: 1.3rem;
+            font-size: 1.25rem;
             font-weight: 700;
             color: #1e293b;
-            margin-bottom: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #f1f5f9;
         }
         .form-group {
             margin-bottom: 24px;
@@ -47,10 +100,14 @@
             color: #334155;
             margin-bottom: 8px;
         }
-        .form-group input[type="text"],
-        .form-group input[type="number"],
-        .form-group textarea,
-        .form-group select {
+        .helper-text {
+            display: block;
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        input[type="text"], input[type="number"], textarea, select {
             width: 100%;
             padding: 12px 16px;
             border: 2px solid #e2e8f0;
@@ -58,17 +115,37 @@
             font-size: 1rem;
             transition: all 0.2s;
         }
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
+        input:focus, textarea:focus, select:focus {
             outline: none;
             border-color: #3b82f6;
             box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
         }
-        .form-group textarea {
-            min-height: 120px;
+        textarea {
+            min-height: 100px;
             resize: vertical;
             font-family: inherit;
+        }
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .radio-option:hover {
+            background: #f8fafc;
+        }
+        .radio-option input {
+            width: 18px;
+            height: 18px;
         }
         .form-row {
             display: grid;
@@ -76,159 +153,226 @@
             gap: 16px;
         }
         .disclaimer-box {
-            background: #fef3c7;
-            border: 1px solid #fcd34d;
+            background: #fff9f0;
+            border: 2px solid #ffedd5;
             border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 24px;
-        }
-        .disclaimer-box strong {
-            display: block;
-            color: #92400e;
-            font-size: 1.05rem;
-            margin-bottom: 8px;
+            padding: 24px;
+            margin-bottom: 32px;
         }
         .disclaimer-box p {
-            color: #92400e;
-            font-size: 0.9rem;
-            line-height: 1.5;
+            color: #9a3412;
+            font-size: 0.95rem;
+            line-height: 1.6;
             margin: 0;
+            font-weight: 500;
         }
-        .submit-btn {
-            background: #3b82f6;
-            color: white;
-            border: none;
-            padding: 16px 32px;
-            font-size: 1.05rem;
+        .cta-container {
+            display: flex;
+            gap: 16px;
+            margin-top: 32px;
+        }
+        .btn {
+            padding: 14px 28px;
+            font-size: 1rem;
             font-weight: 600;
             border-radius: 12px;
             cursor: pointer;
-            transition: all 0.3s;
-            width: 100%;
-        }
-        .submit-btn:hover {
-            background: #2563eb;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(59,130,246,0.3);
-        }
-        .nav-links {
-            margin-top: 20px;
+            transition: all 0.2s;
+            flex: 1;
             text-align: center;
-        }
-        .nav-links a {
-            color: #3b82f6;
             text-decoration: none;
-            margin: 0 12px;
-            font-size: 0.95rem;
         }
-        .nav-links a:hover {
-            text-decoration: underline;
+        .btn-secondary {
+            background: #fff;
+            border: 2px solid #e2e8f0;
+            color: #475569;
         }
-        @media (max-width: 640px) {
-            .form-row {
-                grid-template-columns: 1fr;
-            }
+        .btn-secondary:hover {
+            background: #f8fafc;
+            border-color: #cbd5e1;
         }
+        .btn-primary {
+            background: #0f172a;
+            border: 2px solid #0f172a;
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #1e293b;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .case-score-card {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 24px;
+            position: sticky;
+            top: 40px;
+        }
+        .score-val {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 4px;
+        }
+        .score-label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #64748b;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+        .side-stat {
+            margin-bottom: 16px;
+        }
+        .side-stat label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #94a3b8;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+        .side-stat span {
+            font-size: 1rem;
+            color: #1e293b;
+            font-weight: 600;
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .badge-urgency { background: #fee2e2; color: #991b1b; }
+        .badge-payment { background: #dcfce7; color: #166534; }
     </style>
 </head>
 <body>
     <div class="bid-form-wrap">
-        <h2>Provide Treatment Estimate</h2>
-        <p class="page-sub">Submit your professional estimate for this treatment case. All estimates must be confirmed during an in-office consultation.</p>
-        
-        <form>
-            <div class="form-section">
-                <h3>Treatment Details</h3>
-                
-                <div class="form-group">
-                    <label for="treatment">Treatment Type</label>
-                    <input type="text" id="treatment" name="treatment" value="Crown" readonly>
-                </div>
-                <div class="form-group">
-                    <label for="approach">Your Treatment Approach</label>
-                    <textarea id="approach" name="approach" placeholder="e.g. Porcelain crown with full coverage, digital impressions, single visit using CEREC technology" required></textarea>
-                </div>
-            </div>
-            
-            <div class="form-section">
-                <h3>Pricing & Timeline</h3>
-                
-                <div class="form-group">
-                    <label for="estimate">Estimate Range</label>
-                    <input type="text" id="estimate" name="estimate" placeholder="e.g. $1,200 - $1,500" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="confidence">Confidence Level</label>
-                    <select id="confidence" name="confidence" required>
-                        <option value="">Select...</option>
-                        <option value="high">High - Can confirm estimate quickly</option>
-                        <option value="medium">Medium - May need X-rays first</option>
-                        <option value="needs-exam">Requires full examination</option>
-                    </select>
-                </div>
-            </div>
-            
-            <div class="form-section">
-                <h3>Materials & Options</h3>
-                
-                <div class="form-group">
-                    <label for="materials">Materials Used</label>
-                    <textarea id="materials" name="materials" placeholder="e.g. Porcelain-fused-to-metal crown, high-quality ceramic" required></textarea>
-                </div>
-                
-                <div class="form-group">
-                    <label for="alternatives">Alternative Options Available</label>
-                    <textarea id="alternatives" name="alternatives" placeholder="e.g. All-ceramic crown option available at higher cost"></textarea>
-                </div>
-            </div>
-            
-            <div class="form-section">
-                <h3>Timeline & Availability</h3>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="availability">Next Available Consultation</label>
-                        <input type="text" id="availability" name="availability" placeholder="e.g. Within 3 days" required>
+        <div class="main-content">
+            <h2>Provide Treatment Estimate</h2>
+            <p class="page-sub">Review the case details and submit your recommended treatment approach, pricing range, and clinical perspective.</p>
+            <p class="role-note">Estimates may be drafted by a coordinator and finalized by the doctor before submission.</p>
+
+            <div class="case-overview-header">
+                <h3>Case Overview</h3>
+                <div class="case-grid">
+                    <div class="case-item">
+                        <label>Case Type</label>
+                        <span>Full Arch Implant</span>
                     </div>
-                    
-                    <div class="form-group">
-                        <label for="completion">Estimated Completion Time</label>
-                        <input type="text" id="completion" name="completion" placeholder="e.g. 2-3 weeks" required>
+                    <div class="case-item">
+                        <label>Location</label>
+                        <span>Gilbert, AZ</span>
+                    </div>
+                    <div class="case-item">
+                        <label>Documentation</label>
+                        <span>CBCT, 4 Photos, X-Rays</span>
                     </div>
                 </div>
             </div>
-            
-            <div class="form-section">
-                <h3>Why Choose Our Office?</h3>
-                
-                <div class="form-group">
-                    <label for="unique">What makes your approach unique?</label>
-                    <textarea id="unique" name="unique" placeholder="e.g. Same-day crowns using digital CAD/CAM technology, no temporary crown needed"></textarea>
+
+            <form>
+                <div class="form-section">
+                    <h3>Section A: Estimate Details</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="price-min">Price Range (Min)</label>
+                            <input type="number" id="price-min" placeholder="$0.00">
+                        </div>
+                        <div class="form-group">
+                            <label for="price-max">Price Range (Max)</label>
+                            <input type="number" id="price-max" placeholder="$0.00">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="timeline">Estimated Timeline</label>
+                        <select id="timeline">
+                            <option>1-3 Months</option>
+                            <option>4-6 Months</option>
+                            <option>6-12 Months</option>
+                        </select>
+                    </div>
                 </div>
-                
-                <div class="form-group">
-                    <label for="experience">Relevant Experience & Credentials</label>
-                    <textarea id="experience" name="experience" placeholder="e.g. 15+ years specializing in restorative dentistry, Board-certified prosthodontist"></textarea>
+
+                <div class="form-section">
+                    <h3>Section B: Treatment Approach</h3>
+                    <span class="helper-text">Explain how your office would approach this case, what you recommend, and why.</span>
+                    <div class="form-group">
+                        <label for="approach">Recommended Clinical Approach</label>
+                        <textarea id="approach" placeholder="Detail the specific surgical or restorative steps..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="alternatives">Alternative Treatment Options (Optional)</label>
+                        <textarea id="alternatives" placeholder="List any alternative paths discussed for this patient profile..."></textarea>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="disclaimer-box">
-                <strong>Clinical Disclaimer</strong>
-                <p>All treatment estimates are based on provided information and must be confirmed during an in-office consultation. Final treatment plans and pricing may vary based on clinical examination, updated X-rays, and patient-specific factors.</p>
-            </div>
-            
-            <button type="submit" class="submit-btn">Submit Treatment Estimate</button>
-        </form>
-        
-        <div class="nav-links">
-            <a href="office-dashboard.html">← Back to Dashboard</a>
-            <a href="office-cases.html">Browse Cases</a>
+
+                <div class="form-section">
+                    <h3>Section C: Clinical Confidence</h3>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="confidence" value="high">
+                            <span>High Confidence</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="confidence" value="moderate">
+                            <span>Moderate Confidence</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="confidence" value="limited">
+                            <span>Limited Confidence — requires in-office consultation</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Section D: Why Choose This Office</h3>
+                    <div class="form-group">
+                        <label for="experience">Clinical Experience & Technology</label>
+                        <textarea id="experience" placeholder="Detail your experience with this case type, specialized technology, or specific materials used..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="care">Sedation, Warranty & Follow-up</label>
+                        <textarea id="care" placeholder="Describe patient comfort options and post-treatment support..."></textarea>
+                    </div>
+                </div>
+
+                <div class="disclaimer-box">
+                    <p>All treatment estimates are preliminary and must be confirmed during an in-office consultation. Final treatment recommendations may change based on clinical examination, diagnostics, and patient-specific factors.</p>
+                </div>
+
+                <div class="cta-container">
+                    <button type="button" class="btn btn-secondary">Save Draft</button>
+                    <button type="submit" class="btn btn-primary">Submit for Doctor Approval</button>
+                </div>
+            </form>
         </div>
+
+        <aside class="sidebar">
+            <div class="case-score-card">
+                <div class="score-val">84</div>
+                <div class="score-label">Case Score</div>
+                
+                <div class="side-stat">
+                    <label>Urgency</label>
+                    <span class="badge badge-urgency">High Priority</span>
+                </div>
+                
+                <div class="side-stat">
+                    <label>Payment Type</label>
+                    <span class="badge badge-badge badge-payment">PPO / Out of Pocket</span>
+                </div>
+
+                <div class="side-stat">
+                    <label>Patient Zip</label>
+                    <span>85234</span>
+                </div>
+            </div>
+        </aside>
     </div>
-    
-    <footer style="text-align: center; padding: 24px; color: #64748b; font-size: 0.875rem;">
-        © 2025 Dental Dash Pro. All rights reserved.
-    </footer>
 </body>
 </html>
