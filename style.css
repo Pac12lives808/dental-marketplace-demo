@@ -450,3 +450,103 @@ footer p {
         font-size: 2rem;
     }
 }
+
+/* === Founder Pricing Styles === */
+
+.original-price {
+  text-decoration: line-through;
+  color: #888;
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.founder-price {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a73e8;
+  margin-bottom: 6px;
+}
+
+.founder-label {
+  font-size: 14px;
+  color: #444;
+  margin-bottom: 16px;
+}
+
+.badge-founder {
+  background: #1a73e8;
+  color: #fff;
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.payment-security {
+  font-size: 14px;
+  color: #555;
+  text-align: center;
+  margin-top: 24px;
+}
+
+.plan {
+  background: white;
+  border-radius: 12px;
+  padding: 32px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  text-align: center;
+}
+
+.plan.featured {
+  border: 2px solid #1a73e8;
+  position: relative;
+}
+
+.plan h3 {
+  font-size: 1.4rem;
+  color: #1a202c;
+  margin-bottom: 12px;
+}
+
+.plan ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px 0;
+  text-align: left;
+}
+
+.plan ul li {
+  padding: 6px 0;
+  color: #444;
+  font-size: 15px;
+}
+
+.plan ul li::before {
+  content: '✓  ';
+  color: #1a73e8;
+  font-weight: bold;
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin: 40px 0;
+}
+
+.pricing-section {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.pricing-section h2 {
+  font-size: 2rem;
+  color: #1a202c;
+  margin-bottom: 8px;
+}
+
+.pricing-section p.subtitle {
+  color: #555;
+  margin-bottom: 40px;
+}
