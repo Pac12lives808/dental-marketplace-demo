@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+        <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PLK6GWSVB4"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-PLK6GWSVB4');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clinical Review - Case #992031 | DentalDash Pro</title>
@@ -436,7 +444,7 @@
 
     <div class="actions-bar">
         <a href="office-dashboard.html" class="btn btn-outline">Save for Later</a>
-        <button type="submit" form="bidForm" class="btn btn-primary" onclick="window.location.href='estimate-submitted.html'">Submit for Doctor Approval</button>
+        <button type="submit" form="bidForm" class="btn btn-primary" onclick="gtag('event', 'submit_for_doctor_approval'); window.location.href='estimate-submitted.html'">Submit for Doctor Approval</button>
     </div>
 
 </body>
