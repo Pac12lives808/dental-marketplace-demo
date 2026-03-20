@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+        <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PLK6GWSVB4"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-PLK6GWSVB4');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Submit Treatment Case - Dental Dash Pro</title>
@@ -230,7 +238,7 @@
                 Offices may provide different treatment approaches based on the information submitted. All estimates are preliminary until confirmed during an in-office consultation.
             </div>
 
-            <button type="submit">Submit Case for Review</button>
+            <button type="submit" onclick="gtag('event', 'submit_case')">Submit Case for Review</button>
         </form>
     </main>
 </body>
