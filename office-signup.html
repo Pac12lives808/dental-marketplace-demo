@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+      <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PLK6GWSVB4"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-PLK6GWSVB4');
+      gtag('event', 'view_office_signup');
+    </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dental Dash Pro — Office Application</title>
@@ -206,6 +215,7 @@
       })
     }).catch(() => {}); // non-blocking, do not delay redirect
 
+        gtag('event', 'submit_office_application');
     window.location.href = "./office-pending.html";
   });
 </script>
