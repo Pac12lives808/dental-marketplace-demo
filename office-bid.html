@@ -3,376 +3,441 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Provide Treatment Estimate - Dental Dash Pro</title>
+    <title>Clinical Review - Case #992031 | DentalDash Pro</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        .bid-form-wrap {
-            max-width: 900px;
+        :root {
+            --primary-blue: #0f1c2e;
+            --accent-blue: #3b82f6;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --bg-light: #f8fafc;
+            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        body {
+            background-color: #f1f5f9;
+            margin: 0;
+            padding-top: 64px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        /* Fixed Navigation */
+        .top-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 64px;
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-weight: 800;
+            color: var(--accent-blue);
+            font-size: 1.25rem;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Layout Structure */
+        .bid-container {
+            max-width: 1200px;
             margin: 40px auto;
             padding: 0 24px;
             display: grid;
-            grid-template-columns: 1fr 300px;
+            grid-template-columns: 1fr 320px;
             gap: 32px;
+            padding-bottom: 120px;
         }
-        @media (max-width: 850px) {
-            .bid-form-wrap {
+
+        @media (max-width: 950px) {
+            .bid-container {
                 grid-template-columns: 1fr;
             }
         }
-        .main-content {
-        }
-        .sidebar {
-        }
-        h2 {
-            font-size: 1.75rem;
-            font-weight: 700;
-            color: #0f1c2e;
-            margin-bottom: 8px;
-        }
-        .page-sub {
-            color: #475569;
-            font-size: 1rem;
-            margin-bottom: 8px;
-            line-height: 1.6;
-        }
-        .role-note {
-            font-size: 0.85rem;
-            color: #64748b;
-            margin-bottom: 32px;
-            font-style: italic;
-        }
-        .case-overview-header {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 24px;
-            margin-bottom: 32px;
-        }
-        .case-overview-header h3 {
-            margin-top: 0;
-            margin-bottom: 16px;
-            font-size: 1.1rem;
-            color: #1e293b;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        .case-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 20px;
-        }
-        .case-item label {
-            display: block;
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: #64748b;
-            text-transform: uppercase;
-            margin-bottom: 4px;
-        }
-        .case-item span {
-            font-size: 1rem;
-            color: #0f172a;
-            font-weight: 500;
-        }
-        .form-section {
-            background: #fff;
+
+        /* Cards and Components */
+        .card {
+            background: white;
             border: 1px solid #e2e8f0;
             border-radius: 16px;
             padding: 32px;
             margin-bottom: 24px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            box-shadow: var(--card-shadow);
         }
-        .form-section h3 {
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 24px;
+            border-bottom: 1px solid #f1f5f9;
+            padding-bottom: 16px;
+        }
+
+        .card-title {
             font-size: 1.25rem;
             font-weight: 700;
-            color: #1e293b;
-            margin-bottom: 20px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid #f1f5f9;
-        }
-        .form-group {
-            margin-bottom: 24px;
-        }
-        .form-group label {
-            display: block;
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: #334155;
-            margin-bottom: 8px;
-        }
-        .helper-text {
-            display: block;
-            font-size: 0.85rem;
-            color: #64748b;
-            margin-bottom: 12px;
-            line-height: 1.4;
-        }
-        input[type="text"], input[type="number"], textarea, select {
-            width: 100%;
-            padding: 12px 16px;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: all 0.2s;
-        }
-        input:focus, textarea:focus, select:focus {
-            outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
-        }
-        textarea {
-            min-height: 100px;
-            resize: vertical;
-            font-family: inherit;
-        }
-        .radio-group {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-        .radio-option {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 16px;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        .radio-option:hover {
-            background: #f8fafc;
-        }
-        .radio-option input {
-            width: 18px;
-            height: 18px;
-        }
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-        .disclaimer-box {
-            background: #fff9f0;
-            border: 2px solid #ffedd5;
-            border-radius: 12px;
-            padding: 24px;
-            margin-bottom: 32px;
-        }
-        .disclaimer-box p {
-            color: #9a3412;
-            font-size: 0.95rem;
-            line-height: 1.6;
+            color: var(--primary-blue);
             margin: 0;
-            font-weight: 500;
         }
-        .cta-container {
-            display: flex;
-            gap: 16px;
-            margin-top: 32px;
+
+        .case-status {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 6px;
+            background: #fef3c7;
+            color: #92400e;
         }
-        .btn {
-            padding: 14px 28px;
-            font-size: 1rem;
+
+        /* Patient Overview Section */
+        .patient-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .patient-item label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .patient-item span {
+            font-size: 1.1rem;
             font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .clinical-complaint {
+            margin-top: 24px;
+            background: #eff6ff;
+            padding: 20px;
             border-radius: 12px;
+            border-left: 4px solid var(--accent-blue);
+        }
+
+        /* Treatment Table */
+        .treatment-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 16px;
+        }
+
+        .treatment-table th {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 2px solid #f1f5f9;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .treatment-table td {
+            padding: 16px 12px;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 0.95rem;
+        }
+
+        .input-price {
+            border: 1px solid #e2e8f0;
+            padding: 8px 12px;
+            border-radius: 8px;
+            width: 110px;
+            font-weight: 600;
+            text-align: right;
+        }
+
+        /* Confidence Toggle */
+        .confidence-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .option-card {
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 16px;
             cursor: pointer;
             transition: all 0.2s;
-            flex: 1;
-            text-align: center;
-            text-decoration: none;
+            position: relative;
         }
-        .btn-secondary {
-            background: #fff;
-            border: 2px solid #e2e8f0;
-            color: #475569;
+
+        .option-card input {
+            position: absolute;
+            opacity: 0;
         }
-        .btn-secondary:hover {
-            background: #f8fafc;
+
+        .option-card:hover {
             border-color: #cbd5e1;
         }
-        .btn-primary {
-            background: #0f172a;
-            border: 2px solid #0f172a;
-            color: white;
+
+        .option-card:has(input:checked) {
+            border-color: var(--accent-blue);
+            background: #eff6ff;
         }
-        .btn-primary:hover {
-            background: #1e293b;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-        .case-score-card {
-            background: #fff;
-            border: 1px solid #e2e8f0;
-            border-radius: 16px;
-            padding: 24px;
-            position: sticky;
-            top: 40px;
-        }
-        .score-val {
-            font-size: 3rem;
-            font-weight: 800;
-            color: #0f172a;
-            margin-bottom: 4px;
-        }
-        .score-label {
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: #64748b;
-            text-transform: uppercase;
+
+        /* Sidebar Stats */
+        .sidebar-section {
             margin-bottom: 24px;
         }
-        .side-stat {
-            margin-bottom: 16px;
+
+        .score-box {
+            background: linear-gradient(135deg, #0f1c2e 0%, #1e293b 100%);
+            color: white;
+            padding: 32px;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 32px;
         }
-        .side-stat label {
+
+        .score-val {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1;
             display: block;
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: #94a3b8;
-            text-transform: uppercase;
-            margin-bottom: 4px;
         }
-        .side-stat span {
-            font-size: 1rem;
-            color: #1e293b;
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 0.9rem;
+        }
+
+        .stat-label { color: var(--text-muted); }
+        .stat-val { font-weight: 600; }
+
+        /* Actions Bar */
+        .actions-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 24px 40px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: flex-end;
+            gap: 16px;
+            z-index: 1000;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border-radius: 12px;
             font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
         }
-        .badge {
-            display: inline-block;
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
+
+        .btn-outline {
+            background: white;
+            border: 2px solid #e2e8f0;
+            color: var(--text-main);
         }
-        .badge-urgency { background: #fee2e2; color: #991b1b; }
-        .badge-payment { background: #dcfce7; color: #166534; }
+
+        .btn-primary {
+            background: var(--accent-blue);
+            color: white;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4);
+        }
     </style>
 </head>
 <body>
-    <div class="bid-form-wrap">
-        <div class="main-content">
-            <h2>Provide Treatment Estimate</h2>
-            <p class="page-sub">Review the case details and submit your recommended treatment approach, pricing range, and clinical perspective.</p>
-            <p class="role-note">Estimates may be drafted by a coordinator and finalized by the doctor before submission.</p>
 
-            <div class="case-overview-header">
-                <h3>Case Overview</h3>
-                <div class="case-grid">
-                    <div class="case-item">
-                        <label>Case Type</label>
-                        <span>Full Arch Implant</span>
+    <nav class="top-nav">
+        <a href="office-dashboard.html" class="logo">DentalDash</a>
+        <div class="nav-links">
+            <a href="office-dashboard.html" class="nav-link">Dashboard</a>
+            <a href="office-cases.html" class="nav-link">Patient Cases</a>
+            <a href="#" class="nav-link">Settings</a>
+        </div>
+    </nav>
+
+    <div class="bid-container">
+        <div class="main-content">
+            <!-- Patient Profile Header -->
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <h2 class="card-title">Patient Clinical Profile</h2>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 4px;">Case ID: #DASH-992031 • Assigned to Review</p>
                     </div>
-                    <div class="case-item">
-                        <label>Location</label>
-                        <span>Gilbert, AZ</span>
+                    <span class="case-status">In Review</span>
+                </div>
+                
+                <div class="patient-grid">
+                    <div class="patient-item">
+                        <label>Patient</label>
+                        <span>Jane Doe</span>
                     </div>
-                    <div class="case-item">
-                        <label>Documentation</label>
-                        <span>CBCT, 4 Photos, X-Rays</span>
+                    <div class="patient-item">
+                        <label>Age / Gender</label>
+                        <span>42 / Female</span>
+                    </div>
+                    <div class="patient-item">
+                        <label>Coverage</label>
+                        <span>Delta Dental PPO</span>
+                    </div>
+                </div>
+
+                <div class="clinical-complaint">
+                    <label style="display: block; font-size: 0.75rem; font-weight: 800; color: var(--accent-blue); margin-bottom: 8px; text-transform: uppercase;">Chief Complaint</label>
+                    <p style="margin: 0; font-size: 1rem; color: #1e293b; line-height: 1.5; font-style: italic;">
+                        "I have a sharp, throbbing pain on the lower right side. It started three days ago and gets worse with cold drinks. I can't sleep through the night without Ibuprofen."
+                    </p>
+                </div>
+            </div>
+
+            <!-- AI Assessment & Diagnosis -->
+            <div class="card">
+                <h3 class="card-title" style="margin-bottom: 20px;">AI-Assisted Clinical Findings</h3>
+                <div style="display: flex; gap: 32px; align-items: flex-start;">
+                    <div style="background: #f1f5f9; padding: 20px; border-radius: 12px; text-align: center; min-width: 120px;">
+                        <span style="display: block; font-size: 0.75rem; font-weight: 700; color: var(--text-muted); margin-bottom: 4px;">TARGET TOOTH</span>
+                        <span style="font-size: 2.5rem; font-weight: 800; color: var(--primary-blue);">30</span>
+                    </div>
+                    <div>
+                        <p style="margin: 0; font-weight: 700; color: #dc2626; font-size: 1.1rem;">Symptomatic Irreversible Pulpitis</p>
+                        <p style="margin-top: 8px; color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">
+                            Radiographic analysis shows deep distal-occlusal radiolucency approaching the pulp chamber. Clinical history of lingering cold sensitivity and spontaneous pain indicates pulpal involvement. Periapical tissue appears normal.
+                        </p>
                     </div>
                 </div>
             </div>
 
-            <form>
-                <div class="form-section">
-                    <h3>Section A: Estimate Details</h3>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="price-min">Price Range (Min)</label>
-                            <input type="number" id="price-min" placeholder="$0.00">
-                        </div>
-                        <div class="form-group">
-                            <label for="price-max">Price Range (Max)</label>
-                            <input type="number" id="price-max" placeholder="$0.00">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="timeline">Estimated Timeline</label>
-                        <select id="timeline">
-                            <option>1-3 Months</option>
-                            <option>4-6 Months</option>
-                            <option>6-12 Months</option>
-                        </select>
-                    </div>
-                </div>
+            <!-- Proposed Treatment Plan -->
+            <div class="card">
+                <h3 class="card-title">Treatment Plan & Bid Estimate</h3>
+                <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 24px;">Please provide your office's estimated fees for the recommended procedures.</p>
+                
+                <form id="bidForm">
+                    <table class="treatment-table">
+                        <thead>
+                            <tr>
+                                <th>Procedure Name</th>
+                                <th>ADA Code</th>
+                                <th style="text-align: right;">Standard Fee</th>
+                                <th style="text-align: right;">Your Office Fee</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="font-weight: 600;">Molar Root Canal</td>
+                                <td style="font-family: monospace;">D3330</td>
+                                <td style="text-align: right; color: var(--text-muted);">$1,420</td>
+                                <td style="text-align: right;"><input type="text" class="input-price" value="$1,250"></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: 600;">Core Buildup</td>
+                                <td style="font-family: monospace;">D2950</td>
+                                <td style="text-align: right; color: var(--text-muted);">$340</td>
+                                <td style="text-align: right;"><input type="text" class="input-price" value="$285"></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: 600;">Porcelain Crown (Zirconia)</td>
+                                <td style="font-family: monospace;">D2740</td>
+                                <td style="text-align: right; color: var(--text-muted);">$1,650</td>
+                                <td style="text-align: right;"><input type="text" class="input-price" value="$1,450"></td>
+                            </tr>
+                        </tbody>
+                    </table>
 
-                <div class="form-section">
-                    <h3>Section B: Treatment Approach</h3>
-                    <span class="helper-text">Explain how your office would approach this case, what you recommend, and why.</span>
-                    <div class="form-group">
-                        <label for="approach">Recommended Clinical Approach</label>
-                        <textarea id="approach" placeholder="Detail the specific surgical or restorative steps..."></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="alternatives">Alternative Treatment Options (Optional)</label>
-                        <textarea id="alternatives" placeholder="List any alternative paths discussed for this patient profile..."></textarea>
-                    </div>
-                </div>
-
-                <div class="form-section">
-                    <h3>Section C: Clinical Confidence</h3>
-                    <div class="radio-group">
-                        <label class="radio-option">
-                            <input type="radio" name="confidence" value="high">
-                            <span>High Confidence</span>
+                    <h4 style="margin: 32px 0 16px; font-size: 1rem; color: var(--primary-blue);">Estimate Confidence Level</h4>
+                    <div class="confidence-options">
+                        <label class="option-card">
+                            <input type="radio" name="confidence" value="high" checked>
+                            <div style="font-weight: 700; margin-bottom: 4px;">High Confidence</div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted);">Firm pricing based on documentation.</div>
                         </label>
-                        <label class="radio-option">
+                        <label class="option-card">
                             <input type="radio" name="confidence" value="moderate">
-                            <span>Moderate Confidence</span>
+                            <div style="font-weight: 700; margin-bottom: 4px;">Moderate</div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted);">Pricing may adjust upon exam.</div>
                         </label>
-                        <label class="radio-option">
-                            <input type="radio" name="confidence" value="limited">
-                            <span>Limited Confidence — requires in-office consultation</span>
+                        <label class="option-card">
+                            <input type="radio" name="confidence" value="low">
+                            <div style="font-weight: 700; margin-bottom: 4px;">Consult Required</div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted);">Diagnostic visit needed first.</div>
                         </label>
                     </div>
-                </div>
-
-                <div class="form-section">
-                    <h3>Section D: Why Choose This Office</h3>
-                    <div class="form-group">
-                        <label for="experience">Clinical Experience & Technology</label>
-                        <textarea id="experience" placeholder="Detail your experience with this case type, specialized technology, or specific materials used..."></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="care">Sedation, Warranty & Follow-up</label>
-                        <textarea id="care" placeholder="Describe patient comfort options and post-treatment support..."></textarea>
-                    </div>
-                </div>
-
-                <div class="disclaimer-box">
-                    <p>All treatment estimates are preliminary and must be confirmed during an in-office consultation. Final treatment recommendations may change based on clinical examination, diagnostics, and patient-specific factors.</p>
-                </div>
-
-                <div class="cta-container">
-                    <button type="button" class="btn btn-secondary">Save Draft</button>
-                    <button type="submit" class="btn btn-primary">Submit for Doctor Approval</button>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
 
         <aside class="sidebar">
-            <div class="case-score-card">
-                <div class="score-val">84</div>
-                <div class="score-label">Case Score</div>
-                
-                <div class="side-stat">
-                    <label>Urgency</label>
-                    <span class="badge badge-urgency">High Priority</span>
+            <div class="score-box">
+                <span class="score-val">92</span>
+                <p style="font-size: 0.9rem; font-weight: 600; margin-top: 8px; opacity: 0.9;">Case Match Score</p>
+                <div style="height: 4px; background: rgba(255,255,255,0.2); border-radius: 2px; margin-top: 16px;">
+                    <div style="width: 92%; height: 100%; background: #4ade80; border-radius: 2px;"></div>
                 </div>
-                
-                <div class="side-stat">
-                    <label>Payment Type</label>
-                    <span class="badge badge-badge badge-payment">PPO / Out of Pocket</span>
-                </div>
+            </div>
 
-                <div class="side-stat">
-                    <label>Patient Zip</label>
-                    <span>85234</span>
+            <div class="sidebar-section">
+                <h4 style="font-size: 0.85rem; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.05em; margin-bottom: 12px;">Market Intelligence</h4>
+                <div class="stat-row">
+                    <span class="stat-label">Market Urgency</span>
+                    <span class="stat-val" style="color: #ef4444;">Extreme</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Patient Distance</span>
+                    <span class="stat-val">12.4 Miles</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Interest Level</span>
+                    <span class="stat-val">3 Other Offices</span>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h4 style="font-size: 0.85rem; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.05em; margin-bottom: 12px;">Supporting Documents</h4>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <a href="#" class="nav-link" style="color: var(--accent-blue); display: flex; align-items: center; gap: 8px;">📄 Periapical X-Ray</a>
+                    <a href="#" class="nav-link" style="color: var(--accent-blue); display: flex; align-items: center; gap: 8px;">📄 Panoramic X-Ray</a>
+                    <a href="#" class="nav-link" style="color: var(--accent-blue); display: flex; align-items: center; gap: 8px;">📄 Intraoral Photos</a>
                 </div>
             </div>
         </aside>
     </div>
+
+    <div class="actions-bar">
+        <a href="office-dashboard.html" class="btn btn-outline">Save for Later</a>
+        <button type="submit" form="bidForm" class="btn btn-primary" onclick="window.location.href='estimate-submitted.html'">Send to Doctor for Approval</button>
+    </div>
+
 </body>
 </html>
