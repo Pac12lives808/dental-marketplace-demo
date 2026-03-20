@@ -410,5 +410,81 @@
         <button type="submit" form="bidForm" class="btn btn-primary" onclick="gtag('event', 'submit_for_doctor_approval'); window.location.href='estimate-submitted.html'">Submit for Doctor Approval</button>
     </div>
 
+<script src="supabase-config.js"></script>
+        <script>
+                // Helper: Get query param
+                function getQueryParam(name) {
+                          const params = new URLSearchParams(window.location.search);
+                          return params.get(name);
+                        }
+
+                // Handle form submission
+                document.getElementById('bidForm').addEventListener('submit', async function(e) {
+                          e.preventDefault();
+
+                          const submitBtn = document.querySelector('button[type="submit"]');
+                          submitBtn.disabled = true;
+                          submitBtn.textContent = 'Submitting...';
+
+                          // Get case_id from URL or use test ID
+                          const caseId = getQueryParam('case_id');
+                          if (!caseId) {
+                                      alert('Error: No case ID provided. Please access this page from a valid case.');
+                                      submitBtn.disabled = false;
+                                      submitBtn.textContent = 'Submit for Doctor Approval';
+                                      return;
+                                    }
+
+                                    // TODO: Replace with real office_id from auth
+                                    const TEMP_OFFICE_ID = '00000000-0000-0000-0000-000000000001'; // TEMPORARY
+
+                          // Collect form data
+                          const formData = {
+                                      patient_case_id: caseId,
+                                      office_id: TEMP_OFFICE_ID,
+                                      submitted_by_name: document.getElementById('submitted_by_name')?.value || '',
+                                      submitted_by_role: document.getElementById('submitted_by_role')?.value || '',
+                                      treatment_approach: document.getElementById('treatment_approach')?.value || '',
+                                      confidence_level: document.getElementById('confidence_level')?.value || '',
+                                      low_estimate: parseFloat(document.getElementById('low_estimate')?.value) || 0,
+                                      high_estimate: parseFloat(document.getElementById('high_estimate')?.value) || 0,
+                                      payment_options: document.getElementById('payment_options')?.value || '',
+                                      availability_notes: document.getElementById('availability_notes')?.value || '',
+                                      why_choose_us: document.getElementById('why_choose_us')?.value || '',
+                                      status: 'PENDING_DOCTOR_APPROVAL'
+                                                };
+
+                          // Basic validation
+                          if (!formData.submitted_by_name || !formData.submitted_by_role || !formData.treatment_approach || 
+                                    !formData.confidence_level || !formData.low_estimate || !formData.high_estimate) {
+                                      alert('Please fill in all required fields.');
+                                      submitBtn.disabled = false;
+                                      submitBtn.textContent = 'Submit for Doctor Approval';
+                                      return;
+                                    }
+
+                                    try {
+                                                const { data, error } = await window.supabase
+                                                              .from('estimates')
+                                                              .insert([formData])
+                                                              .select();
+
+                                                if (error) throw error;
+
+                                                            // Fire GA event if available
+                                                            if (typeof gtag === 'function') {
+                                                                          gtag('event', 'submit_for_doctor_approval');
+                                                                        }
+
+                                                                        // Redirect on success
+                                                                        window.location.href = 'estimate-submitted.html';
+                                              } catch (error) {
+                                                console.error('Error submitting estimate:', error);
+                                                alert('Error submitting estimate. Please try again.');
+                                                submitBtn.disabled = false;
+                                                submitBtn.textContent = 'Submit for Doctor Approval';
+                                              }
+                                            });
+                </script>
 </body>
 </html>
