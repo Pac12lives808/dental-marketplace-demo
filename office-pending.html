@@ -1,105 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PLK6GWSVB4"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-PLK6GWSVB4');
-    </script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Application Received - Dental Dash Pro</title>
-    <style>
-        :root {
-            --primary: #007bff;
-            --primary-hover: #0056b3;
-            --bg-body: #f4f7f9;
-            --bg-card: #ffffff;
-            --border-color: #e1e4e8;
-            --text-main: #24292e;
-            --text-muted: #6a737d;
-            --radius-lg: 16px;
-            --shadow: 0 10px 25px rgba(0,0,0,0.05);
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background: var(--bg-body);
-            margin: 0;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 24px;
-        }
-
-        .card {
-            max-width: 480px;
-            width: 100%;
-            background: #fff;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow);
-            padding: 56px 40px;
-            text-align: center;
-            border: 1px solid var(--border-color);
-        }
-
-        .icon { 
-            font-size: 64px; 
-            margin-bottom: 24px; 
-            color: #28a745;
-        }
-
-        h1 { 
-            font-size: 1.5rem; 
-            color: var(--text-main); 
-            margin: 0 0 12px; 
-            font-weight: 700;
-        }
-
-        .badge {
-            display: inline-block;
-            margin: 0 0 24px;
-            padding: 6px 16px;
-            border-radius: 999px;
-            background: #fff3cd;
-            color: #856404;
-            font-weight: 700;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        p { 
-            color: var(--text-muted); 
-            font-size: 15px; 
-            line-height: 1.6; 
-            margin: 0 0 16px; 
-        }
-
-        .back-link { margin-top: 32px; }
-        a { 
-            color: var(--primary); 
-            text-decoration: none; 
-            font-weight: 600; 
-            font-size: 14px; 
-        }
-        a:hover { color: var(--primary-hover); text-decoration: underline; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pending Estimates - Dental Dash Pro</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .pending-wrap { max-width: 960px; margin: 40px auto; padding: 0 24px; }
+    .pending-wrap h2 { font-size: 1.6rem; font-weight: 700; color: #0f172a; margin-bottom: 6px; }
+    .pending-wrap .page-sub { color: #475569; font-size: 0.95rem; margin-bottom: 28px; }
+    .estimate-card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 24px 28px;
+      margin-bottom: 18px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: start;
+    }
+    .estimate-card .patient-label { font-size: 0.75rem; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+    .estimate-card h3 { font-size: 1.05rem; font-weight: 700; color: #0f172a; margin: 0 0 8px; }
+    .estimate-meta { display: flex; flex-wrap: wrap; gap: 12px; font-size: 0.85rem; color: #64748b; }
+    .estimate-meta span { display: flex; align-items: center; gap: 4px; }
+    .estimate-price { font-size: 1.1rem; font-weight: 700; color: #0f172a; margin-top: 10px; }
+    .status-badge {
+      display: inline-block;
+      padding: 5px 14px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .status-pending { background: #fef9c3; color: #854d0e; border: 1px solid #fde68a; }
+    .status-viewed { background: #dbeafe; color: #1e40af; border: 1px solid #bfdbfe; }
+    .status-accepted { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+    .status-declined { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
+    .card-actions { margin-top: 14px; display: flex; gap: 10px; }
+    .btn-view { padding: 7px 16px; background: #f1f5f9; border-radius: 8px; font-size: 0.82rem; font-weight: 600; color: #475569; text-decoration: none; }
+    .btn-view:hover { background: #e2e8f0; }
+    .empty-state { text-align: center; padding: 60px 24px; color: #94a3b8; }
+    .empty-state .icon { font-size: 48px; margin-bottom: 16px; }
+    .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 14px; margin-bottom: 32px; }
+    .stat-mini { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px 20px; }
+    .stat-mini .label { font-size: 0.72rem; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.05em; }
+    .stat-mini .val { font-size: 1.5rem; font-weight: 800; color: #0f172a; margin-top: 4px; }
+    @media (max-width: 600px) { .estimate-card { grid-template-columns: 1fr; } }
+  </style>
 </head>
 <body>
-    <div class="card">
-        <div class="icon">✅</div>
-        <h1>Application Received</h1>
-        <div class="badge">Pending Review</div>
-        <p>Your dental office application has been submitted successfully.</p>
-        <p>Our verification team will review your credentials and practice details. This process usually takes 1-2 business days.</p>
-        <div class="back-link">
-            <a href="for-dentists.html">&larr; Back to Provider Portal</a>
-        </div>
+  <header>
+    <div class="header-container">
+      <h1><a href="index.html" style="color:white;text-decoration:none;">Dental Dash Pro</a></h1>
+      <p>My Pending Estimates</p>
     </div>
+  </header>
+  <main>
+    <div class="pending-wrap">
+      <h2>Your Submitted Estimates</h2>
+      <p class="page-sub">Track the status of all estimates you've submitted to patients.</p>
+
+      <div class="stats-row">
+        <div class="stat-mini">
+          <div class="label">Total Submitted</div>
+          <div class="val">5</div>
+        </div>
+        <div class="stat-mini">
+          <div class="label">Under Review</div>
+          <div class="val">2</div>
+        </div>
+        <div class="stat-mini">
+          <div class="label">Accepted</div>
+          <div class="val">2</div>
+        </div>
+        <div class="stat-mini">
+          <div class="label">Declined</div>
+          <div class="val">1</div>
+        </div>
+      </div>
+
+      <!-- Estimate Cards -->
+      <div class="estimate-card">
+        <div>
+          <div class="patient-label">Patient Request</div>
+          <h3>Crown &mdash; Patient #1042</h3>
+          <div class="estimate-meta">
+            <span>&#128205; ZIP 85234</span>
+            <span>&#127973; Delta Dental</span>
+            <span>&#128197; Submitted 1 hour ago</span>
+          </div>
+          <div class="estimate-price">$950 &ndash; $1,400</div>
+          <div class="card-actions">
+            <a href="office-bid.html" class="btn-view">View Estimate</a>
+          </div>
+        </div>
+        <div><span class="status-badge status-pending">&#9679; Pending Review</span></div>
+      </div>
+
+      <div class="estimate-card">
+        <div>
+          <div class="patient-label">Patient Request</div>
+          <h3>Root Canal &mdash; Patient #1041</h3>
+          <div class="estimate-meta">
+            <span>&#128205; ZIP 85233</span>
+            <span>&#127973; None</span>
+            <span>&#128197; Submitted 3 hours ago</span>
+          </div>
+          <div class="estimate-price">$700 &ndash; $1,100</div>
+          <div class="card-actions">
+            <a href="office-bid.html" class="btn-view">View Estimate</a>
+          </div>
+        </div>
+        <div><span class="status-badge status-viewed">&#128065; Patient Viewed</span></div>
+      </div>
+
+      <div class="estimate-card">
+        <div>
+          <div class="patient-label">Patient Request</div>
+          <h3>Cleaning &amp; Exam &mdash; Patient #1040</h3>
+          <div class="estimate-meta">
+            <span>&#128205; ZIP 85295</span>
+            <span>&#127973; Cigna</span>
+            <span>&#128197; Submitted 1 day ago</span>
+          </div>
+          <div class="estimate-price">$120 &ndash; $180</div>
+          <div class="card-actions">
+            <a href="office-bid.html" class="btn-view">View Estimate</a>
+          </div>
+        </div>
+        <div><span class="status-badge status-accepted">&#10003; Accepted</span></div>
+      </div>
+
+      <div class="estimate-card">
+        <div>
+          <div class="patient-label">Patient Request</div>
+          <h3>Dental Implant &mdash; Patient #1039</h3>
+          <div class="estimate-meta">
+            <span>&#128205; ZIP 85212</span>
+            <span>&#127973; Aetna</span>
+            <span>&#128197; Submitted 2 days ago</span>
+          </div>
+          <div class="estimate-price">$3,200 &ndash; $4,800</div>
+          <div class="card-actions">
+            <a href="office-bid.html" class="btn-view">View Estimate</a>
+          </div>
+        </div>
+        <div><span class="status-badge status-accepted">&#10003; Accepted</span></div>
+      </div>
+
+      <div class="estimate-card">
+        <div>
+          <div class="patient-label">Patient Request</div>
+          <h3>Teeth Whitening &mdash; Patient #1038</h3>
+          <div class="estimate-meta">
+            <span>&#128205; ZIP 85248</span>
+            <span>&#127973; None</span>
+            <span>&#128197; Submitted 3 days ago</span>
+          </div>
+          <div class="estimate-price">$350 &ndash; $500</div>
+          <div class="card-actions">
+            <a href="office-bid.html" class="btn-view">View Estimate</a>
+          </div>
+        </div>
+        <div><span class="status-badge status-declined">&#10005; Declined</span></div>
+      </div>
+
+      <div class="nav-links" style="margin-top: 32px;">
+        <a href="office-dashboard.html">&larr; Back to Dashboard</a>
+        <a href="index.html">Home</a>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <p>&copy; 2026 Dental Dash Pro. All rights reserved.</p>
+  </footer>
 </body>
 </html>

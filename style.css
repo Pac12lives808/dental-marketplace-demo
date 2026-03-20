@@ -70,6 +70,19 @@ main {
     padding: 80px 0 100px;
 }
 
+.hero-logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.hero-logo img {
+  width: 140px;
+  max-width: 80%;
+  height: auto;
+  opacity: 0.95;
+}
+
 .hero-content {
     max-width: 800px;
     margin: 0 auto;

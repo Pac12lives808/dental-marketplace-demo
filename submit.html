@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-      <!-- Google tag (gtag.js) -->
+    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-PLK6GWSVB4"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -9,60 +9,228 @@
       gtag('js', new Date());
       gtag('config', 'G-PLK6GWSVB4');
     </script>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Submit a Request - Dental Dash Pro</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Treatment Case - Dental Dash Pro</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        main { max-width: 680px; margin: 48px auto; padding: 0 24px 80px; }
+        main h2 { font-size: 1.8rem; font-weight: 700; color: #0f172a; margin-bottom: 12px; letter-spacing: -0.02em; }
+        .page-sub { color: #475569; font-size: 1.05rem; margin-bottom: 32px; line-height: 1.6; }
+        .trust-banner { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; margin-bottom: 32px; display: flex; gap: 16px; align-items: center; }
+        .trust-banner p { margin: 0; font-size: 0.9rem; color: #475569; }
+        .section-title { font-size: 1.1rem; font-weight: 700; color: #1e293b; margin: 32px 0 16px; padding-bottom: 8px; border-bottom: 1px solid #f1f5f9; }
+        label { display: block; font-size: 0.875rem; font-weight: 600; color: #374151; margin-bottom: 6px; margin-top: 18px; }
+        input[type="text"], input[type="email"], input[type="tel"], select, textarea { width: 100%; padding: 12px 16px; border: 1px solid #d1d5db; border-radius: 10px; font-size: 1rem; color: #1a202c; background: #fff; box-sizing: border-box; }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.08); }
+        textarea { resize: vertical; min-height: 100px; }
+        .upload-group { margin-top: 18px; }
+        .upload-box { border: 2px dashed #cbd5e1; border-radius: 10px; padding: 20px; background: #f8fafc; margin-top: 8px; text-align: center; }
+        .upload-help { font-size: 0.85rem; color: #64748b; margin-bottom: 12px; display: block; }
+        .next-steps-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 24px; margin: 40px 0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+        .next-steps-card h3 { margin-top: 0; font-size: 1.1rem; margin-bottom: 20px; color: #0f172a; }
+        .step-list { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        @media (max-width: 500px) { .step-list { grid-template-columns: 1fr; } }
+        .step-item { font-size: 0.9rem; color: #475569; line-height: 1.5; }
+        .step-item strong { display: block; color: #1e293b; margin-bottom: 4px; }
+        .disclaimer-box { background: #fff9f0; border: 1px solid #ffedd5; border-radius: 10px; padding: 16px 20px; margin: 24px 0; color: #9a3412; font-size: 0.85rem; line-height: 1.6; }
+        button[type="submit"] { margin-top: 12px; width: 100%; padding: 16px; background: #0f172a; color: #fff; border: none; border-radius: 12px; font-size: 1.05rem; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+        button[type="submit"]:hover:not(:disabled) { background: #1e293b; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        button[type="submit"]:disabled { opacity: 0.6; cursor: not-allowed; }
+        .error-box { background: #fef2f2; border: 1px solid #fecaca; border-radius: 10px; padding: 14px 18px; margin-bottom: 20px; color: #b91c1c; font-size: 0.9rem; display: none; }
+    </style>
 </head>
 <body>
-  <header>
-    <h1><a href="index.html" style="color:white;text-decoration:none;">Dental Dash Pro</a></h1>
-    <p>Submit a Treatment Request</p>
-  </header>
-  <main>
-    <form action="success.html" method="get">
-      <h2>Request Dental Treatment Bids</h2>
-      <label for="name">Your Name</label>
-      <input type="text" id="name" name="name" placeholder="Jane Smith" required>
+    <header>
+        <div class="header-container">
+            <a href="index.html" style="text-decoration:none;"><h1>Dental Dash Pro</h1></a>
+        </div>
+    </header>
+    <main>
+        <h2>Submit Treatment Case</h2>
+        <p class="page-sub">Provide your details to receive professional treatment approaches and preliminary estimates from top-rated local offices.</p>
 
-      <label for="email">Email Address</label>
-      <input type="email" id="email" name="email" placeholder="jane@example.com" required>
+        <div class="trust-banner">
+            <p><strong>Professional Review:</strong> Your case will be reviewed by licensed dental professionals. Documentation like X-rays or findings helps offices provide significantly more accurate treatment approaches.</p>
+        </div>
 
-      <label for="phone">Phone Number</label>
-      <input type="tel" id="phone" name="phone" placeholder="(480) 555-0100">
+        <div id="errorBox" class="error-box"></div>
 
-      <label for="zip">ZIP Code</label>
-      <input type="text" id="zip" name="zip" placeholder="85234" required>
+        <form id="submitForm">
+            <p class="section-title">Patient Information</p>
 
-      <label for="treatment">Treatment Needed</label>
-      <select id="treatment" name="treatment" required>
-        <option value="">Select treatment type...</option>
-        <option value="cleaning">Cleaning &amp; Exam</option>
-        <option value="filling">Cavity Filling</option>
-        <option value="crown">Crown</option>
-        <option value="root-canal">Root Canal</option>
-        <option value="extraction">Tooth Extraction</option>
-        <option value="implant">Dental Implant</option>
-        <option value="whitening">Teeth Whitening</option>
-        <option value="other">Other</option>
-      </select>
+            <label for="full_name">Full Name</label>
+            <input type="text" id="full_name" name="full_name" placeholder="Jane Smith" required>
 
-      <label for="insurance">Insurance (if any)</label>
-      <input type="text" id="insurance" name="insurance" placeholder="Delta Dental, Cigna, None, etc.">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="jane@email.com" required>
 
-      <label for="notes">Additional Notes</label>
-      <textarea id="notes" name="notes" rows="4" placeholder="Any additional information about your dental needs..."></textarea>
+            <label for="phone">Phone (optional)</label>
+            <input type="tel" id="phone" name="phone" placeholder="(480) 555-0100">
 
-      <button type="submit">Submit Request</button>
+            <label for="zip_code">ZIP Code</label>
+            <input type="text" id="zip_code" name="zip_code" placeholder="85234" required>
 
-      <div class="nav-links">
-        <a href="get-started.html">&larr; Back</a>
-        <a href="index.html">Home</a>
-      </div>
-    </form>
-  </main>
-  <footer>
-    <p>&copy; 2026 Dental Dash Pro. All rights reserved.</p>
-  </footer>
+            <p class="section-title">Case Details</p>
+
+            <label for="procedure_type">Primary Treatment Needed</label>
+            <select id="procedure_type" name="procedure_type" required>
+                <option value="">Select treatment type...</option>
+                <option>Dental Implant</option>
+                <option>Full Arch / All-on-X</option>
+                <option>Invisalign / Ortho</option>
+                <option>Cosmetic Veneers</option>
+                <option>Root Canal &amp; Crown</option>
+            </select>
+
+            <label for="insurance_type">Insurance / Payment Type</label>
+            <select id="insurance_type" name="insurance_type">
+                <option value="">Select option...</option>
+                <option>PPO Insurance</option>
+                <option>HMO Insurance</option>
+                <option>Delta Dental PPO</option>
+                <option>Cash / Self-Pay</option>
+                <option>CareCredit / Financing</option>
+                <option>No Insurance</option>
+            </select>
+
+            <label for="case_notes">Describe your situation or concerns</label>
+            <textarea id="case_notes" name="case_notes" placeholder="Share any details about your symptoms, what your dentist found, or questions you have..."></textarea>
+
+            <p class="section-title">Clinical Documentation</p>
+
+            <div class="upload-group">
+                <span class="upload-help">Upload your X-rays, clinical findings, or photos if available. This helps offices provide more accurate treatment approaches.</span>
+                <div class="upload-box">
+                    <label for="xrays" style="margin-top:0;">X-Rays</label>
+                    <input type="file" id="xrays" name="xrays" accept="image/*,.pdf" multiple>
+                </div>
+                <div class="upload-box" style="margin-top:12px;">
+                    <label for="findings" style="margin-top:0;">Clinical Findings / Notes</label>
+                    <input type="file" id="findings" name="findings" accept="image/*,.pdf" multiple>
+                </div>
+                <div class="upload-box" style="margin-top:12px;">
+                    <label for="photos" style="margin-top:0;">Intraoral Photos</label>
+                    <input type="file" id="photos" name="photos" accept="image/*" multiple>
+                </div>
+            </div>
+
+            <div class="next-steps-card">
+                <h3>What happens next</h3>
+                <div class="step-list">
+                    <div class="step-item"><strong>1. Submit Treatment Case</strong>Your details are securely shared with qualified offices in your area.</div>
+                    <div class="step-item"><strong>2. Professional Review</strong>Offices review your details and clinical documentation.</div>
+                    <div class="step-item"><strong>3. Receive Estimates</strong>You'll receive treatment estimate options and specific clinical approaches.</div>
+                    <div class="step-item"><strong>4. Compare &amp; Consult</strong>Compare approaches and choose an office for your in-person consultation.</div>
+                </div>
+            </div>
+
+            <div class="disclaimer-box">Offices may provide different treatment approaches based on the information submitted. All estimates are preliminary until confirmed during an in-office consultation.</div>
+
+            <button type="submit" id="submitBtn">Submit Case for Review</button>
+        </form>
+    </main>
+
+    <script src="supabase-config.js" type="module"></script>
+    <script type="module">
+        import { supabase } from './supabase-config.js';
+
+        const form = document.getElementById('submitForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const errorBox = document.getElementById('errorBox');
+
+        function showError(msg) {
+            errorBox.textContent = msg;
+            errorBox.style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function clearError() {
+            errorBox.textContent = '';
+            errorBox.style.display = 'none';
+        }
+
+        function setSubmitting(isSubmitting) {
+            submitBtn.disabled = isSubmitting;
+            submitBtn.textContent = isSubmitting ? 'Submitting...' : 'Submit Case for Review';
+        }
+
+        function hasFile(id) {
+            const el = document.getElementById(id);
+            return !!(el && el.files && el.files.length > 0);
+        }
+
+        async function getOrCreatePatient(fullName, email, phone) {
+            const normalizedEmail = email.toLowerCase().trim();
+
+            const { data: existing, error: selectErr } = await supabase
+                .from('patients')
+                .select('id')
+                .eq('email', normalizedEmail)
+                .maybeSingle();
+
+            if (selectErr) throw selectErr;
+            if (existing) return existing.id;
+
+            const { data: newPatient, error: insertErr } = await supabase
+                .from('patients')
+                .insert([{ full_name: fullName, email: normalizedEmail, phone: phone || null }])
+                .select('id')
+                .single();
+
+            if (insertErr) throw insertErr;
+            return newPatient.id;
+        }
+
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            clearError();
+            setSubmitting(true);
+
+            try {
+                const fullName = form.full_name.value.trim();
+                const email = form.email.value.trim();
+                const phone = form.phone.value.trim();
+                const zipCode = form.zip_code.value.trim();
+                const procedureType = form.procedure_type.value.trim();
+                const insuranceType = form.insurance_type.value.trim();
+                const caseNotes = form.case_notes.value.trim();
+
+                if (!fullName || !email || !procedureType) {
+                    throw new Error('Please complete name, email, and procedure type before submitting.');
+                }
+
+                const patientId = await getOrCreatePatient(fullName, email, phone);
+
+                const { error: caseErr } = await supabase
+                    .from('patient_cases')
+                    .insert([{
+                        patient_id: patientId,
+                        procedure_type: procedureType,
+                        insurance_type: insuranceType || null,
+                        case_notes: caseNotes || null,
+                        zip_code: zipCode || null,
+                        uploaded_xrays: hasFile('xrays'),
+                        uploaded_findings: hasFile('findings'),
+                        uploaded_photos: hasFile('photos'),
+                        status: 'SUBMITTED'
+                    }]);
+
+                if (caseErr) throw caseErr;
+
+                if (typeof gtag === 'function') {
+                    gtag('event', 'submit_case');
+                }
+
+                window.location.href = 'success.html';
+
+            } catch (err) {
+                console.error('Patient submission failed:', err);
+                showError(err.message || 'Something went wrong while submitting your case. Please try again.');
+            } finally {
+                setSubmitting(false);
+            }
+        });
+    </script>
 </body>
 </html>

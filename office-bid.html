@@ -11,443 +11,404 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Submit Treatment Estimate - Dental Dash Pro</title>
+    <title>Clinical Review - Case #992031 | DentalDash Pro</title>
     <link rel="stylesheet" href="style.css">
     <style>
         :root {
-            --primary: #007bff;
-            --primary-hover: #0056b3;
-            --bg-body: #f4f7f9;
-            --bg-card: #ffffff;
-            --border-color: #e1e4e8;
-            --text-main: #24292e;
-            --text-muted: #6a737d;
-            --radius-lg: 12px;
-            --radius-md: 8px;
-            --shadow: 0 4px 6px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.08);
+            --primary-blue: #0f1c2e;
+            --accent-blue: #3b82f6;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --bg-light: #f8fafc;
+            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         }
 
         body {
-            background-color: var(--bg-body);
-            color: var(--text-main);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f1f5f9;
             margin: 0;
-            line-height: 1.5;
+            padding-top: 64px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
-        header {
-            background: #fff;
-            padding: 16px 24px;
-            border-bottom: 1px solid var(--border-color);
+        /* Fixed Navigation */
+        .top-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 64px;
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            padding: 0 40px;
+            z-index: 1000;
         }
 
         .logo {
-            font-weight: 700;
-            color: var(--primary);
-            text-decoration: none;
+            font-weight: 800;
+            color: var(--accent-blue);
             font-size: 1.25rem;
+            text-decoration: none;
         }
 
-        main {
+        .nav-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Layout Structure */
+        .bid-container {
             max-width: 1200px;
             margin: 40px auto;
             padding: 0 24px;
-        }
-
-        .page-header {
-            margin-bottom: 32px;
-        }
-
-        .page-header h1 {
-            font-size: 1.85rem;
-            margin: 0 0 8px 0;
-            font-weight: 700;
-        }
-
-        .page-header .subtext {
-            color: var(--text-muted);
-            margin: 0;
-        }
-
-        .layout-grid {
             display: grid;
             grid-template-columns: 1fr 320px;
-            gap: 24px;
-            align-items: start;
+            gap: 32px;
+            padding-bottom: 120px;
         }
 
-        .form-column {
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
+        @media (max-width: 950px) {
+            .bid-container {
+                grid-template-columns: 1fr;
+            }
         }
 
+        /* Cards and Components */
         .card {
-            background: var(--bg-card);
-            border-radius: var(--radius-lg);
-            padding: 24px;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border-color);
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 24px;
+            border-bottom: 1px solid #f1f5f9;
+            padding-bottom: 16px;
         }
 
         .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin: 0;
+        }
+
+        .case-status {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 6px;
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        /* Patient Overview Section */
+        .patient-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .patient-item label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .patient-item span {
             font-size: 1.1rem;
             font-weight: 600;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            color: var(--text-main);
         }
 
-        .form-group {
-            margin-bottom: 20px;
+        .clinical-complaint {
+            margin-top: 24px;
+            background: #eff6ff;
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid var(--accent-blue);
         }
 
-        .form-group:last-child {
-            margin-bottom: 0;
-        }
-
-        label {
-            display: block;
-            font-size: 0.875rem;
-            font-weight: 500;
-            margin-bottom: 6px;
-            color: #444;
-        }
-
-        input[type="text"],
-        input[type="email"],
-        input[type="tel"],
-        input[type="number"],
-        input[type="date"],
-        select,
-        textarea {
+        /* Treatment Table */
+        .treatment-table {
             width: 100%;
-            height: 44px;
-            padding: 10px 14px;
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-md);
-            font-size: 0.95rem;
-            box-sizing: border-box;
-            transition: border-color 0.2s, box-shadow 0.2s;
+            border-collapse: collapse;
+            margin-top: 16px;
         }
 
-        textarea {
-            height: auto;
-            min-height: 100px;
-            padding: 12px 14px;
-            resize: vertical;
-        }
-
-        input:focus, select:focus, textarea:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
-        }
-
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-
-        .highlight-card {
-            border: 2px solid #e7f1ff;
-            background: #fbfdff;
-        }
-
-        .helper-text {
-            font-size: 0.8rem;
+        .treatment-table th {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 2px solid #f1f5f9;
+            font-size: 0.85rem;
             color: var(--text-muted);
-            margin-top: 6px;
+        }
+
+        .treatment-table td {
+            padding: 16px 12px;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 0.95rem;
+        }
+
+        .input-price {
+            border: 1px solid #e2e8f0;
+            padding: 8px 12px;
+            border-radius: 8px;
+            width: 110px;
+            font-weight: 600;
+            text-align: right;
+        }
+
+        /* Confidence Toggle */
+        .confidence-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .option-card {
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .option-card input {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .option-card:hover {
+            border-color: #cbd5e1;
+        }
+
+        .option-card:has(input:checked) {
+            border-color: var(--accent-blue);
+            background: #eff6ff;
+        }
+
+        /* Sidebar Stats */
+        .sidebar-section {
+            margin-bottom: 24px;
+        }
+
+        .score-box {
+            background: linear-gradient(135deg, #0f1c2e 0%, #1e293b 100%);
+            color: white;
+            padding: 32px;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .score-val {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1;
             display: block;
         }
 
-        /* Sidebar Styling */
-        <span class=.sidebar-card { overflow: hidden;"badge badge-warning">Moderate</span>             </div>             <div class="sidebar-item">
-            position: sticky;
-            top: 24px;
-        }
-
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            padding: 4px 10px;
-            border-radius: 99px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-
-        .badge-success { background: #dafbe1; color: #1a7f37; }
-        .badge-warning { background: #fff8c5; color: #9a6700; }
-        .badge-danger { background: #ffebe9; color: #cf222e; }
-
-        .sidebar-item {
+        .stat-row {
             display: flex;
             justify-content: space-between;
-            align-items: center;
             padding: 12px 0;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 0.9rem;
         }
 
-        .sidebar-item:last-child {
-            border-bottom: none;
-        }
+        .stat-label { color: var(--text-muted); }
+        .stat-val { font-weight: 600; }
 
-        .sidebar-label {
-            font-size: 0.875rem;
-            color: var(--text-muted);
-        }
-
-        .sidebar-value {
-            font-weight: 600;
-            font-size: 0.875rem;
-        }
-
-        .doc-list {
-            margin: 16px 0 0 0;
-            padding: 0;
-            list-style: none;
-        }
-
-        <span class=..doc-item { flex-wrap: wrap; word-break: break-word;sidebar-card { overflow: hidden;"badge badge-warning">Moderate</span>             </div>             <div class="sidebar-item">
+        /* Actions Bar */
+        .actions-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 24px 40px;
+            border-top: 1px solid #e2e8f0;
             display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.875rem;
-            margin-bottom: 8px;
-            color: var(--primary);
-            text-decoration: none;
-        }
-
-        /* Footer CTAs */
-        .form-actions {
-            margin-top: 32px;
-            display: flex;
-            gap: 16px;
             justify-content: flex-end;
-            max-width: 1200px;
+            gap: 16px;
+            z-index: 1000;
         }
 
         .btn {
-            height: 48px;
-            padding: 0 28px;
-            border-radius: var(--radius-md);
-            font-size: 0.95rem;
+            padding: 14px 28px;
+            border-radius: 12px;
             font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             text-decoration: none;
-        }
-
-        .btn-primary {
-            background: var(--primary);
-            color: white;
+            transition: all 0.2s;
+            cursor: pointer;
             border: none;
         }
 
-        .btn-primary:hover {
-            background: var(--primary-hover);
-        }
-
-        .btn-secondary {
-            background: transparent;
+        .btn-outline {
+            background: white;
+            border: 2px solid #e2e8f0;
             color: var(--text-main);
-            border: 1px solid var(--border-color);
         }
 
-        .btn-secondary:hover {
-            background: #f6f8fa;
+        .btn-primary {
+            background: var(--accent-blue);
+            color: white;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
         }
 
-        .disclaimer-box {
-            margin-top: 24px;
-            background: #fff;
-            border-radius: var(--radius-md);
-            padding: 16px;
-            border: 1px solid #f99;
-            background-color: #fffafb;
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4);
         }
-
-        .disclaimer-box h4 { margin-top: 0; color: #cf222e; }
     </style>
 </head>
 <body>
-    <header>
-        <a href="index.html" class="logo">Dental Dash Pro</a>
-        <div style="font-size: 0.875rem; color: var(--text-muted);">Office Portal</div>
-    </header>
 
-    <main>
-        <div class="page-header">
-            <h1>Provide Treatment Estimate</h1>
-            <p class="subtext">Case #8234 &bull; Preliminary assessment for clinical review</p>
+    <nav class="top-nav">
+        <a href="office-dashboard.html" class="logo">DentalDash</a>
+        <div class="nav-links">
+            <a href="office-dashboard.html" class="nav-link">Dashboard</a>
+            <a href="office-cases.html" class="nav-link">Patient Cases</a>
+            <a href="#" class="nav-link">Settings</a>
+        </div>
+    </nav>
+
+    <div class="bid-container">
+        <div class="main-content">
+            <!-- Patient Profile Header -->
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <h2 class="card-title">Patient Clinical Profile</h2>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 4px;">Case ID: #DASH-992031 • Assigned to Review</p>
+                    </div>
+                    <span class="case-status">In Review</span>
+                </div>
+                
+                <div class="patient-grid">
+                    <div class="patient-item">
+                        <label>Patient</label>
+                        <span>Jane Doe</span>
+                    </div>
+                    <div class="patient-item">
+                        <label>Age / Gender</label>
+                        <span>42 / Female</span>
+                    </div>
+                    <div class="patient-item">
+                        <label>Coverage</label>
+                        <span>Delta Dental PPO</span>
+                    </div>
+                </div>
+
+                <div class="clinical-complaint">
+                    <label style="display: block; font-size: 0.75rem; font-weight: 800; color: var(--accent-blue); margin-bottom: 8px; text-transform: uppercase;">Chief Complaint</label>
+                    <p style="margin: 0; font-size: 1rem; color: #1e293b; line-height: 1.5; font-style: italic;">
+                        "I have a sharp, throbbing pain on the lower right side. It started three days ago and gets worse with cold drinks. I can't sleep through the night without Ibuprofen."
+                    </p>
+                </div>
+            </div>
+
+            <!-- AI Assessment & Diagnosis -->
+            <div class="card">
+                <h3 class="card-title" style="margin-bottom: 20px;">AI-Assisted Clinical Findings</h3>
+                <div style="display: flex; gap: 32px; align-items: flex-start;">
+                    <div style="background: #f1f5f9; padding: 20px; border-radius: 12px; text-align: center; min-width: 120px;">
+                        <span style="display: block; font-size: 0.75rem; font-weight: 700; color: var(--text-muted); margin-bottom: 4px;">TARGET TOOTH</span>
+                        <span style="font-size: 2.5rem; font-weight: 800; color: var(--primary-blue);">30</span>
+                    </div>
+                    <div>
+                        <p style="margin: 0; font-weight: 700; color: #dc2626; font-size: 1.1rem;">Symptomatic Irreversible Pulpitis</p>
+                        <p style="margin-top: 8px; color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">
+                            Radiographic analysis shows deep distal-occlusal radiolucency approaching the pulp chamber. Clinical history of lingering cold sensitivity and spontaneous pain indicates pulpal involvement. Periapical tissue appears normal.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Proposed Treatment Plan -->
+            <div class="card">
+                
+                <form id="bidForm">
+                    <h4 style="margin: 32px 0 16px; font-size: 1rem; color: var(--primary-blue);">Estimated Treatment Range</h4>
+
+      <label for="estimate_low" style="display: block; font-size: 0.875rem; font-weight: 600; color: #374151; margin-bottom: 6px; margin-top: 18px;">Low Estimate</label>
+      <input type="text" id="estimate_low" name="estimate_low" class="input-price" placeholder="$2,500" style="width: 100%; padding: 12px 16px; border: 1px solid #d1d5db; border-radius: 10px; font-size: 1rem; color: #1a202c; background: #fff; box-sizing: border-box;">
+
+      <label for="estimate_high" style="display: block; font-size: 0.875rem; font-weight: 600; color: #374151; margin-bottom: 6px; margin-top: 18px;">High Estimate</label>
+      <input type="text" id="estimate_high" name="estimate_high" class="input-price" placeholder="$3,200" style="width: 100%; padding: 12px 16px; border: 1px solid #d1d5db; border-radius: 10px; font-size: 1rem; color: #1a202c; background: #fff; box-sizing: border-box;">
+
+      <label for="payment_options" style="display: block; font-size: 0.875rem; font-weight: 600; color: #374151; margin-bottom: 6px; margin-top: 18px;">Payment Options (Optional)</label>
+      <input type="text" id="payment_options" name="payment_options" placeholder="e.g., CareCredit, Payment Plans" style="width: 100%; padding: 12px 16px; border: 1px solid #d1d5db; border-radius: 10px; font-size: 1rem; color: #1a202c; background: #fff; box-sizing: border-box;">
+
+      <p style="margin-top: 20px; font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; background: #f8fafc; padding: 16px; border-radius: 8px; border-left: 4px solid var(--accent-blue);">
+        This is a preliminary estimate based on the information provided. Final treatment cost will be confirmed during an in-office consultation.
+      </p>
+                </form>
+            </div>
         </div>
 
-        <form action="success.html" method="get">
-            <div class="layout-grid">
-                <!-- LEFT COLUMN -->
-                <div class="form-column">
-                    <!-- CARD 1: Case Overview -->
-                    <div class="card">
-                        <div class="card-title">Case Overview</div>
-                        <div class="grid-2">
-                            <div class="form-group">
-                                <label>Patient Reference</label>
-                                <div style="font-weight:600;">#8234 (Crown)</div>
-                            </div>
-                            <div class="form-group">
-                                <label>Treating Dentist</label>
-                                <input type="text" id="dentistName" name="dentistName" placeholder="Dr. Jane Smith" required>
-                            </div>
-                        </div>
-                        <div class="grid-2">
-                            <div class="form-group">
-                                <label>Practice Name</label>
-                                <input type="text" id="officeName" name="officeName" placeholder="Your practice" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Contact Email</label>
-                                <input type="email" id="email" name="email" placeholder="jane@example.com" required>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- CARD 2: Treatment Approach (Most Important) -->
-                    <div class="card highlight-card">
-                        <div class="card-title">Recommended Treatment Approach</div>
-                        <div class="form-group">
-                            <label>Clinical Plan & Rationale</label>
-                            <textarea id="treatmentApproach" name="treatmentApproach" rows="10" 
-                                      placeholder="Explain your office's clinical approach. What materials do you recommend? Why is this the best path for this patient?" required></textarea>
-                            <small class="helper-text">Explain how your office would approach this case, what you recommend, and why. Include alternatives if appropriate.</small>
-                        </div>
-                        <div class="grid-2">
-                            <div class="form-group">
-                                <label>Clinical Confidence</label>
-                                <select id="clinicalConfidence" name="clinicalConfidence" required>
-                                    <option value="">Select...</option>
-                                    <option value="high">High Confidence</option>
-                                    <option value="moderate">Moderate Confidence</option>
-                                    <option value="limited">Limited Confidence — requires consultation</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Appointments Required</label>
-                                <select id="appointmentsNeeded" name="appointmentsNeeded" required>
-                                    <option value="1">1 appointment</option>
-                                    <option value="2" selected>2 appointments</option>
-                                    <option value="3">3 appointments</option>
-                                    <option value="4+">4+ appointments</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- CARD 3: Financial Overview -->
-                    <div class="card">
-                        <div class="card-title">Estimated Treatment Range</div>
-                        <div class="grid-2">
-                            <div class="form-group">
-                                <label>Low Estimate</label>
-                                <input type="number" id="lowEstimate" name="lowEstimate" placeholder="800" step="0.01" required>
-                            </div>
-                            <div class="form-group">
-                                <label>High Estimate</label>
-                                <input type="number" id="highEstimate" name="highEstimate" placeholder="1400" step="0.01" required>                     <span class="helper-text">This is a preliminary estimate based on the information provided. Final treatment cost will be confirmed during an in-office consultation.</span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Payment Options (Optional)</label>
-                            <textarea id="paymentNotes" name="paymentNotes" rows="2" 
-                                      placeholder="Financing available, CareCredit accepted, in-house plans offered"></textarea>
-                        </div>
-                    </div>
-
-                    <!-- CARD 4: Availability -->
-                    <div class="card">
-                        <div class="card-title">Availability</div>
-                        <div class="grid-2">
-                            <div class="form-group">
-                                <label>First Available Date</label>
-                                <input type="date" id="firstAvailable" name="firstAvailable" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Preferred Time Block</label>
-                                <select id="preferredTimes" name="preferredTimes">
-                                    <option value="morning">Morning (8am-12pm)</option>
-                                    <option value="afternoon">Afternoon (12pm-5pm)</option>
-                                    <option value="flexible">Flexible</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="disclaimer-box">
-                        <h4>Clinical Disclaimer</h4>
-                        <p style="font-size: 0.85rem; margin: 0;">All treatment estimates are preliminary and must be confirmed during an in-office consultation. Final recommendations may vary pending clinical examination.</p>
-                        <div style="margin-top: 12px;">
-                            <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
-                                <input type="checkbox" required style="width:16px; height:16px;">
-                                <span style="font-size: 0.875rem;">I confirm accuracy and agreement to terms</span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- RIGHT COLUMN (Sidebar) -->
-                <div class="sidebar-column">
-                    <div class="card sidebar-card">
-                        <div class="card-title">Case Intelligence</div>
-                        
-                        <div class="sidebar-item">
-                            <span class="sidebar-label">Case Score</span>
-                            <span class="badge badge-success">92 / 100</span>
-                        </div>
-                        <div class="sidebar-item">
-                            <span class="sidebar-label">Urgency</span>
-                            <span class="badge badge-warning">Moderate</span>
-                                        </div>
-                        <div class="sidebar-item">
-                            <span class="sidebar-label">Payment</span>
-                            <span class="sidebar-value">Insurance</span>
-                        </div>
-                        
-                        <div style="margin-top:24px;">
-                            <label style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Documentation</label>
-                            <div class="doc-list">
-                                <a href="#" class="doc-item">📄 Periapical X-Ray</a>
-                                <a href="#" class="doc-item">📄 Bitewing X-Ray</a>
-                                <a href="#" class="doc-item">📸 Intraoral Photo</a>
-                            </div>
-                        </div>
-
-                        <div style="margin-top:24px; padding-top:16px; border-top:1px solid var(--border-color);">
-                            <p style="font-size: 0.75rem; color: var(--text-muted); margin: 0;">
-                                💡 <strong>Market Insight:</strong> 3 other offices in your ZIP have viewed this case today.
-                            </p>
-                        </div>
-                    </div>
+        <aside class="sidebar">
+            <div class="score-box">
+                <span class="score-val">92</span>
+                <p style="font-size: 0.9rem; font-weight: 600; margin-top: 8px; opacity: 0.9;">Case Match Score</p>
+                <div style="height: 4px; background: rgba(255,255,255,0.2); border-radius: 2px; margin-top: 16px;">
+                    <div style="width: 92%; height: 100%; background: #4ade80; border-radius: 2px;"></div>
                 </div>
             </div>
 
-            <!-- ACTION BUTTONS -->
-            <div class="form-actions">
-                <a href="office-dashboard.html" class="btn btn-secondary">Save Draft</a>
-                <button type="submit" class="btn btn-primary">Submit for Doctor Approval</button>
+            <div class="sidebar-section">
+                <h4 style="font-size: 0.85rem; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.05em; margin-bottom: 12px;">Market Intelligence</h4>
+                <div class="stat-row">
+                    <span class="stat-label">Market Urgency</span>
+                    <span class="stat-val" style="color: #ef4444;">Extreme</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Patient Distance</span>
+                    <span class="stat-val">12.4 Miles</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Interest Level</span>
+                    <span class="stat-val">3 Other Offices</span>
+                </div>
             </div>
-        </form>
-    </main>
 
-    <footer style="text-align:center; padding: 40px; color: var(--text-muted); font-size: 0.875rem;">
-        &copy; 2026 Dental Dash Pro &bull; HIPAA Compliant
-    </footer>
+            <div class="sidebar-section">
+                <h4 style="font-size: 0.85rem; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.05em; margin-bottom: 12px;">Supporting Documents</h4>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <a href="#" class="nav-link" style="color: var(--accent-blue); display: flex; align-items: center; gap: 8px;">📄 Periapical X-Ray</a>
+                    <a href="#" class="nav-link" style="color: var(--accent-blue); display: flex; align-items: center; gap: 8px;">📄 Panoramic X-Ray</a>
+                    <a href="#" class="nav-link" style="color: var(--accent-blue); display: flex; align-items: center; gap: 8px;">📄 Intraoral Photos</a>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <div class="actions-bar">
+        <a href="office-dashboard.html" class="btn btn-outline">Save for Later</a>
+        <button type="submit" form="bidForm" class="btn btn-primary" onclick="gtag('event', 'submit_for_doctor_approval'); window.location.href='estimate-submitted.html'">Submit for Doctor Approval</button>
+    </div>
+
 </body>
 </html>

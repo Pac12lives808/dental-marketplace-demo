@@ -1,75 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-      <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PLK6GWSVB4"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-PLK6GWSVB4');
-      gtag('event', 'view_results');
-    </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Request Received - Dental Dash Pro</title>
+  <title>Estimate Submitted - Dental Dash Pro</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    .success-wrap {
+    .confirm-wrap {
       max-width: 600px;
       margin: 64px auto;
       padding: 0 24px;
       text-align: center;
     }
-    .success-icon {
-      font-size: 4rem;
-      margin-bottom: 20px;
-    }
-    .success-wrap h2 {
+    .confirm-icon { font-size: 4rem; margin-bottom: 20px; }
+    .confirm-wrap h2 {
       font-size: 1.75rem;
       font-weight: 700;
       color: #0f172a;
       margin-bottom: 12px;
       letter-spacing: -0.02em;
     }
-    .success-wrap p {
+    .confirm-wrap p {
       color: #475569;
       font-size: 1rem;
       line-height: 1.7;
       margin-bottom: 16px;
     }
-    .next-steps {
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
+    .status-card {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
       border-radius: 16px;
       padding: 28px 32px;
       margin: 32px 0;
       text-align: left;
     }
-    .next-steps h3 {
+    .status-card h3 {
       font-size: 1rem;
       font-weight: 700;
-      color: #0f172a;
+      color: #166534;
       margin-bottom: 16px;
     }
-    .next-steps ul {
+    .status-card ul {
       list-style: none;
       padding: 0;
       margin: 0;
     }
-    .next-steps li {
+    .status-card li {
       padding: 8px 0;
       padding-left: 28px;
       position: relative;
       color: #1e293b;
       font-size: 0.95rem;
       line-height: 1.6;
+      border-bottom: 1px solid #dcfce7;
     }
-    .next-steps li::before {
+    .status-card li:last-child { border-bottom: none; }
+    .status-card li::before {
       content: "\2713";
       position: absolute;
       left: 0;
-      color: #2563eb;
+      color: #16a34a;
       font-weight: 700;
     }
     .disclaimer-box {
@@ -100,35 +90,35 @@
   <header>
     <div class="header-container">
       <h1><a href="index.html" style="color:white;text-decoration:none;">Dental Dash Pro</a></h1>
-      <p>Request Confirmation</p>
+      <p>Estimate Confirmation</p>
     </div>
   </header>
 
   <main>
-    <div class="success-wrap">
-      <div class="success-icon">&#10003;</div>
-      <h2>Your Request Has Been Submitted!</h2>
-      <p>Thank you for submitting your treatment request. Licensed dental offices in your area will review your request and provide professional treatment estimates.</p>
+    <div class="confirm-wrap">
+      <div class="confirm-icon">&#10003;</div>
+      <h2>Your Estimate Has Been Submitted!</h2>
+      <p>Thank you for providing your professional treatment estimate. The patient will be able to review your recommendation along with estimates from other participating offices.</p>
 
-      <div class="next-steps">
+      <div class="status-card">
         <h3>What Happens Next</h3>
         <ul>
-          <li>Participating dental offices will review your treatment details</li>
-          <li>You will receive professional treatment estimates by email within 24&ndash;48 hours</li>
-          <li>Each estimate will include the office's recommended treatment approach and clinical credentials</li>
-          <li>Review your treatment options and request an in-person consultation with the office that fits your needs</li>
+          <li>Your treatment estimate is now visible to the patient</li>
+          <li>The patient will review all treatment options received</li>
+          <li>If the patient selects your office, you will receive a consultation request notification</li>
+          <li>You may be contacted to schedule an in-person evaluation</li>
         </ul>
       </div>
 
       <div class="disclaimer-box">
-        <strong>Important:</strong> Treatment estimates are based on the information you provided and are for informational purposes only. All estimates must be confirmed during an in-office visit. Dental Dash Pro does not provide medical or dental advice.
+        <strong>Clinical Reminder:</strong> Your submitted estimate is based on the information provided by the patient. All treatment plans and pricing must be confirmed during an in-office visit and clinical examination.
       </div>
 
-      <a href="index.html" class="btn-primary">Return to Home</a>
+      <a href="office-dashboard.html" class="btn-primary">Back to Dashboard</a>
     </div>
 
     <div class="nav-links" style="text-align:center; margin-top:24px;">
-      <a href="submit.html">Submit Another Request</a>
+      <a href="office-dashboard.html">&larr; Dashboard</a>
       <a href="index.html">Home</a>
     </div>
   </main>

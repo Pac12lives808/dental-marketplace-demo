@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PLK6GWSVB4"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-PLK6GWSVB4');
+      gtag('event', 'view_results');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Treatment Estimate Options - Dental Dash Pro</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .results-wrap { max-width: 860px; margin: 48px auto; padding: 0 24px 80px; }
+        .results-wrap h2 { font-size: 1.8rem; font-weight: 700; color: #0f172a; margin-bottom: 8px; letter-spacing: -0.02em; }
+        .results-sub { color: #475569; font-size: 1rem; margin-bottom: 12px; line-height: 1.6; max-width: 680px; }
+        .request-summary {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-bottom: 36px;
+            font-size: 0.9rem;
+            color: #475569;
+        }
+        .request-summary strong { color: #0f172a; }
+        .options-label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 16px;
+        }
+        .option-card {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            transition: all 0.2s;
+        }
+        .option-card:hover {
+            box-shadow: 0 8px 24px rgba(0,0,0,0.09);
+            transform: translateY(-2px);
+        }
+        .option-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .office-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 4px;
+        }
+        .office-creds {
+            font-size: 0.82rem;
+            color: #64748b;
+        }
+        .price-range {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #0f172a;
+            text-align: right;
+        }
+        .price-label {
+            font-size: 0.75rem;
+            color: #64748b;
+            text-align: right;
+        }
+        .card-divider {
+            border: none;
+            border-top: 1px solid #f1f5f9;
+            margin: 20px 0;
+        }
+        .card-section-title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 8px;
+        }
+        .card-section-body {
+            font-size: 0.95rem;
+            color: #334155;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .confidence-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 99px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        .confidence-high { background: #dcfce7; color: #166534; }
+        .confidence-moderate { background: #fef9c3; color: #854d0e; }
+        .confidence-limited { background: #fee2e2; color: #991b1b; }
+        .tags-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        .tag {
+            background: #f1f5f9;
+            color: #475569;
+            font-size: 0.78rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .consult-note {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            font-style: italic;
+        }
+        .cta-btn {
+            background: #0f172a;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .cta-btn:hover { background: #1e293b; transform: translateY(-1px); }
+        .bottom-note {
+            background: #fff9f0;
+            border: 1px solid #ffedd5;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 40px;
+            font-size: 0.9rem;
+            color: #9a3412;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <h1><a href="index.html" style="color:white;text-decoration:none;">Dental Dash Pro</a></h1>
+        </div>
+    </header>
+    <div class="results-wrap">
+        <h2>Your Treatment Estimate Options</h2>
+        <p class="results-sub">Compare treatment approaches, clinical confidence, and office strengths to decide which option fits your needs best. Final recommendations are confirmed during your in-office consultation.</p>
+
+        <div class="request-summary">
+            <strong>Your Case:</strong> Full Arch Implant &nbsp;&middot;&nbsp;
+            <strong>Location:</strong> Gilbert, AZ 85234 &nbsp;&middot;&nbsp;
+            <strong>Documentation:</strong> CBCT + 4 Photos
+        </div>
+
+        <div class="options-label">3 Treatment Estimate Options Received</div>
+
+        <div class="option-card">
+            <div class="option-header">
+                <div>
+                    <div class="office-name">Desert Ridge Implant Center</div>
+                    <div class="office-creds">Oral & Maxillofacial Surgery &middot; 12 Years Experience</div>
+                </div>
+                <div>
+                    <div class="price-range">$18,500 &ndash; $24,000</div>
+                    <div class="price-label">Preliminary Estimate Range</div>
+                </div>
+            </div>
+
+            <span class="confidence-badge confidence-high">High Confidence</span>
+
+            <hr class="card-divider">
+
+            <div class="card-section-title">Treatment Approach</div>
+            <div class="card-section-body">Our approach uses a full-arch fixed prosthetic supported by 4-6 titanium implants using the All-on-4 technique. We leverage same-day provisional restorations and digital X-guide implant placement for precision and faster recovery.</div>
+
+            <div class="card-section-title">Why Choose This Office</div>
+            <div class="card-section-body">3D-guided implant surgery, onsite milling, IV sedation available, 5-year prosthetic warranty. We manage the entire case in-house without referrals.</div>
+
+            <div class="tags-row">
+                <span class="tag">IV Sedation</span>
+                <span class="tag">Same-Day Teeth</span>
+                <span class="tag">5-Year Warranty</span>
+                <span class="tag">PPO Accepted</span>
+                <span class="tag">Financing Available</span>
+            </div>
+
+            <div class="card-footer">
+                <div class="consult-note">Final treatment plan confirmed during in-office consultation</div>
+                <a href="#" class="cta-bt onclick="gtag('event', 'request_consultation')"n">Request Consultation</a>
+            </div>
+        </div>
+
+        <div class="option-card">
+            <div class="option-header">
+                <div>
+                    <div class="office-name">Chandler Family Dental & Implants</div>
+                    <div class="office-creds">General & Implant Dentistry &middot; 8 Years Experience</div>
+                </div>
+                <div>
+                    <div class="price-range">$14,900 &ndash; $19,500</div>
+                    <div class="price-label">Preliminary Estimate Range</div>
+                </div>
+            </div>
+
+            <span class="confidence-badge confidence-moderate">Moderate Confidence</span>
+
+            <hr class="card-divider">
+
+            <div class="card-section-title">Treatment Approach</div>
+            <div class="card-section-body">We recommend a staged approach: extraction + healing, then implant placement with a 4-month osseointegration period, followed by custom porcelain final restoration. This allows for optimal bone healing and long-term stability.</div>
+
+            <div class="card-section-title">Why Choose This Office</div>
+            <div class="card-section-body">Digital scanning, CBCT in-office, flexible payment plans, and referral coordination with a local oral surgeon for complex extractions if needed.</div>
+
+            <div class="tags-row">
+                <span class="tag">CBCT In-Office</span>
+                <span class="tag">Staged Approach</span>
+                <span class="tag">0% Financing</span>
+                <span class="tag">Delta Dental PPO</span>
+            </div>
+
+            <div class="card-footer">
+                <div class="consult-note">Final treatment plan confirmed during in-office consultation</div>
+                <a href="#" class="cta-bt onclick="gtag('event', 'request_consultation')"n">Request Consultation</a>
+            </div>
+        </div>
+
+        <div class="option-card">
+            <div class="option-header">
+                <div>
+                    <div class="office-name">Gilbert Periodontics & Dental Implants</div>
+                    <div class="office-creds">Periodontist &middot; 17 Years Experience</div>
+                </div>
+                <div>
+                    <div class="price-range">$21,000 &ndash; $27,500</div>
+                    <div class="price-label">Preliminary Estimate Range</div>
+                </div>
+            </div>
+
+            <span class="confidence-badge confidence-limited">Limited Confidence &mdash; In-office Consultation Required</span>
+
+            <hr class="card-divider">
+
+            <div class="card-section-title">Treatment Approach</div>
+            <div class="card-section-body">Based on your CBCT, bone augmentation may be required prior to implant placement. We specialize in advanced ridge augmentation using particulate bone grafting and membrane techniques, maximizing long-term implant stability in compromised sites.</div>
+
+            <div class="card-section-title">Why Choose This Office</div>
+            <div class="card-section-body">Board-certified Periodontist, 2,000+ implant cases, specialized in complex bone cases, in-house lab for custom abutments and ceramic restorations.</div>
+
+            <div class="tags-row">
+                <span class="tag">Bone Grafting</span>
+                <span class="tag">Periodontic Specialist</span>
+                <span class="tag">In-House Lab</span>
+                <span class="tag">Most Complex Cases</span>
+            </div>
+
+            <div class="card-footer">
+                <div class="consult-note">In-office consultation required before a firm estimate can be provided</div>
+                <a href="#" class="cta-bt onclick="gtag('event', 'request_consultation')"n">Request Consultation</a>
+            </div>
+        </div>
+
+        <div class="bottom-note">
+            All treatment estimates are preliminary and must be confirmed during an in-office consultation. Final treatment recommendations may differ based on clinical examination, diagnostics, and patient-specific factors. Prices shown are estimate ranges only.
+        </div>
+    </div>
+</body>
+</html>
