@@ -1,414 +1,261 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PLK6GWSVB4"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-PLK6GWSVB4');
-    </script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clinical Review - Case #992031 | DentalDash Pro</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        :root {
-            --primary-blue: #0f1c2e;
-            --accent-blue: #3b82f6;
-            --text-main: #1e293b;
-            --text-muted: #64748b;
-            --bg-light: #f8fafc;
-            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        }
-
-        body {
-            background-color: #f1f5f9;
-            margin: 0;
-            padding-top: 64px;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
-
-        /* Fixed Navigation */
-        .top-nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 64px;
-            background: white;
-            border-bottom: 1px solid #e2e8f0;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 40px;
-            z-index: 1000;
-        }
-
-        .logo {
-            font-weight: 800;
-            color: var(--accent-blue);
-            font-size: 1.25rem;
-            text-decoration: none;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 24px;
-        }
-
-        .nav-link {
-            text-decoration: none;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        /* Layout Structure */
-        .bid-container {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 24px;
-            display: grid;
-            grid-template-columns: 1fr 320px;
-            gap: 32px;
-            padding-bottom: 120px;
-        }
-
-        @media (max-width: 950px) {
-            .bid-container {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Cards and Components */
-        .card {
-            background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 16px;
-            padding: 32px;
-            margin-bottom: 24px;
-            box-shadow: var(--card-shadow);
-        }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 24px;
-            border-bottom: 1px solid #f1f5f9;
-            padding-bottom: 16px;
-        }
-
-        .card-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--primary-blue);
-            margin: 0;
-        }
-
-        .case-status {
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            padding: 4px 10px;
-            border-radius: 6px;
-            background: #fef3c7;
-            color: #92400e;
-        }
-
-        /* Patient Overview Section */
-        .patient-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-        }
-
-        .patient-item label {
-            display: block;
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            margin-bottom: 6px;
-        }
-
-        .patient-item span {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--text-main);
-        }
-
-        .clinical-complaint {
-            margin-top: 24px;
-            background: #eff6ff;
-            padding: 20px;
-            border-radius: 12px;
-            border-left: 4px solid var(--accent-blue);
-        }
-
-        /* Treatment Table */
-        .treatment-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 16px;
-        }
-
-        .treatment-table th {
-            text-align: left;
-            padding: 12px;
-            border-bottom: 2px solid #f1f5f9;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-
-        .treatment-table td {
-            padding: 16px 12px;
-            border-bottom: 1px solid #f1f5f9;
-            font-size: 0.95rem;
-        }
-
-        .input-price {
-            border: 1px solid #e2e8f0;
-            padding: 8px 12px;
-            border-radius: 8px;
-            width: 110px;
-            font-weight: 600;
-            text-align: right;
-        }
-
-        /* Confidence Toggle */
-        .confidence-options {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-            margin-top: 24px;
-        }
-
-        .option-card {
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 16px;
-            cursor: pointer;
-            transition: all 0.2s;
-            position: relative;
-        }
-
-        .option-card input {
-            position: absolute;
-            opacity: 0;
-        }
-
-        .option-card:hover {
-            border-color: #cbd5e1;
-        }
-
-        .option-card:has(input:checked) {
-            border-color: var(--accent-blue);
-            background: #eff6ff;
-        }
-
-        /* Sidebar Stats */
-        .sidebar-section {
-            margin-bottom: 24px;
-        }
-
-        .score-box {
-            background: linear-gradient(135deg, #0f1c2e 0%, #1e293b 100%);
-            color: white;
-            padding: 32px;
-            border-radius: 20px;
-            text-align: center;
-            margin-bottom: 32px;
-        }
-
-        .score-val {
-            font-size: 3.5rem;
-            font-weight: 800;
-            line-height: 1;
-            display: block;
-        }
-
-        .stat-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px solid #f1f5f9;
-            font-size: 0.9rem;
-        }
-
-        .stat-label { color: var(--text-muted); }
-        .stat-val { font-weight: 600; }
-
-        /* Actions Bar */
-        .actions-bar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: white;
-            padding: 24px 40px;
-            border-top: 1px solid #e2e8f0;
-            display: flex;
-            justify-content: flex-end;
-            gap: 16px;
-            z-index: 1000;
-        }
-
-        .btn {
-            padding: 14px 28px;
-            border-radius: 12px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.2s;
-            cursor: pointer;
-            border: none;
-        }
-
-        .btn-outline {
-            background: white;
-            border: 2px solid #e2e8f0;
-            color: var(--text-main);
-        }
-
-        .btn-primary {
-            background: var(--accent-blue);
-            color: white;
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4);
-        }
-    </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PLK6GWSVB4"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-PLK6GWSVB4');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clinical Review | DentalDash Pro</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    :root {
+      --primary-blue: #0f1c2e;
+      --accent-blue: #3b82f6;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --bg-light: #f8fafc;
+      --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+    body {
+      background-color: #f1f5f9;
+      margin: 0;
+      padding-top: 64px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    .top-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 64px;
+      background: white;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      z-index: 1000;
+    }
+    .logo { font-weight: 800; color: var(--accent-blue); font-size: 1.25rem; text-decoration: none; }
+    .nav-links { display: flex; gap: 24px; }
+    .nav-link { text-decoration: none; color: var(--text-muted); font-size: 0.9rem; font-weight: 500; }
+    .bid-container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 24px 120px;
+    }
+    .card {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 24px;
+      box-shadow: var(--card-shadow);
+    }
+    .card-title { font-size: 1.25rem; font-weight: 700; color: var(--primary-blue); margin: 0 0 20px; }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; font-size: 0.85rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 8px; }
+    .form-input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      font-size: 1rem;
+      color: #1a202c;
+      background: #fff;
+      box-sizing: border-box;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .actions-bar {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: white;
+      padding: 20px 40px;
+      border-top: 1px solid #e2e8f0;
+      display: flex;
+      justify-content: flex-end;
+      gap: 16px;
+      z-index: 1000;
+    }
+    .btn { padding: 14px 28px; border-radius: 12px; font-weight: 600; text-decoration: none; transition: all 0.2s; cursor: pointer; border: none; font-size: 1rem; }
+    .btn-outline { background: white; border: 2px solid #e2e8f0; color: var(--text-main); }
+    .btn-primary { background: var(--accent-blue); color: white; box-shadow: 0 4px 12px rgba(59,130,246,0.3); }
+    .btn-primary:hover { transform: translateY(-2px); }
+    .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    .case-info { background: #eff6ff; padding: 16px 20px; border-radius: 10px; border-left: 4px solid var(--accent-blue); margin-bottom: 24px; font-size: 0.9rem; color: var(--text-main); }
+  </style>
 </head>
 <body>
 
-    <nav class="top-nav">
-        <a href="office-dashboard.html" class="logo">DentalDash</a>
-        <div class="nav-links">
-            <a href="office-dashboard.html" class="nav-link">Dashboard</a>
-            <a href="office-cases.html" class="nav-link">Patient Cases</a>
-            <a href="#" class="nav-link">Settings</a>
+<nav class="top-nav">
+  <a href="office-dashboard.html" class="logo">DentalDash</a>
+  <div class="nav-links">
+    <a href="office-dashboard.html" class="nav-link">Dashboard</a>
+    <a href="office-cases.html" class="nav-link">Patient Cases</a>
+    <a href="#" class="nav-link">Settings</a>
+  </div>
+</nav>
+
+<div class="bid-container">
+  <div class="case-info" id="caseInfoBanner">
+    Loading case information...
+  </div>
+
+  <form id="bidForm">
+    <div class="card">
+      <h2 class="card-title">Estimate Details</h2>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="estimate_low">Low Estimate ($) *</label>
+          <input type="number" id="estimate_low" name="estimate_low" class="form-input" placeholder="2500" min="0" step="0.01" required>
         </div>
-    </nav>
-
-    <div class="bid-container">
-        <div class="main-content">
-            <!-- Patient Profile Header -->
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <h2 class="card-title">Patient Clinical Profile</h2>
-                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 4px;">Case ID: #DASH-992031 • Assigned to Review</p>
-                    </div>
-                    <span class="case-status">In Review</span>
-                </div>
-                
-                <div class="patient-grid">
-                    <div class="patient-item">
-                        <label>Patient</label>
-                        <span>Jane Doe</span>
-                    </div>
-                    <div class="patient-item">
-                        <label>Age / Gender</label>
-                        <span>42 / Female</span>
-                    </div>
-                    <div class="patient-item">
-                        <label>Coverage</label>
-                        <span>Delta Dental PPO</span>
-                    </div>
-                </div>
-
-                <div class="clinical-complaint">
-                    <label style="display: block; font-size: 0.75rem; font-weight: 800; color: var(--accent-blue); margin-bottom: 8px; text-transform: uppercase;">Chief Complaint</label>
-                    <p style="margin: 0; font-size: 1rem; color: #1e293b; line-height: 1.5; font-style: italic;">
-                        "I have a sharp, throbbing pain on the lower right side. It started three days ago and gets worse with cold drinks. I can't sleep through the night without Ibuprofen."
-                    </p>
-                </div>
-            </div>
-
-            <!-- AI Assessment & Diagnosis -->
-            <div class="card">
-                <h3 class="card-title" style="margin-bottom: 20px;">AI-Assisted Clinical Findings</h3>
-                <div style="display: flex; gap: 32px; align-items: flex-start;">
-                    <div style="background: #f1f5f9; padding: 20px; border-radius: 12px; text-align: center; min-width: 120px;">
-                        <span style="display: block; font-size: 0.75rem; font-weight: 700; color: var(--text-muted); margin-bottom: 4px;">TARGET TOOTH</span>
-                        <span style="font-size: 2.5rem; font-weight: 800; color: var(--primary-blue);">30</span>
-                    </div>
-                    <div>
-                        <p style="margin: 0; font-weight: 700; color: #dc2626; font-size: 1.1rem;">Symptomatic Irreversible Pulpitis</p>
-                        <p style="margin-top: 8px; color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">
-                            Radiographic analysis shows deep distal-occlusal radiolucency approaching the pulp chamber. Clinical history of lingering cold sensitivity and spontaneous pain indicates pulpal involvement. Periapical tissue appears normal.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Proposed Treatment Plan -->
-            <div class="card">
-                
-                <form id="bidForm">
-                    <h4 style="margin: 32px 0 16px; font-size: 1rem; color: var(--primary-blue);">Estimated Treatment Range</h4>
-
-      <label for="estimate_low" style="display: block; font-size: 0.875rem; font-weight: 600; color: #374151; margin-bottom: 6px; margin-top: 18px;">Low Estimate</label>
-      <input type="text" id="estimate_low" name="estimate_low" class="input-price" placeholder="$2,500" style="width: 100%; padding: 12px 16px; border: 1px solid #d1d5db; border-radius: 10px; font-size: 1rem; color: #1a202c; background: #fff; box-sizing: border-box;">
-
-      <label for="estimate_high" style="display: block; font-size: 0.875rem; font-weight: 600; color: #374151; margin-bottom: 6px; margin-top: 18px;">High Estimate</label>
-      <input type="text" id="estimate_high" name="estimate_high" class="input-price" placeholder="$3,200" style="width: 100%; padding: 12px 16px; border: 1px solid #d1d5db; border-radius: 10px; font-size: 1rem; color: #1a202c; background: #fff; box-sizing: border-box;">
-
-      <label for="payment_options" style="display: block; font-size: 0.875rem; font-weight: 600; color: #374151; margin-bottom: 6px; margin-top: 18px;">Payment Options (Optional)</label>
-      <input type="text" id="payment_options" name="payment_options" placeholder="e.g., CareCredit, Payment Plans" style="width: 100%; padding: 12px 16px; border: 1px solid #d1d5db; border-radius: 10px; font-size: 1rem; color: #1a202c; background: #fff; box-sizing: border-box;">
-
-      <p style="margin-top: 20px; font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; background: #f8fafc; padding: 16px; border-radius: 8px; border-left: 4px solid var(--accent-blue);">
-        This is a preliminary estimate based on the information provided. Final treatment cost will be confirmed during an in-office consultation.
-      </p>
-                </form>
-            </div>
+        <div class="form-group">
+          <label for="estimate_high">High Estimate ($) *</label>
+          <input type="number" id="estimate_high" name="estimate_high" class="form-input" placeholder="3200" min="0" step="0.01" required>
         </div>
+      </div>
 
-        <aside class="sidebar">
-            <div class="score-box">
-                <span class="score-val">92</span>
-                <p style="font-size: 0.9rem; font-weight: 600; margin-top: 8px; opacity: 0.9;">Case Match Score</p>
-                <div style="height: 4px; background: rgba(255,255,255,0.2); border-radius: 2px; margin-top: 16px;">
-                    <div style="width: 92%; height: 100%; background: #4ade80; border-radius: 2px;"></div>
-                </div>
-            </div>
+      <div class="form-group">
+        <label for="treatment_approach">Treatment Approach *</label>
+        <textarea id="treatment_approach" name="treatment_approach" class="form-input" rows="4" placeholder="Describe the recommended treatment plan..." required style="resize:vertical;"></textarea>
+      </div>
 
-            <div class="sidebar-section">
-                <h4 style="font-size: 0.85rem; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.05em; margin-bottom: 12px;">Market Intelligence</h4>
-                <div class="stat-row">
-                    <span class="stat-label">Market Urgency</span>
-                    <span class="stat-val" style="color: #ef4444;">Extreme</span>
-                </div>
-                <div class="stat-row">
-                    <span class="stat-label">Patient Distance</span>
-                    <span class="stat-val">12.4 Miles</span>
-                </div>
-                <div class="stat-row">
-                    <span class="stat-label">Interest Level</span>
-                    <span class="stat-val">3 Other Offices</span>
-                </div>
-            </div>
+      <div class="form-group">
+        <label for="payment_options">Payment Options (Optional)</label>
+        <input type="text" id="payment_options" name="payment_options" class="form-input" placeholder="e.g., CareCredit, Payment Plans">
+      </div>
 
-            <div class="sidebar-section">
-                <h4 style="font-size: 0.85rem; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.05em; margin-bottom: 12px;">Supporting Documents</h4>
-                <div style="display: flex; flex-direction: column; gap: 10px;">
-                    <a href="#" class="nav-link" style="color: var(--accent-blue); display: flex; align-items: center; gap: 8px;">📄 Periapical X-Ray</a>
-                    <a href="#" class="nav-link" style="color: var(--accent-blue); display: flex; align-items: center; gap: 8px;">📄 Panoramic X-Ray</a>
-                    <a href="#" class="nav-link" style="color: var(--accent-blue); display: flex; align-items: center; gap: 8px;">📄 Intraoral Photos</a>
-                </div>
-            </div>
-        </aside>
+      <div class="form-group">
+        <label for="availability_notes">Availability Notes (Optional)</label>
+        <input type="text" id="availability_notes" name="availability_notes" class="form-input" placeholder="e.g., Available next week, Monday-Friday">
+      </div>
     </div>
 
-    <div class="actions-bar">
-        <a href="office-dashboard.html" class="btn btn-outline">Save for Later</a>
-        <button type="submit" form="bidForm" class="btn btn-primary" onclick="gtag('event', 'submit_for_doctor_approval'); window.location.href='estimate-submitted.html'">Submit for Doctor Approval</button>
+    <div class="card">
+      <h2 class="card-title">Submitting Office Contact</h2>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="submitted_by_name">Your Name *</label>
+          <input type="text" id="submitted_by_name" name="submitted_by_name" class="form-input" placeholder="Dr. Jane Smith" required>
+        </div>
+        <div class="form-group">
+          <label for="submitted_by_role">Your Role *</label>
+          <input type="text" id="submitted_by_role" name="submitted_by_role" class="form-input" placeholder="DDS, Treatment Coordinator, etc." required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="why_choose_us">Why Choose Our Office? (Optional)</label>
+        <textarea id="why_choose_us" name="why_choose_us" class="form-input" rows="3" placeholder="Tell the patient why your office is the best choice..." style="resize:vertical;"></textarea>
+      </div>
     </div>
+  </form>
+</div>
+
+<div class="actions-bar">
+  <a href="office-cases.html" class="btn btn-outline">Cancel</a>
+  <button type="submit" form="bidForm" class="btn btn-primary" id="submitBtn">Submit for Doctor Approval</button>
+</div>
+
+<!-- Supabase -->
+<script type="module">
+  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+  const SUPABASE_URL = 'https://fxfwytxfeuwsbeapiyqw.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ4Znd5dHhmZXV3c2JlYXBpeXF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQ2NTk3MjksImV4cCI6MjA1MDIzNTcyOX0.anZxOWzcVyobPx8hW_DUpdIl1IAWeE-ANXpZq-ysXvI';
+  const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  // Helper: get query param
+  function getQueryParam(name) {
+    return new URLSearchParams(window.location.search).get(name);
+  }
+
+  const caseId = getQueryParam('case_id');
+
+  // Update banner
+  const banner = document.getElementById('caseInfoBanner');
+  if (caseId) {
+    banner.textContent = 'Submitting estimate for Case ID: ' + caseId;
+  } else {
+    banner.style.background = '#fef2f2';
+    banner.style.borderLeftColor = '#ef4444';
+    banner.textContent = 'Warning: No case_id in URL. This estimate will not be linked to a patient case. Access this page from Patient Cases.';
+  }
+
+  // Form submission
+  document.getElementById('bidForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const submitBtn = document.getElementById('submitBtn');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting...';
+
+    if (!caseId) {
+      alert('Error: No case_id provided. Please access this page from a valid patient case.');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Submit for Doctor Approval';
+      return;
+    }
+
+    const TEMP_OFFICE_ID = '00000000-0000-0000-0000-000000000001';
+
+    const low = parseFloat(document.getElementById('estimate_low').value) || 0;
+    const high = parseFloat(document.getElementById('estimate_high').value) || 0;
+    const treatment = document.getElementById('treatment_approach').value.trim();
+    const submittedByName = document.getElementById('submitted_by_name').value.trim();
+    const submittedByRole = document.getElementById('submitted_by_role').value.trim();
+    const paymentOptions = document.getElementById('payment_options').value.trim();
+    const availabilityNotes = document.getElementById('availability_notes').value.trim();
+    const whyChooseUs = document.getElementById('why_choose_us').value.trim();
+
+    if (!low || !high || !treatment || !submittedByName || !submittedByRole) {
+      alert('Please fill in all required fields (Low Estimate, High Estimate, Treatment Approach, Your Name, Your Role).');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Submit for Doctor Approval';
+      return;
+    }
+
+    const payload = {
+      patient_case_id: caseId,
+      office_id: TEMP_OFFICE_ID,
+      submitted_by_name: submittedByName,
+      submitted_by_role: submittedByRole,
+      treatment_approach: treatment,
+      low_estimate: low,
+      high_estimate: high,
+      payment_options: paymentOptions,
+      availability_notes: availabilityNotes,
+      why_choose_us: whyChooseUs,
+      status: 'PENDING_DOCTOR_APPROVAL'
+    };
+
+    try {
+      const { data, error } = await supabase
+        .from('estimates')
+        .insert([payload])
+        .select();
+
+      if (error) throw error;
+
+      if (typeof gtag === 'function') {
+        gtag('event', 'submit_for_doctor_approval');
+      }
+
+      window.location.href = 'estimate-submitted.html';
+    } catch (err) {
+      console.error('Estimate submission error:', err);
+      alert('Error submitting estimate: ' + (err.message || 'Unknown error. Please try again.'));
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Submit for Doctor Approval';
+    }
+  });
+</script>
 
 </body>
 </html>

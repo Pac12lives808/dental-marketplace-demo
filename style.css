@@ -1,5 +1,35 @@
 /* Dental Dash Pro - Modern 2026 Startup Stylesheet */
 
+/* ===== COLOR SYSTEM ===== */
+:root {
+      /* Brand Colors */
+      --brand-blue: #2563EB;
+      --brand-cyan: #22D3EE;
+      --brand-blue-hover: #1D4ED8;
+
+      /* Backgrounds */
+      --bg-dark: ##0B1020;
+      --bg-dark-2: ##121A2F;
+      --surface: #F8F9FC;
+      --surface-card: #FFFFFF;
+
+      /* Text Colors */
+      --text-dark: #0E1726;
+      --text-muted: #64748B;
+      --text-light: #94A3B8;
+        --text-light: #E2E8F0;
+
+      /* Borders & Shadows */
+      --border-light: #E2E8F0;
+      --shadow-soft: 0 10px 30px rgba(15, 23, 42, 0.08);
+      --shadow-card: 0 8px 24px rgba(15, 23, 42, 0.06);
+
+      /* Status Colors */
+      --success: #10A34A;
+      --warning: #F59E0B;
+      --danger: #DC2626;
+    }
+
 /* ===== RESET & BASE ===== */
 * {
     box-sizing: border-box;
@@ -24,8 +54,7 @@ body {
 
 /* ===== HEADER ===== */
 header {
-    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-    color: white;
+  background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-dark-2) 45%, var(--brand-blue) 100%);    color: white;
     padding: 32px 0;
     box-shadow: 0 4px 20px rgba(37, 99, 235, 0.15);
 }
@@ -66,8 +95,7 @@ main {
 
 /* ===== HERO SECTION ===== */
 .hero {
-    background: linear-gradient(to bottom, white 0%, #f8fafc 100%);
-    padding: 80px 0 100px;
+  background: linear-gradient(135deg, var(--bg-dark) 0%, var(--brand-blue) 100%);    padding: 80px 0 100px;
 }
 
 .hero-logo {
@@ -132,8 +160,7 @@ main {
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-    color: white;
+  background: linear-gradient(135deg, var(--brand-blue) 0%, var(--brand-blue-hover) 100%);    color: white;
     box-shadow: 0 4px 16px rgba(37, 99, 235, 0.3);
 }
 
@@ -144,10 +171,8 @@ main {
 
 .btn-secondary {
     background: white;
-    color: #2563eb;
-    border: 2px solid #2563eb;
-    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.1);
-}
+  color: var(--brand-blue);    border: 2px solid #2563eb;
+  border: 2px solid var(--brand-blue);}
 
 .btn-secondary:hover {
     background: #eff6ff;
@@ -157,8 +182,7 @@ main {
 
 .btn-cta {
     background: white;
-    color: #2563eb;
-    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
+  color: var(--brand-blue);    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
 }
 
 .btn-cta:hover {
@@ -197,8 +221,7 @@ main {
 .step-number {
     width: 72px;
     height: 72px;
-    background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
-    color: white;
+  background: linear-gradient(135deg, var(--brand-blue) 0%, var(--brand-cyan) 100%);    color: white;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -327,8 +350,7 @@ main {
 /* ===== FINAL CTA SECTION ===== */
 .final-cta {
     padding: 100px 0;
-    background: linear-gradient(135deg, #1e40af 0%, #2563eb 50%, #3b82f6 100%);
-    position: relative;
+  background: linear-gradient(135deg, var(--bg-dark) 0%, var(--brand-blue) 50%, var(--brand-cyan) 100%);    position: relative;
     overflow: hidden;
 }
 
