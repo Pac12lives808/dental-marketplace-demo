@@ -16,6 +16,7 @@
         <div class="estimate-header">
             <h1>Professional Treatment Estimate Submission</h1>
             <p class="estimate-subtitle">Review case details and submit your treatment approach</p>
+            <p style="font-size:0.9em;color:#666;font-style:italic;margin-top:10px;">Estimates may be prepared by a coordinator and reviewed by the doctor before submission.</p>
         </div>
 
         <div class="estimate-container">
@@ -74,19 +75,28 @@
                     </div>
                 </section>
 
-                <!-- SECTION B: TREATMENT APPROACH -->
-                <section class="form-section">
+                <!-- SECTION B: TREATMENT APPROACH (ELEVATED) -->
+                <section class="form-section" style="background:#f8f9fa;padding:24px;border:2px solid #007bff;border-radius:8px;">
                     <div class="section-header">
                         <span class="section-label">B</span>
                         <h3>Recommended Treatment Approach</h3>
                     </div>
                     <div class="form-group">
-                        <label for="treatmentApproach">Treatment Plan Details</label>
-                        <textarea id="treatmentApproach" name="treatmentApproach" rows="5" 
-                                  placeholder="Describe your recommended treatment approach, materials to be used, and clinical rationale. E.g., 'I recommend a porcelain-fused-to-metal crown for tooth #30 to restore function and aesthetics. Will use local anesthesia, remove existing filling material, prepare tooth, take impressions, and place temporary crown at first visit...'" required></textarea>
-                        <small class="helper-text">Include materials, procedures, and clinical reasoning</small>
+                        <label for="treatmentApproach" style="font-weight:bold;font-size:1.1em;">Treatment Plan Details</label>
+                        <textarea id="treatmentApproach" name="treatmentApproach" rows="8" 
+                                  placeholder="Explain how your office would approach this case, what you recommend, and why. Include alternatives if appropriate. Example: 'I recommend a porcelain-fused-to-metal crown for tooth #30 to restore function and aesthetics. Will use local anesthesia, remove existing filling material, prepare tooth, take impressions, and place temporary crown at first visit. Permanent crown placement at second visit. Alternative: All-ceramic crown for superior aesthetics at slightly higher cost.'" required style="font-size:1.05em;"></textarea>
+                        <small class="helper-text" style="display:block;margin-top:8px;color:#555;">Explain how your office would approach this case, what you recommend, and why. Include alternatives if appropriate.</small>
                     </div>
                     <div class="form-grid">
+                        <div class="form-group">
+                            <label for="clinicalConfidence">Clinical Confidence</label>
+                            <select id="clinicalConfidence" name="clinicalConfidence" required>
+                                <option value="">Select...</option>
+                                <option value="high">High Confidence</option>
+                                <option value="moderate">Moderate Confidence</option>
+                                <option value="limited">Limited Confidence — requires in-office consultation</option>
+                            </select>
+                        </div>
                         <div class="form-group">
                             <label for="appointmentsNeeded">Appointments Required</label>
                             <select id="appointmentsNeeded" name="appointmentsNeeded" required>
@@ -104,33 +114,32 @@
                     </div>
                 </section>
 
-                <!-- SECTION C: COST BREAKDOWN -->
+                <!-- SECTION C: FINANCIAL OVERVIEW (REPOSITIONED TONE) -->
                 <section class="form-section">
                     <div class="section-header">
                         <span class="section-label">C</span>
-                        <h3>Cost Estimate</h3>
+                        <h3>Estimated Treatment Range / Financial Overview</h3>
                     </div>
                     <div class="form-grid">
                         <div class="form-group">
-                            <label for="procedureCost">Procedure Fee</label>
+                            <label for="procedureCost">Estimated Treatment Range</label>
                             <input type="number" id="procedureCost" name="procedureCost" placeholder="1200" step="0.01" required>
+                            <small class="helper-text">Estimated cost for this treatment</small>
                         </div>
                         <div class="form-group">
-                            <label for="insuranceCoverage">Estimated Insurance Coverage</label>
+                            <label for="insuranceCoverage">Estimated Coverage (if applicable)</label>
                             <input type="number" id="insuranceCoverage" name="insuranceCoverage" placeholder="600" step="0.01">
+                            <small class="helper-text">Optional: estimated insurance contribution</small>
                         </div>
                         <div class="form-group">
-                            <label for="patientResponsibility">Patient Responsibility (est.)</label>
+                            <label for="patientResponsibility">Estimated Patient Portion</label>
                             <input type="number" id="patientResponsibility" name="patientResponsibility" placeholder="600" step="0.01" required>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="paymentOptions">Payment Options Available</label>
-                        <div class="checkbox-group">
-                            <label><input type="checkbox" name="paymentOptions" value="full"> Full payment</label>
-                            <label><input type="checkbox" name="paymentOptions" value="installment"> Payment plan available</label>
-                            <label><input type="checkbox" name="paymentOptions" value="financing"> Third-party financing (CareCredit, etc.)</label>
-                        </div>
+                        <label for="paymentNotes">Optional Financing / Payment Notes</label>
+                        <textarea id="paymentNotes" name="paymentNotes" rows="2" 
+                                  placeholder="e.g., Payment plans available, CareCredit accepted, flexible scheduling for payment timing"></textarea>
                     </div>
                 </section>
 
@@ -163,12 +172,12 @@
                     </div>
                 </section>
 
-                <!-- PROFESSIONAL DISCLAIMER -->
+                <!-- CLINICAL DISCLAIMER -->
                 <div class="disclaimer-box">
-                    <h4>Professional Attestation</h4>
-                    <p><strong>By submitting this estimate, you attest that:</strong></p>
+                    <h4>Clinical Disclaimer</h4>
+                    <p><strong>All treatment estimates are preliminary and must be confirmed during an in-office consultation.</strong></p>
                     <ul>
-                        <li>This estimate is based on the information provided and your professional clinical judgment</li>
+                        <li>This estimate is based on the information provided and professional clinical judgment</li>
                         <li>Final treatment recommendations and costs may vary pending clinical examination</li>
                         <li>You are licensed to practice dentistry in this state</li>
                         <li>This estimate is valid for 30 days from submission date</li>
@@ -182,7 +191,7 @@
                 <!-- ACTION BUTTONS -->
                 <div class="form-actions">
                     <a href="office-dashboard.html" class="btn-secondary">Save as Draft</a>
-                    <button type="submit" class="btn-primary">Submit Estimate to Patient</button>
+                    <button type="submit" class="btn-primary">Submit for Doctor Approval</button>
                 </div>
             </form>
         </div>
