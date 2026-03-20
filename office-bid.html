@@ -173,7 +173,7 @@
   <script>
     var SUPABASE_URL = 'https://fxfwytxfeuwsbeapiyqw.supabase.co';
     var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ4Znd5dHhmZXV3c2JlYXBpeXF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQ2NTk3MjksImV4cCI6MjA1MDIzNTcyOX0.anZxOWzcVyobPx8hW_DUpdIl1IAWeE-ANXpZq-ysXvI';
-    var supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    var supabaseClient = null;
 
     function getQueryParam(name) {
       return new URLSearchParams(window.location.search).get(name);
@@ -189,8 +189,8 @@
       banner.textContent = 'Warning: No case_id in URL. Access this page from Patient Cases.';
     }
 
-    async function handleSubmit() {
-      var submitBtn = document.getElementById('submitBtn');
+    async function handleSubmit() { alert('DEBUG: handleSubmit called, caseId='+caseId);
+      if (!supabaseClient) { supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY); } var submitBtn = document.getElementById('submitBtn');
       submitBtn.disabled = true;
       submitBtn.textContent = 'Submitting...';
 
