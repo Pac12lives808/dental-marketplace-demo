@@ -189,7 +189,7 @@
       banner.textContent = 'Warning: No case_id in URL. Access this page from Patient Cases.';
     }
 
-    async function handleSubmit() { alert('DEBUG: handleSubmit called, caseId='+caseId);
+    async function handleSubmit() { document.getElementById('submitBtn').textContent = 'CLICKED caseId=' + caseId;
       if (!supabaseClient) { supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY); } var submitBtn = document.getElementById('submitBtn');
       submitBtn.disabled = true;
       submitBtn.textContent = 'Submitting...';
