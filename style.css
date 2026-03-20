@@ -8,8 +8,8 @@
       --brand-blue-hover: #1D4ED8;
 
       /* Backgrounds */
-      --bg-dark: #0B1D2D;
-      --bg-dark-2: #112131;
+      --bg-dark: ##0B1020;
+      --bg-dark-2: ##121A2F;
       --surface: #F8F9FC;
       --surface-card: #FFFFFF;
 
@@ -17,6 +17,7 @@
       --text-dark: #0E1726;
       --text-muted: #64748B;
       --text-light: #94A3B8;
+        --text-light: #E2E8F0;
 
       /* Borders & Shadows */
       --border-light: #E2E8F0;
