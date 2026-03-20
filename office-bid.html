@@ -171,24 +171,21 @@
   const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ4Znd5dHhmZXV3c2JlYXBpeXF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQ2NTk3MjksImV4cCI6MjA1MDIzNTcyOX0.anZxOWzcVyobPx8hW_DUpdIl1IAWeE-ANXpZq-ysXvI';
   const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-  // Helper: get query param
   function getQueryParam(name) {
     return new URLSearchParams(window.location.search).get(name);
   }
 
   const caseId = getQueryParam('case_id');
 
-  // Update banner
   const banner = document.getElementById('caseInfoBanner');
   if (caseId) {
     banner.textContent = 'Submitting estimate for Case ID: ' + caseId;
   } else {
     banner.style.background = '#fef2f2';
     banner.style.borderLeftColor = '#ef4444';
-    banner.textContent = 'Warning: No case_id in URL. This estimate will not be linked to a patient case. Access this page from Patient Cases.';
+    banner.textContent = 'Warning: No case_id in URL. Access this page from Patient Cases.';
   }
 
-  // Form submission
   document.getElementById('bidForm').addEventListener('submit', async function(e) {
     e.preventDefault();
 
@@ -203,8 +200,6 @@
       return;
     }
 
-    const TEMP_OFFICE_ID = '00000000-0000-0000-0000-000000000001';
-
     const low = parseFloat(document.getElementById('estimate_low').value) || 0;
     const high = parseFloat(document.getElementById('estimate_high').value) || 0;
     const treatment = document.getElementById('treatment_approach').value.trim();
@@ -215,7 +210,7 @@
     const whyChooseUs = document.getElementById('why_choose_us').value.trim();
 
     if (!low || !high || !treatment || !submittedByName || !submittedByRole) {
-      alert('Please fill in all required fields (Low Estimate, High Estimate, Treatment Approach, Your Name, Your Role).');
+      alert('Please fill in all required fields.');
       submitBtn.disabled = false;
       submitBtn.textContent = 'Submit for Doctor Approval';
       return;
@@ -223,15 +218,15 @@
 
     const payload = {
       patient_case_id: caseId,
-      office_id: TEMP_OFFICE_ID,
+      office_id: null,
       submitted_by_name: submittedByName,
       submitted_by_role: submittedByRole,
       treatment_approach: treatment,
       low_estimate: low,
       high_estimate: high,
-      payment_options: paymentOptions,
-      availability_notes: availabilityNotes,
-      why_choose_us: whyChooseUs,
+      payment_options: paymentOptions || null,
+      availability_notes: availabilityNotes || null,
+      why_choose_us: whyChooseUs || null,
       status: 'PENDING_DOCTOR_APPROVAL'
     };
 
