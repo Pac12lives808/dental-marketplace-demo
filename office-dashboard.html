@@ -1,82 +1,365 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Office Dashboard - Dental Dash Pro</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Office Dashboard - Dental Dash Pro</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --primary: #007bff;
+            --primary-hover: #0056b3;
+            --bg-body: #f4f7f9;
+            --bg-card: #ffffff;
+            --border-color: #e1e4e8;
+            --text-main: #24292e;
+            --text-muted: #6a737d;
+            --radius-lg: 12px;
+            --radius-md: 8px;
+            --shadow: 0 4px 6px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.08);
+            --sidebar-width: 260px;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            background: #fff;
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            position: fixed;
+            height: 100vh;
+        }
+
+        .logo {
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 1.25rem;
+            margin-bottom: 40px;
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-item {
+            margin-bottom: 8px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            text-decoration: none;
+            color: var(--text-main);
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .nav-link:hover {
+            background: #f0f4f8;
+            color: var(--primary);
+        }
+
+        .nav-link.active {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .main-content {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            padding: 40px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.75rem;
+            font-weight: 700;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            padding: 24px;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+            padding: 24px;
+        }
+
+        .card-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        td {
+            padding: 16px 12px;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.9375rem;
+        }
+
+        .badge {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-blue { background: #e3f2fd; color: #1976d2; }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 16px;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+        }
+
+        .action-link {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            text-decoration: none;
+            color: var(--text-main);
+            border-radius: var(--radius-md);
+            margin-bottom: 8px;
+            background: #f8f9fa;
+            border: 1px solid var(--border-color);
+            transition: all 0.2s;
+        }
+
+        .action-link:hover {
+            background: #fff;
+            border-color: var(--primary);
+        }
+
+        .icon-box {
+            width: 32px;
+            height: 32px;
+            background: #fff;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        footer {
+            margin-top: 60px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1><a href="index.html" style="color:white;text-decoration:none;">Dental Dash Pro</a></h1>
-    <p>Office Dashboard - Demo</p>
-  </header>
-  <main>
-    <div class="dashboard">
-      <h2>Open Treatment Requests</h2>
-      <p style="color:#718096;margin-bottom:24px;">Review patient requests and submit competitive bids.</p>
-      <table>
-        <thead>
-          <tr>
-            <th>Patient</th>
-            <th>Treatment</th>
-            <th>ZIP Code</th>
-            <th>Insurance</th>
-            <th>Posted</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Patient #1042</td>
-            <td>Crown</td>
-            <td>85234</td>
-            <td>Delta Dental</td>
-            <td>2 hours ago</td>
-            <td><a href="submit.html">Submit Bid</a></td>
-          </tr>
-          <tr>
-            <td>Patient #1041</td>
-            <td>Root Canal</td>
-            <td>85233</td>
-            <td>None</td>
-            <td>4 hours ago</td>
-            <td><a href="submit.html">Submit Bid</a></td>
-          </tr>
-          <tr>
-            <td>Patient #1040</td>
-            <td>Cleaning &amp; Exam</td>
-            <td>85295</td>
-            <td>Cigna</td>
-            <td>1 day ago</td>
-            <td><a href="submit.html">Submit Bid</a></td>
-          </tr>
-          <tr>
-            <td>Patient #1039</td>
-            <td>Dental Implant</td>
-            <td>85212</td>
-            <td>Aetna</td>
-            <td>2 days ago</td>
-            <td><a href="submit.html">Submit Bid</a></td>
-          </tr>
-          <tr>
-            <td>Patient #1038</td>
-            <td>Teeth Whitening</td>
-            <td>85248</td>
-            <td>None</td>
-            <td>3 days ago</td>
-            <td><a href="submit.html">Submit Bid</a></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="nav-links">
-      <a href="get-started.html">&larr; Back</a>
-      <a href="index.html">Home</a>
-    </div>
-  </main>
-  <footer>
-    <p>&copy; 2026 Dental Dash Pro. All rights reserved.</p>
-  </footer>
+
+    <aside class="sidebar">
+        <a href="index.html" class="logo">Dental Dash Pro</a>
+        <nav>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="office-dashboard.html" class="nav-link active">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a href="office-cases.html" class="nav-link">Patient Leads</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Analytics</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Settings</a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <header class="header">
+            <div>
+                <h1>Office Dashboard</h1>
+                <p style="color: var(--text-muted); margin: 4px 0 0;">Welcome back, City Dental Care</p>
+            </div>
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <span style="font-weight: 500;">City Dental Care</span>
+                <div style="width: 40px; height: 40px; background: #e1e4e8; border-radius: 50%;"></div>
+            </div>
+        </header>
+
+        <section class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Total Bids Sent</div>
+                <div class="stat-value">142</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Active Leads</div>
+                <div class="stat-value">28</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Accepted Estimates</div>
+                <div class="stat-value">12</div>
+            </div>
+        </section>
+
+        <div class="dashboard-grid">
+            <div class="card">
+                <div class="card-title">
+                    Available Patient Cases
+                    <a href="office-cases.html" style="font-size: 0.875rem; font-weight: 500; color: var(--primary); text-decoration: none;">View All</a>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Patient ID</th>
+                            <th>Treatment</th>
+                            <th>Received</th>
+                            <th>Match</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Patient #1041</strong></td>
+                            <td>Root Canal</td>
+                            <td>4h ago</td>
+                            <td><span class="badge badge-blue">88/100</span></td>
+                            <td><a href="office-bid.html" class="btn btn-primary btn-sm">Review Case</a></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Patient #1040</strong></td>
+                            <td>Cleaning & Exam</td>
+                            <td>1d ago</td>
+                            <td><span class="badge badge-blue">95/100</span></td>
+                            <td><a href="office-bid.html" class="btn btn-primary btn-sm">Review Case</a></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Patient #1039</strong></td>
+                            <td>Dental Implants</td>
+                            <td>2d ago</td>
+                            <td><span class="badge badge-blue">82/100</span></td>
+                            <td><a href="office-bid.html" class="btn btn-primary btn-sm">Review Case</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="sidebar-column">
+                <div class="card">
+                    <h2 class="card-title">Quick Actions</h2>
+                    <div class="quick-actions">
+                        <a href="office-cases.html" class="action-link">
+                            <div class="icon-box">🔍</div>
+                            <span>Browse New Cases</span>
+                        </a>
+                        <a href="#" class="action-link">
+                            <div class="icon-box">📅</div>
+                            <span>Manage Schedule</span>
+                        </a>
+                        <a href="#" class="action-link">
+                            <div class="icon-box">📊</div>
+                            <span>Market Analytics</span>
+                        </a>
+                        <a href="#" class="action-link">
+                            <div class="icon-box">⚙️</div>
+                            <span>Office Settings</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            &copy; 2026 Dental Dash Pro &bull; HIPAA Compliant Office Portal
+        </footer>
+    </main>
 </body>
 </html>
