@@ -239,6 +239,7 @@
           .insert([payload])
           .select();
 
+                document.getElementById('caseInfoBanner').textContent = 'RESULT: err=' + (result.error ? result.error.message : 'null') + ' data=' + JSON.stringify(result.data);
         if (result.error) throw result.error;
 
         if (typeof gtag === 'function') {
@@ -247,6 +248,7 @@
 
                 window.location.replace('https://dentaldashpro.com/estimate-submitted.html');
       } catch (err) {
+                document.getElementById('caseInfoBanner').textContent = 'ERROR: ' + (err.message || JSON.stringify(err));
         console.error('Estimate submission error:', err);
         alert('Error submitting estimate: ' + (err.message || 'Unknown error. Please try again.'));
         submitBtn.disabled = false;
