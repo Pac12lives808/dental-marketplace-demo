@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+        <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PLK6GWSVB4"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-PLK6GWSVB4');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dental Dash Pro - Second Opinions & Treatment Estimates</title>
@@ -23,7 +31,7 @@
                     <h2 class="hero-title">Get a Professional Second Opinion on Your Dental Treatment</h2>
                     <p class="hero-subtitle">Submit your treatment details and receive professional estimates and clinical recommendations from licensed dental offices in your area. Make confident, informed decisions about your care.</p>
                     <div class="hero-buttons">
-                        <a href="get-started.html" class="btn btn-primary btn-large">Get Treatment Estimates</a>
+                        <a href="get-started.html" class="btn btn-primary btn-large" onclick="gtag('event', 'start_case_submission')">Get Treatment Estimates</a>
                         <a href="for-dentists.html" class="btn btn-secondary btn-large">For Dental Offices</a>
                     </div>
                 </div>
@@ -133,7 +141,7 @@
                 <div class="cta-content">
                     <h2>Ready to Explore Your Treatment Options?</h2>
                     <p>It's free and takes just a few minutes. Get professional treatment estimates from licensed dental offices near you.</p>
-                    <a href="get-started.html" class="btn btn-cta btn-large">Get Treatment Estimates</a>
+                    <a href="get-started.html" class="btn btn-cta btn-large" onclick="gtag('event', 'start_case_submission')">Get Treatment Estimates</a>
                 </div>
             </div>
         </section>
