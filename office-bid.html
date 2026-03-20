@@ -5,200 +5,440 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Submit Treatment Estimate - Dental Dash Pro</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --primary: #007bff;
+            --primary-hover: #0056b3;
+            --bg-body: #f4f7f9;
+            --bg-card: #ffffff;
+            --border-color: #e1e4e8;
+            --text-main: #24292e;
+            --text-muted: #6a737d;
+            --radius-lg: 12px;
+            --radius-md: 8px;
+            --shadow: 0 4px 6px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.08);
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        header {
+            background: #fff;
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 1.25rem;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 24px;
+        }
+
+        .page-header {
+            margin-bottom: 32px;
+        }
+
+        .page-header h1 {
+            font-size: 1.85rem;
+            margin: 0 0 8px 0;
+            font-weight: 700;
+        }
+
+        .page-header .subtext {
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .layout-grid {
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 24px;
+            align-items: start;
+        }
+
+        .form-column {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 6px;
+            color: #444;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="number"],
+        input[type="date"],
+        select,
+        textarea {
+            width: 100%;
+            height: 44px;
+            padding: 10px 14px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            font-size: 0.95rem;
+            box-sizing: border-box;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        textarea {
+            height: auto;
+            min-height: 100px;
+            padding: 12px 14px;
+            resize: vertical;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .highlight-card {
+            border: 2px solid #e7f1ff;
+            background: #fbfdff;
+        }
+
+        .helper-text {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 6px;
+            display: block;
+        }
+
+        /* Sidebar Styling */
+        .sidebar-card {
+            position: sticky;
+            top: 24px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 10px;
+            border-radius: 99px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .badge-success { background: #dafbe1; color: #1a7f37; }
+        .badge-warning { background: #fff8c5; color: #9a6700; }
+        .badge-danger { background: #ffebe9; color: #cf222e; }
+
+        .sidebar-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .sidebar-item:last-child {
+            border-bottom: none;
+        }
+
+        .sidebar-label {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        .sidebar-value {
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .doc-list {
+            margin: 16px 0 0 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .doc-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.875rem;
+            margin-bottom: 8px;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        /* Footer CTAs */
+        .form-actions {
+            margin-top: 32px;
+            display: flex;
+            gap: 16px;
+            justify-content: flex-end;
+            max-width: 1200px;
+        }
+
+        .btn {
+            height: 48px;
+            padding: 0 28px;
+            border-radius: var(--radius-md);
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: #f6f8fa;
+        }
+
+        .disclaimer-box {
+            margin-top: 24px;
+            background: #fff;
+            border-radius: var(--radius-md);
+            padding: 16px;
+            border: 1px solid #f99;
+            background-color: #fffafb;
+        }
+
+        .disclaimer-box h4 { margin-top: 0; color: #cf222e; }
+    </style>
 </head>
 <body>
     <header>
-        <div href="index.html" style="color:white;text-decoration:none;">Dental Dash Pro</div>
-        <p>>Submit Treatment Estimate</p>
+        <a href="index.html" class="logo">Dental Dash Pro</a>
+        <div style="font-size: 0.875rem; color: var(--text-muted);">Office Portal</div>
     </header>
 
     <main>
-        <div class="estimate-header">
-            <h1>Professional Treatment Estimate Submission</h1>
-            <p class="estimate-subtitle">Review case details and submit your treatment approach</p>
-            <p style="font-size:0.9em;color:#666;font-style:italic;margin-top:10px;">Estimates may be prepared by a coordinator and reviewed by the doctor before submission.</p>
+        <div class="page-header">
+            <h1>Provide Treatment Estimate</h1>
+            <p class="subtext">Case #8234 &bull; Preliminary assessment for clinical review</p>
         </div>
 
-        <div class="estimate-container">
-            <!-- CASE OVERVIEW SECTION -->
-            <section class="case-overview">
-                <h2>Case Overview</h2>
-                <div class="case-info-grid">
-                    <div class="info-item">
-                        <span class="info-label">Patient ID:</span>
-                        <span class="info-value" id="patientId">#8234</span>
+        <form action="success.html" method="get">
+            <div class="layout-grid">
+                <!-- LEFT COLUMN -->
+                <div class="form-column">
+                    <!-- CARD 1: Case Overview -->
+                    <div class="card">
+                        <div class="card-title">Case Overview</div>
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>Patient Reference</label>
+                                <div style="font-weight:600;">#8234 (Crown)</div>
+                            </div>
+                            <div class="form-group">
+                                <label>Treating Dentist</label>
+                                <input type="text" id="dentistName" name="dentistName" placeholder="Dr. Jane Smith" required>
+                            </div>
+                        </div>
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>Practice Name</label>
+                                <input type="text" id="officeName" name="officeName" placeholder="Your practice" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Contact Email</label>
+                                <input type="email" id="email" name="email" placeholder="jane@example.com" required>
+                            </div>
+                        </div>
                     </div>
-                    <div class="info-item">
-                        <span class="info-label">Treatment Type:</span>
-                        <span class="info-value" id="treatmentType">Crown</span>
+
+                    <!-- CARD 2: Treatment Approach (Most Important) -->
+                    <div class="card highlight-card">
+                        <div class="card-title">Recommended Treatment Approach</div>
+                        <div class="form-group">
+                            <label>Clinical Plan & Rationale</label>
+                            <textarea id="treatmentApproach" name="treatmentApproach" rows="10" 
+                                      placeholder="Explain your office's clinical approach. What materials do you recommend? Why is this the best path for this patient?" required></textarea>
+                            <small class="helper-text">Explain how your office would approach this case, what you recommend, and why. Include alternatives if appropriate.</small>
+                        </div>
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>Clinical Confidence</label>
+                                <select id="clinicalConfidence" name="clinicalConfidence" required>
+                                    <option value="">Select...</option>
+                                    <option value="high">High Confidence</option>
+                                    <option value="moderate">Moderate Confidence</option>
+                                    <option value="limited">Limited Confidence — requires consultation</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Appointments Required</label>
+                                <select id="appointmentsNeeded" name="appointmentsNeeded" required>
+                                    <option value="1">1 appointment</option>
+                                    <option value="2" selected>2 appointments</option>
+                                    <option value="3">3 appointments</option>
+                                    <option value="4+">4+ appointments</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
-                    <div class="info-item">
-                        <span class="info-label">ZIP Code:</span>
-                        <span class="info-value" id="zipCode">05214</span>
+
+                    <!-- CARD 3: Financial Overview -->
+                    <div class="card">
+                        <div class="card-title">Estimated Treatment Range / Financial Overview</div>
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>Estimated Total Fee</label>
+                                <input type="number" id="procedureCost" name="procedureCost" placeholder="1200" step="0.01" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Estimated Patient Portion</label>
+                                <input type="number" id="patientResponsibility" name="patientResponsibility" placeholder="600" step="0.01" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Payment & Financing Notes</label>
+                            <textarea id="paymentNotes" name="paymentNotes" rows="2" 
+                                      placeholder="e.g., CareCredit accepted, payment plans available"></textarea>
+                        </div>
                     </div>
-                    <div class="info-item">
-                        <span class="info-label">Insurance:</span>
-                        <span class="info-value" id="insurance">Delta Dental</span>
+
+                    <!-- CARD 4: Availability -->
+                    <div class="card">
+                        <div class="card-title">Availability</div>
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>First Available Date</label>
+                                <input type="date" id="firstAvailable" name="firstAvailable" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Preferred Time Block</label>
+                                <select id="preferredTimes" name="preferredTimes">
+                                    <option value="morning">Morning (8am-12pm)</option>
+                                    <option value="afternoon">Afternoon (12pm-5pm)</option>
+                                    <option value="flexible">Flexible</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
-                    <div class="info-item full-width">
-                        <span class="info-label">Patient Notes:</span>
-                        <span class="info-value" id="patientNotes">Broken filling/crown on #30, moderate pain, needs replacement soon.</span>
+
+                    <div class="disclaimer-box">
+                        <h4>Clinical Disclaimer</h4>
+                        <p style="font-size: 0.85rem; margin: 0;">All treatment estimates are preliminary and must be confirmed during an in-office consultation. Final recommendations may vary pending clinical examination.</p>
+                        <div style="margin-top: 12px;">
+                            <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+                                <input type="checkbox" required style="width:16px; height:16px;">
+                                <span style="font-size: 0.875rem;">I confirm accuracy and agreement to terms</span>
+                            </label>
+                        </div>
                     </div>
                 </div>
-            </section>
 
-            <!-- FORM SECTIONS -->
-            <form action="success.html" method="get">
-                <!-- SECTION A: PRACTICE INFORMATION -->
-                <section class="form-section">
-                    <div class="section-header">
-                        <span class="section-label">A</span>
-                        <h3>Practice Information</h3>
-                    </div>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="officeName">Practice Name</label>
-                            <input type="text" id="officeName" name="officeName" placeholder="Your practice name" required>
+                <!-- RIGHT COLUMN (Sidebar) -->
+                <div class="sidebar-column">
+                    <div class="card sidebar-card">
+                        <div class="card-title">Case Intelligence</div>
+                        
+                        <div class="sidebar-item">
+                            <span class="sidebar-label">Case Score</span>
+                            <span class="badge badge-success">92 / 100</span>
                         </div>
-                        <div class="form-group">
-                            <label for="dentistName">Treating Dentist</label>
-                            <input type="text" id="dentistName" name="dentistName" placeholder="Dr. Jane Smith" required>
+                        <div class="sidebar-item">
+                            <span class="sidebar-label">Urgency</span>
+                            <span class="badge badge-warning">Moderate</span>
+Upgrade office-bid UI to modern card-based layout                        <div class="sidebar-item">
+                            <span class="sidebar-label">Payment</span>
+                            <span class="sidebar-value">Insurance</span>
                         </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" placeholder="jane@example.com" required>
+                        
+                        <div style="margin-top:24px;">
+                            <label style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Documentation</label>
+                            <div class="doc-list">
+                                <a href="#" class="doc-item">📄 Periapical X-Ray</a>
+                                <a href="#" class="doc-item">📄 Bitewing X-Ray</a>
+                                <a href="#" class="doc-item">📸 Intraoral Photo</a>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="phone">Phone Number</label>
-                            <input type="tel" id="phone" name="phone" placeholder="(480) 555-0180" required>
-                        </div>
-                    </div>
-                </section>
 
-                <!-- SECTION B: TREATMENT APPROACH (ELEVATED) -->
-                <section class="form-section" style="background:#f8f9fa;padding:24px;border:2px solid #007bff;border-radius:8px;">
-                    <div class="section-header">
-                        <span class="section-label">B</span>
-                        <h3>Recommended Treatment Approach</h3>
-                    </div>
-                    <div class="form-group">
-                        <label for="treatmentApproach" style="font-weight:bold;font-size:1.1em;">Treatment Plan Details</label>
-                        <textarea id="treatmentApproach" name="treatmentApproach" rows="8" 
-                                  placeholder="Explain how your office would approach this case, what you recommend, and why. Include alternatives if appropriate. Example: 'I recommend a porcelain-fused-to-metal crown for tooth #30 to restore function and aesthetics. Will use local anesthesia, remove existing filling material, prepare tooth, take impressions, and place temporary crown at first visit. Permanent crown placement at second visit. Alternative: All-ceramic crown for superior aesthetics at slightly higher cost.'" required style="font-size:1.05em;"></textarea>
-                        <small class="helper-text" style="display:block;margin-top:8px;color:#555;">Explain how your office would approach this case, what you recommend, and why. Include alternatives if appropriate.</small>
-                    </div>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="clinicalConfidence">Clinical Confidence</label>
-                            <select id="clinicalConfidence" name="clinicalConfidence" required>
-                                <option value="">Select...</option>
-                                <option value="high">High Confidence</option>
-                                <option value="moderate">Moderate Confidence</option>
-                                <option value="limited">Limited Confidence — requires in-office consultation</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="appointmentsNeeded">Appointments Required</label>
-                            <select id="appointmentsNeeded" name="appointmentsNeeded" required>
-                                <option value="">Select...</option>
-                                <option value="1">1 appointment</option>
-                                <option value="2">2 appointments</option>
-                                <option value="3">3 appointments</option>
-                                <option value="4+">4+ appointments</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="timeframe">Estimated Completion</label>
-                            <input type="text" id="timeframe" name="timeframe" placeholder="2-3 weeks" required>
+                        <div style="margin-top:24px; padding-top:16px; border-top:1px solid var(--border-color);">
+                            <p style="font-size: 0.75rem; color: var(--text-muted); margin: 0;">
+                                💡 <strong>Market Insight:</strong> 3 other offices in your ZIP have viewed this case today.
+                            </p>
                         </div>
                     </div>
-                </section>
-
-                <!-- SECTION C: FINANCIAL OVERVIEW (REPOSITIONED TONE) -->
-                <section class="form-section">
-                    <div class="section-header">
-                        <span class="section-label">C</span>
-                        <h3>Estimated Treatment Range / Financial Overview</h3>
-                    </div>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="procedureCost">Estimated Treatment Range</label>
-                            <input type="number" id="procedureCost" name="procedureCost" placeholder="1200" step="0.01" required>
-                            <small class="helper-text">Estimated cost for this treatment</small>
-                        </div>
-                        <div class="form-group">
-                            <label for="insuranceCoverage">Estimated Coverage (if applicable)</label>
-                            <input type="number" id="insuranceCoverage" name="insuranceCoverage" placeholder="600" step="0.01">
-                            <small class="helper-text">Optional: estimated insurance contribution</small>
-                        </div>
-                        <div class="form-group">
-                            <label for="patientResponsibility">Estimated Patient Portion</label>
-                            <input type="number" id="patientResponsibility" name="patientResponsibility" placeholder="600" step="0.01" required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="paymentNotes">Optional Financing / Payment Notes</label>
-                        <textarea id="paymentNotes" name="paymentNotes" rows="2" 
-                                  placeholder="e.g., Payment plans available, CareCredit accepted, flexible scheduling for payment timing"></textarea>
-                    </div>
-                </section>
-
-                <!-- SECTION D: AVAILABILITY & SCHEDULING -->
-                <section class="form-section">
-                    <div class="section-header">
-                        <span class="section-label">D</span>
-                        <h3>Availability</h3>
-                    </div>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="firstAvailable">First Available Appointment</label>
-                            <input type="date" id="firstAvailable" name="firstAvailable" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="preferredTimes">Preferred Appointment Times</label>
-                            <select id="preferredTimes" name="preferredTimes">
-                                <option value="">Select...</option>
-                                <option value="morning">Morning (8am-12pm)</option>
-                                <option value="afternoon">Afternoon (12pm-5pm)</option>
-                                <option value="evening">Evening (5pm-8pm)</option>
-                                <option value="flexible">Flexible</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="additionalNotes">Additional Notes</label>
-                        <textarea id="additionalNotes" name="additionalNotes" rows="3" 
-                                  placeholder="Any additional information about your availability, practice policies, or patient considerations"></textarea>
-                    </div>
-                </section>
-
-                <!-- CLINICAL DISCLAIMER -->
-                <div class="disclaimer-box">
-                    <h4>Clinical Disclaimer</h4>
-                    <p><strong>All treatment estimates are preliminary and must be confirmed during an in-office consultation.</strong></p>
-                    <ul>
-                        <li>This estimate is based on the information provided and professional clinical judgment</li>
-                        <li>Final treatment recommendations and costs may vary pending clinical examination</li>
-                        <li>You are licensed to practice dentistry in this state</li>
-                        <li>This estimate is valid for 30 days from submission date</li>
-                    </ul>
-                    <label class="checkbox-agreement">
-                        <input type="checkbox" name="agreement" required>
-                        <span>I confirm the accuracy of this estimate and agree to the terms above</span>
-                    </label>
                 </div>
+            </div>
 
-                <!-- ACTION BUTTONS -->
-                <div class="form-actions">
-                    <a href="office-dashboard.html" class="btn-secondary">Save as Draft</a>
-                    <button type="submit" class="btn-primary">Submit for Doctor Approval</button>
-                </div>
-            </form>
-        </div>
+            <!-- ACTION BUTTONS -->
+            <div class="form-actions">
+                <a href="office-dashboard.html" class="btn btn-secondary">Save Draft</a>
+                <button type="submit" class="btn btn-primary">Submit for Doctor Approval</button>
+            </div>
+        </form>
     </main>
 
-    <footer>
-        <p>&copy; 2026 Dental Dash Pro</p>
+    <footer style="text-align:center; padding: 40px; color: var(--text-muted); font-size: 0.875rem;">
+        &copy; 2026 Dental Dash Pro &bull; HIPAA Compliant
     </footer>
 </body>
 </html>
