@@ -13,6 +13,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Clinical Review | DentalDash Pro</title>
   <link rel="stylesheet" href="style.css">
+  <!-- Supabase UMD (no module import needed) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
   <style>
     :root {
       --primary-blue: #0f1c2e;
@@ -86,171 +88,169 @@
     .btn-primary { background: var(--accent-blue); color: white; box-shadow: 0 4px 12px rgba(59,130,246,0.3); }
     .btn-primary:hover { transform: translateY(-2px); }
     .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
-    .case-info { background: #eff6ff; padding: 16px 20px; border-radius: 10px; border-left: 4px solid var(--accent-blue); margin-bottom: 24px; font-size: 0.9rem; color: var(--text-main); }
+    .case-info {
+      background: #eff6ff;
+      padding: 16px 20px;
+      border-radius: 10px;
+      border-left: 4px solid var(--accent-blue);
+      margin-bottom: 24px;
+      font-size: 0.9rem;
+      color: var(--text-main);
+    }
   </style>
 </head>
 <body>
-
-<nav class="top-nav">
-  <a href="office-dashboard.html" class="logo">DentalDash</a>
-  <div class="nav-links">
-    <a href="office-dashboard.html" class="nav-link">Dashboard</a>
-    <a href="office-cases.html" class="nav-link">Patient Cases</a>
-    <a href="#" class="nav-link">Settings</a>
-  </div>
-</nav>
-
-<div class="bid-container">
-  <div class="case-info" id="caseInfoBanner">
-    Loading case information...
-  </div>
-
-  <form id="bidForm">
-    <div class="card">
-      <h2 class="card-title">Estimate Details</h2>
-
-      <div class="form-row">
-        <div class="form-group">
-          <label for="estimate_low">Low Estimate ($) *</label>
-          <input type="number" id="estimate_low" name="estimate_low" class="form-input" placeholder="2500" min="0" step="0.01" required>
-        </div>
-        <div class="form-group">
-          <label for="estimate_high">High Estimate ($) *</label>
-          <input type="number" id="estimate_high" name="estimate_high" class="form-input" placeholder="3200" min="0" step="0.01" required>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="treatment_approach">Treatment Approach *</label>
-        <textarea id="treatment_approach" name="treatment_approach" class="form-input" rows="4" placeholder="Describe the recommended treatment plan..." required style="resize:vertical;"></textarea>
-      </div>
-
-      <div class="form-group">
-        <label for="payment_options">Payment Options (Optional)</label>
-        <input type="text" id="payment_options" name="payment_options" class="form-input" placeholder="e.g., CareCredit, Payment Plans">
-      </div>
-
-      <div class="form-group">
-        <label for="availability_notes">Availability Notes (Optional)</label>
-        <input type="text" id="availability_notes" name="availability_notes" class="form-input" placeholder="e.g., Available next week, Monday-Friday">
-      </div>
+  <nav class="top-nav">
+    <a href="office-dashboard.html" class="logo">DentalDash</a>
+    <div class="nav-links">
+      <a href="office-dashboard.html" class="nav-link">Dashboard</a>
+      <a href="office-cases.html" class="nav-link">Patient Cases</a>
+      <a href="#" class="nav-link">Settings</a>
     </div>
+  </nav>
 
-    <div class="card">
-      <h2 class="card-title">Submitting Office Contact</h2>
+  <div class="bid-container">
+    <div id="caseInfoBanner" class="case-info">Loading case information...</div>
 
-      <div class="form-row">
-        <div class="form-group">
-          <label for="submitted_by_name">Your Name *</label>
-          <input type="text" id="submitted_by_name" name="submitted_by_name" class="form-input" placeholder="Dr. Jane Smith" required>
+    <form id="bidForm">
+      <div class="card">
+        <h2 class="card-title">Estimate Details</h2>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="estimate_low">Low Estimate ($) *</label>
+            <input type="number" id="estimate_low" name="estimate_low" class="form-input" placeholder="2500" min="0" step="0.01" required>
+          </div>
+          <div class="form-group">
+            <label for="estimate_high">High Estimate ($) *</label>
+            <input type="number" id="estimate_high" name="estimate_high" class="form-input" placeholder="3200" min="0" step="0.01" required>
+          </div>
         </div>
+
         <div class="form-group">
-          <label for="submitted_by_role">Your Role *</label>
-          <input type="text" id="submitted_by_role" name="submitted_by_role" class="form-input" placeholder="DDS, Treatment Coordinator, etc." required>
+          <label for="treatment_approach">Treatment Approach *</label>
+          <textarea id="treatment_approach" name="treatment_approach" class="form-input" rows="4" placeholder="Describe the recommended treatment plan..." required style="resize:vertical;"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="payment_options">Payment Options (Optional)</label>
+          <input type="text" id="payment_options" name="payment_options" class="form-input" placeholder="e.g., CareCredit, Payment Plans">
+        </div>
+
+        <div class="form-group">
+          <label for="availability_notes">Availability Notes (Optional)</label>
+          <input type="text" id="availability_notes" name="availability_notes" class="form-input" placeholder="e.g., Available next week, Monday-Friday">
         </div>
       </div>
 
-      <div class="form-group">
-        <label for="why_choose_us">Why Choose Our Office? (Optional)</label>
-        <textarea id="why_choose_us" name="why_choose_us" class="form-input" rows="3" placeholder="Tell the patient why your office is the best choice..." style="resize:vertical;"></textarea>
+      <div class="card">
+        <h2 class="card-title">Submitting Office Contact</h2>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="submitted_by_name">Your Name *</label>
+            <input type="text" id="submitted_by_name" name="submitted_by_name" class="form-input" placeholder="Dr. Jane Smith" required>
+          </div>
+          <div class="form-group">
+            <label for="submitted_by_role">Your Role *</label>
+            <input type="text" id="submitted_by_role" name="submitted_by_role" class="form-input" placeholder="DDS, Treatment Coordinator, etc." required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="why_choose_us">Why Choose Our Office? (Optional)</label>
+          <textarea id="why_choose_us" name="why_choose_us" class="form-input" rows="3" placeholder="Tell the patient why your office is the best choice..." style="resize:vertical;"></textarea>
+        </div>
       </div>
-    </div>
-  </form>
-</div>
+    </form>
+  </div>
 
-<div class="actions-bar">
-  <a href="office-cases.html" class="btn btn-outline">Cancel</a>
-  <button type="submit" form="bidForm" class="btn btn-primary" id="submitBtn">Submit for Doctor Approval</button>
-</div>
+  <div class="actions-bar">
+    <a href="office-cases.html" class="btn btn-outline">Cancel</a>
+    <button type="button" id="submitBtn" class="btn btn-primary" onclick="handleSubmit()">Submit for Doctor Approval</button>
+  </div>
 
-<!-- Supabase -->
-<script type="module">
-  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+  <script>
+    var SUPABASE_URL = 'https://fxfwytxfeuwsbeapiyqw.supabase.co';
+    var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ4Znd5dHhmZXV3c2JlYXBpeXF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQ2NTk3MjksImV4cCI6MjA1MDIzNTcyOX0.anZxOWzcVyobPx8hW_DUpdIl1IAWeE-ANXpZq-ysXvI';
+    var supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-  const SUPABASE_URL = 'https://fxfwytxfeuwsbeapiyqw.supabase.co';
-  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ4Znd5dHhmZXV3c2JlYXBpeXF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQ2NTk3MjksImV4cCI6MjA1MDIzNTcyOX0.anZxOWzcVyobPx8hW_DUpdIl1IAWeE-ANXpZq-ysXvI';
-  const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-  function getQueryParam(name) {
-    return new URLSearchParams(window.location.search).get(name);
-  }
-
-  const caseId = getQueryParam('case_id');
-
-  const banner = document.getElementById('caseInfoBanner');
-  if (caseId) {
-    banner.textContent = 'Submitting estimate for Case ID: ' + caseId;
-  } else {
-    banner.style.background = '#fef2f2';
-    banner.style.borderLeftColor = '#ef4444';
-    banner.textContent = 'Warning: No case_id in URL. Access this page from Patient Cases.';
-  }
-
-  document.getElementById('bidForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-
-    const submitBtn = document.getElementById('submitBtn');
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Submitting...';
-
-    if (!caseId) {
-      alert('Error: No case_id provided. Please access this page from a valid patient case.');
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Submit for Doctor Approval';
-      return;
+    function getQueryParam(name) {
+      return new URLSearchParams(window.location.search).get(name);
     }
 
-    const low = parseFloat(document.getElementById('estimate_low').value) || 0;
-    const high = parseFloat(document.getElementById('estimate_high').value) || 0;
-    const treatment = document.getElementById('treatment_approach').value.trim();
-    const submittedByName = document.getElementById('submitted_by_name').value.trim();
-    const submittedByRole = document.getElementById('submitted_by_role').value.trim();
-    const paymentOptions = document.getElementById('payment_options').value.trim();
-    const availabilityNotes = document.getElementById('availability_notes').value.trim();
-    const whyChooseUs = document.getElementById('why_choose_us').value.trim();
-
-    if (!low || !high || !treatment || !submittedByName || !submittedByRole) {
-      alert('Please fill in all required fields.');
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Submit for Doctor Approval';
-      return;
+    var caseId = getQueryParam('case_id');
+    var banner = document.getElementById('caseInfoBanner');
+    if (caseId) {
+      banner.textContent = 'Submitting estimate for Case ID: ' + caseId;
+    } else {
+      banner.style.background = '#fef2f2';
+      banner.style.borderLeftColor = '#ef4444';
+      banner.textContent = 'Warning: No case_id in URL. Access this page from Patient Cases.';
     }
 
-    const payload = {
-      patient_case_id: caseId,
-      office_id: null,
-      submitted_by_name: submittedByName,
-      submitted_by_role: submittedByRole,
-      treatment_approach: treatment,
-      low_estimate: low,
-      high_estimate: high,
-      payment_options: paymentOptions || null,
-      availability_notes: availabilityNotes || null,
-      why_choose_us: whyChooseUs || null,
-      status: 'PENDING_DOCTOR_APPROVAL'
-    };
+    async function handleSubmit() {
+      var submitBtn = document.getElementById('submitBtn');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Submitting...';
 
-    try {
-      const { data, error } = await supabase
-        .from('estimates')
-        .insert([payload])
-        .select();
-
-      if (error) throw error;
-
-      if (typeof gtag === 'function') {
-        gtag('event', 'submit_for_doctor_approval');
+      if (!caseId) {
+        alert('Error: No case_id provided. Please access this page from a valid patient case.');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit for Doctor Approval';
+        return;
       }
 
-      window.location.href = 'estimate-submitted.html';
-    } catch (err) {
-      console.error('Estimate submission error:', err);
-      alert('Error submitting estimate: ' + (err.message || 'Unknown error. Please try again.'));
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Submit for Doctor Approval';
-    }
-  });
-</script>
+      var low = parseFloat(document.getElementById('estimate_low').value) || 0;
+      var high = parseFloat(document.getElementById('estimate_high').value) || 0;
+      var treatment = document.getElementById('treatment_approach').value.trim();
+      var submittedByName = document.getElementById('submitted_by_name').value.trim();
+      var submittedByRole = document.getElementById('submitted_by_role').value.trim();
+      var paymentOptions = document.getElementById('payment_options').value.trim();
+      var availabilityNotes = document.getElementById('availability_notes').value.trim();
+      var whyChooseUs = document.getElementById('why_choose_us').value.trim();
 
+      if (!low || !high || !treatment || !submittedByName || !submittedByRole) {
+        alert('Please fill in all required fields.');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit for Doctor Approval';
+        return;
+      }
+
+      var payload = {
+        patient_case_id: caseId,
+        office_id: null,
+        submitted_by_name: submittedByName,
+        submitted_by_role: submittedByRole,
+        treatment_approach: treatment,
+        low_estimate: low,
+        high_estimate: high,
+        payment_options: paymentOptions || null,
+        availability_notes: availabilityNotes || null,
+        why_choose_us: whyChooseUs || null,
+        status: 'PENDING_DOCTOR_APPROVAL'
+      };
+
+      try {
+        var result = await supabaseClient
+          .from('estimates')
+          .insert([payload])
+          .select();
+
+        if (result.error) throw result.error;
+
+        if (typeof gtag === 'function') {
+          gtag('event', 'submit_for_doctor_approval');
+        }
+
+        window.location.href = 'estimate-submitted.html';
+      } catch (err) {
+        console.error('Estimate submission error:', err);
+        alert('Error submitting estimate: ' + (err.message || 'Unknown error. Please try again.'));
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit for Doctor Approval';
+      }
+    }
+  </script>
 </body>
 </html>
