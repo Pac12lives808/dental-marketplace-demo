@@ -245,7 +245,7 @@
           gtag('event', 'submit_for_doctor_approval');
         }
 
-        window.location.href = 'estimate-submitted.html';
+                window.location.replace('https://dentaldashpro.com/estimate-submitted.html');
       } catch (err) {
         console.error('Estimate submission error:', err);
         alert('Error submitting estimate: ' + (err.message || 'Unknown error. Please try again.'));
