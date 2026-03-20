@@ -230,6 +230,7 @@
         why_choose_us: whyChooseUs || null,
         status: 'PENDING_DOCTOR_APPROVAL'
       };
+                                       console.log('Submitting payload:', JSON.stringify(payload));
 
       try {
         var result = await supabaseClient
