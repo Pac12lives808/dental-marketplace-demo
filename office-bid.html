@@ -11,179 +11,451 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Clinical Review | DentalDash Pro</title>
+  <title>Create Treatment Estimate | DentalDash Pro</title>
   <link rel="stylesheet" href="style.css">
-  <!-- Supabase UMD (no module import needed) -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
   <style>
     :root {
       --primary-blue: #0f1c2e;
       --accent-blue: #3b82f6;
+      --accent-blue-dark: #2563eb;
       --text-main: #1e293b;
       --text-muted: #64748b;
-      --bg-light: #f8fafc;
-      --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      --bg-page: #f1f5f9;
+      --card-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      --border: #e2e8f0;
     }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
     body {
-      background-color: #f1f5f9;
+      background-color: var(--bg-page);
       margin: 0;
       padding-top: 64px;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: var(--text-main);
+      -webkit-font-smoothing: antialiased;
     }
+
+    /* ── Nav ── */
     .top-nav {
       position: fixed;
       top: 0; left: 0; right: 0;
       height: 64px;
-      background: white;
-      border-bottom: 1px solid #e2e8f0;
+      background: #fff;
+      border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 0 40px;
       z-index: 1000;
     }
-    .logo { font-weight: 800; color: var(--accent-blue); font-size: 1.25rem; text-decoration: none; }
+    .logo { font-weight: 800; color: var(--accent-blue); font-size: 1.2rem; text-decoration: none; letter-spacing: -0.02em; }
     .nav-links { display: flex; gap: 24px; }
-    .nav-link { text-decoration: none; color: var(--text-muted); font-size: 0.9rem; font-weight: 500; }
+    .nav-link { text-decoration: none; color: var(--text-muted); font-size: 0.875rem; font-weight: 500; transition: color 0.15s; }
+    .nav-link:hover { color: var(--text-main); }
+
+    /* ── Page wrapper ── */
     .bid-container {
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 0 24px 120px;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 36px 24px 140px;
     }
-    .card {
-      background: white;
-      border: 1px solid #e2e8f0;
-      border-radius: 16px;
-      padding: 32px;
-      margin-bottom: 24px;
-      box-shadow: var(--card-shadow);
+
+    /* ── Page header ── */
+    .page-header {
+      margin-bottom: 28px;
     }
-    .card-title { font-size: 1.25rem; font-weight: 700; color: var(--primary-blue); margin: 0 0 20px; }
-    .form-group { margin-bottom: 20px; }
-    .form-group label { display: block; font-size: 0.85rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 8px; }
-    .form-input {
-      width: 100%;
-      padding: 12px 16px;
-      border: 1px solid #d1d5db;
-      border-radius: 10px;
-      font-size: 1rem;
-      color: #1a202c;
-      background: #fff;
-      box-sizing: border-box;
-    }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .actions-bar {
-      position: fixed;
-      bottom: 0; left: 0; right: 0;
-      background: white;
-      padding: 16px 40px;
-      border-top: 1px solid #e2e8f0;
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      gap: 12px;
-      z-index: 1000;
-    }
-    .btn { padding: 12px 24px; border-radius: 12px; font-weight: 600; text-decoration: none; transition: all 0.2s; cursor: pointer; border: none; font-size: 0.95rem; white-space: nowrap; }
-    .btn-outline { background: white; border: 2px solid #e2e8f0; color: var(--text-main); }
-    .btn-draft { background: #f1f5f9; border: 2px solid #cbd5e1; color: #475569; }
-    .btn-draft.saved { background: #f0fdf4; border-color: #86efac; color: #16a34a; }
-    .btn-primary { background: var(--accent-blue); color: white; box-shadow: 0 4px 12px rgba(59,130,246,0.3); }
-    .btn-primary:hover { transform: translateY(-2px); }
-    .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
-    .case-info {
-      background: #eff6ff;
-      padding: 16px 20px;
-      border-radius: 10px;
-      border-left: 4px solid var(--accent-blue);
-      margin-bottom: 24px;
-      font-size: 0.9rem;
-      color: var(--text-main);
-    }
-    .case-summary-card {
-      background: white;
-      border: 1px solid #e2e8f0;
-      border-radius: 16px;
-      padding: 28px 32px;
-      margin-bottom: 24px;
-      box-shadow: var(--card-shadow);
-    }
-    .case-summary-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-    .case-summary-title {
-      font-size: 1.1rem;
-      font-weight: 700;
+    .page-header h1 {
+      font-size: 1.6rem;
+      font-weight: 800;
       color: var(--primary-blue);
-      margin: 0;
+      margin: 0 0 6px;
+      letter-spacing: -0.025em;
     }
-    .case-summary-subtitle {
-      font-size: 0.85rem;
+    .page-header p {
       color: var(--text-muted);
-      margin: 4px 0 0;
+      font-size: 0.9rem;
+      margin: 0 0 4px;
     }
-    .badge-score {
+    .page-header .helper-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
       background: #eff6ff;
       color: #1d4ed8;
       border: 1px solid #bfdbfe;
       border-radius: 999px;
-      padding: 4px 14px;
-      font-size: 0.85rem;
+      padding: 3px 12px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      margin-top: 8px;
+    }
+
+    /* ── Banner ── */
+    .case-info {
+      background: #eff6ff;
+      padding: 13px 18px;
+      border-radius: 10px;
+      border-left: 4px solid var(--accent-blue);
+      margin-bottom: 20px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-main);
+    }
+
+    /* ── Card base ── */
+    .card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 32px;
+      margin-bottom: 20px;
+      box-shadow: var(--card-shadow);
+    }
+    .card-title {
+      font-size: 1.05rem;
       font-weight: 700;
+      color: var(--primary-blue);
+      margin: 0 0 6px;
     }
-    .case-summary-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
+    .card-subtitle {
+      font-size: 0.825rem;
+      color: var(--text-muted);
+      margin: 0 0 22px;
     }
-    .cs-item {
+
+    /* ── Case Summary Card ── */
+    .case-summary-card {
+      background: linear-gradient(135deg, #0f1c2e 0%, #1e3a5f 100%);
+      border: none;
+      border-radius: 16px;
+      padding: 26px 30px;
+      margin-bottom: 20px;
+      box-shadow: 0 8px 24px rgba(15,28,46,0.18);
+      color: #fff;
+    }
+    .cs-header {
       display: flex;
-      flex-direction: column;
-      gap: 4px;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
     }
+    .cs-procedure {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #fff;
+      margin: 0 0 4px;
+      letter-spacing: -0.02em;
+    }
+    .cs-category {
+      font-size: 0.825rem;
+      color: rgba(255,255,255,0.6);
+      margin: 0;
+    }
+    .badge-score {
+      background: rgba(59,130,246,0.25);
+      color: #93c5fd;
+      border: 1px solid rgba(147,197,253,0.35);
+      border-radius: 999px;
+      padding: 5px 14px;
+      font-size: 0.825rem;
+      font-weight: 700;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .cs-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+    .cs-item { display: flex; flex-direction: column; gap: 4px; }
     .cs-label {
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--text-muted);
+      letter-spacing: 0.07em;
+      color: rgba(255,255,255,0.45);
     }
     .cs-value {
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       font-weight: 600;
-      color: var(--text-main);
+      color: #fff;
     }
     .badge-urgent {
       display: inline-block;
-      background: #fef2f2;
-      color: #dc2626;
-      border: 1px solid #fecaca;
+      background: rgba(239,68,68,0.2);
+      color: #fca5a5;
+      border: 1px solid rgba(252,165,165,0.3);
       border-radius: 999px;
       padding: 2px 10px;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 700;
     }
-    @media (max-width: 640px) {
-      .top-nav { padding: 0 16px; }
-      .nav-links { gap: 14px; }
-      .case-summary-grid { grid-template-columns: 1fr 1fr; }
-      .form-row { grid-template-columns: 1fr; }
-      .actions-bar { padding: 12px 16px; gap: 8px; }
-      .btn { padding: 11px 16px; font-size: 0.875rem; }
+    .badge-emergency {
+      display: inline-block;
+      background: rgba(234,88,12,0.2);
+      color: #fdba74;
+      border: 1px solid rgba(253,186,116,0.3);
+      border-radius: 999px;
+      padding: 2px 10px;
+      font-size: 0.78rem;
+      font-weight: 700;
     }
-    @media (max-width: 380px) {
-      .case-summary-grid { grid-template-columns: 1fr; }
+    .badge-routine {
+      display: inline-block;
+      background: rgba(34,197,94,0.15);
+      color: #86efac;
+      border: 1px solid rgba(134,239,172,0.25);
+      border-radius: 999px;
+      padding: 2px 10px;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    /* ── Form elements ── */
+    .form-group { margin-bottom: 20px; }
+    .form-group:last-child { margin-bottom: 0; }
+    .form-group label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+    .form-input {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1.5px solid #d1d5db;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      color: var(--text-main);
+      background: #fff;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      font-family: inherit;
+    }
+    .form-input:focus {
+      outline: none;
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 0 3px rgba(59,130,246,0.12);
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    /* ── Template dropdown ── */
+    .template-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+    .template-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+    .template-select {
+      padding: 7px 12px;
+      border: 1.5px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      color: var(--text-main);
+      background: #fff;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .template-select:focus { outline: none; border-color: var(--accent-blue); }
+    .template-hint {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-bottom: 10px;
+    }
+    .template-hint p {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin: 0 0 8px;
+    }
+    .template-hint ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+    .template-hint ul li {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+      line-height: 1.5;
+    }
+
+    /* ── Confidence Level radios ── */
+    .confidence-group {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .confidence-option {
+      flex: 1 1 auto;
+      min-width: 160px;
+    }
+    .confidence-option input[type="radio"] { display: none; }
+    .confidence-option label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      padding: 14px 12px;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s;
+      background: #fff;
+      text-transform: none;
+      letter-spacing: 0;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+    .confidence-option label .conf-icon { font-size: 1.3rem; }
+    .confidence-option label .conf-sub {
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      text-transform: none;
+      letter-spacing: 0;
+    }
+    .confidence-option input[type="radio"]:checked + label {
+      border-color: var(--accent-blue);
+      background: #eff6ff;
+      color: var(--accent-blue-dark);
+    }
+    .confidence-option input[type="radio"]:checked + label .conf-sub { color: #3b82f6; }
+
+    /* ── Why Choose helper ── */
+    .helper-chips {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+    .helper-chip {
+      background: #f1f5f9;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 4px 12px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.15s;
+      user-select: none;
+    }
+    .helper-chip:hover { background: #e0e7ff; border-color: #a5b4fc; color: #3730a3; }
+
+    /* ── Disclaimer ── */
+    .disclaimer-block {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+    }
+    .disclaimer-block p {
+      margin: 0;
+      font-size: 0.825rem;
+      color: #92400e;
+      line-height: 1.65;
+    }
+    .disclaimer-block strong { color: #78350f; }
+
+    /* ── Actions bar ── */
+    .actions-bar {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: #fff;
+      padding: 14px 40px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 10px;
+      z-index: 1000;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.06);
+    }
+    .btn {
+      padding: 11px 22px;
+      border-radius: 10px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+      font-size: 0.9rem;
+      white-space: nowrap;
+      font-family: inherit;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-outline {
+      background: #fff;
+      border: 1.5px solid var(--border);
+      color: var(--text-main);
+    }
+    .btn-outline:hover { background: #f8fafc; }
+    .btn-draft {
+      background: #f1f5f9;
+      border: 1.5px solid #cbd5e1;
+      color: #475569;
+    }
+    .btn-draft.saved {
+      background: #f0fdf4;
+      border-color: #86efac;
+      color: #16a34a;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(59,130,246,0.3);
+    }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(59,130,246,0.35); }
+    .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: none; }
+
+    /* ── Responsive ── */
+    @media (max-width: 680px) {
+      .top-nav { padding: 0 16px; }
+      .nav-links { gap: 16px; }
+      .bid-container { padding: 24px 16px 140px; }
+      .card { padding: 20px; }
+      .case-summary-card { padding: 20px; }
+      .cs-grid { grid-template-columns: 1fr 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .confidence-group { gap: 8px; }
+      .confidence-option { min-width: 130px; }
+      .actions-bar { padding: 12px 16px; gap: 8px; }
+      .btn { padding: 10px 14px; font-size: 0.85rem; }
+    }
+    @media (max-width: 400px) {
+      .cs-grid { grid-template-columns: 1fr; }
       .actions-bar { flex-wrap: wrap; }
-      .actions-bar .btn { flex: 1 1 auto; text-align: center; }
+      .actions-bar .btn { flex: 1 1 auto; justify-content: center; }
     }
   </style>
 </head>
 <body>
+
   <nav class="top-nav">
     <a href="office-dashboard.html" class="logo">DentalDash</a>
     <div class="nav-links">
@@ -194,97 +466,193 @@
   </nav>
 
   <div class="bid-container">
-    <div id="caseInfoBanner" class="case-info">Loading case information...</div>
+
+    <!-- Page Header -->
+    <div class="page-header">
+      <h1>Create Treatment Estimate</h1>
+      <p>Provide your professional approach for this case.</p>
+      <span class="helper-tag">&#128203; Compare treatment approaches, not just prices.</span>
+    </div>
+
+    <!-- Status Banner -->
+    <div id="caseInfoBanner" class="case-info">Loading case information&hellip;</div>
 
     <!-- Case Summary Card -->
     <div class="case-summary-card">
-      <div class="case-summary-header">
+      <div class="cs-header">
         <div>
-          <p class="case-summary-title">Full Arch Implant &mdash; Upper</p>
-          <p class="case-summary-subtitle">Implant Dentistry &bull; Case #1052</p>
+          <p id="csProcedure" class="cs-procedure">Loading&hellip;</p>
+          <p id="csCategory" class="cs-category">—</p>
         </div>
-        <span class="badge-score">&#9733; 9.4 / 10</span>
+        <span id="csScore" class="badge-score">— / 10</span>
       </div>
-      <div class="case-summary-grid">
+      <div class="cs-grid">
         <div class="cs-item">
           <span class="cs-label">Location</span>
-          <span class="cs-value">Gilbert, AZ (4.2 mi)</span>
+          <span id="csLocation" class="cs-value">—</span>
         </div>
         <div class="cs-item">
           <span class="cs-label">Estimated Value</span>
-          <span class="cs-value">$20,000 &ndash; $32,000</span>
+          <span id="csValue" class="cs-value">—</span>
         </div>
         <div class="cs-item">
           <span class="cs-label">Urgency</span>
-          <span class="cs-value"><span class="badge-urgent">Urgent</span></span>
+          <span id="csUrgency" class="cs-value">—</span>
+        </div>
+        <div class="cs-item">
+          <span class="cs-label">Case Score</span>
+          <span id="csScoreDetail" class="cs-value">—</span>
         </div>
       </div>
     </div>
 
     <form id="bidForm">
+
+      <!-- Treatment Approach -->
       <div class="card">
-        <h2 class="card-title">Estimate Details</h2>
+        <h2 class="card-title">Treatment Approach</h2>
+        <p class="card-subtitle">Describe your recommended clinical plan for this patient.</p>
+
+        <div class="form-group">
+          <div class="template-row">
+            <span class="template-label">Quick Template</span>
+            <select id="templateSelect" class="template-select" onchange="applyTemplate(this.value)">
+              <option value="">Select a template&hellip;</option>
+              <option value="crown">Crown</option>
+              <option value="implant">Implant</option>
+              <option value="veneers">Veneers</option>
+              <option value="rootcanal">Root Canal</option>
+              <option value="fullarch">Full Arch Implant</option>
+            </select>
+          </div>
+          <div class="template-hint">
+            <p>Include in your approach</p>
+            <ul>
+              <li>Materials used (e.g., zirconia, PFM, titanium)</li>
+              <li>Treatment timeline and number of appointments</li>
+              <li>Treatment phases and sequencing</li>
+              <li>Alternatives considered</li>
+            </ul>
+          </div>
+          <textarea id="treatment_approach" name="treatment_approach" class="form-input" rows="6"
+            placeholder="Describe the recommended treatment plan, materials, timeline, and any alternatives considered&hellip;"
+            required style="resize:vertical;"></textarea>
+        </div>
+      </div>
+
+      <!-- Confidence Level -->
+      <div class="card">
+        <h2 class="card-title">Confidence Level</h2>
+        <p class="card-subtitle">How confident are you in this estimate based on the available case information?</p>
+        <div class="form-group">
+          <div class="confidence-group">
+            <div class="confidence-option">
+              <input type="radio" id="conf_high" name="confidence_level" value="high" checked>
+              <label for="conf_high">
+                <span class="conf-icon">&#9679;</span>
+                High Confidence
+                <span class="conf-sub">Ready to proceed</span>
+              </label>
+            </div>
+            <div class="confidence-option">
+              <input type="radio" id="conf_moderate" name="confidence_level" value="moderate">
+              <label for="conf_moderate">
+                <span class="conf-icon">&#9681;</span>
+                Moderate Confidence
+                <span class="conf-sub">Minor clarifications needed</span>
+              </label>
+            </div>
+            <div class="confidence-option">
+              <input type="radio" id="conf_evaluation" name="confidence_level" value="evaluation">
+              <label for="conf_evaluation">
+                <span class="conf-icon">&#9711;</span>
+                Needs In-Office Evaluation
+                <span class="conf-sub">In-person review required</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Estimated Pricing -->
+      <div class="card">
+        <h2 class="card-title">Estimated Pricing</h2>
+        <p class="card-subtitle">Provide your best fee range based on the case details.</p>
 
         <div class="form-row">
           <div class="form-group">
             <label for="estimate_low">Low Estimate ($) *</label>
-            <input type="number" id="estimate_low" name="estimate_low" class="form-input" placeholder="20000" min="0" step="0.01" required>
+            <input type="number" id="estimate_low" name="estimate_low" class="form-input"
+              placeholder="e.g. 1800" min="0" step="0.01" required>
           </div>
           <div class="form-group">
             <label for="estimate_high">High Estimate ($) *</label>
-            <input type="number" id="estimate_high" name="estimate_high" class="form-input" placeholder="32000" min="0" step="0.01" required>
+            <input type="number" id="estimate_high" name="estimate_high" class="form-input"
+              placeholder="e.g. 3200" min="0" step="0.01" required>
           </div>
-        </div>
-
-        <div class="form-group">
-          <label for="treatment_approach">Treatment Approach *</label>
-          <textarea id="treatment_approach" name="treatment_approach" class="form-input" rows="4" placeholder="Describe the recommended treatment plan..." required style="resize:vertical;"></textarea>
-        </div>
-
-        <div class="form-group">
-          <label for="confidence_level">Confidence Level</label>
-          <select id="confidence_level" class="form-input">
-            <option value="">Select confidence level</option>
-            <option value="very_high" selected>High Confidence</option>
-            <option value="high">Moderate-High Confidence</option>
-            <option value="medium">Moderate Confidence</option>
-            <option value="low">Needs Further Review</option>
-          </select>
         </div>
 
         <div class="form-group">
           <label for="payment_options">Payment Options (Optional)</label>
-          <input type="text" id="payment_options" name="payment_options" class="form-input" placeholder="e.g., CareCredit, Payment Plans">
+          <input type="text" id="payment_options" name="payment_options" class="form-input"
+            placeholder="e.g., CareCredit, in-house payment plans, HSA/FSA accepted">
         </div>
 
         <div class="form-group">
           <label for="availability_notes">Availability Notes (Optional)</label>
-          <input type="text" id="availability_notes" name="availability_notes" class="form-input" placeholder="e.g., Available next week, Monday-Friday">
+          <input type="text" id="availability_notes" name="availability_notes" class="form-input"
+            placeholder="e.g., Available next week, Monday–Friday, same-week consult possible">
         </div>
       </div>
 
+      <!-- Why Choose Our Office -->
       <div class="card">
-        <h2 class="card-title">Submitting Office Contact</h2>
+        <h2 class="card-title">Why Choose Our Office?</h2>
+        <p class="card-subtitle">Help the patient understand what sets your practice apart.</p>
+
+        <div class="helper-chips" aria-label="Suggested topics">
+          <span class="helper-chip" onclick="appendChip('Experience & credentials')">&#127891; Experience</span>
+          <span class="helper-chip" onclick="appendChip('Advanced technology & equipment')">&#128187; Technology</span>
+          <span class="helper-chip" onclick="appendChip('Premium materials used')">&#128142; Materials</span>
+          <span class="helper-chip" onclick="appendChip('Warranty on restorations')">&#128273; Warranty</span>
+          <span class="helper-chip" onclick="appendChip('Sedation options available')">&#128164; Sedation</span>
+          <span class="helper-chip" onclick="appendChip('Flexible financing available')">&#128176; Financing</span>
+        </div>
+
+        <div class="form-group">
+          <label for="why_choose_us">Your Practice Differentiators (Optional)</label>
+          <textarea id="why_choose_us" name="why_choose_us" class="form-input" rows="4"
+            placeholder="Tell the patient why your office is the best choice for this treatment — experience, technology, materials, warranty, sedation options, financing&hellip;"
+            style="resize:vertical;"></textarea>
+        </div>
 
         <div class="form-row">
           <div class="form-group">
             <label for="submitted_by_name">Your Name *</label>
-            <input type="text" id="submitted_by_name" name="submitted_by_name" class="form-input" placeholder="Dr. Jane Smith" required>
+            <input type="text" id="submitted_by_name" name="submitted_by_name" class="form-input"
+              placeholder="Dr. Jane Smith" required>
           </div>
           <div class="form-group">
             <label for="submitted_by_role">Your Role *</label>
-            <input type="text" id="submitted_by_role" name="submitted_by_role" class="form-input" placeholder="DDS, Treatment Coordinator, etc." required>
+            <input type="text" id="submitted_by_role" name="submitted_by_role" class="form-input"
+              placeholder="DDS, Treatment Coordinator, etc." required>
           </div>
         </div>
-
-        <div class="form-group">
-          <label for="why_choose_us">Why Choose Our Office? (Optional)</label>
-          <textarea id="why_choose_us" name="why_choose_us" class="form-input" rows="3" placeholder="Tell the patient why your office is the best choice..." style="resize:vertical;"></textarea>
-        </div>
       </div>
+
     </form>
+
+    <!-- Disclaimer -->
+    <div class="disclaimer-block">
+      <p>
+        <strong>Clinical Disclaimer:</strong>
+        All estimates must be confirmed in-office. This estimate reflects your professional opinion and may change after clinical evaluation. Treatment fees and plans are subject to change following an in-person examination and diagnostic review.
+      </p>
+    </div>
+
   </div>
 
+  <!-- Actions Bar -->
   <div class="actions-bar">
     <a href="office-cases.html" class="btn btn-outline">Cancel</a>
     <button type="button" id="saveDraftBtn" class="btn btn-draft" onclick="saveDraft()">Save Draft</button>
@@ -296,36 +664,146 @@
     var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ4Znd5dHhmZXV3c2JlYXBpeXF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQ2NTk3MjksImV4cCI6MjA1MDIzNTcyOX0.anZxOWzcVyobPx8hW_DUpdIl1IAWeE-ANXpZq-ysXvI';
     var supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+    /* ── Case data ── */
+    var CASE_DATA = {
+      'case-1': {
+        procedure: 'Full Arch Implant — Upper',
+        category: 'Implant Prosthetics',
+        location: 'Gilbert, AZ (4.2 mi)',
+        value: '$20,000 – $32,000',
+        urgency: 'Urgent',
+        score: '9.4'
+      },
+      'case-2': {
+        procedure: 'Single Implant — #30',
+        category: 'Implant Dentistry',
+        location: 'Mesa, AZ (7.3 mi)',
+        value: '$1,800 – $3,200',
+        urgency: 'Routine',
+        score: '9.1'
+      },
+      'case-3': {
+        procedure: '6 Veneers — Upper Anteriors',
+        category: 'Cosmetic Dentistry',
+        location: 'Tempe, AZ (6.5 mi)',
+        value: '$6,000 – $12,000',
+        urgency: 'Routine',
+        score: '8.8'
+      },
+      'case-4': {
+        procedure: 'Bridge Replacement — 3 Unit',
+        category: 'Restorative',
+        location: 'Chandler, AZ (8.1 mi)',
+        value: '$3,500 – $6,000',
+        urgency: 'Routine',
+        score: '8.3'
+      },
+      'case-5': {
+        procedure: 'Root Canal + Crown',
+        category: 'Endodontics',
+        location: 'Phoenix, AZ (11.2 mi)',
+        value: '$1,200 – $2,100',
+        urgency: 'Urgent',
+        score: '8.1'
+      },
+      'case-6': {
+        procedure: 'Emergency Extraction + Bone Graft',
+        category: 'Oral Surgery',
+        location: 'Scottsdale, AZ (9.4 mi)',
+        value: '$800 – $1,500',
+        urgency: 'Emergency',
+        score: '7.9'
+      }
+    };
+
+    /* ── Template copy ── */
+    var TEMPLATES = {
+      crown: 'Recommended treatment: Full-coverage dental crown fabricated from [zirconia / PFM / e.max]. Tooth preparation and impression at appointment 1 (~60 min), temporary crown placed. Final crown delivery at appointment 2 (~45 min) approximately 2–3 weeks later. Alternatives considered: onlay, composite build-up.',
+      implant: 'Recommended treatment: Single titanium implant placement (Nobel Biocare / Straumann / BioHorizons) with osseointegration period of 3–6 months, followed by custom zirconia or PFM crown. Bone graft evaluated at time of extraction if needed. Total timeline approximately 6–9 months. Alternatives considered: 3-unit bridge, partial denture.',
+      veneers: 'Recommended treatment: Feldspathic porcelain or pressed ceramic veneers (–1 to +1 mm reduction) on [tooth numbers]. Preparation, impressions, and temporaries at appointment 1 (~90 min). Final delivery at appointment 2 (~60 min) approximately 2–3 weeks later. Digital smile design preview available. Alternatives considered: composite veneers, orthodontic alignment.',
+      rootcanal: 'Recommended treatment: Root canal therapy on tooth [#]. Single or multi-visit depending on infection status. Biomechanical preparation, irrigation, obturation with gutta-percha. Build-up and full-coverage crown recommended following therapy to prevent fracture. Total appointments: 1–2 for RCT + 2 for crown. Alternatives considered: extraction with implant or bridge.',
+      fullarch: 'Recommended treatment: Full arch implant-supported restoration (All-on-4 or All-on-6 protocol). Implant placement and immediate-load provisional on same day. Final zirconia full-arch prosthesis fabricated at 4–6 months post-integration. Digital planning and surgical guide used. Total treatment timeline: 5–7 months. Alternatives considered: conventional full denture, implant overdenture.'
+    };
+
+    /* ── Query param ── */
     function getQueryParam(name) {
       return new URLSearchParams(window.location.search).get(name);
     }
 
+    /* ── Populate case summary ── */
     var caseId = getQueryParam('case_id');
     var banner = document.getElementById('caseInfoBanner');
-    if (caseId) {
+    var caseRecord = caseId ? CASE_DATA[caseId] : null;
+
+    if (caseRecord) {
+      document.getElementById('csProcedure').textContent = caseRecord.procedure;
+      document.getElementById('csCategory').textContent = caseRecord.category + ' • Case ' + caseId;
+      document.getElementById('csScore').textContent = '★ ' + caseRecord.score + ' / 10';
+      document.getElementById('csLocation').textContent = caseRecord.location;
+      document.getElementById('csValue').textContent = caseRecord.value;
+      document.getElementById('csScoreDetail').textContent = caseRecord.score + ' / 10';
+
+      var urgencyEl = document.getElementById('csUrgency');
+      var u = caseRecord.urgency;
+      if (u === 'Urgent') {
+        urgencyEl.innerHTML = '<span class="badge-urgent">Urgent</span>';
+      } else if (u === 'Emergency') {
+        urgencyEl.innerHTML = '<span class="badge-emergency">Emergency</span>';
+      } else {
+        urgencyEl.innerHTML = '<span class="badge-routine">Routine</span>';
+      }
+
+      banner.textContent = 'Submitting estimate for ' + caseRecord.procedure + ' — ' + caseId;
+
+    } else if (caseId) {
+      document.getElementById('csProcedure').textContent = 'Case ' + caseId;
+      document.getElementById('csCategory').textContent = 'Case details not available';
       banner.textContent = 'Submitting estimate for Case ID: ' + caseId;
+
     } else {
       banner.style.background = '#fef2f2';
       banner.style.borderLeftColor = '#ef4444';
       banner.textContent = 'Warning: No case_id in URL. Access this page from Patient Cases.';
     }
 
+    /* ── Apply template ── */
+    function applyTemplate(key) {
+      if (!key) return;
+      var ta = document.getElementById('treatment_approach');
+      if (TEMPLATES[key]) {
+        ta.value = TEMPLATES[key];
+        ta.focus();
+      }
+      document.getElementById('templateSelect').value = '';
+    }
+
+    /* ── Append chip text ── */
+    function appendChip(text) {
+      var ta = document.getElementById('why_choose_us');
+      var current = ta.value.trim();
+      ta.value = current ? current + '\n' + text + ': ' : text + ': ';
+      ta.focus();
+      ta.setSelectionRange(ta.value.length, ta.value.length);
+    }
+
+    /* ── Save Draft (UI only) ── */
     function saveDraft() {
       var btn = document.getElementById('saveDraftBtn');
-      btn.textContent = 'Draft Saved \u2713';
+      btn.textContent = 'Draft Saved ✓';
       btn.classList.add('saved');
       btn.disabled = true;
-      setTimeout(function() {
+      setTimeout(function () {
         btn.textContent = 'Save Draft';
         btn.classList.remove('saved');
         btn.disabled = false;
       }, 2000);
     }
 
+    /* ── Submit ── */
     async function handleSubmit() {
       var submitBtn = document.getElementById('submitBtn');
       submitBtn.disabled = true;
-      submitBtn.textContent = 'Submitting...';
+      submitBtn.textContent = 'Submitting…';
 
       if (!caseId) {
         alert('Error: No case_id provided. Please access this page from a valid patient case.');
@@ -384,5 +862,6 @@
       }
     }
   </script>
+
 </body>
 </html>
