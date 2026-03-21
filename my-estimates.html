@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Estimates - Dental Dash Pro</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .estimates-wrap { max-width: 960px; margin: 40px auto; padding: 0 24px 60px; }
+    .estimates-wrap h2 { font-size: 1.6rem; font-weight: 700; color: #0f172a; margin-bottom: 6px; }
+    .estimates-wrap .page-sub { color: #475569; font-size: 0.95rem; margin-bottom: 28px; }
+
+    .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 14px; margin-bottom: 36px; }
+    .stat-mini { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px 20px; }
+    .stat-mini .label { font-size: 0.72rem; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.05em; }
+    .stat-mini .val { font-size: 1.5rem; font-weight: 800; color: #0f172a; margin-top: 4px; }
+
+    .section-heading {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #0f172a;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 10px 0 10px;
+      margin-bottom: 14px;
+      border-bottom: 2px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-heading .section-count {
+      background: #f1f5f9;
+      color: #475569;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 2px 10px;
+      border-radius: 999px;
+    }
+    .section-block { margin-bottom: 44px; }
+
+    .estimate-card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 24px 28px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: start;
+    }
+    .estimate-card .patient-label { font-size: 0.75rem; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+    .estimate-card h3 { font-size: 1.05rem; font-weight: 700; color: #0f172a; margin: 0 0 8px; }
+    .estimate-meta { display: flex; flex-wrap: wrap; gap: 12px; font-size: 0.85rem; color: #64748b; }
+    .estimate-meta span { display: flex; align-items: center; gap: 4px; }
+    .estimate-price { font-size: 1.1rem; font-weight: 700; color: #0f172a; margin-top: 10px; }
+    .card-actions { margin-top: 14px; display: flex; gap: 10px; }
+
+    .btn-action {
+      padding: 7px 16px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-continue { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+    .btn-continue:hover { background: #dbeafe; }
+    .btn-view { background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0; }
+    .btn-view:hover { background: #e2e8f0; }
+
+    .status-badge {
+      display: inline-block;
+      padding: 5px 14px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .status-draft { background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0; }
+    .status-review { background: #fef9c3; color: #854d0e; border: 1px solid #fde68a; }
+    .status-submitted { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
+    .status-pending { background: #fef9c3; color: #854d0e; border: 1px solid #fde68a; }
+    .status-viewed { background: #dbeafe; color: #1e40af; border: 1px solid #bfdbfe; }
+    .status-accepted { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+    .status-declined { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
+
+    .empty-state { text-align: center; padding: 32px 24px; color: #94a3b8; font-size: 0.9rem; background: #f8fafc; border-radius: 12px; border: 1px dashed #e2e8f0; }
+
+    @media (max-width: 600px) {
+      .estimate-card { grid-template-columns: 1fr; }
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <h1><a href="index.html" style="color:white;text-decoration:none;">Dental Dash Pro</a></h1>
+      <nav style="display: flex; gap: 20px;">
+        <a href="office-dashboard.html" style="color: white; text-decoration: none; font-weight: 500; opacity: 0.8;">Dashboard</a>
+        <a href="saved-cases.html" style="color: white; text-decoration: none; font-weight: 500; opacity: 0.8;">Browse Cases</a>
+        <a href="my-estimates.html" style="color: white; text-decoration: none; font-weight: 700; border-bottom: 2px solid white;">My Estimates</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="estimates-wrap">
+      <h2>My Estimates</h2>
+      <p class="page-sub">Manage all your estimate drafts, approvals, and submitted bids in one place.</p>
+
+      <!-- Stats Summary -->
+      <div class="stats-row">
+        <div class="stat-mini">
+          <div class="label">Drafts</div>
+          <div class="val">3</div>
+        </div>
+        <div class="stat-mini">
+          <div class="label">Pending Approval</div>
+          <div class="val">2</div>
+        </div>
+        <div class="stat-mini">
+          <div class="label">Submitted</div>
+          <div class="val">14</div>
+        </div>
+        <div class="stat-mini">
+          <div class="label">Accepted</div>
+          <div class="val">9</div>
+        </div>
+      </div>
+
+      <!-- ── SECTION 1: Draft Estimates ── -->
+      <div class="section-block">
+        <div class="section-heading">
+          ✏️ Draft Estimates
+          <span class="section-count">3</span>
+        </div>
+
+        <div class="estimate-card">
+          <div>
+            <div class="patient-label">Patient Case</div>
+            <h3>Single Crown &mdash; Case #1051</h3>
+            <div class="estimate-meta">
+              <span>&#128205; ZIP 85234</span>
+              <span>&#127973; Delta Dental</span>
+              <span>&#128197; Started today</span>
+            </div>
+            <div class="estimate-price">$950 &ndash; $1,400 <span style="font-size:0.78rem;font-weight:400;color:#94a3b8;">(draft range)</span></div>
+            <div class="card-actions">
+              <a href="office-bid.html?case_id=1051" class="btn-action btn-continue">Continue Estimate</a>
+            </div>
+          </div>
+          <div><span class="status-badge status-draft">&#9998; Draft</span></div>
+        </div>
+
+        <div class="estimate-card">
+          <div>
+            <div class="patient-label">Patient Case</div>
+            <h3>Veneers / Smile Makeover &mdash; Case #1055</h3>
+            <div class="estimate-meta">
+              <span>&#128205; ZIP 85281</span>
+              <span>&#127973; Cash</span>
+              <span>&#128197; Started yesterday</span>
+            </div>
+            <div class="estimate-price">$12,000 &ndash; $16,000 <span style="font-size:0.78rem;font-weight:400;color:#94a3b8;">(draft range)</span></div>
+            <div class="card-actions">
+              <a href="office-bid.html?case_id=1055" class="btn-action btn-continue">Continue Estimate</a>
+            </div>
+          </div>
+          <div><span class="status-badge status-draft">&#9998; Draft</span></div>
+        </div>
+
+        <div class="estimate-card">
+          <div>
+            <div class="patient-label">Patient Case</div>
+            <h3>Emergency Extraction + Implant Planning &mdash; Case #1058</h3>
+            <div class="estimate-meta">
+              <span>&#128205; ZIP 85225</span>
+              <span>&#127973; CareCredit</span>
+              <span>&#128197; Started 2 days ago</span>
+            </div>
+            <div class="estimate-price">$3,800 &ndash; $5,200 <span style="font-size:0.78rem;font-weight:400;color:#94a3b8;">(draft range)</span></div>
+            <div class="card-actions">
+              <a href="office-bid.html?case_id=1058" class="btn-action btn-continue">Continue Estimate</a>
+            </div>
+          </div>
+          <div><span class="status-badge status-draft">&#9998; Draft</span></div>
+        </div>
+      </div>
+
+      <!-- ── SECTION 2: Pending Doctor Approval ── -->
+      <div class="section-block">
+        <div class="section-heading">
+          &#9203; Pending Doctor Approval
+          <span class="section-count">2</span>
+        </div>
+
+        <div class="estimate-card">
+          <div>
+            <div class="patient-label">Patient Case</div>
+            <h3>Full Arch Implant &mdash; Case #1052</h3>
+            <div class="estimate-meta">
+              <span>&#128205; ZIP 85212</span>
+              <span>&#127973; PPO Insurance</span>
+              <span>&#128197; Submitted for review 3 hours ago</span>
+            </div>
+            <div class="estimate-price">$28,000</div>
+            <div class="card-actions">
+              <a href="office-bid.html?case_id=1052" class="btn-action btn-continue">Review &amp; Approve</a>
+            </div>
+          </div>
+          <div><span class="status-badge status-review">&#9679; Pending Approval</span></div>
+        </div>
+
+        <div class="estimate-card">
+          <div>
+            <div class="patient-label">Patient Case</div>
+            <h3>All-on-4 Consultation &mdash; Case #1053</h3>
+            <div class="estimate-meta">
+              <span>&#128205; ZIP 85254</span>
+              <span>&#127973; Cash / Financing</span>
+              <span>&#128197; Submitted for review 1 day ago</span>
+            </div>
+            <div class="estimate-price">$22,000 &ndash; $26,000</div>
+            <div class="card-actions">
+              <a href="office-bid.html?case_id=1053" class="btn-action btn-continue">Review &amp; Approve</a>
+            </div>
+          </div>
+          <div><span class="status-badge status-review">&#9679; Pending Approval</span></div>
+        </div>
+      </div>
+
+      <!-- ── SECTION 3: Submitted ── -->
+      <div class="section-block">
+        <div class="section-heading">
+          &#10003; Submitted
+          <span class="section-count">5</span>
+        </div>
+
+        <div class="estimate-card">
+          <div>
+            <div class="patient-label">Patient Case</div>
+            <h3>Crown &mdash; Case #1042</h3>
+            <div class="estimate-meta">
+              <span>&#128205; ZIP 85234</span>
+              <span>&#127973; Delta Dental</span>
+              <span>&#128197; Submitted 1 hour ago</span>
+            </div>
+            <div class="estimate-price">$950 &ndash; $1,400</div>
+            <div class="card-actions">
+              <a href="office-bid.html?case_id=1042" class="btn-action btn-view">View Estimate</a>
+            </div>
+          </div>
+          <div><span class="status-badge status-pending">&#9679; Pending Review</span></div>
+        </div>
+
+        <div class="estimate-card">
+          <div>
+            <div class="patient-label">Patient Case</div>
+            <h3>Root Canal &mdash; Case #1041</h3>
+            <div class="estimate-meta">
+              <span>&#128205; ZIP 85233</span>
+              <span>&#127973; None</span>
+              <span>&#128197; Submitted 3 hours ago</span>
+            </div>
+            <div class="estimate-price">$700 &ndash; $1,100</div>
+            <div class="card-actions">
+              <a href="office-bid.html?case_id=1041" class="btn-action btn-view">View Estimate</a>
+            </div>
+          </div>
+          <div><span class="status-badge status-viewed">&#128065; Patient Viewed</span></div>
+        </div>
+
+        <div class="estimate-card">
+          <div>
+            <div class="patient-label">Patient Case</div>
+            <h3>Cleaning &amp; Exam &mdash; Case #1040</h3>
+            <div class="estimate-meta">
+              <span>&#128205; ZIP 85295</span>
+              <span>&#127973; Cigna</span>
+              <span>&#128197; Submitted 1 day ago</span>
+            </div>
+            <div class="estimate-price">$120 &ndash; $180</div>
+            <div class="card-actions">
+              <a href="office-bid.html?case_id=1040" class="btn-action btn-view">View Estimate</a>
+            </div>
+          </div>
+          <div><span class="status-badge status-accepted">&#10003; Accepted</span></div>
+        </div>
+
+        <div class="estimate-card">
+          <div>
+            <div class="patient-label">Patient Case</div>
+            <h3>Dental Implant &mdash; Case #1039</h3>
+            <div class="estimate-meta">
+              <span>&#128205; ZIP 85212</span>
+              <span>&#127973; Aetna</span>
+              <span>&#128197; Submitted 2 days ago</span>
+            </div>
+            <div class="estimate-price">$3,200 &ndash; $4,800</div>
+            <div class="card-actions">
+              <a href="office-bid.html?case_id=1039" class="btn-action btn-view">View Estimate</a>
+            </div>
+          </div>
+          <div><span class="status-badge status-accepted">&#10003; Accepted</span></div>
+        </div>
+
+        <div class="estimate-card">
+          <div>
+            <div class="patient-label">Patient Case</div>
+            <h3>Teeth Whitening &mdash; Case #1038</h3>
+            <div class="estimate-meta">
+              <span>&#128205; ZIP 85248</span>
+              <span>&#127973; None</span>
+              <span>&#128197; Submitted 3 days ago</span>
+            </div>
+            <div class="estimate-price">$350 &ndash; $500</div>
+            <div class="card-actions">
+              <a href="office-bid.html?case_id=1038" class="btn-action btn-view">View Estimate</a>
+            </div>
+          </div>
+          <div><span class="status-badge status-declined">&#10005; Declined</span></div>
+        </div>
+      </div>
+
+      <div class="nav-links" style="margin-top: 12px;">
+        <a href="office-dashboard.html">&larr; Back to Dashboard</a>
+        <a href="saved-cases.html">Browse Cases</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Dental Dash Pro. All rights reserved.</p>
+  </footer>
+</body>
+</html>
