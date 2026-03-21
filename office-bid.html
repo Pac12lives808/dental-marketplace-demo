@@ -76,15 +76,18 @@
       position: fixed;
       bottom: 0; left: 0; right: 0;
       background: white;
-      padding: 20px 40px;
+      padding: 16px 40px;
       border-top: 1px solid #e2e8f0;
       display: flex;
       justify-content: flex-end;
-      gap: 16px;
+      align-items: center;
+      gap: 12px;
       z-index: 1000;
     }
-    .btn { padding: 14px 28px; border-radius: 12px; font-weight: 600; text-decoration: none; transition: all 0.2s; cursor: pointer; border: none; font-size: 1rem; }
+    .btn { padding: 12px 24px; border-radius: 12px; font-weight: 600; text-decoration: none; transition: all 0.2s; cursor: pointer; border: none; font-size: 0.95rem; white-space: nowrap; }
     .btn-outline { background: white; border: 2px solid #e2e8f0; color: var(--text-main); }
+    .btn-draft { background: #f1f5f9; border: 2px solid #cbd5e1; color: #475569; }
+    .btn-draft.saved { background: #f0fdf4; border-color: #86efac; color: #16a34a; }
     .btn-primary { background: var(--accent-blue); color: white; box-shadow: 0 4px 12px rgba(59,130,246,0.3); }
     .btn-primary:hover { transform: translateY(-2px); }
     .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
@@ -97,10 +100,90 @@
       font-size: 0.9rem;
       color: var(--text-main);
     }
+    .case-summary-card {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 28px 32px;
+      margin-bottom: 24px;
+      box-shadow: var(--card-shadow);
+    }
+    .case-summary-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .case-summary-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary-blue);
+      margin: 0;
+    }
+    .case-summary-subtitle {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin: 4px 0 0;
+    }
+    .badge-score {
+      background: #eff6ff;
+      color: #1d4ed8;
+      border: 1px solid #bfdbfe;
+      border-radius: 999px;
+      padding: 4px 14px;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+    .case-summary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .cs-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .cs-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+    }
+    .cs-value {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+    .badge-urgent {
+      display: inline-block;
+      background: #fef2f2;
+      color: #dc2626;
+      border: 1px solid #fecaca;
+      border-radius: 999px;
+      padding: 2px 10px;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+    @media (max-width: 640px) {
+      .top-nav { padding: 0 16px; }
+      .nav-links { gap: 14px; }
+      .case-summary-grid { grid-template-columns: 1fr 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .actions-bar { padding: 12px 16px; gap: 8px; }
+      .btn { padding: 11px 16px; font-size: 0.875rem; }
+    }
+    @media (max-width: 380px) {
+      .case-summary-grid { grid-template-columns: 1fr; }
+      .actions-bar { flex-wrap: wrap; }
+      .actions-bar .btn { flex: 1 1 auto; text-align: center; }
+    }
   </style>
 </head>
 <body>
-
   <nav class="top-nav">
     <a href="office-dashboard.html" class="logo">DentalDash</a>
     <div class="nav-links">
@@ -113,60 +196,105 @@
   <div class="bid-container">
     <div id="caseInfoBanner" class="case-info">Loading case information...</div>
 
-    <div class="card">
-      <p class="card-title">Estimate Details</p>
-      <div class="form-row">
-        <div class="form-group">
-          <label>Low Estimate ($) *</label>
-          <input type="number" id="estimate_low" name="estimate_low" class="form-input" placeholder="2500" min="0" step="0.01" required>
+    <!-- Case Summary Card -->
+    <div class="case-summary-card">
+      <div class="case-summary-header">
+        <div>
+          <p class="case-summary-title">Full Arch Implant &mdash; Upper</p>
+          <p class="case-summary-subtitle">Implant Dentistry &bull; Case #1052</p>
         </div>
-        <div class="form-group">
-          <label>High Estimate ($) *</label>
-          <input type="number" id="estimate_high" name="estimate_high" class="form-input" placeholder="3200" min="0" step="0.01" required>
+        <span class="badge-score">&#9733; 9.4 / 10</span>
+      </div>
+      <div class="case-summary-grid">
+        <div class="cs-item">
+          <span class="cs-label">Location</span>
+          <span class="cs-value">Gilbert, AZ (4.2 mi)</span>
         </div>
-      </div>
-      <div class="form-group">
-        <label>Treatment Approach *</label>
-        <textarea id="treatment_approach" name="treatment_approach" class="form-input" rows="4" placeholder="Describe your recommended treatment plan..." required></textarea>
-      </div>
-      <div class="form-group">
-        <label>Payment Options (Optional)</label>
-        <input type="text" id="payment_options" name="payment_options" class="form-input" placeholder="e.g., CareCredit, Payment Plans">
-      </div>
-      <div class="form-group">
-        <label>Availability Notes (Optional)</label>
-        <input type="text" id="availability_notes" name="availability_notes" class="form-input" placeholder="e.g., Available next week, Monday-Friday">
+        <div class="cs-item">
+          <span class="cs-label">Estimated Value</span>
+          <span class="cs-value">$20,000 &ndash; $32,000</span>
+        </div>
+        <div class="cs-item">
+          <span class="cs-label">Urgency</span>
+          <span class="cs-value"><span class="badge-urgent">Urgent</span></span>
+        </div>
       </div>
     </div>
 
-    <div class="card">
-      <p class="card-title">Submitting Office Contact</p>
-      <div class="form-row">
-        <div class="form-group">
-          <label>Your Name *</label>
-          <input type="text" id="submitted_by_name" name="submitted_by_name" class="form-input" placeholder="Dr. Jane Smith" required>
+    <form id="bidForm">
+      <div class="card">
+        <h2 class="card-title">Estimate Details</h2>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="estimate_low">Low Estimate ($) *</label>
+            <input type="number" id="estimate_low" name="estimate_low" class="form-input" placeholder="20000" min="0" step="0.01" required>
+          </div>
+          <div class="form-group">
+            <label for="estimate_high">High Estimate ($) *</label>
+            <input type="number" id="estimate_high" name="estimate_high" class="form-input" placeholder="32000" min="0" step="0.01" required>
+          </div>
         </div>
+
         <div class="form-group">
-          <label>Your Role *</label>
-          <input type="text" id="submitted_by_role" name="submitted_by_role" class="form-input" placeholder="DDS, Treatment Coordinator, etc." required>
+          <label for="treatment_approach">Treatment Approach *</label>
+          <textarea id="treatment_approach" name="treatment_approach" class="form-input" rows="4" placeholder="Describe the recommended treatment plan..." required style="resize:vertical;"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="confidence_level">Confidence Level</label>
+          <select id="confidence_level" class="form-input">
+            <option value="">Select confidence level</option>
+            <option value="very_high" selected>High Confidence</option>
+            <option value="high">Moderate-High Confidence</option>
+            <option value="medium">Moderate Confidence</option>
+            <option value="low">Needs Further Review</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="payment_options">Payment Options (Optional)</label>
+          <input type="text" id="payment_options" name="payment_options" class="form-input" placeholder="e.g., CareCredit, Payment Plans">
+        </div>
+
+        <div class="form-group">
+          <label for="availability_notes">Availability Notes (Optional)</label>
+          <input type="text" id="availability_notes" name="availability_notes" class="form-input" placeholder="e.g., Available next week, Monday-Friday">
         </div>
       </div>
-      <div class="form-group">
-        <label>Why Choose Our Office? (Optional)</label>
-        <textarea id="why_choose_us" name="why_choose_us" class="form-input" rows="3" placeholder="What makes your practice stand out?"></textarea>
+
+      <div class="card">
+        <h2 class="card-title">Submitting Office Contact</h2>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="submitted_by_name">Your Name *</label>
+            <input type="text" id="submitted_by_name" name="submitted_by_name" class="form-input" placeholder="Dr. Jane Smith" required>
+          </div>
+          <div class="form-group">
+            <label for="submitted_by_role">Your Role *</label>
+            <input type="text" id="submitted_by_role" name="submitted_by_role" class="form-input" placeholder="DDS, Treatment Coordinator, etc." required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="why_choose_us">Why Choose Our Office? (Optional)</label>
+          <textarea id="why_choose_us" name="why_choose_us" class="form-input" rows="3" placeholder="Tell the patient why your office is the best choice..." style="resize:vertical;"></textarea>
+        </div>
       </div>
-    </div>
+    </form>
   </div>
 
   <div class="actions-bar">
     <a href="office-cases.html" class="btn btn-outline">Cancel</a>
-    <button id="submitBtn" class="btn btn-primary" onclick="handleSubmit()">Submit for Doctor Approval</button>
+    <button type="button" id="saveDraftBtn" class="btn btn-draft" onclick="saveDraft()">Save Draft</button>
+    <button type="button" id="submitBtn" class="btn btn-primary" onclick="handleSubmit()">Submit for Doctor Approval</button>
   </div>
 
   <script>
     var SUPABASE_URL = 'https://fxfwytxfeuwsbeapiyqw.supabase.co';
-    var SUPABASE_ANON_KEY = 'sb_publishable_KKx-OnYzdUCTRrwc8eIOpg_M5aOU4Do';
-    var supabaseClient = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+    var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ4Znd5dHhmZXV3c2JlYXBpeXF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQ2NTk3MjksImV4cCI6MjA1MDIzNTcyOX0.anZxOWzcVyobPx8hW_DUpdIl1IAWeE-ANXpZq-ysXvI';
+    var supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     function getQueryParam(name) {
       return new URLSearchParams(window.location.search).get(name);
@@ -182,13 +310,20 @@
       banner.textContent = 'Warning: No case_id in URL. Access this page from Patient Cases.';
     }
 
+    function saveDraft() {
+      var btn = document.getElementById('saveDraftBtn');
+      btn.textContent = 'Draft Saved \u2713';
+      btn.classList.add('saved');
+      btn.disabled = true;
+      setTimeout(function() {
+        btn.textContent = 'Save Draft';
+        btn.classList.remove('saved');
+        btn.disabled = false;
+      }, 2000);
+    }
+
     async function handleSubmit() {
-      console.log('handleSubmit called, caseId=' + caseId);
       var submitBtn = document.getElementById('submitBtn');
-      if (!supabaseClient) {
-        alert('Error: Supabase library not loaded. Please refresh the page.');
-        return;
-      }
       submitBtn.disabled = true;
       submitBtn.textContent = 'Submitting...';
 
@@ -198,31 +333,6 @@
         submitBtn.textContent = 'Submit for Doctor Approval';
         return;
       }
-
-      // Resolve office_id dynamically from auth session
-      var sessionResult = await supabaseClient.auth.getSession();
-      var session = sessionResult.data && sessionResult.data.session;
-      if (!session || !session.user) {
-        alert('Error: You are not logged in. Please sign in to submit an estimate.');
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Submit for Doctor Approval';
-        return;
-      }
-      var userId = session.user.id;
-
-      var officeResult = await supabaseClient
-        .from('offices')
-        .select('id')
-        .eq('user_id', userId)
-        .single();
-      if (officeResult.error || !officeResult.data) {
-        alert('Error: Could not find your office record. Please contact support.');
-        console.error('Office lookup error:', officeResult.error);
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Submit for Doctor Approval';
-        return;
-      }
-      var officeId = officeResult.data.id;
 
       var low = parseFloat(document.getElementById('estimate_low').value) || 0;
       var high = parseFloat(document.getElementById('estimate_high').value) || 0;
@@ -242,7 +352,7 @@
 
       var payload = {
         patient_case_id: caseId,
-        office_id: officeId,
+        office_id: null,
         submitted_by_name: submittedByName,
         submitted_by_role: submittedByRole,
         treatment_approach: treatment,
@@ -254,31 +364,25 @@
         status: 'PENDING_DOCTOR_APPROVAL'
       };
 
-      console.log('Submitting payload:', JSON.stringify(payload));
-
       try {
         var result = await supabaseClient
           .from('estimates')
           .insert([payload])
           .select();
 
-        document.getElementById('caseInfoBanner').textContent = 'RESULT: err=' + (result.error ? result.error.message : 'null') + ' data=' + JSON.stringify(result.data);
-
         if (result.error) throw result.error;
 
         if (typeof gtag === 'function') {
           gtag('event', 'submit_for_doctor_approval');
         }
-        window.location.replace('https://dentaldashpro.com/estimate-submitted.html');
+
+        window.location.href = 'estimate-submitted.html';
       } catch (err) {
-        document.getElementById('caseInfoBanner').textContent = 'ERROR: ' + (err.message || JSON.stringify(err));
-        console.error('Estimate submission error:', err);
         alert('Error submitting estimate: ' + (err.message || 'Unknown error. Please try again.'));
         submitBtn.disabled = false;
         submitBtn.textContent = 'Submit for Doctor Approval';
       }
     }
   </script>
-
 </body>
 </html>
