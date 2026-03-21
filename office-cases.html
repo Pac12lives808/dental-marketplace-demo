@@ -1,147 +1,101 @@
-<script>
-  // GA4 page load event
-  if (typeof gtag === 'function') { gtag('event', 'view_case_feed'); }
-  document.addEventListener('DOMContentLoaded', function() {
-    if (typeof gtag === 'function') { gtag('event', 'view_case_feed'); }
-  });
-</script>
-<!-- Case 1: Full Arch Implant -->
-<div class="case-card">
-    <div class="case-score">9.4/10</div>
-    <div class="case-category">Implant Prosthetics</div>
-    <h3 class="case-title">Full Arch Implant Case</h3>
-    <div class="case-meta">
-        <div class="meta-item"><span class="meta-label">Location</span><span class="meta-val">Gilbert, AZ (4.2 mi)</span></div>
-        <div class="meta-item"><span class="meta-label">Value Est.</span><span class="meta-val">$20,000 - $32,000</span></div>
-        <div class="meta-item"><span class="meta-label">Payment</span><span class="meta-val">PPO Insurance</span></div>
-        <div class="meta-item"><span class="meta-label">Urgency</span><span class="meta-val">Within 2 weeks</span></div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Available Cases - Dental Dash Pro</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    :root {
+      --bg-body: #f1f5f9;
+      --bg-card: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --accent-blue: #2563eb;
+      --border-light: #e2e8f0;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+    }
+    body { background-color: var(--bg-body); margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+    
+    /* Header Styles */
+    .dashboard-header { background: #fff; padding: 20px 32px; border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center; z-index: 100; }
+    .header-left h1 { font-size: 1.5rem; margin: 0; color: var(--text-main); font-weight: 800; }
+    .header-left p { margin: 4px 0 0; color: var(--text-muted); font-size: 0.9rem; }
+    .header-actions { display: flex; align-items: center; gap: 12px; }
+    .search-input { padding: 10px 16px; border: 1px solid var(--border-light); border-radius: 8px; font-size: 0.9rem; width: 240px; }
+    .btn-sec { padding: 10px 16px; background: #fff; border: 1px solid var(--border-light); border-radius: 8px; font-size: 0.85rem; font-weight: 600; cursor: pointer; color: var(--text-main); }
+    .badge-founding { padding: 6px 12px; background: #eff6ff; color: #1e40af; border-radius: 6px; font-size: 0.75rem; font-weight: 700; border: 1px solid #bfdbfe; }
+
+    /* Filter Bar Styles */
+    .sticky-filter-bar { background: #fff; padding: 12px 32px; border-bottom: 1px solid var(--border-light); display: flex; align-items: center; sticky: top; }
+    .filters-row { display: flex; align-items: center; gap: 10px; width: 100%; }
+    .filters-row select { padding: 8px 12px; border: 1px solid var(--border-light); border-radius: 6px; font-size: 0.8rem; color: var(--text-main); background: #f8fafc; }
+    .filter-divider { width: 1px; height: 24px; background: var(--border-light); margin: 0 10px; }
+    .btn-clear { background: none; border: none; color: var(--accent-blue); font-size: 0.8rem; font-weight: 600; cursor: pointer; }
+
+    /* Marketplace Layout */
+    .marketplace-container { display: flex; flex: 1; overflow: hidden; }
+    .case-sidebar { width: 400px; border-right: 1px solid var(--border-light); overflow-y: auto; background: #fff; }
+    .case-preview-panel { flex: 1; overflow-y: auto; background: #f8fafc; padding: 32px; }
+    
+    /* Disclaimer Footer */
+    .disclaimer-bar { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; border-top: 1px solid var(--border-light); padding: 10px 32px; font-size: 0.75rem; color: var(--text-muted); text-align: center; }
+  </style>
+</head>
+<body>
+
+<header class="dashboard-header">
+  <div class="header-left">
+    <h1>Available Cases</h1>
+    <p>Browse high-fit patient cases and respond to the ones that match your practice</p>
+  </div>
+  <div class="header-actions">
+    <input type="text" placeholder="Search cases..." class="search-input">
+    <button class="btn-sec">Saved Filters</button>
+    <button class="btn-sec">My Drafts</button>
+    <span class="badge-founding">Founding Office</span>
+  </div>
+</header>
+
+<nav class="sticky-filter-bar">
+  <div class="filters-row">
+    <select><option>Procedure</option></select>
+    <select><option>Distance</option></select>
+    <select><option>Case Value</option></select>
+    <select><option>Urgency</option></select>
+    <select><option>Payment Type</option></select>
+    <select><option>Case Score</option></select>
+    <div class="filter-divider"></div>
+    <select class="sort-select">
+      <option>Best Fit</option>
+      <option>Highest Value</option>
+      <option>Newest</option>
+    </select>
+    <button class="btn-clear">Clear Filters</button>
+  </div>
+</nav>
+
+<div class="marketplace-container">
+  <!-- Left Panel: Case List (40%) -->
+  <aside class="case-sidebar" id="caseList">
+    <!-- Case cards will be injected in STEP 3 -->
+    <div style="padding: 40px; text-align: center; color: #94a3b8;">Loading cases...</div>
+  </aside>
+
+  <!-- Right Panel: Case Preview (60%) -->
+  <section class="case-preview-panel" id="casePreview">
+    <!-- Preview content will be injected in STEP 3 -->
+    <div style="text-align: center; padding-top: 100px; color: #94a3b8;">
+      <p style="font-size: 1.25rem; font-weight: 600;">Select a case to view details</p>
+      <p>Click any case card in the left panel to see full clinical records</p>
     </div>
-    <p class="case-summary">Patient missing multiple upper teeth and wants a fixed full-arch option. Uploaded pano and CBCT. Looking for consultation within 7 days.</p>
-    <div class="doc-tags">
-        <span class="doc-tag">✓ X-Rays</span>
-        <span class="doc-tag">✓ CBCT</span>
-        <span class="doc-tag">✓ Photos</span>
-    </div>
-    <div class="card-footer">
-        <a href="#" class="btn-card btn-outline">View Case</a>
-        <a href="office-bid.html?case_id=0841daf5-d4de-4d49-93f2-fbd32d6cb3d1" class="btn-card btn-primary-card" onclick="gtag('event', 'click_provide_estimate')">Provide Estimate</a>
-    </div>
+  </section>
 </div>
 
-<!-- Case 2: All-on-4 -->
-<div class="case-card">
-    <div class="case-score">9.1/10</div>
-    <div class="case-category">Implant Prosthetics</div>
-    <h3 class="case-title">All-on-4 Consultation</h3>
-    <div class="case-meta">
-        <div class="meta-item"><span class="meta-label">Location</span><span class="meta-val">Scottsdale, AZ (9.8 mi)</span></div>
-        <div class="meta-item"><span class="meta-label">Value Est.</span><span class="meta-val">$18,000 - $28,000</span></div>
-        <div class="meta-item"><span class="meta-label">Payment</span><span class="meta-val">Cash / Financing</span></div>
-        <div class="meta-item"><span class="meta-label">Urgency</span><span class="meta-val">Routine</span></div>
-    </div>
-    <p class="case-summary">Patient referred for All-on-4 evaluation. Complete diagnostic records available. Seeking comprehensive treatment plan with timeline and financing options.</p>
-    <div class="doc-tags">
-        <span class="doc-tag">✓ X-Rays</span>
-        <span class="doc-tag">✓ CBCT</span>
-        <span class="doc-tag">✓ Clinical Findings</span>
-    </div>
-    <div class="card-footer">
-        <a href="#" class="btn-card btn-outline">View Case</a>
-        <a href="office-bid.html?case_id=0841daf5-d4de-4d49-93f2-fbd32d6cb3d1" class="btn-card btn-primary-card" onclick="gtag('event', 'click_provide_estimate')">Provide Estimate</a>
-    </div>
-</div>
+<footer class="disclaimer-bar">
+  All estimates must be confirmed in-office. &copy; 2026 Dental Dash Pro
+</footer>
 
-<!-- Case 3: Veneers / Smile Makeover -->
-<div class="case-card">
-    <div class="case-score">8.8/10</div>
-    <div class="case-category">Cosmetic Dentistry</div>
-    <h3 class="case-title">Veneers / Smile Makeover</h3>
-    <div class="case-meta">
-        <div class="meta-item"><span class="meta-label">Location</span><span class="meta-val">Tempe, AZ (6.5 mi)</span></div>
-        <div class="meta-item"><span class="meta-label">Value Est.</span><span class="meta-val">$12,000 - $18,000</span></div>
-        <div class="meta-item"><span class="meta-label">Payment</span><span class="meta-val">Cash</span></div>
-        <div class="meta-item"><span class="meta-label">Urgency</span><span class="meta-val">Within 3 weeks</span></div>
-    </div>
-    <p class="case-summary">Patient seeking cosmetic veneer consultation for upper anterior teeth. Smile photos and treatment goals uploaded. Interested in porcelain veneers and whitening.</p>
-    <div class="doc-tags">
-        <span class="doc-tag">✓ Photos</span>
-        <span class="doc-tag">✓ Treatment Goals</span>
-    </div>
-    <div class="card-footer">
-        <a href="#" class="btn-card btn-outline">View Case</a>
-        <a href="office-bid.html?case_id=0841daf5-d4de-4d49-93f2-fbd32d6cb3d1" class="btn-card btn-primary-card" onclick="gtag('event', 'click_provide_estimate')">Provide Estimate</a>
-    </div>
-</div>
-
-<!-- Case 4: Crown and Bridge -->
-<div class="case-card">
-    <div class="case-score">8.3/10</div>
-    <div class="case-category">Restorative</div>
-    <h3 class="case-title">Crown and Bridge Case</h3>
-    <div class="case-meta">
-        <div class="meta-item"><span class="meta-label">Location</span><span class="meta-val">Mesa, AZ (7.1 mi)</span></div>
-        <div class="meta-item"><span class="meta-label">Value Est.</span><span class="meta-val">$4,500 - $7,500</span></div>
-        <div class="meta-item"><span class="meta-label">Payment</span><span class="meta-val">HMO Insurance</span></div>
-        <div class="meta-item"><span class="meta-label">Urgency</span><span class="meta-val">Routine</span></div>
-    </div>
-    <p class="case-summary">Multi-unit bridge needed to replace missing posterior teeth. Patient has recent X-rays. Prefers porcelain fused to metal or zirconia options.</p>
-    <div class="doc-tags">
-        <span class="doc-tag">✓ X-Rays</span>
-        <span class="doc-tag">✓ Clinical Findings</span>
-    </div>
-    <div class="card-footer">
-        <a href="#" class="btn-card btn-outline">View Case</a>
-        <a href="office-bid.html?case_id=0841daf5-d4de-4d49-93f2-fbd32d6cb3d1" class="btn-card btn-primary-card" onclick="gtag('event', 'click_provide_estimate')">Provide Estimate</a>
-    </div>
-</div>
-
-<!-- Case 5: Emergency Extraction -->
-<div class="case-card">
-    <div class="case-score">7.9/10</div>
-    <div class="case-category">Surgical / Restorative</div>
-    <h3 class="case-title">Emergency Extraction + Implant Planning</h3>
-    <div class="case-meta">
-        <div class="meta-item"><span class="meta-label">Location</span><span class="meta-val">Chandler, AZ (3.2 mi)</span></div>
-        <div class="meta-item"><span class="meta-label">Value Est.</span><span class="meta-val">$3,800 - $6,200</span></div>
-        <div class="meta-item"><span class="meta-label">Payment</span><span class="meta-val">Cash / CareCredit</span></div>
-        <div class="meta-item"><span class="meta-label">Urgency</span><span class="meta-val">URGENT</span></div>
-    </div>
-    <p class="case-summary">Patient needs emergency extraction and wants immediate implant planning. Tooth #14 non-restorable. Looking for same-day consultation and treatment plan.</p>
-    <div class="doc-tags">
-        <span class="doc-tag">✓ X-Rays</span>
-        <span class="doc-tag">✓ Photos</span>
-    </div>
-    <div class="card-footer">
-        <a href="#" class="btn-card btn-outline">View Case</a>
-        <a href="office-bid.html?case_id=0841daf5-d4de-4d49-93f2-fbd32d6cb3d1" class="btn-card btn-primary-card" onclick="gtag('event', 'click_provide_estimate')">Provide Estimate</a>
-    </div>
-</div>
-
-<!-- Case 6: Single Implant -->
-<div class="case-card">
-    <div class="case-score">8.6/10</div>
-    <div class="case-category">Implant Dentistry</div>
-    <h3 class="case-title">Single Implant Placement</h3>
-    <div class="case-meta">
-        <div class="meta-item"><span class="meta-label">Location</span><span class="meta-val">Phoenix, AZ (11.4 mi)</span></div>
-        <div class="meta-item"><span class="meta-label">Value Est.</span><span class="meta-val">$1,800 - $3,200</span></div>
-        <div class="meta-item"><span class="meta-label">Payment</span><span class="meta-val">PPO Insurance</span></div>
-        <div class="meta-item"><span class="meta-label">Urgency</span><span class="meta-val">Within 4 weeks</span></div>
-    </div>
-    <p class="case-summary">Single molar implant needed. Site has been healed for 6 months. Patient has CBCT and is ready to proceed. Seeking implant placement and crown restoration.</p>
-    <div class="doc-tags">
-        <span class="doc-tag">✓ X-Rays</span>
-        <span class="doc-tag">✓ CBCT</span>
-    </div>
-    <div class="card-footer">
-        <a href="#" class="btn-card btn-outline">View Case</a>
-        <a href="office-bid.html?case_id=0841daf5-d4de-4d49-93f2-fbd32d6cb3d1" class="btn-card btn-primary-card" onclick="gtag('event', 'click_provide_estimate')">Provide Estimate</a>
-    </div>
-</div>
-
-<div style="text-align:center; margin: 40px 0 80px;">
-  <a href="office-dashboard.html" style="margin-right:16px;">&larr; Back to Dashboard</a>
-  <a href="office-pending.html">View My Pending Estimates</a>
-</div>
-
-<p style="text-align:center; color:#64748b; font-size:0.85rem; padding-bottom:40px;">&copy; 2025 Dental Dash Pro. All rights reserved.</p>
+</body>
+</html>
