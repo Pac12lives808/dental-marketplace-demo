@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Saved Cases – Dental Dash Pro</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── Design tokens ── */
+    :root {
+      --primary:   #0f1c2e;
+      --accent:    #3b82f6;
+      --accent-dk: #2563eb;
+      --text:      #1e293b;
+      --muted:     #64748b;
+      --light:     #f1f5f9;
+      --border:    #e2e8f0;
+      --shadow:    0 4px 16px rgba(15,23,42,0.07);
+      --radius:    16px;
+    }
+
+    /* ── Layout chrome ── */
+    body {
+      background: #f1f5f9;
+      margin: 0;
+      padding-top: 64px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    .top-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 64px;
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      z-index: 1000;
+    }
+    .nav-logo {
+      font-weight: 800;
+      color: var(--accent);
+      font-size: 1.25rem;
+      text-decoration: none;
+    }
+    .nav-links-top { display: flex; gap: 24px; }
+    .nav-link {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-link:hover { color: var(--text); }
+    .nav-link.active { color: var(--accent); font-weight: 700; }
+
+    /* ── Page wrapper ── */
+    .page-wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 40px 24px 100px;
+    }
+
+    /* ── Page header ── */
+    .page-header { margin-bottom: 32px; }
+    .page-header h1 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--primary);
+      letter-spacing: -0.03em;
+      margin: 0 0 6px;
+    }
+    .page-header .subtitle {
+      font-size: 0.97rem;
+      color: var(--muted);
+      margin: 0 0 6px;
+    }
+    .page-header .helper {
+      font-size: 0.88rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin: 0;
+    }
+
+    /* ── Case count pill ── */
+    .count-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .count-pill {
+      background: #eff6ff;
+      color: var(--accent-dk);
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 999px;
+      border: 1px solid #bfdbfe;
+    }
+
+    /* ── Saved case card ── */
+    .saved-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      margin-bottom: 18px;
+      box-shadow: var(--shadow);
+      transition: box-shadow 0.2s, transform 0.2s;
+      position: relative;
+    }
+    .saved-card:hover {
+      box-shadow: 0 8px 28px rgba(15,23,42,0.11);
+      transform: translateY(-2px);
+    }
+
+    /* card top row */
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .card-title-group { flex: 1; min-width: 0; }
+    .card-category {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+    .card-title {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* badges */
+    .badge-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+      flex-wrap: wrap;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .badge-saved {
+      background: #f0fdf4;
+      color: #16a34a;
+      border: 1px solid #bbf7d0;
+    }
+    .badge-urgent {
+      background: #fef2f2;
+      color: #dc2626;
+      border: 1px solid #fecaca;
+    }
+    .badge-soon {
+      background: #fff7ed;
+      color: #ea580c;
+      border: 1px solid #fed7aa;
+    }
+    .badge-routine {
+      background: #f0fdf4;
+      color: #16a34a;
+      border: 1px solid #bbf7d0;
+    }
+    .score-pill {
+      background: var(--primary);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 999px;
+    }
+
+    /* meta grid */
+    .card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin: 10px 0 12px;
+    }
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .meta-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .meta-val {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    /* summary */
+    .card-summary {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin: 0 0 16px;
+    }
+
+    /* card footer actions */
+    .card-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .btn-resume {
+      padding: 9px 20px;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 3px 10px rgba(59,130,246,0.28);
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-resume:hover { background: var(--accent-dk); transform: translateY(-1px); }
+
+    .btn-view-case {
+      padding: 9px 20px;
+      background: #f8fafc;
+      color: var(--text);
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      transition: background 0.2s;
+    }
+    .btn-view-case:hover { background: #f1f5f9; }
+
+    .btn-remove {
+      padding: 9px 16px;
+      background: transparent;
+      color: #ef4444;
+      border-radius: 10px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      border: 1px solid #fecaca;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      margin-left: auto;
+    }
+    .btn-remove:hover { background: #fef2f2; color: #dc2626; }
+
+    /* ── Empty state ── */
+    .empty-state {
+      display: none;
+      text-align: center;
+      padding: 80px 24px;
+      background: #fff;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+    .empty-state .empty-icon { font-size: 52px; margin-bottom: 20px; }
+    .empty-state h3 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 0 0 10px;
+    }
+    .empty-state p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin: 0 0 28px;
+    }
+    .btn-browse {
+      display: inline-block;
+      padding: 12px 28px;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(59,130,246,0.28);
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-browse:hover { background: var(--accent-dk); transform: translateY(-1px); }
+
+    /* ── Divider nav ── */
+    .bottom-nav {
+      margin-top: 36px;
+      display: flex;
+      gap: 20px;
+      font-size: 0.88rem;
+    }
+    .bottom-nav a { color: var(--muted); text-decoration: none; }
+    .bottom-nav a:hover { color: var(--text); }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      .top-nav { padding: 0 20px; }
+      .nav-links-top { display: none; }
+      .card-top { flex-direction: column; }
+      .badge-row { justify-content: flex-start; }
+      .btn-remove { margin-left: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Fixed top nav -->
+  <nav class="top-nav">
+    <a href="office-dashboard.html" class="nav-logo">DentalDash</a>
+    <div class="nav-links-top">
+      <a href="office-dashboard.html" class="nav-link">Dashboard</a>
+      <a href="office-cases.html" class="nav-link">Patient Cases</a>
+      <a href="saved-cases.html" class="nav-link active">Saved</a>
+      <a href="office-pending.html" class="nav-link">My Estimates</a>
+    </div>
+  </nav>
+
+  <div class="page-wrap">
+
+    <!-- Page header -->
+    <div class="page-header">
+      <h1>Saved Cases</h1>
+      <p class="subtitle">Review saved opportunities and continue where your team left off.</p>
+      <p class="helper">Compare treatment approaches, not just prices.</p>
+    </div>
+
+    <!-- Count bar -->
+    <div class="count-bar" id="countBar">
+      <span class="count-pill" id="countPill">5 saved</span>
+    </div>
+
+    <!-- Case list -->
+    <div id="caseList">
+
+      <!-- Case 1: Full Arch Implant -->
+      <div class="saved-card" data-case-id="c001">
+        <div class="card-top">
+          <div class="card-title-group">
+            <div class="card-category">Implant Prosthetics</div>
+            <h2 class="card-title">Full Arch Implant Case</h2>
+          </div>
+          <div class="badge-row">
+            <span class="score-pill">9.4 / 10</span>
+            <span class="badge badge-soon">Within 2 weeks</span>
+            <span class="badge badge-saved">&#9733; Saved</span>
+          </div>
+        </div>
+        <div class="card-meta">
+          <div class="meta-item">
+            <span class="meta-label">Location</span>
+            <span class="meta-val">Gilbert, AZ (4.2 mi)</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Value Est.</span>
+            <span class="meta-val">$20,000 – $32,000</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Category</span>
+            <span class="meta-val">Full-Arch Reconstruction</span>
+          </div>
+        </div>
+        <p class="card-summary">Patient missing multiple upper teeth and wants a fixed full-arch option. Uploaded pano and CBCT. Looking for consultation within 7 days.</p>
+        <div class="card-actions">
+          <a href="office-bid.html?case_id=c001" class="btn-resume">Resume Estimate</a>
+          <a href="office-cases.html" class="btn-view-case">View Case</a>
+          <button class="btn-remove" onclick="removeCard(this)">Remove</button>
+        </div>
+      </div>
+
+      <!-- Case 2: All-on-4 -->
+      <div class="saved-card" data-case-id="c002">
+        <div class="card-top">
+          <div class="card-title-group">
+            <div class="card-category">Implant Prosthetics</div>
+            <h2 class="card-title">All-on-4 Consultation</h2>
+          </div>
+          <div class="badge-row">
+            <span class="score-pill">9.1 / 10</span>
+            <span class="badge badge-routine">Routine</span>
+            <span class="badge badge-saved">&#9733; Saved</span>
+          </div>
+        </div>
+        <div class="card-meta">
+          <div class="meta-item">
+            <span class="meta-label">Location</span>
+            <span class="meta-val">Scottsdale, AZ (9.8 mi)</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Value Est.</span>
+            <span class="meta-val">$18,000 – $28,000</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Category</span>
+            <span class="meta-val">Full-Arch Implants</span>
+          </div>
+        </div>
+        <p class="card-summary">Patient referred for All-on-4 evaluation. Complete diagnostic records available. Seeking comprehensive treatment plan with timeline and financing options.</p>
+        <div class="card-actions">
+          <a href="office-bid.html?case_id=c002" class="btn-resume">Resume Estimate</a>
+          <a href="office-cases.html" class="btn-view-case">View Case</a>
+          <button class="btn-remove" onclick="removeCard(this)">Remove</button>
+        </div>
+      </div>
+
+      <!-- Case 3: Veneers / Smile Makeover -->
+      <div class="saved-card" data-case-id="c003">
+        <div class="card-top">
+          <div class="card-title-group">
+            <div class="card-category">Cosmetic Dentistry</div>
+            <h2 class="card-title">Veneers / Smile Makeover</h2>
+          </div>
+          <div class="badge-row">
+            <span class="score-pill">8.8 / 10</span>
+            <span class="badge badge-soon">Within 3 weeks</span>
+            <span class="badge badge-saved">&#9733; Saved</span>
+          </div>
+        </div>
+        <div class="card-meta">
+          <div class="meta-item">
+            <span class="meta-label">Location</span>
+            <span class="meta-val">Tempe, AZ (6.5 mi)</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Value Est.</span>
+            <span class="meta-val">$12,000 – $18,000</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Category</span>
+            <span class="meta-val">Porcelain Veneers</span>
+          </div>
+        </div>
+        <p class="card-summary">Patient seeking cosmetic veneer consultation for upper anterior teeth. Smile photos and treatment goals uploaded. Interested in porcelain veneers and whitening.</p>
+        <div class="card-actions">
+          <a href="office-bid.html?case_id=c003" class="btn-resume">Resume Estimate</a>
+          <a href="office-cases.html" class="btn-view-case">View Case</a>
+          <button class="btn-remove" onclick="removeCard(this)">Remove</button>
+        </div>
+      </div>
+
+      <!-- Case 5: Emergency Extraction -->
+      <div class="saved-card" data-case-id="c005">
+        <div class="card-top">
+          <div class="card-title-group">
+            <div class="card-category">Surgical / Restorative</div>
+            <h2 class="card-title">Emergency Extraction + Implant Planning</h2>
+          </div>
+          <div class="badge-row">
+            <span class="score-pill">7.9 / 10</span>
+            <span class="badge badge-urgent">&#9888; URGENT</span>
+            <span class="badge badge-saved">&#9733; Saved</span>
+          </div>
+        </div>
+        <div class="card-meta">
+          <div class="meta-item">
+            <span class="meta-label">Location</span>
+            <span class="meta-val">Chandler, AZ (3.2 mi)</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Value Est.</span>
+            <span class="meta-val">$3,800 – $6,200</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Category</span>
+            <span class="meta-val">Extraction &amp; Implant</span>
+          </div>
+        </div>
+        <p class="card-summary">Patient needs emergency extraction and wants immediate implant planning. Tooth #14 non-restorable. Looking for same-day consultation and treatment plan.</p>
+        <div class="card-actions">
+          <a href="office-bid.html?case_id=c005" class="btn-resume">Resume Estimate</a>
+          <a href="office-cases.html" class="btn-view-case">View Case</a>
+          <button class="btn-remove" onclick="removeCard(this)">Remove</button>
+        </div>
+      </div>
+
+      <!-- Case 6: Single Implant -->
+      <div class="saved-card" data-case-id="c006">
+        <div class="card-top">
+          <div class="card-title-group">
+            <div class="card-category">Implant Dentistry</div>
+            <h2 class="card-title">Single Implant Placement</h2>
+          </div>
+          <div class="badge-row">
+            <span class="score-pill">8.6 / 10</span>
+            <span class="badge badge-soon">Within 4 weeks</span>
+            <span class="badge badge-saved">&#9733; Saved</span>
+          </div>
+        </div>
+        <div class="card-meta">
+          <div class="meta-item">
+            <span class="meta-label">Location</span>
+            <span class="meta-val">Phoenix, AZ (11.4 mi)</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Value Est.</span>
+            <span class="meta-val">$1,800 – $3,200</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Category</span>
+            <span class="meta-val">Single-Tooth Implant</span>
+          </div>
+        </div>
+        <p class="card-summary">Single molar implant needed. Site has been healed for 6 months. Patient has CBCT and is ready to proceed. Seeking implant placement and crown restoration.</p>
+        <div class="card-actions">
+          <a href="office-bid.html?case_id=c006" class="btn-resume">Resume Estimate</a>
+          <a href="office-cases.html" class="btn-view-case">View Case</a>
+          <button class="btn-remove" onclick="removeCard(this)">Remove</button>
+        </div>
+      </div>
+
+    </div><!-- /#caseList -->
+
+    <!-- Empty state (hidden until all cards removed) -->
+    <div class="empty-state" id="emptyState">
+      <div class="empty-icon">&#128190;</div>
+      <h3>No saved cases yet</h3>
+      <p>Browse available patient cases and save the ones that are a good fit for your practice.</p>
+      <a href="office-cases.html" class="btn-browse">Browse Patient Cases</a>
+    </div>
+
+    <!-- Bottom nav -->
+    <div class="bottom-nav">
+      <a href="office-dashboard.html">&larr; Dashboard</a>
+      <a href="office-cases.html">All Patient Cases</a>
+      <a href="office-pending.html">My Estimates</a>
+    </div>
+
+  </div><!-- /.page-wrap -->
+
+  <footer>
+    <p>&copy; 2026 Dental Dash Pro. All rights reserved.</p>
+  </footer>
+
+  <script>
+    (function () {
+      function updateCount() {
+        var cards = document.querySelectorAll('#caseList .saved-card');
+        var pill  = document.getElementById('countPill');
+        var empty = document.getElementById('emptyState');
+        var bar   = document.getElementById('countBar');
+        var n = cards.length;
+        pill.textContent = n + (n === 1 ? ' case saved' : ' saved');
+        if (n === 0) {
+          empty.style.display = 'block';
+          bar.style.display   = 'none';
+        } else {
+          empty.style.display = 'none';
+          bar.style.display   = 'flex';
+        }
+      }
+
+      window.removeCard = function (btn) {
+        var card = btn.closest('.saved-card');
+        card.style.transition = 'opacity 0.25s, transform 0.25s';
+        card.style.opacity    = '0';
+        card.style.transform  = 'translateY(-6px)';
+        setTimeout(function () {
+          card.remove();
+          updateCount();
+        }, 260);
+      };
+
+      updateCount();
+    })();
+  </script>
+</body>
+</html>
