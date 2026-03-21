@@ -100,6 +100,18 @@
       <h2>Your Estimate Has Been Submitted!</h2>
       <p>Thank you for providing your professional treatment estimate. The patient will be able to review your recommendation along with estimates from other participating offices.</p>
 
+      <div id="caseInfoCard" style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:20px 24px;margin:24px 0;text-align:left;display:none;">
+        <div style="font-size:0.78rem;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px;">Case Summary</div>
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px;">
+          <span id="caseNameDisplay" style="font-size:1.05rem;font-weight:700;color:#0f172a;"></span>
+          <span id="caseUrgencyBadge" style="padding:3px 10px;border-radius:20px;font-size:0.75rem;font-weight:700;"></span>
+        </div>
+        <div style="display:flex;gap:28px;flex-wrap:wrap;">
+          <div><span style="font-size:0.78rem;color:#64748b;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">Location</span><br><span id="caseLocationDisplay" style="font-size:0.9rem;color:#1e293b;"></span></div>
+          <div><span style="font-size:0.78rem;color:#64748b;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">Value Est.</span><br><span id="caseValueDisplay" style="font-size:0.9rem;color:#1e293b;"></span></div>
+        </div>
+      </div>
+
       <div class="status-card">
         <h3>What Happens Next</h3>
         <ul>
@@ -126,5 +138,45 @@
   <footer>
     <p>&copy; 2026 Dental Dash Pro. All rights reserved.</p>
   </footer>
+  <script>
+    (function () {
+      var CASE_DATA = {
+        'c001': { name: 'Full Arch Implant Case',                  location: 'Gilbert, AZ (4.2 mi)',    value: '$20,000 – $32,000', urgency: 'Within 2 weeks' },
+        'c002': { name: 'All-on-4 Consultation',                   location: 'Scottsdale, AZ (9.8 mi)', value: '$18,000 – $28,000', urgency: 'Routine'        },
+        'c003': { name: 'Veneers / Smile Makeover',                location: 'Tempe, AZ (6.5 mi)',      value: '$12,000 – $18,000', urgency: 'Within 3 weeks' },
+        'c004': { name: 'Crown and Bridge Case',                   location: 'Mesa, AZ (7.1 mi)',        value: '$4,500 – $7,500',   urgency: 'Routine'        },
+        'c005': { name: 'Emergency Extraction + Implant Planning', location: 'Chandler, AZ (3.2 mi)',   value: '$3,800 – $6,200',   urgency: 'URGENT'         },
+        'c006': { name: 'Single Implant Placement',                location: 'Phoenix, AZ (11.4 mi)',   value: '$1,800 – $3,200',   urgency: 'Within 4 weeks' }
+      };
+
+      var caseId = new URLSearchParams(window.location.search).get('case_id');
+      var data = caseId ? CASE_DATA[caseId] : null;
+
+      if (data) {
+        var card = document.getElementById('caseInfoCard');
+        card.style.display = 'block';
+
+        document.getElementById('caseNameDisplay').textContent = data.name;
+        document.getElementById('caseLocationDisplay').textContent = data.location;
+        document.getElementById('caseValueDisplay').textContent = data.value;
+
+        var badge = document.getElementById('caseUrgencyBadge');
+        badge.textContent = data.urgency;
+        if (data.urgency === 'URGENT') {
+          badge.style.background = '#fef2f2';
+          badge.style.color = '#dc2626';
+          badge.style.border = '1px solid #fecaca';
+        } else if (data.urgency === 'Routine') {
+          badge.style.background = '#f0fdf4';
+          badge.style.color = '#16a34a';
+          badge.style.border = '1px solid #bbf7d0';
+        } else {
+          badge.style.background = '#fff7ed';
+          badge.style.color = '#ea580c';
+          badge.style.border = '1px solid #fed7aa';
+        }
+      }
+    })();
+  </script>
 </body>
 </html>
