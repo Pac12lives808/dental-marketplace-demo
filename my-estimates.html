@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Estimates – Dental Dash Pro</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── Design tokens ── */
+    :root {
+      --primary:    #0f1c2e;
+      --accent:     #3b82f6;
+      --accent-dk:  #2563eb;
+      --text:       #1e293b;
+      --muted:      #64748b;
+      --border:     #e2e8f0;
+      --shadow:     0 4px 16px rgba(15,23,42,0.07);
+      --radius:     16px;
+    }
+
+    /* ── Layout chrome ── */
+    body {
+      background: #f1f5f9;
+      margin: 0;
+      padding-top: 64px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    .top-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 64px;
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      z-index: 1000;
+    }
+    .nav-logo {
+      font-weight: 800;
+      color: var(--accent);
+      font-size: 1.25rem;
+      text-decoration: none;
+    }
+    .nav-links-top { display: flex; gap: 24px; }
+    .nav-link {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-link:hover { color: var(--text); }
+    .nav-link.active { color: var(--accent); font-weight: 700; }
+
+    /* ── Page wrapper ── */
+    .page-wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 40px 24px 100px;
+    }
+
+    /* ── Page header ── */
+    .page-header { margin-bottom: 36px; }
+    .page-header h1 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--primary);
+      letter-spacing: -0.03em;
+      margin: 0 0 6px;
+    }
+    .page-header .subtitle {
+      font-size: 0.97rem;
+      color: var(--muted);
+      margin: 0 0 6px;
+    }
+    .page-header .helper {
+      font-size: 0.88rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin: 0;
+    }
+
+    /* ── Summary stats ── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 14px;
+      margin-bottom: 36px;
+    }
+    .stat-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 20px;
+      box-shadow: var(--shadow);
+    }
+    .stat-card .stat-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .stat-card .stat-val {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-top: 4px;
+    }
+
+    /* ── Section header ── */
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0 0 16px;
+    }
+    .section-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--primary);
+      letter-spacing: -0.01em;
+    }
+    .section-count {
+      background: #f1f5f9;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 2px 10px;
+      border-radius: 999px;
+    }
+
+    /* ── Section block ── */
+    .section-block { margin-bottom: 40px; }
+
+    /* ── Estimate card ── */
+    .estimate-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px 26px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: start;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .estimate-card:hover {
+      box-shadow: 0 8px 28px rgba(15,23,42,0.11);
+      transform: translateY(-2px);
+    }
+
+    .card-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: 4px;
+    }
+    .card-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 0 0 10px;
+    }
+    .card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      font-size: 0.83rem;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+    .card-meta span { display: flex; align-items: center; gap: 4px; }
+
+    /* ── Badges ── */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .badge-draft     { background: #fef9c3; color: #854d0e; border: 1px solid #fde68a; }
+    .badge-pending   { background: #dbeafe; color: #1e40af; border: 1px solid #bfdbfe; }
+    .badge-approved  { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+    .badge-active    { background: #ede9fe; color: #5b21b6; border: 1px solid #ddd6fe; }
+
+    /* ── Card actions ── */
+    .card-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    .btn-primary-sm {
+      padding: 9px 20px;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 3px 10px rgba(59,130,246,0.28);
+      transition: background 0.2s, transform 0.2s;
+      display: inline-block;
+    }
+    .btn-primary-sm:hover { background: var(--accent-dk); transform: translateY(-1px); }
+
+    .btn-ghost {
+      padding: 9px 18px;
+      background: #f8fafc;
+      color: var(--text);
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      transition: background 0.2s;
+      display: inline-block;
+    }
+    .btn-ghost:hover { background: #f1f5f9; }
+
+    /* ── Section divider ── */
+    .section-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 36px 0;
+    }
+
+    /* ── Bottom nav ── */
+    .bottom-nav {
+      margin-top: 36px;
+      display: flex;
+      gap: 20px;
+      font-size: 0.88rem;
+    }
+    .bottom-nav a { color: var(--muted); text-decoration: none; }
+    .bottom-nav a:hover { color: var(--text); }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      .top-nav { padding: 0 20px; }
+      .nav-links-top { display: none; }
+      .estimate-card { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Fixed top nav -->
+  <nav class="top-nav">
+    <a href="office-dashboard.html" class="nav-logo">DentalDash</a>
+    <div class="nav-links-top">
+      <a href="office-dashboard.html" class="nav-link">Dashboard</a>
+      <a href="office-cases.html" class="nav-link">Patient Cases</a>
+      <a href="saved-cases.html" class="nav-link">Saved</a>
+      <a href="my-estimates.html" class="nav-link active">My Estimates</a>
+    </div>
+  </nav>
+
+  <div class="page-wrap">
+
+    <!-- Page header -->
+    <div class="page-header">
+      <h1>My Estimates</h1>
+      <p class="subtitle">Manage your submitted and draft treatment estimates.</p>
+      <p class="helper">Track progress and continue your workflow.</p>
+    </div>
+
+    <!-- Summary stats -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-label">Drafts</div>
+        <div class="stat-val">3</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Pending Approval</div>
+        <div class="stat-val">2</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Active</div>
+        <div class="stat-val">2</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Total Submitted</div>
+        <div class="stat-val">7</div>
+      </div>
+    </div>
+
+    <!-- ── Section A: Draft Estimates ── -->
+    <div class="section-block">
+      <div class="section-header">
+        <span class="section-title">Draft Estimates</span>
+        <span class="section-count">3</span>
+      </div>
+
+      <!-- Draft 1 -->
+      <div class="estimate-card">
+        <div>
+          <div class="card-label">Draft Estimate</div>
+          <h3 class="card-title">Crown and Bridge Case</h3>
+          <div class="card-meta">
+            <span>&#128205; Mesa, AZ (7.1 mi)</span>
+            <span>&#9998; Last edited 25 min ago</span>
+          </div>
+          <div class="card-actions">
+            <a href="office-bid.html?case_id=c004" class="btn-primary-sm">Continue Editing</a>
+          </div>
+        </div>
+        <div><span class="badge badge-draft">&#9998; Draft</span></div>
+      </div>
+
+      <!-- Draft 2 -->
+      <div class="estimate-card">
+        <div>
+          <div class="card-label">Draft Estimate</div>
+          <h3 class="card-title">Single Implant Placement</h3>
+          <div class="card-meta">
+            <span>&#128205; Phoenix, AZ (11.4 mi)</span>
+            <span>&#9998; Last edited 2 hours ago</span>
+          </div>
+          <div class="card-actions">
+            <a href="office-bid.html?case_id=c006" class="btn-primary-sm">Continue Editing</a>
+          </div>
+        </div>
+        <div><span class="badge badge-draft">&#9998; Draft</span></div>
+      </div>
+
+      <!-- Draft 3 -->
+      <div class="estimate-card">
+        <div>
+          <div class="card-label">Draft Estimate</div>
+          <h3 class="card-title">Veneers / Smile Makeover</h3>
+          <div class="card-meta">
+            <span>&#128205; Tempe, AZ (6.5 mi)</span>
+            <span>&#9998; Last edited yesterday</span>
+          </div>
+          <div class="card-actions">
+            <a href="office-bid.html?case_id=c003" class="btn-primary-sm">Continue Editing</a>
+          </div>
+        </div>
+        <div><span class="badge badge-draft">&#9998; Draft</span></div>
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- ── Section B: Pending Doctor Approval ── -->
+    <div class="section-block">
+      <div class="section-header">
+        <span class="section-title">Pending Doctor Approval</span>
+        <span class="section-count">2</span>
+      </div>
+
+      <!-- Pending 1 -->
+      <div class="estimate-card">
+        <div>
+          <div class="card-label">Submitted for Review</div>
+          <h3 class="card-title">Full Arch Implant Case</h3>
+          <div class="card-meta">
+            <span>&#128205; Gilbert, AZ (4.2 mi)</span>
+            <span>&#128197; Submitted March 20, 2026</span>
+          </div>
+          <div class="card-actions">
+            <a href="estimate-submitted.html?case_id=c001" class="btn-primary-sm">View Submission</a>
+          </div>
+        </div>
+        <div><span class="badge badge-pending">&#9679; Pending Approval</span></div>
+      </div>
+
+      <!-- Pending 2 -->
+      <div class="estimate-card">
+        <div>
+          <div class="card-label">Submitted for Review</div>
+          <h3 class="card-title">All-on-4 Consultation</h3>
+          <div class="card-meta">
+            <span>&#128205; Scottsdale, AZ (9.8 mi)</span>
+            <span>&#128197; Submitted March 19, 2026</span>
+          </div>
+          <div class="card-actions">
+            <a href="estimate-submitted.html?case_id=c002" class="btn-primary-sm">View Submission</a>
+          </div>
+        </div>
+        <div><span class="badge badge-pending">&#9679; Pending Approval</span></div>
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- ── Section C: Submitted / Active ── -->
+    <div class="section-block">
+      <div class="section-header">
+        <span class="section-title">Submitted &amp; Active</span>
+        <span class="section-count">2</span>
+      </div>
+
+      <!-- Active 1 -->
+      <div class="estimate-card">
+        <div>
+          <div class="card-label">Approved &amp; Live</div>
+          <h3 class="card-title">Emergency Extraction + Implant Planning</h3>
+          <div class="card-meta">
+            <span>&#128205; Chandler, AZ (3.2 mi)</span>
+            <span>&#128197; Approved March 18, 2026</span>
+          </div>
+          <div class="card-actions">
+            <a href="estimate-submitted.html?case_id=c005" class="btn-ghost">View Details</a>
+          </div>
+        </div>
+        <div>
+          <span class="badge badge-approved">&#10003; Approved</span>
+        </div>
+      </div>
+
+      <!-- Active 2 -->
+      <div class="estimate-card">
+        <div>
+          <div class="card-label">Approved &amp; Live</div>
+          <h3 class="card-title">Crown and Bridge — Follow-up Estimate</h3>
+          <div class="card-meta">
+            <span>&#128205; Mesa, AZ (7.1 mi)</span>
+            <span>&#128197; Approved March 17, 2026</span>
+          </div>
+          <div class="card-actions">
+            <a href="estimate-submitted.html?case_id=c004" class="btn-ghost">View Details</a>
+          </div>
+        </div>
+        <div>
+          <span class="badge badge-active">&#9733; Active</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom nav -->
+    <div class="bottom-nav">
+      <a href="office-dashboard.html">&larr; Dashboard</a>
+      <a href="office-cases.html">All Patient Cases</a>
+      <a href="saved-cases.html">Saved Cases</a>
+    </div>
+
+  </div><!-- /.page-wrap -->
+
+  <footer>
+    <p>&copy; 2026 Dental Dash Pro. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
