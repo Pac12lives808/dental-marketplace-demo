@@ -11,6 +11,7 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
   <title>Clinical Review | DentalDash Pro</title>
   <link rel="stylesheet" href="style.css">
   <!-- Supabase UMD (no module import needed) -->
@@ -129,17 +130,17 @@
 
         <div class="form-group">
           <label for="treatment_approach">Treatment Approach *</label>
-          <textarea id="treatment_approach" name="treatment_approach" class="form-input" rows="4" placeholder="Describe the recommended treatment plan..." required style="resize:vertical;"></textarea>
+          <textarea id="treatment_approach" name="treatment_approach" class="form-input" rows="4" maxlength="2000" placeholder="Describe the recommended treatment plan..." required style="resize:vertical;"></textarea>
         </div>
 
         <div class="form-group">
           <label for="payment_options">Payment Options (Optional)</label>
-          <input type="text" id="payment_options" name="payment_options" class="form-input" placeholder="e.g., CareCredit, Payment Plans">
+          <input type="text" id="payment_options" name="payment_options" class="form-input" placeholder="e.g., CareCredit, Payment Plans" maxlength="200">
         </div>
 
         <div class="form-group">
           <label for="availability_notes">Availability Notes (Optional)</label>
-          <input type="text" id="availability_notes" name="availability_notes" class="form-input" placeholder="e.g., Available next week, Monday-Friday">
+          <input type="text" id="availability_notes" name="availability_notes" class="form-input" placeholder="e.g., Available next week, Monday-Friday" maxlength="200">
         </div>
       </div>
 
@@ -149,17 +150,17 @@
         <div class="form-row">
           <div class="form-group">
             <label for="submitted_by_name">Your Name *</label>
-            <input type="text" id="submitted_by_name" name="submitted_by_name" class="form-input" placeholder="Dr. Jane Smith" required>
+            <input type="text" id="submitted_by_name" name="submitted_by_name" class="form-input" placeholder="Dr. Jane Smith" required autocomplete="name" maxlength="100">
           </div>
           <div class="form-group">
             <label for="submitted_by_role">Your Role *</label>
-            <input type="text" id="submitted_by_role" name="submitted_by_role" class="form-input" placeholder="DDS, Treatment Coordinator, etc." required>
+            <input type="text" id="submitted_by_role" name="submitted_by_role" class="form-input" placeholder="DDS, Treatment Coordinator, etc." required maxlength="100">
           </div>
         </div>
 
         <div class="form-group">
           <label for="why_choose_us">Why Choose Our Office? (Optional)</label>
-          <textarea id="why_choose_us" name="why_choose_us" class="form-input" rows="3" placeholder="Tell the patient why your office is the best choice..." style="resize:vertical;"></textarea>
+          <textarea id="why_choose_us" name="why_choose_us" class="form-input" rows="3" maxlength="1000" placeholder="Tell the patient why your office is the best choice..." style="resize:vertical;"></textarea>
         </div>
       </div>
     </form>
@@ -175,18 +176,19 @@
     var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ4Znd5dHhmZXV3c2JlYXBpeXF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQ2NTk3MjksImV4cCI6MjA1MDIzNTcyOX0.anZxOWzcVyobPx8hW_DUpdIl1IAWeE-ANXpZq-ysXvI';
     var supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+    var VALID_CASE_IDS = ['c001', 'c002', 'c003', 'c004', 'c005', 'c006'];
+
     function getQueryParam(name) {
       return new URLSearchParams(window.location.search).get(name);
     }
 
     var caseId = getQueryParam('case_id');
     var banner = document.getElementById('caseInfoBanner');
-    if (caseId) {
-      banner.textContent = 'Submitting estimate for Case ID: ' + caseId;
+
+    if (!caseId || !VALID_CASE_IDS.includes(caseId)) {
+      window.location.replace('office-cases.html');
     } else {
-      banner.style.background = '#fef2f2';
-      banner.style.borderLeftColor = '#ef4444';
-      banner.textContent = 'Warning: No case_id in URL. Access this page from Patient Cases.';
+      banner.textContent = 'Submitting estimate for Case ID: ' + caseId;
     }
 
     async function handleSubmit() {
@@ -200,7 +202,6 @@
         submitBtn.textContent = 'Submit for Doctor Approval';
         return;
       }
-
       var low = parseFloat(document.getElementById('estimate_low').value) || 0;
       var high = parseFloat(document.getElementById('estimate_high').value) || 0;
       var treatment = document.getElementById('treatment_approach').value.trim();
@@ -245,7 +246,6 @@
 
         window.location.href = 'estimate-submitted.html';
       } catch (err) {
-        console.error('Estimate submission error:', err);
         alert('Error submitting estimate: ' + (err.message || 'Unknown error. Please try again.'));
         submitBtn.disabled = false;
         submitBtn.textContent = 'Submit for Doctor Approval';

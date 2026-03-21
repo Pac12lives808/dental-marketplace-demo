@@ -12,6 +12,7 @@
     </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex">
   <title>Dental Dash Pro — Office Application</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; }
@@ -47,7 +48,7 @@
     .error {
       display: none;
       margin-bottom: 20px;
-      padding: 12px 16pxvar(--brand-blue)
+      padding: 12px 16px;
       border-radius: 10px;
       background: #fef2f2;
       color: #b91c1c;
@@ -85,33 +86,33 @@
                 <div class="row">
                     <div>
                         <label for="full_name">Contact Name</label>
-                        <input type="text" id="full_name" placeholder="Dr. Jane Smith" required>
+                        <input type="text" id="full_name" name="full_name" placeholder="Dr. Jane Smith" required autocomplete="name" maxlength="100">
                     </div>
                     <div>
                         <label for="email">Email Address</label>
-                        <input type="email" id="email" placeholder="drsmith@office.com" required>
+                        <input type="email" id="email" name="email" placeholder="drsmith@office.com" required autocomplete="email" inputmode="email" maxlength="254">
                     </div>
                 </div>
 
                 <div class="row">
                     <div>
                         <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" placeholder="(555) 000-0000" required>
+                        <input type="tel" id="phone" name="phone" placeholder="(555) 000-0000" required autocomplete="tel" inputmode="tel" maxlength="30">
                     </div>
                     <div>
                         <label for="dental_license_number">Dental License #</label>
-                        <input type="text" id="dental_license_number" placeholder="License Number" required>
+                        <input type="text" id="dental_license_number" name="dental_license_number" placeholder="License Number" required autocomplete="off" maxlength="50">
                     </div>
                 </div>
 
                 <div>
                     <label for="practice_name">Practice Name</label>
-                    <input type="text" id="practice_name" placeholder="City Dental Care" required>
+                    <input type="text" id="practice_name" name="practice_name" placeholder="City Dental Care" required autocomplete="organization" maxlength="150">
                 </div>
 
                 <div>
                     <label for="specialty">Practice Specialty</label>
-                    <select id="specialty" required>
+                    <select id="specialty" name="specialty" required>
                         <option value="">Select Specialty...</option>
                         <option value="General Dentistry">General Dentistry</option>
                         <option value="Orthodontics">Orthodontics</option>
@@ -125,11 +126,11 @@
                 <div class="row">
                     <div>
                         <label for="city">City</label>
-                        <input type="text" id="city" placeholder="San Francisco" required>
+                        <input type="text" id="city" name="city" placeholder="San Francisco" required autocomplete="address-level2" maxlength="100">
                     </div>
                     <div>
                         <label for="state">State</label>
-                        <select id="state" required>
+                        <select id="state" name="state" required autocomplete="address-level1">
                             <option value="">Select State...</option>
                             <option value="AL">Alabama</option>
                             <option value="AK">Alaska</option>
@@ -187,7 +188,7 @@
 
                 <div>
                     <label for="website">Practice Website (Optional)</label>
-                    <input type="url" id="website" placeholder="https://www.example.com">
+                    <input type="url" id="website" name="website" placeholder="https://www.example.com" autocomplete="url" maxlength="200">
                 </div>
 
                 <button type="submit" id="submitBtn">Submit Application</button>
@@ -198,39 +199,28 @@
             Already have an account? <a href="admin-login.html">Log in here</a>
         </footer>
     </div>
-  </form>
-</div>
+
 <script type="module">
   import { supabase } from "./supabase-config.js";
 
-  const form = document.getElementById("officeForm");
+  const form = document.getElementById("signupForm");
   const submitBtn = document.getElementById("submitBtn");
-  const errorBox = document.getElementById("errorBox");
+  const errorMsg = document.getElementById("errorMsg");
 
   function showError(msg) {
-    errorBox.textContent = msg;
-    errorBox.style.display = "block";
+    errorMsg.textContent = msg;
+    errorMsg.style.display = "block";
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   function clearError() {
-    errorBox.textContent = "";
-    errorBox.style.display = "none";
+    errorMsg.textContent = "";
+    errorMsg.style.display = "none";
   }
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     clearError();
-
-    // Honeypot spam protection
-    if (document.getElementById('hp_website').value) {
-      return; // Silent fail - don't give feedback to bots
-    }
-
-    if (!document.getElementById('agree_terms').checked) {
-      showError('Please review and agree to the Provider Participation Agreement to continue.');
-      return;
-    }
 
     submitBtn.disabled = true;
     submitBtn.textContent = "Submitting...";
@@ -248,6 +238,16 @@
       website: String(fd.get("website") || "").trim() || null,
       status: "PENDING"
     };
+
+    const requiredFields = ["full_name", "email", "phone", "practice_name", "city", "state", "dental_license_number", "specialty"];
+    for (const field of requiredFields) {
+      if (!payload[field]) {
+        showError("Please fill in all required fields.");
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Submit Application";
+        return;
+      }
+    }
 
     const { error } = await supabase.from("office_applications").insert([payload]);
     if (error) {
@@ -273,7 +273,7 @@
       })
     }).catch(() => {}); // non-blocking, do not delay redirect
 
-        gtag('event', 'submit_office_application');
+    gtag('event', 'submit_office_application');
     window.location.href = "./office-pending.html";
   });
 </script>
