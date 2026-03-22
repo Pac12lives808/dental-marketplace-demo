@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Welcome to Dental Dash Pro</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Welcome Page Specific Styles */
+    .welcome-wrap {
+      max-width: 900px;
+      margin: 60px auto;
+      padding: 0 24px;
+    }
+
+    .welcome-hero {
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+      border-radius: 24px;
+      padding: 60px 48px;
+      text-align: center;
+      margin-bottom: 48px;
+      border: 2px solid #e2e8f0;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+    }
+
+    .welcome-icon {
+      font-size: 4rem;
+      margin-bottom: 24px;
+      display: block;
+    }
+
+    .welcome-hero h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 16px;
+      letter-spacing: -0.03em;
+    }
+
+    .welcome-hero .subheadline {
+      font-size: 1.15rem;
+      color: #475569;
+      line-height: 1.7;
+      max-width: 700px;
+      margin: 0 auto 32px;
+    }
+
+    .status-badge-large {
+      display: inline-block;
+      background: #dbeafe;
+      color: #1e40af;
+      border: 2px solid #bfdbfe;
+      padding: 12px 24px;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 32px;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cta-buttons .btn {
+      min-width: 220px;
+    }
+
+    /* How to Get Started Section */
+    .get-started-section {
+      margin-bottom: 48px;
+    }
+
+    .get-started-section h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 32px;
+      text-align: center;
+      letter-spacing: -0.02em;
+    }
+
+    .steps-list {
+      display: grid;
+      gap: 20px;
+    }
+
+    .step-item {
+      background: white;
+      border: 2px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 28px 32px;
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .step-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      border-color: #cbd5e1;
+    }
+
+    .step-number-badge {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, #2563eb 0%, #22d3ee 100%);
+      color: white;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 800;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+    }
+
+    .step-content h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    .step-content p {
+      color: #64748b;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* Trust Section */
+    .trust-section {
+      background: #fffbeb;
+      border: 2px solid #fde68a;
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 48px;
+    }
+
+    .trust-section h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #78350f;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .trust-section p {
+      color: #92400e;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .welcome-hero {
+        padding: 40px 28px;
+      }
+
+      .welcome-hero h1 {
+        font-size: 2rem;
+      }
+
+      .welcome-hero .subheadline {
+        font-size: 1rem;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+      }
+
+      .cta-buttons .btn {
+        width: 100%;
+        text-align: center;
+      }
+
+      .step-item {
+        flex-direction: column;
+        text-align: center;
+        padding: 24px;
+      }
+
+      .step-number-badge {
+        margin: 0 auto;
+      }
+
+      .trust-section {
+        padding: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-container">
+    <a href="index.html" style="color:white;text-decoration:none;"><h1>Dental Dash Pro</h1></a>
+    <p>Office Dashboard</p>
+  </div>
+</header>
+
+<main>
+  <div class="welcome-wrap">
+
+    <!-- Welcome Hero -->
+    <div class="welcome-hero">
+      <span class="welcome-icon">✅</span>
+      <h1>Welcome to Dental Dash Pro!</h1>
+      <p class="subheadline">
+        Your application has been received and is under review. While we finalize your account, you can start exploring available cases and preparing treatment estimates right away.
+      </p>
+      <span class="status-badge-large">✓ Application Under Review</span>
+      <div class="cta-buttons">
+        <a href="office-cases.html" class="btn btn-primary btn-large">Start with Your First Case</a>
+        <a href="office-dashboard.html" class="btn btn-secondary">View Dashboard</a>
+      </div>
+    </div>
+
+    <!-- How to Get Started -->
+    <div class="get-started-section">
+      <h2>How to Get Started</h2>
+      <div class="steps-list">
+        
+        <div class="step-item">
+          <div class="step-number-badge">1</div>
+          <div class="step-content">
+            <h3>Browse Available Cases</h3>
+            <p>Explore patient treatment requests in your area. Review case details, uploaded images, and patient preferences to find the best fits for your practice.</p>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-number-badge">2</div>
+          <div class="step-content">
+            <h3>Save Strong Matches</h3>
+            <p>Bookmark cases that align with your expertise and availability. Build a pipeline of opportunities that make sense for your office.</p>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-number-badge">3</div>
+          <div class="step-content">
+            <h3>Prepare Your First Treatment Estimate</h3>
+            <p>Submit a professional treatment estimate including your recommended approach, cost range, and office details. Patients receive your estimate directly and can choose to move forward with your office.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Trust / Info Section -->
+    <div class="trust-section">
+      <h3><span>ℹ️</span> Why We Review Applications</h3>
+      <p>
+        We manually review each office to ensure quality and manage our platform rollout responsibly. This helps us maintain a trusted marketplace for both patients and dental providers. Most applications are approved within 1–2 business days. You'll receive an email confirmation once your account is fully activated.
+      </p>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <p><a href="index.html" style="color:#94a3b8;">Home</a></p>
+  <p>&copy; 2026 Dental Dash Pro. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
