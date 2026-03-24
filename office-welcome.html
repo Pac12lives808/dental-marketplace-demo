@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PLK6GWSVB4"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-PLK6GWSVB4');
+        gtag('event', 'view_office_welcome');
+    </script>
+    <title>Welcome to Dental Dash Pro — Office Onboarding</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        *, *:before, *:after { box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', Roboto, sans-serif;
+            background: var(--surface);
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 32px 16px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 48px 40px;
+            box-shadow: 0 4px 24px rgba(37,99,235,0,0.08);
+        }
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            background: #FEF3C7;
+            color: #92400E;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .status-badge::before {
+            content: '⏳';
+            margin-right: 8px;
+            font-size: 16px;
+        }
+        h1 {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin: 0 0 12px 0;
+            line-height: 1.2;
+        }
+        .subheadline {
+            font-size: 18px;
+            color: var(--text-muted);
+            margin: 0 0 40px 0;
+            line-height: 1.6;
+        }
+        .steps {
+            display: grid;
+            gap: 24px;
+            margin: 40px 0;
+        }
+        .step {
+            display: flex;
+            gap: 20px;
+            padding: 24px;
+            background: var(--surface);
+            border-radius: 12px;
+            border: 1px solid #E2E8F0;
+        }
+        .step-number {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--brand-blue), var(--brand-cyan));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+        }
+        .step-content h3 {
+            margin: 0 0 8px 0;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+        .step-content p {
+            margin: 0;
+            font-size: 15px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+        .cta-group {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background: var(--brand-blue);
+            color: white;
+            border: none;
+        }
+        .btn-primary:hover {
+            background: var(--brand-blue-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(37,99,235,0.3);
+        }
+        .btn-secondary {
+            background: white;
+            color: var(--text-dark);
+            border: 2px solid #E2E8F0;
+        }
+        .btn-secondary:hover {
+            border-color: var(--brand-blue);
+            color: var(--brand-blue);
+        }
+        .trust-section {
+            margin-top: 48px;
+            padding-top: 40px;
+            border-top: 1px solid #E2E8F0;
+        }
+        .trust-section h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin: 0 0 12px 0;
+        }
+        .trust-section p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin: 0;
+        }
+        @media (max-width: 640px) {
+            .card {
+                padding: 32px 24px;
+            }
+            h1 {
+                font-size: 28px;
+            }
+            .subheadline {
+                font-size: 16px;
+            }
+            .cta-group {
+                flex-direction: column;
+            }
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="status-badge">Application Under Review</div>
+            
+            <h1>Welcome to Dental Dash Pro!</h1>
+            <p class="subheadline">Your application is being reviewed by our team. While we complete our verification process, you can start exploring the platform and preparing treatment estimates.</p>
+
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Browse Available Cases</h3>
+                        <p>Review patient treatment requests in your area. Each case includes procedure details, patient location, and insurance information to help you prepare accurate estimates.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Save Strong Matches</h3>
+                        <p>Identify cases that align with your practice's expertise and capacity. Mark cases you're interested in so you can quickly return to them.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Prepare Your First Treatment Estimate</h3>
+                        <p>Get familiar with the estimate submission process. Once your office is approved, you'll be able to connect directly with patients seeking treatment.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cta-group">
+                <a href="office-cases.html" class="btn btn-primary">Start with Your First Case</a>
+                <a href="office-dashboard.html" class="btn btn-secondary">View Dashboard</a>
+            </div>
+
+            <div class="trust-section">
+                <h4>Why the manual review?</h4>
+                <p>We manually verify each dental office to ensure every provider on Dental Dash Pro is licensed, qualified, and committed to providing exceptional patient care. This verification typically takes 1-2 business days and helps build trust for both patients and providers on our platform.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
