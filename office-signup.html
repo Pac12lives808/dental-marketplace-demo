@@ -203,34 +203,24 @@
 <script type="module">
   import { supabase } from "./supabase-config.js";
 
-  const form = document.getElementById("officeForm");
+  const form = document.getElementById("signupForm");
   const submitBtn = document.getElementById("submitBtn");
-  const errorBox = document.getElementById("errorBox");
+  const errorMsg = document.getElementById("errorMsg");
 
   function showError(msg) {
-    errorBox.textContent = msg;
-    errorBox.style.display = "block";
+    errorMsg.textContent = msg;
+    errorMsg.style.display = "block";
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   function clearError() {
-    errorBox.textContent = "";
-    errorBox.style.display = "none";
+    errorMsg.textContent = "";
+    errorMsg.style.display = "none";
   }
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     clearError();
-
-    // Honeypot spam protection
-    if (document.getElementById('hp_website').value) {
-      return; // Silent fail - don't give feedback to bots
-    }
-
-    if (!document.getElementById('agree_terms').checked) {
-      showError('Please review and agree to the Provider Participation Agreement to continue.');
-      return;
-    }
 
     submitBtn.disabled = true;
     submitBtn.textContent = "Submitting...";
@@ -273,8 +263,8 @@
       })
     }).catch(() => {}); // non-blocking, do not delay redirect
 
-        gtag('event', 'submit_office_application');
-    window.location.href = "./office-pending.html";
+    gtag('event', 'submit_office_application');
+    window.location.href = "./office-welcome.html";
   });
 </script>
 </body>
