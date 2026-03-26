@@ -1,147 +1,504 @@
-<script>
-  // GA4 page load event
-  if (typeof gtag === 'function') { gtag('event', 'view_case_feed'); }
-  document.addEventListener('DOMContentLoaded', function() {
-    if (typeof gtag === 'function') { gtag('event', 'view_case_feed'); }
-  });
-</script>
-<!-- Case 1: Full Arch Implant -->
-<div class="case-card">
-    <div class="case-score">9.4/10</div>
-    <div class="case-category">Implant Prosthetics</div>
-    <h3 class="case-title">Full Arch Implant Case</h3>
-    <div class="case-meta">
-        <div class="meta-item"><span class="meta-label">Location</span><span class="meta-val">Gilbert, AZ (4.2 mi)</span></div>
-        <div class="meta-item"><span class="meta-label">Value Est.</span><span class="meta-val">$20,000 - $32,000</span></div>
-        <div class="meta-item"><span class="meta-label">Payment</span><span class="meta-val">PPO Insurance</span></div>
-        <div class="meta-item"><span class="meta-label">Urgency</span><span class="meta-val">Within 2 weeks</span></div>
-    </div>
-    <p class="case-summary">Patient missing multiple upper teeth and wants a fixed full-arch option. Uploaded pano and CBCT. Looking for consultation within 7 days.</p>
-    <div class="doc-tags">
-        <span class="doc-tag">✓ X-Rays</span>
-        <span class="doc-tag">✓ CBCT</span>
-        <span class="doc-tag">✓ Photos</span>
-    </div>
-    <div class="card-footer">
-        <a href="#" class="btn-card btn-outline">View Case</a>
-        <a href="office-bid.html?case_id=0841daf5-d4de-4d49-93f2-fbd32d6cb3d1" class="btn-card btn-primary-card" onclick="gtag('event', 'click_provide_estimate')">Provide Estimate</a>
-    </div>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google Tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PLK6GWSVB4"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-PLK6GWSVB4');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient Cases - Dental Dash Pro</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ===== CASES PAGE LAYOUT ===== */
+    .cases-wrap {
+      max-width: 960px;
+      margin: 40px auto;
+      padding: 0 24px 80px;
+    }
 
-<!-- Case 2: All-on-4 -->
-<div class="case-card">
-    <div class="case-score">9.1/10</div>
-    <div class="case-category">Implant Prosthetics</div>
-    <h3 class="case-title">All-on-4 Consultation</h3>
-    <div class="case-meta">
-        <div class="meta-item"><span class="meta-label">Location</span><span class="meta-val">Scottsdale, AZ (9.8 mi)</span></div>
-        <div class="meta-item"><span class="meta-label">Value Est.</span><span class="meta-val">$18,000 - $28,000</span></div>
-        <div class="meta-item"><span class="meta-label">Payment</span><span class="meta-val">Cash / Financing</span></div>
-        <div class="meta-item"><span class="meta-label">Urgency</span><span class="meta-val">Routine</span></div>
-    </div>
-    <p class="case-summary">Patient referred for All-on-4 evaluation. Complete diagnostic records available. Seeking comprehensive treatment plan with timeline and financing options.</p>
-    <div class="doc-tags">
-        <span class="doc-tag">✓ X-Rays</span>
-        <span class="doc-tag">✓ CBCT</span>
-        <span class="doc-tag">✓ Clinical Findings</span>
-    </div>
-    <div class="card-footer">
-        <a href="#" class="btn-card btn-outline">View Case</a>
-        <a href="office-bid.html?case_id=0841daf5-d4de-4d49-93f2-fbd32d6cb3d1" class="btn-card btn-primary-card" onclick="gtag('event', 'click_provide_estimate')">Provide Estimate</a>
-    </div>
-</div>
+    .cases-wrap h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 6px;
+    }
 
-<!-- Case 3: Veneers / Smile Makeover -->
-<div class="case-card">
-    <div class="case-score">8.8/10</div>
-    <div class="case-category">Cosmetic Dentistry</div>
-    <h3 class="case-title">Veneers / Smile Makeover</h3>
-    <div class="case-meta">
-        <div class="meta-item"><span class="meta-label">Location</span><span class="meta-val">Tempe, AZ (6.5 mi)</span></div>
-        <div class="meta-item"><span class="meta-label">Value Est.</span><span class="meta-val">$12,000 - $18,000</span></div>
-        <div class="meta-item"><span class="meta-label">Payment</span><span class="meta-val">Cash</span></div>
-        <div class="meta-item"><span class="meta-label">Urgency</span><span class="meta-val">Within 3 weeks</span></div>
-    </div>
-    <p class="case-summary">Patient seeking cosmetic veneer consultation for upper anterior teeth. Smile photos and treatment goals uploaded. Interested in porcelain veneers and whitening.</p>
-    <div class="doc-tags">
-        <span class="doc-tag">✓ Photos</span>
-        <span class="doc-tag">✓ Treatment Goals</span>
-    </div>
-    <div class="card-footer">
-        <a href="#" class="btn-card btn-outline">View Case</a>
-        <a href="office-bid.html?case_id=0841daf5-d4de-4d49-93f2-fbd32d6cb3d1" class="btn-card btn-primary-card" onclick="gtag('event', 'click_provide_estimate')">Provide Estimate</a>
-    </div>
-</div>
+    .cases-wrap .page-sub {
+      color: #475569;
+      font-size: 0.95rem;
+      margin-bottom: 28px;
+    }
 
-<!-- Case 4: Crown and Bridge -->
-<div class="case-card">
-    <div class="case-score">8.3/10</div>
-    <div class="case-category">Restorative</div>
-    <h3 class="case-title">Crown and Bridge Case</h3>
-    <div class="case-meta">
-        <div class="meta-item"><span class="meta-label">Location</span><span class="meta-val">Mesa, AZ (7.1 mi)</span></div>
-        <div class="meta-item"><span class="meta-label">Value Est.</span><span class="meta-val">$4,500 - $7,500</span></div>
-        <div class="meta-item"><span class="meta-label">Payment</span><span class="meta-val">HMO Insurance</span></div>
-        <div class="meta-item"><span class="meta-label">Urgency</span><span class="meta-val">Routine</span></div>
-    </div>
-    <p class="case-summary">Multi-unit bridge needed to replace missing posterior teeth. Patient has recent X-rays. Prefers porcelain fused to metal or zirconia options.</p>
-    <div class="doc-tags">
-        <span class="doc-tag">✓ X-Rays</span>
-        <span class="doc-tag">✓ Clinical Findings</span>
-    </div>
-    <div class="card-footer">
-        <a href="#" class="btn-card btn-outline">View Case</a>
-        <a href="office-bid.html?case_id=0841daf5-d4de-4d49-93f2-fbd32d6cb3d1" class="btn-card btn-primary-card" onclick="gtag('event', 'click_provide_estimate')">Provide Estimate</a>
-    </div>
-</div>
+    /* ===== CASE CARD ===== */
+    .case-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 28px 32px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
 
-<!-- Case 5: Emergency Extraction -->
-<div class="case-card">
-    <div class="case-score">7.9/10</div>
-    <div class="case-category">Surgical / Restorative</div>
-    <h3 class="case-title">Emergency Extraction + Implant Planning</h3>
-    <div class="case-meta">
-        <div class="meta-item"><span class="meta-label">Location</span><span class="meta-val">Chandler, AZ (3.2 mi)</span></div>
-        <div class="meta-item"><span class="meta-label">Value Est.</span><span class="meta-val">$3,800 - $6,200</span></div>
-        <div class="meta-item"><span class="meta-label">Payment</span><span class="meta-val">Cash / CareCredit</span></div>
-        <div class="meta-item"><span class="meta-label">Urgency</span><span class="meta-val">URGENT</span></div>
-    </div>
-    <p class="case-summary">Patient needs emergency extraction and wants immediate implant planning. Tooth #14 non-restorable. Looking for same-day consultation and treatment plan.</p>
-    <div class="doc-tags">
-        <span class="doc-tag">✓ X-Rays</span>
-        <span class="doc-tag">✓ Photos</span>
-    </div>
-    <div class="card-footer">
-        <a href="#" class="btn-card btn-outline">View Case</a>
-        <a href="office-bid.html?case_id=0841daf5-d4de-4d49-93f2-fbd32d6cb3d1" class="btn-card btn-primary-card" onclick="gtag('event', 'click_provide_estimate')">Provide Estimate</a>
-    </div>
-</div>
+    .case-card:hover {
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.09);
+      transform: translateY(-2px);
+    }
 
-<!-- Case 6: Single Implant -->
-<div class="case-card">
-    <div class="case-score">8.6/10</div>
-    <div class="case-category">Implant Dentistry</div>
-    <h3 class="case-title">Single Implant Placement</h3>
-    <div class="case-meta">
-        <div class="meta-item"><span class="meta-label">Location</span><span class="meta-val">Phoenix, AZ (11.4 mi)</span></div>
-        <div class="meta-item"><span class="meta-label">Value Est.</span><span class="meta-val">$1,800 - $3,200</span></div>
-        <div class="meta-item"><span class="meta-label">Payment</span><span class="meta-val">PPO Insurance</span></div>
-        <div class="meta-item"><span class="meta-label">Urgency</span><span class="meta-val">Within 4 weeks</span></div>
-    </div>
-    <p class="case-summary">Single molar implant needed. Site has been healed for 6 months. Patient has CBCT and is ready to proceed. Seeking implant placement and crown restoration.</p>
-    <div class="doc-tags">
-        <span class="doc-tag">✓ X-Rays</span>
-        <span class="doc-tag">✓ CBCT</span>
-    </div>
-    <div class="card-footer">
-        <a href="#" class="btn-card btn-outline">View Case</a>
-        <a href="office-bid.html?case_id=0841daf5-d4de-4d49-93f2-fbd32d6cb3d1" class="btn-card btn-primary-card" onclick="gtag('event', 'click_provide_estimate')">Provide Estimate</a>
-    </div>
-</div>
+    .case-card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
 
-<div style="text-align:center; margin: 40px 0 80px;">
-  <a href="office-dashboard.html" style="margin-right:16px;">&larr; Back to Dashboard</a>
-  <a href="office-pending.html">View My Pending Estimates</a>
-</div>
+    .case-score {
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      color: #ffffff;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 999px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
 
-<p style="text-align:center; color:#64748b; font-size:0.85rem; padding-bottom:40px;">&copy; 2025 Dental Dash Pro. All rights reserved.</p>
+    .case-category {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #2563eb;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 6px;
+    }
+
+    .case-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin: 0 0 16px;
+    }
+
+    /* ===== CASE META GRID ===== */
+    .case-meta {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 10px 20px;
+      margin-bottom: 16px;
+    }
+
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .meta-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .meta-val {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #1e293b;
+    }
+
+    /* ===== CASE SUMMARY ===== */
+    .case-summary {
+      font-size: 0.9rem;
+      color: #475569;
+      line-height: 1.65;
+      margin: 0 0 16px;
+    }
+
+    /* ===== DOC TAGS ===== */
+    .doc-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .doc-tag {
+      background: #f0fdf4;
+      color: #166534;
+      border: 1px solid #bbf7d0;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 3px 10px;
+    }
+
+    /* ===== CARD FOOTER ===== */
+    .card-footer {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn-card {
+      padding: 10px 22px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .btn-outline {
+      background: #ffffff;
+      border: 2px solid #e2e8f0;
+      color: #475569;
+    }
+
+    .btn-outline:hover {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+    }
+
+    .btn-primary-card {
+      background: #2563eb;
+      color: #ffffff;
+      border: 2px solid #2563eb;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+    }
+
+    .btn-primary-card:hover {
+      background: #1d4ed8;
+      border-color: #1d4ed8;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+    }
+
+    /* ===== URGENCY BADGE ===== */
+    .urgency-urgent {
+      color: #dc2626;
+      font-weight: 700;
+    }
+
+    /* ===== LOADING STATE ===== */
+    .loading-state {
+      text-align: center;
+      padding: 60px 24px;
+      color: #94a3b8;
+      font-size: 1rem;
+    }
+
+    .loading-state .spinner {
+      display: inline-block;
+      width: 32px;
+      height: 32px;
+      border: 3px solid #e2e8f0;
+      border-top-color: #2563eb;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      margin-bottom: 16px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* ===== EMPTY STATE ===== */
+    .empty-state {
+      text-align: center;
+      padding: 72px 24px;
+      color: #94a3b8;
+    }
+
+    .empty-state .icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+
+    .empty-state h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #475569;
+      margin: 0 0 8px;
+    }
+
+    .empty-state p {
+      font-size: 0.9rem;
+      margin: 0;
+    }
+
+    /* ===== ERROR STATE ===== */
+    .error-state {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+      color: #991b1b;
+      font-size: 0.9rem;
+    }
+
+    /* ===== NAV LINKS ===== */
+    .nav-links-bottom {
+      text-align: center;
+      margin: 40px 0 20px;
+    }
+
+    .nav-links-bottom a {
+      color: #2563eb;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin: 0 12px;
+    }
+
+    .nav-links-bottom a:hover {
+      text-decoration: underline;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 640px) {
+      .cases-wrap {
+        padding: 0 16px 60px;
+      }
+
+      .case-card {
+        padding: 20px 20px;
+      }
+
+      .case-meta {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .card-footer {
+        flex-direction: column;
+      }
+
+      .btn-card {
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-container">
+      <h1><a href="index.html" style="color:white;text-decoration:none;">Dental Dash Pro</a></h1>
+      <nav style="display: flex; gap: 20px;">
+        <a href="office-dashboard.html" style="color: white; text-decoration: none; font-weight: 500; opacity: 0.8;">Dashboard</a>
+        <a href="office-cases.html" style="color: white; text-decoration: none; font-weight: 700; border-bottom: 2px solid white;">Browse Cases</a>
+        <a href="office-pending.html" style="color: white; text-decoration: none; font-weight: 500; opacity: 0.8;">My Estimates</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="cases-wrap">
+      <h2>Available Patient Cases</h2>
+      <p class="page-sub">Review open cases in your area and submit a treatment estimate.</p>
+
+      <div id="case-feed">
+        <div class="loading-state">
+          <div class="spinner"></div>
+          <div>Loading cases&hellip;</div>
+        </div>
+      </div>
+
+      <div class="nav-links-bottom">
+        <a href="office-dashboard.html">&larr; Back to Dashboard</a>
+        <a href="office-pending.html">View My Pending Estimates</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Dental Dash Pro. All rights reserved.</p>
+  </footer>
+
+  <script type="module">
+    import { supabase } from './supabase-config.js';
+
+    if (typeof gtag === 'function') {
+      gtag('event', 'view_case_feed');
+    }
+
+    const feed = document.getElementById('case-feed');
+
+    function makeMeta(label, value) {
+      const item = document.createElement('div');
+      item.className = 'meta-item';
+
+      const lbl = document.createElement('span');
+      lbl.className = 'meta-label';
+      lbl.textContent = label;
+
+      const val = document.createElement('span');
+      val.className = 'meta-val';
+      if (label === 'Urgency' && typeof value === 'string' && value.toUpperCase().includes('URGENT')) {
+        val.classList.add('urgency-urgent');
+      }
+      val.textContent = value || '—';
+
+      item.appendChild(lbl);
+      item.appendChild(val);
+      return item;
+    }
+
+    function buildLocation(row) {
+      const parts = [];
+      if (row.city) parts.push(row.city);
+      if (row.zip_code) parts.push(row.zip_code);
+      return parts.join(', ') || null;
+    }
+
+    function renderCard(row) {
+      const card = document.createElement('div');
+      card.className = 'case-card';
+
+      // Header row: category + score badge
+      const cardHeader = document.createElement('div');
+      cardHeader.className = 'case-card-header';
+
+      const leftHead = document.createElement('div');
+
+      const category = document.createElement('div');
+      category.className = 'case-category';
+      category.textContent = row.procedure_type || 'General Dentistry';
+      leftHead.appendChild(category);
+
+      const title = document.createElement('h3');
+      title.className = 'case-title';
+      title.textContent = row.title || row.procedure_type || 'Patient Case';
+      leftHead.appendChild(title);
+
+      cardHeader.appendChild(leftHead);
+
+      const parsedScore = parseFloat(row.match_score);
+      if (!isNaN(parsedScore)) {
+        const score = document.createElement('div');
+        score.className = 'case-score';
+        score.textContent = parsedScore.toFixed(1) + '/10';
+        cardHeader.appendChild(score);
+      }
+
+      card.appendChild(cardHeader);
+
+      // Meta grid
+      const meta = document.createElement('div');
+      meta.className = 'case-meta';
+
+      const location = buildLocation(row);
+      if (location) {
+        meta.appendChild(makeMeta('Location', location));
+      }
+      if (row.payment_type) {
+        meta.appendChild(makeMeta('Payment', row.payment_type));
+      }
+      if (row.urgency) {
+        meta.appendChild(makeMeta('Urgency', row.urgency));
+      }
+      if (row.timeline) {
+        meta.appendChild(makeMeta('Timeline', row.timeline));
+      }
+
+      if (meta.children.length > 0) {
+        card.appendChild(meta);
+      }
+
+      // Description / summary
+      if (row.description || row.summary) {
+        const summary = document.createElement('p');
+        summary.className = 'case-summary';
+        summary.textContent = row.description || row.summary;
+        card.appendChild(summary);
+      }
+
+      // Footer buttons
+      const footer = document.createElement('div');
+      footer.className = 'card-footer';
+
+      const estimateLink = document.createElement('a');
+      estimateLink.className = 'btn-card btn-primary-card';
+      estimateLink.setAttribute('href', 'office-bid.html?case_id=' + encodeURIComponent(row.case_id));
+      estimateLink.textContent = 'Provide Estimate';
+      estimateLink.addEventListener('click', function () {
+        if (typeof gtag === 'function') {
+          gtag('event', 'click_provide_estimate');
+        }
+      });
+
+      footer.appendChild(estimateLink);
+      card.appendChild(footer);
+
+      return card;
+    }
+
+    function renderEmpty() {
+      const state = document.createElement('div');
+      state.className = 'empty-state';
+
+      const icon = document.createElement('div');
+      icon.className = 'icon';
+      icon.textContent = '📋';
+
+      const heading = document.createElement('h3');
+      heading.textContent = 'No cases available right now';
+
+      const msg = document.createElement('p');
+      msg.textContent = 'Check back soon — new patient cases are added regularly.';
+
+      state.appendChild(icon);
+      state.appendChild(heading);
+      state.appendChild(msg);
+      return state;
+    }
+
+    function renderError(message) {
+      const state = document.createElement('div');
+      state.className = 'error-state';
+      state.textContent = 'Unable to load cases: ' + message;
+      return state;
+    }
+
+    async function loadCases() {
+      try {
+        const { data: cases, error } = await supabase
+          .from('patient_cases')
+          .select('case_id, procedure_type, title, city, zip_code, urgency, timeline, description, summary, payment_type, match_score, created_at')
+          .order('created_at', { ascending: false });
+
+        feed.innerHTML = '';
+
+        if (error) {
+          feed.appendChild(renderError(error.message));
+          return;
+        }
+
+        if (!cases || cases.length === 0) {
+          feed.appendChild(renderEmpty());
+          return;
+        }
+
+        cases.forEach(function (row) {
+          feed.appendChild(renderCard(row));
+        });
+      } catch (err) {
+        feed.innerHTML = '';
+        feed.appendChild(renderError(err.message || 'Unknown error'));
+      }
+    }
+
+    loadCases();
+  </script>
+
+</body>
+</html>
