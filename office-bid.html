@@ -98,7 +98,6 @@
   </style>
 </head>
 <body>
-
   <nav class="top-nav">
     <a href="office-dashboard.html" class="logo">DentalDash</a>
     <div class="nav-links">
@@ -149,14 +148,14 @@
       </div>
       <div class="form-group">
         <label>Why Choose Our Office? (Optional)</label>
-        <textarea id="why_choose_us" name="why_choose_us" class="form-input" rows="3" placeholder="Highlight what makes your office the right choice..."></textarea>
+        <textarea id="why_choose_us" class="form-input" rows="3" placeholder="Highlight what makes your office the right choice..."></textarea>
       </div>
     </div>
   </div>
 
   <div class="actions-bar">
     <a href="office-cases.html" class="btn btn-outline">Cancel</a>
-            <button id="submitBtn" type="button" onclick="handleSubmit()" class="btn btn-primary">Submit for Doctor Approval</button>
+    <button type="button" id="submitBtn" class="btn btn-primary" onclick="handleSubmit()">Submit for Doctor Approval</button>
   </div>
 
   <script type="module">
@@ -184,6 +183,8 @@
     }
 
     async function handleSubmit() {
+      console.log('[DEBUG] handleSubmit() triggered');
+
       const submitBtn = document.getElementById('submitBtn');
       if (submitBtn && submitBtn.disabled) return;
       submitBtn.disabled = true;
@@ -232,30 +233,30 @@
           .insert([payload])
           .select();
 
-        if (result.error) throw result.error;
+        if (result.error) {
+          console.error('Supabase insert error:', result.error);
+          alert('Submission failed: ' + result.error.message);
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Submit for Doctor Approval';
+          return;
+        }
 
         if (typeof gtag === 'function') {
           gtag('event', 'submit_for_doctor_approval');
         }
 
-        window.location.href = 'estimate-submitted.html';
+        window.location.href = 'estimate-submitted.html?case_id=' + encodeURIComponent(caseId);
+
       } catch (err) {
-        console.error('Estimate submission error:', err);
-        alert('Error submitting estimate: ' + (err.message || 'Unknown error. Please try again.'));
+        console.error('Unexpected submission error:', err);
+        alert('Unexpected error: ' + err.message);
         submitBtn.disabled = false;
         submitBtn.textContent = 'Submit for Doctor Approval';
       }
     }
 
-    // Expose handleSubmit to the onclick attribute
+    // Expose to onclick attribute
     window.handleSubmit = handleSubmit;
-
-    const submitBtnEl = document.getElementById('submitBtn');
-    if (submitBtnEl) {
-      submitBtnEl.type = 'button';
-      submitBtnEl.addEventListener('click', handleSubmit);
-    }
   </script>
-
 </body>
 </html>
