@@ -195,55 +195,33 @@
         return;
       }
 
-      const low = parseFloat(document.getElementById('estimate_low').value) || 0;
-      const high = parseFloat(document.getElementById('estimate_high').value) || 0;
-      const treatment = document.getElementById('treatment_approach').value.trim();
-      const submittedByName = document.getElementById('submitted_by_name').value.trim();
-      const submittedByRole = document.getElementById('submitted_by_role').value.trim();
-      const paymentOptions = document.getElementById('payment_options').value.trim();
-      const availabilityNotes = document.getElementById('availability_notes').value.trim();
-      const whyChooseUs = document.getElementById('why_choose_us').value.trim();
+      const payload = {
+        patient_case_id: caseId,
+        treatment_approach: document.getElementById('treatment_approach').value.trim(),
+        low_estimate: parseFloat(document.getElementById('estimate_low').value),
+        high_estimate: parseFloat(document.getElementById('estimate_high').value),
+        payment_options: document.getElementById('payment_options').value.trim(),
+        availability_notes: document.getElementById('availability_notes').value.trim(),
+        submitted_by_name: document.getElementById('submitted_by_name').value.trim(),
+        submitted_by_role: document.getElementById('submitted_by_role').value.trim(),
+        why_choose_us: document.getElementById('why_choose_us').value.trim()
+      };
 
-      if (!low || !high || !treatment || !submittedByName || !submittedByRole) {
-        alert('Please fill in all required fields.');
+      const { data, error } = await supabaseClient
+        .from('estimates')
+        .insert([payload])
+        .select()
+        .single();
+
+      if (error) {
+        console.error('Insert error:', error);
+        alert('Submission failed: ' + error.message);
         submitBtn.disabled = false;
         submitBtn.textContent = 'Submit for Doctor Approval';
         return;
       }
 
-      const payload = {
-        patient_case_id: caseId,
-        office_id: null,
-        submitted_by_name: submittedByName,
-        submitted_by_role: submittedByRole,
-        treatment_approach: treatment,
-        low_estimate: low,
-        high_estimate: high,
-        payment_options: paymentOptions || null,
-        availability_notes: availabilityNotes || null,
-        why_choose_us: whyChooseUs || null,
-        status: 'PENDING_DOCTOR_APPROVAL'
-      };
-
-      try {
-        const result = await supabaseClient
-          .from('estimates')
-          .insert([payload])
-          .select();
-
-        if (result.error) throw result.error;
-
-        if (typeof gtag === 'function') {
-          gtag('event', 'submit_for_doctor_approval');
-        }
-
-        window.location.href = 'estimate-submitted.html';
-      } catch (err) {
-        console.error('Estimate submission error:', err);
-        alert('Error submitting estimate: ' + (err.message || 'Unknown error. Please try again.'));
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Submit for Doctor Approval';
-      }
+      window.location.href = `/estimate-submitted.html?case_id=${encodeURIComponent(caseId)}`;
     }
 
     // Expose handleSubmit to the onclick attribute
