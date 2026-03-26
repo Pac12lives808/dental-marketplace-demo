@@ -199,21 +199,6 @@
         .conf-high { background: #dcfce7; color: #166534; }
         .conf-mod { background: #fef9c3; color: #854d0e; }
 
-        .btn-choose {
-            background: var(--primary);
-            color: white;
-            text-align: center;
-            padding: 1rem;
-            border-radius: 12px;
-            font-weight: 700;
-            text-decoration: none;
-            transition: background 0.2s;
-        }
-
-        .btn-choose:hover {
-            background: var(--primary-dark);
-        }
-
         /* Trust Section */
         .trust-section {
             margin-top: 5rem;
@@ -238,6 +223,88 @@
             line-height: 1.6;
         }
 
+        /* Confirmation Banner */
+        .selection-confirmation {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 16px;
+            padding: 2rem 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .confirmation-icon {
+            width: 52px;
+            height: 52px;
+            background: var(--success);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 1.25rem;
+        }
+
+        .confirmation-main {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #14532d;
+            margin: 0 0 0.75rem;
+        }
+
+        .confirmation-secondary {
+            font-size: 0.9375rem;
+            color: #166534;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        /* Error Banner */
+        .error-banner {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            margin-bottom: 2rem;
+            color: #991b1b;
+            font-size: 0.9375rem;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        /* Locked / disabled state */
+        .estimate-list.locked {
+            opacity: 0.45;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .btn-choose {
+            display: block;
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-choose:hover:not(:disabled) {
+            background: var(--primary-dark);
+        }
+
+        .btn-choose:disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
+        }
+
         @media (max-width: 850px) {
             .estimate-card {
                 grid-template-columns: 1fr;
@@ -256,6 +323,16 @@
 
     <div class="results-container">
         
+        <!-- Confirmation section (shown after successful selection) -->
+        <div id="selection-confirmation" class="selection-confirmation" style="display:none;" aria-live="polite">
+            <div class="confirmation-icon">✓</div>
+            <p class="confirmation-main">You're all set. We've recorded your interest in this treatment approach. The next step is coordinating directly with the office.</p>
+            <p class="confirmation-secondary">We will securely connect you with this office. No personal information was shared until this step.</p>
+        </div>
+
+        <!-- Error banner (shown on insert failure) -->
+        <div id="error-banner" class="error-banner" style="display:none;" aria-live="assertive">Something went wrong. Please try again.</div>
+
         <div class="results-header">
             <h1>Your Treatment Estimates</h1>
             <p>Review and compare professional clinical approaches from top-rated local dental offices. Choose the plan that best fits your goals.</p>
@@ -294,7 +371,7 @@
                         </div>
                         <div class="meta-item">📅 Next: Mon, April 6</div>
                     </div>
-                    <a href="#" class="btn-choose">Choose This Office</a>
+                    <button type="button" class="btn-choose" data-estimate-id="00000000-0000-0000-0000-000000000001">Choose This Office</button>
                 </div>
             </div>
 
@@ -323,7 +400,7 @@
                         </div>
                         <div class="meta-item">📅 Next: Wed, April 8</div>
                     </div>
-                    <a href="#" class="btn-choose">Choose This Office</a>
+                    <button type="button" class="btn-choose" data-estimate-id="00000000-0000-0000-0000-000000000002">Choose This Office</button>
                 </div>
             </div>
 
@@ -352,7 +429,7 @@
                         </div>
                         <div class="meta-item">📅 Next: Friday, April 10</div>
                     </div>
-                    <a href="#" class="btn-choose">Choose This Office</a>
+                    <button type="button" class="btn-choose" data-estimate-id="00000000-0000-0000-0000-000000000003">Choose This Office</button>
                 </div>
             </div>
 
@@ -364,6 +441,201 @@
         </div>
 
     </div>
+
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+        const SUPABASE_URL = 'https://fxfwytxfeuwsbeapiyqw.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ4Znd5dHhmZXV3c2JlYXBpeXF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1MDI0ODUsImV4cCI6MjA4OTA3ODQ4NX0.anZxOWzcVyobPx8hW_DUpdIl1IAWeE-AWXpZq-ysXvI';
+        const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+        function getQueryParam(name) {
+            return new URLSearchParams(window.location.search).get(name);
+        }
+
+        const caseId = getQueryParam('case_id');
+        const estimateList = document.querySelector('.estimate-list');
+        const confirmationEl = document.getElementById('selection-confirmation');
+        const errorBannerEl = document.getElementById('error-banner');
+
+        // ── Dynamic rendering ─────────────────────────────────────────────
+        async function loadEstimates() {
+            if (!caseId || !UUID_REGEX.test(caseId)) {
+                // No valid case_id – keep static demo cards as-is
+                attachChooseHandlers();
+                return;
+            }
+
+            const { data: estimates, error } = await supabase
+                .from('estimates')
+                .select('id, submitted_by_name, submitted_by_role, treatment_approach, low_estimate, high_estimate, availability_notes, why_choose_us')
+                .eq('patient_case_id', caseId)
+                .eq('status', 'APPROVED');
+
+            if (error || !estimates || estimates.length === 0) {
+                if (error) {
+                    console.error('Failed to load estimates:', error);
+                }
+                attachChooseHandlers();
+                return;
+            }
+
+            // Replace static cards with dynamically rendered ones
+            estimateList.textContent = '';
+            estimates.forEach(est => {
+                estimateList.appendChild(buildEstimateCard(est));
+            });
+
+            attachChooseHandlers();
+        }
+
+        function buildEstimateCard(est) {
+            const card = document.createElement('div');
+            card.className = 'estimate-card';
+
+            // ── Office info column ──────────────────────────────────────
+            const officeInfo = document.createElement('div');
+            officeInfo.className = 'office-info';
+
+            const officeName = document.createElement('h2');
+            officeName.textContent = est.submitted_by_name || 'Dental Office';
+            officeInfo.appendChild(officeName);
+
+            if (est.submitted_by_role) {
+                const roleEl = document.createElement('span');
+                roleEl.className = 'office-location';
+                roleEl.textContent = est.submitted_by_role;
+                officeInfo.appendChild(roleEl);
+            }
+
+            const approachLabel = document.createElement('span');
+            approachLabel.className = 'section-label';
+            approachLabel.textContent = 'Treatment Approach';
+            officeInfo.appendChild(approachLabel);
+
+            const approachText = document.createElement('p');
+            approachText.className = 'approach-text';
+            approachText.textContent = est.treatment_approach || '';
+            officeInfo.appendChild(approachText);
+
+            if (est.why_choose_us) {
+                const questionsBox = document.createElement('div');
+                questionsBox.className = 'questions-box';
+                const questionsP = document.createElement('p');
+                const strong = document.createElement('strong');
+                strong.textContent = 'Why Choose Us: ';
+                questionsP.appendChild(strong);
+                questionsP.appendChild(document.createTextNode(est.why_choose_us));
+                questionsBox.appendChild(questionsP);
+                officeInfo.appendChild(questionsBox);
+            }
+
+            card.appendChild(officeInfo);
+
+            // ── Action column ────────────────────────────────────────────
+            const actionCol = document.createElement('div');
+            actionCol.className = 'action-col';
+
+            const priceBox = document.createElement('div');
+            priceBox.className = 'price-box';
+
+            const priceLabel = document.createElement('span');
+            priceLabel.className = 'section-label';
+            priceLabel.textContent = 'Est. Total Range';
+            priceBox.appendChild(priceLabel);
+
+            const priceRange = document.createElement('div');
+            priceRange.className = 'price-range';
+            const low = Number(est.low_estimate) || 0;
+            const high = Number(est.high_estimate) || 0;
+            priceRange.textContent = '$' + low.toLocaleString() + ' \u2013 $' + high.toLocaleString();
+            priceBox.appendChild(priceRange);
+            actionCol.appendChild(priceBox);
+
+            if (est.availability_notes) {
+                const metaInfo = document.createElement('div');
+                metaInfo.className = 'meta-info';
+                const metaItem = document.createElement('div');
+                metaItem.className = 'meta-item';
+                metaItem.textContent = '\uD83D\uDCC5 ' + est.availability_notes;
+                metaInfo.appendChild(metaItem);
+                actionCol.appendChild(metaInfo);
+            }
+
+            const chooseBtn = document.createElement('button');
+            chooseBtn.type = 'button';
+            chooseBtn.className = 'btn-choose';
+            chooseBtn.textContent = 'Choose This Office';
+            chooseBtn.dataset.estimateId = est.id;
+            actionCol.appendChild(chooseBtn);
+
+            card.appendChild(actionCol);
+            return card;
+        }
+
+        // ── Click handler ─────────────────────────────────────────────────
+        function attachChooseHandlers() {
+            document.querySelectorAll('.btn-choose').forEach(btn => {
+                btn.addEventListener('click', handleChooseClick);
+            });
+        }
+
+        async function handleChooseClick(e) {
+            const btn = e.currentTarget;
+            const estimateId = btn.dataset.estimateId;
+
+            // Prevent multiple submissions immediately
+            disableAllButtons();
+            errorBannerEl.style.display = 'none';
+
+            const isDemoMode = !caseId || !UUID_REGEX.test(caseId) || !estimateId || !UUID_REGEX.test(estimateId);
+
+            if (isDemoMode) {
+                // Demo / preview mode: show the confirmation UI without a DB insert
+                showConfirmation();
+                return;
+            }
+
+            try {
+                const { error } = await supabase
+                    .from('patient_selections')
+                    .insert([{ case_id: caseId, estimate_id: estimateId }]);
+
+                if (error) throw error;
+
+                showConfirmation();
+            } catch (err) {
+                console.error('Selection insert error:', err);
+                errorBannerEl.style.display = 'block';
+                errorBannerEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                enableAllButtons();
+            }
+        }
+
+        // ── Helpers ───────────────────────────────────────────────────────
+        function disableAllButtons() {
+            document.querySelectorAll('.btn-choose').forEach(b => {
+                b.disabled = true;
+            });
+        }
+
+        function enableAllButtons() {
+            document.querySelectorAll('.btn-choose').forEach(b => {
+                b.disabled = false;
+            });
+        }
+
+        function showConfirmation() {
+            estimateList.classList.add('locked');
+            confirmationEl.style.display = 'block';
+            confirmationEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // ── Bootstrap ─────────────────────────────────────────────────────
+        loadEstimates();
+    </script>
 
 </body>
 </html>
