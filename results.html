@@ -202,16 +202,154 @@
         .btn-choose {
             background: var(--primary);
             color: white;
+            display: block;
+            width: 100%;
             text-align: center;
             padding: 1rem;
             border-radius: 12px;
             font-weight: 700;
+            font-size: 1rem;
             text-decoration: none;
+            border: none;
+            cursor: pointer;
             transition: background 0.2s;
         }
 
-        .btn-choose:hover {
+        .btn-choose:hover:not(:disabled) {
             background: var(--primary-dark);
+        }
+
+        .btn-choose:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .btn-continue {
+            background: var(--success);
+            color: white;
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: 0.875rem 1rem;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.9375rem;
+            border: none;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: opacity 0.2s;
+        }
+
+        .btn-continue:hover:not(:disabled) {
+            opacity: 0.9;
+        }
+
+        .btn-continue:disabled {
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        /* Warning / no-case state */
+        .warning-state {
+            background: #fff7ed;
+            border: 1px solid #fed7aa;
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .warning-state h2 {
+            color: #9a3412;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .warning-state p {
+            color: #c2410c;
+            margin: 0;
+        }
+
+        /* Confirmation banner */
+        .confirmation-state {
+            background: #ecfdf5;
+            border: 1px solid #6ee7b7;
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .confirmation-state .check-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .confirmation-state h2 {
+            color: #065f46;
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .confirmation-state p {
+            color: #047857;
+            margin: 0;
+            font-size: 0.9375rem;
+        }
+
+        /* Loading state */
+        .loading-state {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        /* Next steps section (after selection) */
+        .next-steps-section {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        /* Contact details (revealed after Continue) */
+        .contact-details {
+            margin-top: 1rem;
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+        }
+
+        .contact-office-name {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #065f46;
+            margin: 0 0 0.5rem;
+        }
+
+        .contact-details p {
+            margin: 0.35rem 0 0;
+            font-size: 0.9rem;
+            color: #047857;
+        }
+
+        .contact-details a {
+            color: #047857;
+            text-decoration: none;
+        }
+
+        .contact-details a:hover {
+            text-decoration: underline;
+        }
+
+        .contact-pending {
+            color: #64748b !important;
+            font-style: italic;
         }
 
         /* Trust Section */
@@ -262,100 +400,34 @@
         </div>
 
         <div class="case-summary">
-            <div class="summary-item">Case: <strong>Full Arch Restoration</strong></div>
-            <div class="summary-item">Location: <strong>Gilbert, AZ</strong></div>
+            <div class="summary-item">Case: <strong>Treatment Request</strong></div>
+            <div class="summary-item">Status: <strong>Estimates Ready</strong></div>
             <div class="summary-item">Privacy: <strong>Protected</strong></div>
         </div>
 
-        <div class="estimate-list">
-            
-            <!-- Card 1 -->
-            <div class="estimate-card">
-                <div class="office-info">
-                    <span class="section-label">Top Rated Provider</span>
-                    <h2>Desert Ridge Dental Group</h2>
-                    <span class="office-location">Gilbert, AZ • 4.9 Stars</span>
-                    
-                    <span class="section-label">Treatment Approach</span>
-                    <p class="approach-text">Comprehensive digital-guided implant placement using the All-on-X protocol. We focus on a high-strength zirconia bridge for maximum durability and natural aesthetics, including same-day provisional teeth.</p>
-                    
-                    <div class="questions-box">
-                        <p><strong>Questions to Ask:</strong> Does this plan include the final zirconia bridge or a hybrid material?</p>
-                    </div>
-                </div>
-                <div class="action-col">
-                    <div class="price-box">
-                        <span class="section-label">Est. Total Range</span>
-                        <div class="price-range">$18,500 – $23,000</div>
-                    </div>
-                    <div class="meta-info">
-                        <div class="meta-item">
-                            <span class="confidence-pill conf-high">High Confidence</span>
-                        </div>
-                        <div class="meta-item">📅 Next: Mon, April 6</div>
-                    </div>
-                    <a href="#" class="btn-choose">Choose This Office</a>
-                </div>
-            </div>
+        <!-- Warning state: shown when case_id is missing or invalid -->
+        <div id="warning-state" class="warning-state" hidden>
+            <h2>Unable to Load Estimates</h2>
+            <p id="warning-message">No valid case ID found. Please use the link from your confirmation email.</p>
+        </div>
 
-            <!-- Card 2 -->
-            <div class="estimate-card">
-                <div class="office-info">
-                    <span class="section-label">Conservative Approach</span>
-                    <h2>North Gilbert Implant Center</h2>
-                    <span class="office-location">Gilbert, AZ • 4.7 Stars</span>
-                    
-                    <span class="section-label">Treatment Approach</span>
-                    <p class="approach-text">We propose a staged approach beginning with 4D-guided extractions followed by bone preservation. Implants would be placed after a 3-month healing period to ensure the highest biological success rate for your specific bone density.</p>
-                    
-                    <div class="questions-box">
-                        <p><strong>Questions to Ask:</strong> What is the success rate for this staged approach vs same-day placement?</p>
-                    </div>
-                </div>
-                <div class="action-col">
-                    <div class="price-box">
-                        <span class="section-label">Est. Total Range</span>
-                        <div class="price-range">$15,200 – $19,800</div>
-                    </div>
-                    <div class="meta-info">
-                        <div class="meta-item">
-                            <span class="confidence-pill conf-mod">Moderate Confidence</span>
-                        </div>
-                        <div class="meta-item">📅 Next: Wed, April 8</div>
-                    </div>
-                    <a href="#" class="btn-choose">Choose This Office</a>
-                </div>
+        <!-- Confirmation state: shown after patient selects an office -->
+        <div id="confirmation-state" class="confirmation-state" hidden>
+            <span class="check-icon">✅</span>
+            <div>
+                <h2>Office Selected!</h2>
+                <p>Your selection has been saved. Click "Continue to Office Details" below to see how to reach your chosen office.</p>
             </div>
+        </div>
 
-            <!-- Card 3 -->
-            <div class="estimate-card">
-                <div class="office-info">
-                    <span class="section-label">Premium Surgical Suite</span>
-                    <h2>East Valley Oral Surgery</h2>
-                    <span class="office-location">Mesa, AZ • 4.8 Stars</span>
-                    
-                    <span class="section-label">Treatment Approach</span>
-                    <p class="approach-text">Our specialty surgical approach utilizes 6 implants (Power-6) instead of 4 to distribute biting forces more evenly. This includes advanced PRF (Platelet Rich Fibrin) therapy to accelerate soft tissue and bone healing.</p>
-                    
-                    <div class="questions-box">
-                        <p><strong>Questions to Ask:</strong> Is PRF therapy included in this estimate or is it an add-on cost?</p>
-                    </div>
-                </div>
-                <div class="action-col">
-                    <div class="price-box">
-                        <span class="section-label">Est. Total Range</span>
-                        <div class="price-range">$21,000 – $26,500</div>
-                    </div>
-                    <div class="meta-info">
-                        <div class="meta-item">
-                            <span class="confidence-pill conf-high">High Confidence</span>
-                        </div>
-                        <div class="meta-item">📅 Next: Friday, April 10</div>
-                    </div>
-                    <a href="#" class="btn-choose">Choose This Office</a>
-                </div>
-            </div>
+        <!-- Inline error message for selection failures -->
+        <div id="selection-error" class="warning-state" hidden style="margin-bottom:1rem;">
+            <p id="selection-error-message"></p>
+        </div>
 
+        <!-- Estimate cards are rendered here by JavaScript -->
+        <div id="estimate-list" class="estimate-list">
+            <div class="loading-state">Loading estimates…</div>
         </div>
 
         <div class="trust-section">
@@ -364,6 +436,313 @@
         </div>
 
     </div>
+
+    <script type="module">
+        import { supabase } from './supabase-config.js';
+
+        const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+        const params = new URLSearchParams(window.location.search);
+        const caseId = params.get('case_id');
+
+        const estimateList = document.getElementById('estimate-list');
+        const warningState = document.getElementById('warning-state');
+        const warningMessage = document.getElementById('warning-message');
+        const confirmationState = document.getElementById('confirmation-state');
+        const selectionError = document.getElementById('selection-error');
+        const selectionErrorMessage = document.getElementById('selection-error-message');
+
+        function showSelectionError(msg) {
+            selectionErrorMessage.textContent = msg;
+            selectionError.hidden = false;
+            selectionError.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function showWarning(msg) {
+            warningMessage.textContent = msg;
+            warningState.hidden = false;
+            estimateList.hidden = true;
+        }
+
+        if (!caseId || !UUID_REGEX.test(caseId)) {
+            showWarning('No valid case ID found. Please use the link from your confirmation email.');
+        } else {
+            loadEstimates();
+        }
+
+        async function loadEstimates() {
+            const { data: estimates, error } = await supabase
+                .from('estimates')
+                .select('id, submitted_by_name, submitted_by_role, treatment_approach, why_choose_us, low_estimate, high_estimate, availability_notes, payment_options, office_id')
+                .eq('patient_case_id', caseId);
+
+            if (error) {
+                showWarning('Unable to load estimates at this time. Please try again later.');
+                return;
+            }
+
+            if (!estimates || estimates.length === 0) {
+                showWarning('No estimates are available for your case yet. Please check back soon.');
+                return;
+            }
+
+            renderEstimates(estimates);
+        }
+
+        function formatCurrency(low, high) {
+            const fmt = n => '$' + Number(n).toLocaleString('en-US');
+            return fmt(low) + ' \u2013 ' + fmt(high);
+        }
+
+        function renderEstimates(estimates) {
+            // Clear loading placeholder
+            while (estimateList.firstChild) {
+                estimateList.removeChild(estimateList.firstChild);
+            }
+            estimates.forEach((est, i) => {
+                estimateList.appendChild(buildCard(est, i));
+            });
+        }
+
+        function buildCard(est, index) {
+            const card = document.createElement('div');
+            card.className = 'estimate-card';
+            card.setAttribute('data-estimate-id', est.id);
+
+            // ── Info column ────────────────────────────────────────────
+            const infoCol = document.createElement('div');
+            infoCol.className = 'office-info';
+
+            const optionLabel = document.createElement('span');
+            optionLabel.className = 'section-label';
+            optionLabel.textContent = 'Option ' + (index + 1);
+            infoCol.appendChild(optionLabel);
+
+            const officeName = document.createElement('h2');
+            officeName.textContent = est.submitted_by_name || 'Dental Office';
+            infoCol.appendChild(officeName);
+
+            if (est.submitted_by_role) {
+                const roleSpan = document.createElement('span');
+                roleSpan.className = 'office-location';
+                roleSpan.textContent = est.submitted_by_role;
+                infoCol.appendChild(roleSpan);
+            }
+
+            const approachLabel = document.createElement('span');
+            approachLabel.className = 'section-label';
+            approachLabel.textContent = 'Treatment Approach';
+            infoCol.appendChild(approachLabel);
+
+            const approachText = document.createElement('p');
+            approachText.className = 'approach-text';
+            approachText.textContent = est.treatment_approach || 'No treatment details provided.';
+            infoCol.appendChild(approachText);
+
+            if (est.why_choose_us) {
+                const qBox = document.createElement('div');
+                qBox.className = 'questions-box';
+                const qText = document.createElement('p');
+                const strong = document.createElement('strong');
+                strong.textContent = 'Why Choose Us: ';
+                qText.appendChild(strong);
+                qText.appendChild(document.createTextNode(est.why_choose_us));
+                qBox.appendChild(qText);
+                infoCol.appendChild(qBox);
+            }
+
+            // ── Action column ──────────────────────────────────────────
+            const actionCol = document.createElement('div');
+            actionCol.className = 'action-col';
+
+            const priceBox = document.createElement('div');
+            priceBox.className = 'price-box';
+
+            const priceLabel = document.createElement('span');
+            priceLabel.className = 'section-label';
+            priceLabel.textContent = 'Est. Total Range';
+            priceBox.appendChild(priceLabel);
+
+            const priceRange = document.createElement('div');
+            priceRange.className = 'price-range';
+            if (est.low_estimate != null && est.high_estimate != null) {
+                priceRange.textContent = formatCurrency(est.low_estimate, est.high_estimate);
+            } else {
+                priceRange.textContent = 'Contact for pricing';
+            }
+            priceBox.appendChild(priceRange);
+            actionCol.appendChild(priceBox);
+
+            const metaInfo = document.createElement('div');
+            metaInfo.className = 'meta-info';
+
+            if (est.availability_notes) {
+                const metaItem = document.createElement('div');
+                metaItem.className = 'meta-item';
+                metaItem.textContent = '\uD83D\uDCC5 ' + est.availability_notes;
+                metaInfo.appendChild(metaItem);
+            }
+
+            if (est.payment_options) {
+                const metaItem2 = document.createElement('div');
+                metaItem2.className = 'meta-item';
+                metaItem2.textContent = '\uD83D\uDCB3 ' + est.payment_options;
+                metaInfo.appendChild(metaItem2);
+            }
+
+            actionCol.appendChild(metaInfo);
+
+            const chooseBtn = document.createElement('button');
+            chooseBtn.className = 'btn-choose';
+            chooseBtn.setAttribute('type', 'button');
+            chooseBtn.setAttribute('data-estimate-id', est.id);
+            chooseBtn.textContent = 'Choose This Office';
+            chooseBtn.addEventListener('click', () => handleChoose(est.id));
+            actionCol.appendChild(chooseBtn);
+
+            // Next-steps section (hidden until this estimate is chosen)
+            const nextSteps = document.createElement('div');
+            nextSteps.className = 'next-steps-section';
+            nextSteps.hidden = true;
+            nextSteps.setAttribute('data-for-estimate', est.id);
+
+            const continueBtn = document.createElement('button');
+            continueBtn.className = 'btn-continue';
+            continueBtn.setAttribute('type', 'button');
+            continueBtn.textContent = 'Continue to Office Details';
+            continueBtn.addEventListener('click', () => handleContinue(est, nextSteps));
+            nextSteps.appendChild(continueBtn);
+
+            const contactDetails = document.createElement('div');
+            contactDetails.className = 'contact-details';
+            contactDetails.hidden = true;
+            nextSteps.appendChild(contactDetails);
+
+            actionCol.appendChild(nextSteps);
+
+            card.appendChild(infoCol);
+            card.appendChild(actionCol);
+            return card;
+        }
+
+        async function handleChoose(estimateId) {
+            const btn = estimateList.querySelector('.btn-choose[data-estimate-id="' + estimateId + '"]');
+            if (btn) {
+                btn.disabled = true;
+                btn.textContent = 'Selecting\u2026';
+            }
+
+            const { error } = await supabase
+                .from('patient_selections')
+                .insert([{ case_id: caseId, estimate_id: estimateId }]);
+
+            if (error) {
+                if (btn) {
+                    btn.disabled = false;
+                    btn.textContent = 'Choose This Office';
+                }
+                // Handle duplicate selection (unique constraint violation)
+                const isDuplicate = error.code === '23505' || (error.message && error.message.includes('duplicate'));
+                showSelectionError(
+                    isDuplicate
+                        ? 'You have already made a selection for this case.'
+                        : 'There was an error saving your selection. Please try again.'
+                );
+                return;
+            }
+
+            // Show confirmation banner
+            confirmationState.hidden = false;
+            confirmationState.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+            // Disable all choose buttons; style the selected one
+            estimateList.querySelectorAll('.btn-choose').forEach(b => {
+                b.disabled = true;
+                if (b.getAttribute('data-estimate-id') === estimateId) {
+                    b.textContent = '\u2713 Selected';
+                    b.style.background = 'var(--success)';
+                } else {
+                    b.textContent = 'Not Selected';
+                    b.style.background = '#94a3b8';
+                }
+            });
+
+            // Show next-steps only for the chosen estimate
+            estimateList.querySelectorAll('.next-steps-section').forEach(ns => {
+                if (ns.getAttribute('data-for-estimate') === estimateId) {
+                    ns.hidden = false;
+                }
+            });
+        }
+
+        async function handleContinue(est, nextStepsEl) {
+            const continueBtn = nextStepsEl.querySelector('.btn-continue');
+            continueBtn.disabled = true;
+            continueBtn.textContent = 'Loading\u2026';
+
+            const contactDetails = nextStepsEl.querySelector('.contact-details');
+
+            // Gather office details — prefer joined office_applications row if office_id present
+            let officeName = est.submitted_by_name || null;
+            let city = null;
+            let phone = null;
+            let email = null;
+
+            if (est.office_id) {
+                const { data: officeData, error: officeError } = await supabase
+                    .from('office_applications')
+                    .select('practice_name, city, phone, email')
+                    .eq('id', est.office_id)
+                    .single();
+
+                if (!officeError && officeData) {
+                    officeName = officeData.practice_name || officeName;
+                    city = officeData.city || null;
+                    phone = officeData.phone || null;
+                    email = officeData.email || null;
+                }
+            }
+
+            // Render contact details safely
+            const nameEl = document.createElement('h3');
+            nameEl.className = 'contact-office-name';
+            nameEl.textContent = officeName || 'Selected Office';
+            contactDetails.appendChild(nameEl);
+
+            if (city) {
+                const cityEl = document.createElement('p');
+                cityEl.textContent = '\uD83D\uDCCD ' + city;
+                contactDetails.appendChild(cityEl);
+            }
+
+            if (phone || email) {
+                if (phone) {
+                    const phoneEl = document.createElement('p');
+                    const phoneLink = document.createElement('a');
+                    phoneLink.setAttribute('href', 'tel:' + phone);
+                    phoneLink.textContent = '\uD83D\uDCDE ' + phone;
+                    phoneEl.appendChild(phoneLink);
+                    contactDetails.appendChild(phoneEl);
+                }
+                if (email) {
+                    const emailEl = document.createElement('p');
+                    const emailLink = document.createElement('a');
+                    emailLink.setAttribute('href', 'mailto:' + email);
+                    emailLink.textContent = '\u2709\uFE0F ' + email;
+                    emailEl.appendChild(emailLink);
+                    contactDetails.appendChild(emailEl);
+                }
+            } else {
+                const noContactEl = document.createElement('p');
+                noContactEl.className = 'contact-pending';
+                noContactEl.textContent = 'Contact details will be provided shortly.';
+                contactDetails.appendChild(noContactEl);
+            }
+
+            contactDetails.hidden = false;
+            continueBtn.hidden = true;
+        }
+    </script>
 
 </body>
 </html>
