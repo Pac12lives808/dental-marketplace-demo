@@ -572,4 +572,11 @@ footer p {
   color: #555;
   margin-bottom: 40px;
 }
+.logo-text {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: white;
+  letter-spacing: -0.02em;
+  margin-bottom: 10px;
+}
 
