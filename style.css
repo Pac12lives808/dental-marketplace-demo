@@ -620,9 +620,9 @@ footer p {
   margin-bottom: 18px;
 }
 .hero-brand-logo {
-    width: min(600px, 90vw);
+  width: min(820px, 95vw);
+  max-width: none;
   height: auto;
   display: block;
-  margin: 0 auto 18px;
+  margin: 0 auto 24px;
 }
-
