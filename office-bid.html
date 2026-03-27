@@ -153,6 +153,8 @@
     </div>
   </div>
 
+  <div id="errorMsg" style="display:none; color:#dc2626; background:#fef2f2; border:1px solid #fecaca; border-radius:10px; padding:12px 16px; margin:0 40px 16px; font-size:0.95rem;"></div>
+
   <div class="actions-bar">
     <a href="office-cases.html" class="btn btn-outline">Cancel</a>
     <button type="button" id="submitBtn" class="btn btn-primary" onclick="handleSubmit()">Submit for Doctor Approval</button>
@@ -191,7 +193,9 @@
       submitBtn.textContent = 'Submitting...';
 
       if (!caseId || !UUID_REGEX.test(caseId)) {
-        alert('Error: No valid case_id provided. Please access this page from a valid patient case.');
+        const errEl = document.getElementById('errorMsg');
+        errEl.textContent = 'Error: No valid case_id provided. Please access this page from a valid patient case.';
+        errEl.style.display = 'block';
         submitBtn.disabled = false;
         submitBtn.textContent = 'Submit for Doctor Approval';
         return;
@@ -207,7 +211,9 @@
       const whyChooseUs = document.getElementById('why_choose_us').value.trim();
 
       if (!low || !high || !treatment || !submittedByName || !submittedByRole) {
-        alert('Please fill in all required fields.');
+        const errEl = document.getElementById('errorMsg');
+        errEl.textContent = 'Please fill in all required fields.';
+        errEl.style.display = 'block';
         submitBtn.disabled = false;
         submitBtn.textContent = 'Submit for Doctor Approval';
         return;
@@ -235,7 +241,9 @@
 
         if (result.error) {
           console.error('Supabase insert error:', result.error);
-          alert('Submission failed: ' + result.error.message);
+          const errEl = document.getElementById('errorMsg');
+          errEl.textContent = 'Submission failed: ' + result.error.message;
+          errEl.style.display = 'block';
           submitBtn.disabled = false;
           submitBtn.textContent = 'Submit for Doctor Approval';
           return;
@@ -249,7 +257,9 @@
 
       } catch (err) {
         console.error('Unexpected submission error:', err);
-        alert('Unexpected error: ' + err.message);
+        const errEl = document.getElementById('errorMsg');
+        errEl.textContent = 'Unexpected error: ' + err.message;
+        errEl.style.display = 'block';
         submitBtn.disabled = false;
         submitBtn.textContent = 'Submit for Doctor Approval';
       }
@@ -257,6 +267,7 @@
 
     // Expose to onclick attribute
     window.handleSubmit = handleSubmit;
+    document.getElementById('submitBtn').addEventListener('click', handleSubmit);
   </script>
 </body>
 </html>
