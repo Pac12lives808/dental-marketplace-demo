@@ -633,3 +633,38 @@ footer p {
   display: block;
   margin: 0 auto 24px;
 }
+/* ===== PREMIUM UPGRADE ===== */
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+.hero-title {
+  font-family: 'Satoshi', sans-serif;
+  font-weight: 900;
+  font-size: clamp(2.8rem, 5vw, 4.5rem);
+  line-height: 1.05;
+  color: #ffffff;
+  letter-spacing: -0.04em;
+}
+
+.section-title {
+  font-family: 'Satoshi', sans-serif;
+  font-weight: 800;
+}
+
+.hero {
+  padding: 120px 0 140px;
+  background: radial-gradient(circle at 50% 20%, rgba(255,255,255,0.08), transparent 40%),
+              linear-gradient(135deg, #0B1020 0%, #1D4ED8 100%);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  box-shadow: 0 10px 30px rgba(37,99,235,0.5);
+  border-radius: 14px;
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 40px rgba(37,99,235,0.6);
+}
