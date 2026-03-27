@@ -257,6 +257,10 @@
 
     // Expose to onclick attribute
     window.handleSubmit = handleSubmit;
+    const submitBtnEl = document.getElementById('submitBtn');
+if (submitBtnEl) {
+  submitBtnEl.addEventListener('click', handleSubmit);
+}
   </script>
 </body>
 </html>
