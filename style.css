@@ -121,14 +121,14 @@ main {
     font-size: 3.25rem;
     font-weight: 800;
     line-height: 1.15;
-    color: #0f172a;
+        color: #ffffff;
     margin-bottom: 24px;
     letter-spacing: -0.04em;
 }
 
 .hero-subtitle {
     font-size: 1.25rem;
-    color: #475569;
+        color: rgba(255, 255, 255, 0.88);
     line-height: 1.7;
     margin-bottom: 36px;
     font-weight: 400;
