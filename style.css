@@ -579,4 +579,44 @@ footer p {
   letter-spacing: -0.02em;
   margin-bottom: 10px;
 }
+/* ===== HERO POLISH UPGRADE ===== */
+.hero-content {
+  max-width: 980px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.hero-title {
+  max-width: 980px;
+  margin: 0 auto 24px;
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.05em;
+}
+
+.hero-subtitle {
+  max-width: 900px;
+  margin: 0 auto 40px;
+  font-size: 1.35rem;
+  line-height: 1.7;
+}
+
+.hero-buttons {
+  margin-top: 12px;
+  align-items: center;
+}
+
+.hero-buttons .btn {
+  min-width: 260px;
+  justify-content: center;
+  text-align: center;
+}
+
+.logo-text {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.03em;
+  margin-bottom: 18px;
+}
 
