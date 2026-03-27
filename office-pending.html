@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pending Estimates - Dental Dash Pro</title>
   <link rel="stylesheet" href="style.css">
+  <!-- Supabase UMD (no module import needed) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
   <style>
     .pending-wrap { max-width: 960px; margin: 40px auto; padding: 0 24px; }
     .pending-wrap h2 { font-size: 1.6rem; font-weight: 700; color: #0f172a; margin-bottom: 6px; }
@@ -48,133 +50,195 @@
     .stat-mini .label { font-size: 0.72rem; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.05em; }
     .stat-mini .val { font-size: 1.5rem; font-weight: 800; color: #0f172a; margin-top: 4px; }
     @media (max-width: 600px) { .estimate-card { grid-template-columns: 1fr; } }
+    .error-banner { background: #fee2e2; color: #991b1b; padding: 16px 24px; border-radius: 8px; margin-bottom: 24px; border-left: 4px solid #ef4444; }
+    .loading-state { text-align: center; padding: 60px 24px; color: #64748b; }
   </style>
 </head>
 <body>
-  <header>
-    <div class="header-container">
-      <h1><a href="index.html" style="color:white;text-decoration:none;">Dental Dash Pro</a></h1>
-      <p>My Pending Estimates</p>
-    </div>
-  </header>
-  <main>
-    <div class="pending-wrap">
-      <h2>Your Submitted Estimates</h2>
-      <p class="page-sub">Track the status of all estimates you've submitted to patients.</p>
 
-      <div class="stats-row">
-        <div class="stat-mini">
-          <div class="label">Total Submitted</div>
-          <div class="val">5</div>
-        </div>
-        <div class="stat-mini">
-          <div class="label">Under Review</div>
-          <div class="val">2</div>
-        </div>
-        <div class="stat-mini">
-          <div class="label">Accepted</div>
-          <div class="val">2</div>
-        </div>
-        <div class="stat-mini">
-          <div class="label">Declined</div>
-          <div class="val">1</div>
-        </div>
+<header>
+  <div class="header-container">
+    <h1><a href="index.html" style="color:white;text-decoration:none;">Dental Dash Pro</a></h1>
+    <p>My Pending Estimates</p>
+  </div>
+</header>
+
+<main>
+  <div class="pending-wrap">
+    <h2>Your Submitted Estimates</h2>
+    <p class="page-sub">Track the status of all estimates you've submitted to patients.</p>
+
+    <div id="errorBanner" style="display:none;" class="error-banner"></div>
+    <div id="loadingState" class="loading-state">Loading your estimates...</div>
+
+    <div id="statsRow" class="stats-row" style="display:none;">
+      <div class="stat-mini">
+        <div class="label">Total Submitted</div>
+        <div class="val" id="statTotal">0</div>
       </div>
-
-      <!-- Estimate Cards -->
-      <div class="estimate-card">
-        <div>
-          <div class="patient-label">Patient Request</div>
-          <h3>Crown &mdash; Patient #1042</h3>
-          <div class="estimate-meta">
-            <span>&#128205; ZIP 85234</span>
-            <span>&#127973; Delta Dental</span>
-            <span>&#128197; Submitted 1 hour ago</span>
-          </div>
-          <div class="estimate-price">$950 &ndash; $1,400</div>
-          <div class="card-actions">
-            <a href="office-bid.html" class="btn-view">View Estimate</a>
-          </div>
-        </div>
-        <div><span class="status-badge status-pending">&#9679; Pending Review</span></div>
+      <div class="stat-mini">
+        <div class="label">Pending</div>
+        <div class="val" id="statPending">0</div>
       </div>
-
-      <div class="estimate-card">
-        <div>
-          <div class="patient-label">Patient Request</div>
-          <h3>Root Canal &mdash; Patient #1041</h3>
-          <div class="estimate-meta">
-            <span>&#128205; ZIP 85233</span>
-            <span>&#127973; None</span>
-            <span>&#128197; Submitted 3 hours ago</span>
-          </div>
-          <div class="estimate-price">$700 &ndash; $1,100</div>
-          <div class="card-actions">
-            <a href="office-bid.html" class="btn-view">View Estimate</a>
-          </div>
-        </div>
-        <div><span class="status-badge status-viewed">&#128065; Patient Viewed</span></div>
+      <div class="stat-mini">
+        <div class="label">Accepted</div>
+        <div class="val" id="statAccepted">0</div>
       </div>
-
-      <div class="estimate-card">
-        <div>
-          <div class="patient-label">Patient Request</div>
-          <h3>Cleaning &amp; Exam &mdash; Patient #1040</h3>
-          <div class="estimate-meta">
-            <span>&#128205; ZIP 85295</span>
-            <span>&#127973; Cigna</span>
-            <span>&#128197; Submitted 1 day ago</span>
-          </div>
-          <div class="estimate-price">$120 &ndash; $180</div>
-          <div class="card-actions">
-            <a href="office-bid.html" class="btn-view">View Estimate</a>
-          </div>
-        </div>
-        <div><span class="status-badge status-accepted">&#10003; Accepted</span></div>
-      </div>
-
-      <div class="estimate-card">
-        <div>
-          <div class="patient-label">Patient Request</div>
-          <h3>Dental Implant &mdash; Patient #1039</h3>
-          <div class="estimate-meta">
-            <span>&#128205; ZIP 85212</span>
-            <span>&#127973; Aetna</span>
-            <span>&#128197; Submitted 2 days ago</span>
-          </div>
-          <div class="estimate-price">$3,200 &ndash; $4,800</div>
-          <div class="card-actions">
-            <a href="office-bid.html" class="btn-view">View Estimate</a>
-          </div>
-        </div>
-        <div><span class="status-badge status-accepted">&#10003; Accepted</span></div>
-      </div>
-
-      <div class="estimate-card">
-        <div>
-          <div class="patient-label">Patient Request</div>
-          <h3>Teeth Whitening &mdash; Patient #1038</h3>
-          <div class="estimate-meta">
-            <span>&#128205; ZIP 85248</span>
-            <span>&#127973; None</span>
-            <span>&#128197; Submitted 3 days ago</span>
-          </div>
-          <div class="estimate-price">$350 &ndash; $500</div>
-          <div class="card-actions">
-            <a href="office-bid.html" class="btn-view">View Estimate</a>
-          </div>
-        </div>
-        <div><span class="status-badge status-declined">&#10005; Declined</span></div>
-      </div>
-
-      <div class="nav-links" style="margin-top: 32px;">
-        <a href="office-dashboard.html">&larr; Back to Dashboard</a>
-        <a href="index.html">Home</a>
+      <div class="stat-mini">
+        <div class="label">Declined</div>
+        <div class="val" id="statDeclined">0</div>
       </div>
     </div>
-  </main>
-  <footer>
-    <p>&copy; 2026 Dental Dash Pro. All rights reserved.</p>
-  </footer>
+
+    <div id="estimatesContainer"></div>
+  </div>
+</main>
+
+<footer>
+  <div class="nav-links" style="margin-top: 32px;">
+    <a href="office-dashboard.html" class="btn">← Back to Dashboard</a>
+    <a href="index.html" class="btn">Home</a>
+  </div>
+  <p>&copy; 2026 Dental Dash Pro. All rights reserved.</p>
+</footer>
+
+<script>
+  var SUPABASE_URL = 'https://fxfwytxfeuwsbeapiyqw.supabase.co';
+  var SUPABASE_ANON_KEY = 'sb_publishable_KKx-OnYzdUCTRrwc8eIOpg_M5aOU4Do';
+  var supabaseClient = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+
+  function showError(message) {
+    document.getElementById('loadingState').style.display = 'none';
+    document.getElementById('errorBanner').textContent = message;
+    document.getElementById('errorBanner').style.display = 'block';
+  }
+
+  function formatDate(isoString) {
+    if (!isoString) return 'Unknown';
+    var date = new Date(isoString);
+    var now = new Date();
+    var diff = now - date;
+    var hours = Math.floor(diff / 3600000);
+    var days = Math.floor(diff / 86400000);
+    if (hours < 1) return 'Just now';
+    if (hours < 24) return hours + ' hour' + (hours === 1 ? '' : 's') + ' ago';
+    if (days === 1) return '1 day ago';
+    return days + ' days ago';
+  }
+
+  function getStatusBadge(status) {
+    var statusMap = {
+      'PENDING_DOCTOR_APPROVAL': { class: 'status-pending', icon: '●', text: 'Pending Review' },
+      'VIEWED': { class: 'status-viewed', icon: '👁', text: 'Patient Viewed' },
+      'ACCEPTED': { class: 'status-accepted', icon: '✓', text: 'Accepted' },
+      'DECLINED': { class: 'status-declined', icon: '✕', text: 'Declined' }
+    };
+    var s = statusMap[status] || { class: 'status-pending', icon: '●', text: status };
+    return '<span class="status-badge ' + s.class + '">' + s.icon + ' ' + s.text + '</span>';
+  }
+
+  function renderEstimates(estimates) {
+    var container = document.getElementById('estimatesContainer');
+    document.getElementById('loadingState').style.display = 'none';
+    document.getElementById('statsRow').style.display = 'grid';
+
+    if (estimates.length === 0) {
+      container.innerHTML = '<div class="empty-state"><div class="icon">📋</div><p>No estimates submitted yet.</p></div>';
+      return;
+    }
+
+    var total = estimates.length;
+    var pending = estimates.filter(function(e) { return e.status === 'PENDING_DOCTOR_APPROVAL'; }).length;
+    var accepted = estimates.filter(function(e) { return e.status === 'ACCEPTED'; }).length;
+    var declined = estimates.filter(function(e) { return e.status === 'DECLINED'; }).length;
+
+    document.getElementById('statTotal').textContent = total;
+    document.getElementById('statPending').textContent = pending;
+    document.getElementById('statAccepted').textContent = accepted;
+    document.getElementById('statDeclined').textContent = declined;
+
+    var html = '';
+    estimates.forEach(function(est) {
+      var treatment = est.treatment_approach || 'Treatment';
+      var caseId = est.patient_case_id || 'Unknown';
+      var low = est.low_estimate ? '$' + est.low_estimate.toLocaleString() : '$0';
+      var high = est.high_estimate ? '$' + est.high_estimate.toLocaleString() : '$0';
+      var submittedBy = est.submitted_by_name || 'Unknown';
+      var role = est.submitted_by_role || '';
+      var created = formatDate(est.created_at);
+
+      html += '<div class="estimate-card">';
+      html += '<div>';
+      html += '<div class="patient-label">Patient Request</div>';
+      html += '<h3>' + treatment + ' — Case #' + caseId.substring(0, 8) + '</h3>';
+      html += '<div class="estimate-meta">';
+      html += '<span>👤 ' + submittedBy + (role ? ' (' + role + ')' : '') + '</span>';
+      html += '<span>📅 Submitted ' + created + '</span>';
+      html += '</div>';
+      html += '<div class="estimate-price">' + low + ' &ndash; ' + high + '</div>';
+      html += '</div>';
+      html += '<div>' + getStatusBadge(est.status) + '</div>';
+      html += '</div>';
+    });
+
+    container.innerHTML = html;
+  }
+
+  async function loadEstimates() {
+    console.log('loadEstimates called');
+    if (!supabaseClient) {
+      showError('Error: Supabase library not loaded. Please refresh the page.');
+      return;
+    }
+
+    // STEP 1: Check auth
+    var sessionResult = await supabaseClient.auth.getSession();
+    console.log('Session result:', sessionResult);
+    var session = sessionResult.data && sessionResult.data.session;
+    if (!session || !session.user) {
+      showError('Error: You are not logged in. Please sign in to view your estimates.');
+      console.error('No session found');
+      return;
+    }
+    var userId = session.user.id;
+    console.log('User ID:', userId);
+
+    // STEP 2: Resolve office_id
+    var officeResult = await supabaseClient
+      .from('offices')
+      .select('id')
+      .eq('user_id', userId)
+      .single();
+    console.log('Office result:', officeResult);
+    if (officeResult.error || !officeResult.data) {
+      showError('Error: Could not find your office record. Please contact support.');
+      console.error('Office lookup error:', officeResult.error);
+      return;
+    }
+    var officeId = officeResult.data.id;
+    console.log('Office ID:', officeId);
+
+    // STEP 3: Query estimates
+    var estimatesResult = await supabaseClient
+      .from('estimates')
+      .select('*')
+      .eq('office_id', officeId)
+      .order('created_at', { ascending: false });
+    console.log('Estimates result:', estimatesResult);
+
+    if (estimatesResult.error) {
+      showError('Error loading estimates: ' + estimatesResult.error.message);
+      console.error('Estimates query error:', estimatesResult.error);
+      return;
+    }
+
+    // STEP 4: Render
+    renderEstimates(estimatesResult.data || []);
+  }
+
+  // Run on page load
+  loadEstimates();
+</script>
+
 </body>
 </html>
