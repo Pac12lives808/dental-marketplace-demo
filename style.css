@@ -626,3 +626,10 @@ footer p {
   display: block;
   margin: 0 auto 24px;
 }
+.hero-logo img {
+  width: min(820px, 95vw) !important;
+  max-width: none !important;
+  height: auto;
+  display: block;
+  margin: 0 auto 24px;
+}
