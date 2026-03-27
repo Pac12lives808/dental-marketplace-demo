@@ -1,101 +1,72 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Available Cases - Dental Dash Pro</title>
-  <link rel="stylesheet" href="style.css">
-  <style>
-    :root {
-      --bg-body: #f1f5f9;
-      --bg-card: #ffffff;
-      --text-main: #0f172a;
-      --text-muted: #64748b;
-      --accent-blue: #2563eb;
-      --border-light: #e2e8f0;
-      --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
-      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
-    }
-    body { background-color: var(--bg-body); margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
-    
-    /* Header Styles */
-    .dashboard-header { background: #fff; padding: 20px 32px; border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center; z-index: 100; }
-    .header-left h1 { font-size: 1.5rem; margin: 0; color: var(--text-main); font-weight: 800; }
-    .header-left p { margin: 4px 0 0; color: var(--text-muted); font-size: 0.9rem; }
-    .header-actions { display: flex; align-items: center; gap: 12px; }
-    .search-input { padding: 10px 16px; border: 1px solid var(--border-light); border-radius: 8px; font-size: 0.9rem; width: 240px; }
-    .btn-sec { padding: 10px 16px; background: #fff; border: 1px solid var(--border-light); border-radius: 8px; font-size: 0.85rem; font-weight: 600; cursor: pointer; color: var(--text-main); }
-    .badge-founding { padding: 6px 12px; background: #eff6ff; color: #1e40af; border-radius: 6px; font-size: 0.75rem; font-weight: 700; border: 1px solid #bfdbfe; }
-
-    /* Filter Bar Styles */
-    .sticky-filter-bar { background: #fff; padding: 12px 32px; border-bottom: 1px solid var(--border-light); display: flex; align-items: center; sticky: top; }
-    .filters-row { display: flex; align-items: center; gap: 10px; width: 100%; }
-    .filters-row select { padding: 8px 12px; border: 1px solid var(--border-light); border-radius: 6px; font-size: 0.8rem; color: var(--text-main); background: #f8fafc; }
-    .filter-divider { width: 1px; height: 24px; background: var(--border-light); margin: 0 10px; }
-    .btn-clear { background: none; border: none; color: var(--accent-blue); font-size: 0.8rem; font-weight: 600; cursor: pointer; }
-
-    /* Marketplace Layout */
-    .marketplace-container { display: flex; flex: 1; overflow: hidden; }
-    .case-sidebar { width: 400px; border-right: 1px solid var(--border-light); overflow-y: auto; background: #fff; }
-    .case-preview-panel { flex: 1; overflow-y: auto; background: #f8fafc; padding: 32px; }
-    
-    /* Disclaimer Footer */
-    .disclaimer-bar { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; border-top: 1px solid var(--border-light); padding: 10px 32px; font-size: 0.75rem; color: var(--text-muted); text-align: center; }
-  </style>
-</head>
-<body>
-
-<header class="dashboard-header">
-  <div class="header-left">
-    <h1>Available Cases</h1>
-    <p>Browse high-fit patient cases and respond to the ones that match your practice</p>
-  </div>
-  <div class="header-actions">
-    <input type="text" placeholder="Search cases..." class="search-input">
-    <button class="btn-sec">Saved Filters</button>
-    <button class="btn-sec">My Drafts</button>
-    <span class="badge-founding">Founding Office</span>
-  </div>
-</header>
-
-<nav class="sticky-filter-bar">
-  <div class="filters-row">
-    <select><option>Procedure</option></select>
-    <select><option>Distance</option></select>
-    <select><option>Case Value</option></select>
-    <select><option>Urgency</option></select>
-    <select><option>Payment Type</option></select>
-    <select><option>Case Score</option></select>
-    <div class="filter-divider"></div>
-    <select class="sort-select">
-      <option>Best Fit</option>
-      <option>Highest Value</option>
-      <option>Newest</option>
-    </select>
-    <button class="btn-clear">Clear Filters</button>
-  </div>
-</nav>
-
-<div class="marketplace-container">
-  <!-- Left Panel: Case List (40%) -->
-  <aside class="case-sidebar" id="caseList">
-    <!-- Case cards will be injected in STEP 3 -->
-    <div style="padding: 40px; text-align: center; color: #94a3b8;">Loading cases...</div>
-  </aside>
-
-  <!-- Right Panel: Case Preview (60%) -->
-  <section class="case-preview-panel" id="casePreview">
-    <!-- Preview content will be injected in STEP 3 -->
-    <div style="text-align: center; padding-top: 100px; color: #94a3b8;">
-      <p style="font-size: 1.25rem; font-weight: 600;">Select a case to view details</p>
-      <p>Click any case card in the left panel to see full clinical records</p>
-    </div>
-  </section>
+<div id="case-feed">
+  <p style="text-align:center; color:#64748b; padding: 40px 0;">Loading cases&hellip;</p>
 </div>
 
-<footer class="disclaimer-bar">
-  All estimates must be confirmed in-office. &copy; 2026 Dental Dash Pro
-</footer>
+<div style="text-align:center; margin: 40px 0 80px;">
+  <a href="office-dashboard.html" style="margin-right:16px;">&larr; Back to Dashboard</a>
+  <a href="office-pending.html">View My Pending Estimates</a>
+</div>
 
-</body>
-</html>
+<p style="text-align:center; color:#64748b; font-size:0.85rem; padding-bottom:40px;">&copy; 2025 Dental Dash Pro. All rights reserved.</p>
+
+<script type="module">
+  import { supabase } from './supabase-config.js';
+
+  if (typeof gtag === 'function') { gtag('event', 'view_case_feed'); }
+
+  const feed = document.getElementById('case-feed');
+
+  function esc(str) {
+    return String(str ?? '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  function buildDocTags(patientCase) {
+    const tags = [];
+    if (patientCase.uploaded_xrays)    tags.push('✓ X-Rays');
+    if (patientCase.uploaded_findings) tags.push('✓ Clinical Findings');
+    if (patientCase.uploaded_photos)   tags.push('✓ Photos');
+    return tags.map(t => `<span class="doc-tag">${t}</span>`).join(' ');
+  }
+
+  function renderCase(patientCase) {
+    const card = document.createElement('div');
+    card.className = 'case-card';
+    card.innerHTML = `
+      <div class="case-category">${esc(patientCase.procedure_type) || 'General Dentistry'}</div>
+      <h3 class="case-title">${esc(patientCase.procedure_type) || 'Patient Case'}</h3>
+      <div class="case-meta">
+        <div class="meta-item"><span class="meta-label">Location</span><span class="meta-val">${esc(patientCase.zip_code) || '—'}</span></div>
+        <div class="meta-item"><span class="meta-label">Payment</span><span class="meta-val">${esc(patientCase.insurance_type) || '—'}</span></div>
+      </div>
+      ${patientCase.case_notes ? `<p class="case-summary">${esc(patientCase.case_notes)}</p>` : ''}
+      <div class="doc-tags">
+        ${buildDocTags(patientCase)}
+      </div>
+      <div class="card-footer">
+        <a href="#" class="btn-card btn-outline">View Case</a>
+        <a href="office-bid.html?case_id=${encodeURIComponent(patientCase.id)}" class="btn-card btn-primary-card" onclick="if(typeof gtag==='function') gtag('event','click_provide_estimate')">Provide Estimate</a>
+      </div>
+    `;
+    return card;
+  }
+
+  const { data: patient_cases, error } = await supabase
+    .from('patient_cases')
+    .select('id, procedure_type, insurance_type, case_notes, zip_code, uploaded_xrays, uploaded_findings, uploaded_photos, status')
+    .eq('status', 'SUBMITTED')
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    feed.innerHTML = '<p style="text-align:center; color:#e53e3e; padding: 40px 0;">Error loading cases. Please try again later.</p>';
+    console.error('Error loading patient cases:', error);
+  } else if (!patient_cases || patient_cases.length === 0) {
+    feed.innerHTML = '<p style="text-align:center; color:#64748b; padding: 40px 0;">No cases available at this time.</p>';
+  } else {
+    feed.innerHTML = '';
+    patient_cases.forEach(patientCase => feed.appendChild(renderCase(patientCase)));
+  }
+</script>

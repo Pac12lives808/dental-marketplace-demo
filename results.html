@@ -1,291 +1,678 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PLK6GWSVB4"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-PLK6GWSVB4');
-      gtag('event', 'view_results');
-    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Treatment Estimate Options - Dental Dash Pro</title>
+    <title>Your Treatment Estimates | Dental Dash Pro</title>
+    <!-- Google Analytics Placeholder -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PLK6GWSVB4"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-PLK6GWSVB4');
+    </script>
     <link rel="stylesheet" href="style.css">
     <style>
-        .results-wrap { max-width: 860px; margin: 48px auto; padding: 0 24px 80px; }
-        .results-wrap h2 { font-size: 1.8rem; font-weight: 700; color: #0f172a; margin-bottom: 8px; letter-spacing: -0.02em; }
-        .results-sub { color: #475569; font-size: 1rem; margin-bottom: 12px; line-height: 1.6; max-width: 680px; }
-        .request-summary {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 16px 20px;
-            margin-bottom: 36px;
-            font-size: 0.9rem;
-            color: #475569;
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --bg-light: #f8fafc;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --shadow-card: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
         }
-        .request-summary strong { color: #0f172a; }
-        .options-label {
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: #64748b;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            margin-bottom: 16px;
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
         }
-        .option-card {
-            background: #fff;
-            border: 1px solid #e2e8f0;
-            border-radius: 20px;
-            padding: 32px;
-            margin-bottom: 24px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-            transition: all 0.2s;
+
+        .results-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem 6rem;
         }
-        .option-card:hover {
-            box-shadow: 0 8px 24px rgba(0,0,0,0.09);
-            transform: translateY(-2px);
+
+        /* Header Style */
+        .results-header {
+            text-align: center;
+            margin-bottom: 4rem;
         }
-        .option-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-        .office-name {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #0f172a;
-            margin-bottom: 4px;
-        }
-        .office-creds {
-            font-size: 0.82rem;
-            color: #64748b;
-        }
-        .price-range {
-            font-size: 1.5rem;
+
+        .results-header h1 {
+            font-size: 2.5rem;
             font-weight: 800;
             color: #0f172a;
-            text-align: right;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
         }
-        .price-label {
-            font-size: 0.75rem;
-            color: #64748b;
-            text-align: right;
+
+        .results-header p {
+            font-size: 1.125rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
         }
-        .card-divider {
-            border: none;
-            border-top: 1px solid #f1f5f9;
-            margin: 20px 0;
+
+        /* Summary Info */
+        .case-summary {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.25rem 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            box-shadow: var(--shadow-card);
         }
-        .card-section-title {
-            font-size: 0.75rem;
+
+        .summary-item {
+            font-size: 0.9375rem;
+            color: var(--text-muted);
+        }
+
+        .summary-item strong {
+            color: var(--text-main);
+        }
+
+        /* Estimate Cards */
+        .estimate-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .estimate-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 2.5rem;
+            display: grid;
+            grid-template-columns: 1fr 280px;
+            gap: 3rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: var(--shadow-card);
+        }
+
+        .estimate-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08);
+        }
+
+        .office-info h2 {
+            font-size: 1.5rem;
             font-weight: 700;
-            color: #94a3b8;
+            margin-bottom: 0.25rem;
+        }
+
+        .office-location {
+            color: var(--text-muted);
+            font-size: 0.9375rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .section-label {
+            display: block;
             text-transform: uppercase;
-            letter-spacing: 0.06em;
-            margin-bottom: 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
         }
-        .card-section-body {
-            font-size: 0.95rem;
+
+        .approach-text {
             color: #334155;
-            line-height: 1.6;
-            margin-bottom: 20px;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
         }
-        .confidence-badge {
-            display: inline-block;
-            padding: 5px 12px;
-            border-radius: 99px;
-            font-size: 0.78rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
-        .confidence-high { background: #dcfce7; color: #166534; }
-        .confidence-moderate { background: #fef9c3; color: #854d0e; }
-        .confidence-limited { background: #fee2e2; color: #991b1b; }
-        .tags-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 20px;
-        }
-        .tag {
+
+        .questions-box {
             background: #f1f5f9;
-            color: #475569;
-            font-size: 0.78rem;
-            font-weight: 600;
-            padding: 4px 10px;
-            border-radius: 6px;
+            padding: 1rem;
+            border-radius: 12px;
+            font-size: 0.875rem;
         }
-        .card-footer {
+
+        .questions-box p {
+            margin: 0;
+            color: var(--text-muted);
+        }
+
+        .questions-box strong {
+            color: var(--primary);
+        }
+
+        /* Action Column */
+        .action-col {
+            border-left: 1px solid var(--border);
+            padding-left: 3rem;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .price-box {
+            margin-bottom: 1.5rem;
+        }
+
+        .price-box .section-label {
+            margin-bottom: 0.25rem;
+        }
+
+        .price-range {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: #0f172a;
+        }
+
+        .meta-info {
+            margin-bottom: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .meta-item {
+            display: flex;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
+            gap: 0.5rem;
+            font-size: 0.875rem;
         }
-        .consult-note {
-            font-size: 0.8rem;
-            color: #94a3b8;
-            font-style: italic;
+
+        .confidence-pill {
+            display: inline-flex;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 0.75rem;
         }
-        .cta-btn {
-            background: #0f172a;
+
+        .conf-high { background: #dcfce7; color: #166534; }
+        .conf-mod { background: #fef9c3; color: #854d0e; }
+
+        .btn-choose {
+            background: var(--primary);
             color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 10px;
-            font-size: 0.95rem;
+            text-align: center;
+            padding: 1rem;
+            border-radius: 12px;
             font-weight: 700;
-            cursor: pointer;
             text-decoration: none;
-            transition: all 0.2s;
+            transition: background 0.2s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            display: block;
+            width: 100%;
         }
-        .cta-btn:hover { background: #1e293b; transform: translateY(-1px); }
-        .bottom-note {
+
+        .btn-choose:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Trust Section */
+        .trust-section {
+            margin-top: 5rem;
             background: #fff9f0;
             border: 1px solid #ffedd5;
-            border-radius: 12px;
-            padding: 20px;
-            margin-top: 40px;
-            font-size: 0.9rem;
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .trust-section h3 {
             color: #9a3412;
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .trust-section p {
+            color: #c2410c;
+            font-size: 0.9375rem;
+            margin: 0;
             line-height: 1.6;
+        }
+
+        @media (max-width: 850px) {
+            .estimate-card {
+                grid-template-columns: 1fr;
+                padding: 2rem;
+            }
+            .action-col {
+                border-left: none;
+                border-top: 1px solid var(--border);
+                padding-left: 0;
+                padding-top: 2rem;
+            }
+            .btn-choose, .btn-continue {
+                display: block;
+                width: 100%;
+            }
+        }
+
+        /* Warning / empty state */
+        .state-banner {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 3rem 2rem;
+            text-align: center;
+            box-shadow: var(--shadow-card);
+        }
+        .state-banner .state-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .state-banner p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        /* Confirmation banner */
+        #confirmationBanner {
+            background: #d1fae5;
+            border: 1px solid #6ee7b7;
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        #confirmationBanner .conf-icon {
+            font-size: 1.75rem;
+            flex-shrink: 0;
+        }
+        #confirmationBanner p {
+            color: #065f46;
+            font-weight: 600;
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        /* Selected card state */
+        .estimate-card.card-selected {
+            border-color: #6ee7b7;
+            box-shadow: 0 0 0 3px #a7f3d0, var(--shadow-card);
+        }
+        .estimate-card.card-dimmed {
+            opacity: 0.35;
+            pointer-events: none;
+        }
+
+        /* Chosen button state */
+        .btn-chosen {
+            background: var(--success);
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            border-radius: 12px;
+            font-weight: 700;
+            display: block;
+            border: none;
+            cursor: default;
+        }
+
+        /* Continue button */
+        .btn-continue {
+            background: var(--success);
+            color: white;
+            text-align: center;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.2s;
+            margin-top: 1.5rem;
+        }
+        .btn-continue:hover {
+            background: #059669;
+        }
+
+        /* Contact details card */
+        #contactDetails {
+            margin-top: 2rem;
+            background: white;
+            border: 1px solid #6ee7b7;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--shadow-card);
+        }
+        #contactDetails h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #065f46;
+        }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9375rem;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+        }
+        .contact-item span {
+            color: var(--text-muted);
+            min-width: 60px;
+        }
+
+        /* Error message */
+        .error-msg {
+            color: #dc2626;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="header-container">
-            <h1><a href="index.html" style="color:white;text-decoration:none;">Dental Dash Pro</a></h1>
-        </div>
-    </header>
-    <div class="results-wrap">
-        <h2>Your Treatment Estimate Options</h2>
-        <p class="results-sub">Compare treatment approaches, clinical confidence, and office strengths to decide which option fits your needs best. Final recommendations are confirmed during your in-office consultation.</p>
 
-        <div class="request-summary">
-            <strong>Your Case:</strong> Full Arch Implant &nbsp;&middot;&nbsp;
-            <strong>Location:</strong> Gilbert, AZ 85234 &nbsp;&middot;&nbsp;
-            <strong>Documentation:</strong> CBCT + 4 Photos
+    <div class="results-container">
+
+        <!-- Confirmation banner (hidden until selection) -->
+        <div id="confirmationBanner" style="display:none;">
+            <div class="conf-icon">✅</div>
+            <p>You've selected your treatment provider! Here's your chosen office.</p>
         </div>
 
-        <div class="options-label">3 Treatment Estimate Options Received</div>
-
-        <div class="option-card">
-            <div class="option-header">
-                <div>
-                    <div class="office-name">Desert Ridge Implant Center</div>
-                    <div class="office-creds">Oral & Maxillofacial Surgery &middot; 12 Years Experience</div>
-                </div>
-                <div>
-                    <div class="price-range">$18,500 &ndash; $24,000</div>
-                    <div class="price-label">Preliminary Estimate Range</div>
-                </div>
-            </div>
-
-            <span class="confidence-badge confidence-high">High Confidence</span>
-
-            <hr class="card-divider">
-
-            <div class="card-section-title">Treatment Approach</div>
-            <div class="card-section-body">Our approach uses a full-arch fixed prosthetic supported by 4-6 titanium implants using the All-on-4 technique. We leverage same-day provisional restorations and digital X-guide implant placement for precision and faster recovery.</div>
-
-            <div class="card-section-title">Why Choose This Office</div>
-            <div class="card-section-body">3D-guided implant surgery, onsite milling, IV sedation available, 5-year prosthetic warranty. We manage the entire case in-house without referrals.</div>
-
-            <div class="tags-row">
-                <span class="tag">IV Sedation</span>
-                <span class="tag">Same-Day Teeth</span>
-                <span class="tag">5-Year Warranty</span>
-                <span class="tag">PPO Accepted</span>
-                <span class="tag">Financing Available</span>
-            </div>
-
-            <div class="card-footer">
-                <div class="consult-note">Final treatment plan confirmed during in-office consultation</div>
-                <a href="#" class="cta-bt onclick="gtag('event', 'request_consultation')"n">Request Consultation</a>
-            </div>
+        <div class="results-header">
+            <h1>Your Treatment Estimates</h1>
+            <p>Review and compare professional clinical approaches from top-rated local dental offices. Choose the plan that best fits your goals.</p>
         </div>
 
-        <div class="option-card">
-            <div class="option-header">
-                <div>
-                    <div class="office-name">Chandler Family Dental & Implants</div>
-                    <div class="office-creds">General & Implant Dentistry &middot; 8 Years Experience</div>
-                </div>
-                <div>
-                    <div class="price-range">$14,900 &ndash; $19,500</div>
-                    <div class="price-label">Preliminary Estimate Range</div>
-                </div>
-            </div>
-
-            <span class="confidence-badge confidence-moderate">Moderate Confidence</span>
-
-            <hr class="card-divider">
-
-            <div class="card-section-title">Treatment Approach</div>
-            <div class="card-section-body">We recommend a staged approach: extraction + healing, then implant placement with a 4-month osseointegration period, followed by custom porcelain final restoration. This allows for optimal bone healing and long-term stability.</div>
-
-            <div class="card-section-title">Why Choose This Office</div>
-            <div class="card-section-body">Digital scanning, CBCT in-office, flexible payment plans, and referral coordination with a local oral surgeon for complex extractions if needed.</div>
-
-            <div class="tags-row">
-                <span class="tag">CBCT In-Office</span>
-                <span class="tag">Staged Approach</span>
-                <span class="tag">0% Financing</span>
-                <span class="tag">Delta Dental PPO</span>
-            </div>
-
-            <div class="card-footer">
-                <div class="consult-note">Final treatment plan confirmed during in-office consultation</div>
-                <a href="#" class="cta-bt onclick="gtag('event', 'request_consultation')"n">Request Consultation</a>
-            </div>
+        <!-- Case summary bar (populated dynamically) -->
+        <div id="caseSummary" class="case-summary">
+            <div class="summary-item">Case ID: <strong id="caseIdDisplay">—</strong></div>
+            <div class="summary-item">Privacy: <strong>Protected</strong></div>
         </div>
 
-        <div class="option-card">
-            <div class="option-header">
-                <div>
-                    <div class="office-name">Gilbert Periodontics & Dental Implants</div>
-                    <div class="office-creds">Periodontist &middot; 17 Years Experience</div>
-                </div>
-                <div>
-                    <div class="price-range">$21,000 &ndash; $27,500</div>
-                    <div class="price-label">Preliminary Estimate Range</div>
-                </div>
-            </div>
+        <!-- Dynamic estimate cards mount point -->
+        <div id="estimateList" class="estimate-list"></div>
 
-            <span class="confidence-badge confidence-limited">Limited Confidence &mdash; In-office Consultation Required</span>
+        <!-- Contact details section (hidden until "Continue to Office Details") -->
+        <div id="contactDetails" style="display:none;"></div>
 
-            <hr class="card-divider">
-
-            <div class="card-section-title">Treatment Approach</div>
-            <div class="card-section-body">Based on your CBCT, bone augmentation may be required prior to implant placement. We specialize in advanced ridge augmentation using particulate bone grafting and membrane techniques, maximizing long-term implant stability in compromised sites.</div>
-
-            <div class="card-section-title">Why Choose This Office</div>
-            <div class="card-section-body">Board-certified Periodontist, 2,000+ implant cases, specialized in complex bone cases, in-house lab for custom abutments and ceramic restorations.</div>
-
-            <div class="tags-row">
-                <span class="tag">Bone Grafting</span>
-                <span class="tag">Periodontic Specialist</span>
-                <span class="tag">In-House Lab</span>
-                <span class="tag">Most Complex Cases</span>
-            </div>
-
-            <div class="card-footer">
-                <div class="consult-note">In-office consultation required before a firm estimate can be provided</div>
-                <a href="#" class="cta-bt onclick="gtag('event', 'request_consultation')"n">Request Consultation</a>
-            </div>
+        <div class="trust-section">
+            <h3>Treatment Estimate Disclaimer</h3>
+            <p>Estimates are preliminary and based on the documentation provided. A final treatment plan must be confirmed during an in-person clinical examination. No personal information is shared with dental offices until you choose to connect.</p>
         </div>
 
-        <div class="bottom-note">
-            All treatment estimates are preliminary and must be confirmed during an in-office consultation. Final treatment recommendations may differ based on clinical examination, diagnostics, and patient-specific factors. Prices shown are estimate ranges only.
-        </div>
     </div>
+
+    <script type="module">
+        import { supabase } from './supabase-config.js';
+
+        const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+        const params  = new URLSearchParams(window.location.search);
+        const caseId  = params.get('case_id');
+
+        const estimateList = document.getElementById('estimateList');
+
+        // ── helpers ──────────────────────────────────────────────────────────
+
+        function formatMoney(n) {
+            return '$' + Number(n).toLocaleString('en-US');
+        }
+
+        function showWarning(msg) {
+            const wrap = document.createElement('div');
+            wrap.className = 'state-banner';
+
+            const icon = document.createElement('div');
+            icon.className = 'state-icon';
+            icon.textContent = '⚠️';
+            wrap.appendChild(icon);
+
+            const p = document.createElement('p');
+            p.textContent = msg;
+            wrap.appendChild(p);
+
+            estimateList.appendChild(wrap);
+        }
+
+        function buildCard(estimate) {
+            // Resolve office data from joined tables (dental_offices or offices) or fall back
+            const officeData = estimate.dental_offices || estimate.offices || null;
+            const officeName = (officeData && officeData.name) || estimate.submitted_by_name || 'Dental Office';
+            const city       = (officeData && officeData.city) || null;
+
+            const card = document.createElement('div');
+            card.className = 'estimate-card';
+            card.dataset.estimateId = estimate.id;
+
+            // ── Left column ──────────────────────────────────────────────
+            const info = document.createElement('div');
+            info.className = 'office-info';
+
+            const roleLbl = document.createElement('span');
+            roleLbl.className = 'section-label';
+            roleLbl.textContent = estimate.submitted_by_role || 'Dental Office';
+            info.appendChild(roleLbl);
+
+            const h2 = document.createElement('h2');
+            h2.textContent = officeName;
+            info.appendChild(h2);
+
+            const loc = document.createElement('span');
+            loc.className = 'office-location';
+            loc.textContent = city || 'Location not specified';
+            info.appendChild(loc);
+
+            const approachLbl = document.createElement('span');
+            approachLbl.className = 'section-label';
+            approachLbl.textContent = 'Treatment Approach';
+            info.appendChild(approachLbl);
+
+            const approachTxt = document.createElement('p');
+            approachTxt.className = 'approach-text';
+            approachTxt.textContent = estimate.treatment_approach || '—';
+            info.appendChild(approachTxt);
+
+            // ── Right / action column ────────────────────────────────────
+            const actionCol = document.createElement('div');
+            actionCol.className = 'action-col';
+
+            const priceBox = document.createElement('div');
+            priceBox.className = 'price-box';
+
+            const priceLbl = document.createElement('span');
+            priceLbl.className = 'section-label';
+            priceLbl.textContent = 'Est. Total Range';
+            priceBox.appendChild(priceLbl);
+
+            const priceRange = document.createElement('div');
+            priceRange.className = 'price-range';
+            priceRange.textContent = formatMoney(estimate.low_estimate) + ' – ' + formatMoney(estimate.high_estimate);
+            priceBox.appendChild(priceRange);
+            actionCol.appendChild(priceBox);
+
+            const metaInfo = document.createElement('div');
+            metaInfo.className = 'meta-info';
+
+            if (estimate.availability_notes) {
+                const avail = document.createElement('div');
+                avail.className = 'meta-item';
+                avail.textContent = '📅 ' + estimate.availability_notes;
+                metaInfo.appendChild(avail);
+            }
+            actionCol.appendChild(metaInfo);
+
+            // "Choose This Office" button
+            const btn = document.createElement('button');
+            btn.className = 'btn-choose';
+            btn.textContent = 'Choose This Office';
+            btn.addEventListener('click', () => handleChoose(estimate, card, btn, officeData));
+            actionCol.appendChild(btn);
+
+            card.appendChild(info);
+            card.appendChild(actionCol);
+            return card;
+        }
+
+        // ── Selection handler ─────────────────────────────────────────────
+
+        async function handleChoose(estimate, card, btn, officeData) {
+            // Security: ensure this estimate actually belongs to the case in the URL
+            if (estimate.patient_case_id !== caseId) {
+                return;
+            }
+
+            btn.disabled = true;
+            btn.textContent = 'Selecting…';
+
+            // Remove any prior error message
+            const prevErr = btn.parentElement.querySelector('.error-msg');
+            if (prevErr) prevErr.remove();
+
+            const { error } = await supabase.from('patient_selections').insert({
+                case_id:     caseId,
+                estimate_id: estimate.id
+            });
+
+            if (error) {
+                btn.disabled = false;
+                btn.textContent = 'Choose This Office';
+                const errMsg = document.createElement('p');
+                errMsg.className = 'error-msg';
+                errMsg.textContent = 'Unable to save your selection. Please refresh the page and try again.';
+                btn.after(errMsg);
+                return;
+            }
+
+            showConfirmation(card, btn, estimate, officeData);
+        }
+
+        // ── Post-selection UI ─────────────────────────────────────────────
+
+        function showConfirmation(selectedCard, btn, estimate, officeData) {
+            // Show confirmation banner
+            document.getElementById('confirmationBanner').style.display = 'flex';
+
+            // Style selected card
+            selectedCard.classList.add('card-selected');
+
+            // Swap "Choose" button to "✓ Selected"
+            const chosen = document.createElement('div');
+            chosen.className = 'btn-chosen';
+            chosen.textContent = '✓ Selected';
+            btn.replaceWith(chosen);
+
+            // Dim all other cards
+            document.querySelectorAll('.estimate-card').forEach(c => {
+                if (c !== selectedCard) {
+                    c.classList.add('card-dimmed');
+                }
+            });
+
+            // Add "Continue to Office Details" button below selected card
+            const continueBtn = document.createElement('button');
+            continueBtn.className = 'btn-continue';
+            continueBtn.textContent = 'Continue to Office Details';
+            continueBtn.addEventListener('click', () => revealContact(estimate, officeData));
+            selectedCard.after(continueBtn);
+        }
+
+        // ── Contact details reveal ────────────────────────────────────────
+
+        function revealContact(estimate, officeData) {
+            const section = document.getElementById('contactDetails');
+            while (section.firstChild) section.removeChild(section.firstChild);
+
+            const officeName = (officeData && officeData.name) || estimate.submitted_by_name || 'Dental Office';
+            const city       = (officeData && officeData.city) || null;
+            const phone      = officeData && officeData.phone;
+            const email      = officeData && officeData.email;
+
+            const h3 = document.createElement('h3');
+            h3.textContent = 'Your Selected Office';
+            section.appendChild(h3);
+
+            function addRow(label, value) {
+                const row = document.createElement('div');
+                row.className = 'contact-item';
+                const lbl = document.createElement('span');
+                lbl.textContent = label;
+                const val = document.createElement('strong');
+                val.textContent = value;
+                row.appendChild(lbl);
+                row.appendChild(val);
+                section.appendChild(row);
+            }
+
+            addRow('Office:', officeName);
+            if (city) addRow('City:', city);
+
+            if (phone || email) {
+                if (phone) addRow('Phone:', phone);
+                if (email) addRow('Email:', email);
+            } else {
+                const note = document.createElement('p');
+                note.style.color = 'var(--text-muted)';
+                note.style.marginTop = '0.5rem';
+                note.textContent = 'Contact details will be provided shortly.';
+                section.appendChild(note);
+            }
+
+            section.style.display = 'block';
+            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // ── Main load ─────────────────────────────────────────────────────
+
+        async function loadEstimates() {
+            if (!caseId || !UUID_REGEX.test(caseId)) {
+                showWarning('Invalid or missing case link. Please use the link from your email to view your treatment estimates.');
+                return;
+            }
+
+            // Show truncated case ID in the summary bar
+            document.getElementById('caseIdDisplay').textContent = caseId.slice(0, 8) + '…';
+
+            // Try with a join first (dental_offices), fall back to plain select
+            let { data, error } = await supabase
+                .from('estimates')
+                .select('*, dental_offices(*)')
+                .eq('patient_case_id', caseId);
+
+            if (error || !data) {
+                ({ data, error } = await supabase
+                    .from('estimates')
+                    .select('*')
+                    .eq('patient_case_id', caseId));
+            }
+
+            if (error) {
+                showWarning('Unable to load estimates at this time. Please try again later.');
+                return;
+            }
+
+            if (!data || data.length === 0) {
+                showWarning("We're still collecting treatment estimates for your case. Please check back soon.");
+                return;
+            }
+
+            data.forEach(est => {
+                const card = buildCard(est);
+                estimateList.appendChild(card);
+            });
+        }
+
+        loadEstimates();
+    </script>
+
 </body>
 </html>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
+  <!-- Google Tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-PLK6GWSVB4"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -13,7 +13,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Create Treatment Estimate | DentalDash Pro</title>
   <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
   <style>
     :root {
       --primary-blue: #0f1c2e;
@@ -506,150 +505,47 @@
       </div>
     </div>
 
-    <form id="bidForm">
-
-      <!-- Treatment Approach -->
-      <div class="card">
-        <h2 class="card-title">Treatment Approach</h2>
-        <p class="card-subtitle">Describe your recommended clinical plan for this patient.</p>
-
+    <div class="card">
+      <div class="card-title">Estimate Details</div>
+      <div class="form-row">
         <div class="form-group">
-          <div class="template-row">
-            <span class="template-label">Quick Template</span>
-            <select id="templateSelect" class="template-select" onchange="applyTemplate(this.value)">
-              <option value="">Select a template&hellip;</option>
-              <option value="crown">Crown</option>
-              <option value="implant">Implant</option>
-              <option value="veneers">Veneers</option>
-              <option value="rootcanal">Root Canal</option>
-              <option value="fullarch">Full Arch Implant</option>
-            </select>
-          </div>
-          <div class="template-hint">
-            <p>Include in your approach</p>
-            <ul>
-              <li>Materials used (e.g., zirconia, PFM, titanium)</li>
-              <li>Treatment timeline and number of appointments</li>
-              <li>Treatment phases and sequencing</li>
-              <li>Alternatives considered</li>
-            </ul>
-          </div>
-          <textarea id="treatment_approach" name="treatment_approach" class="form-input" rows="6"
-            placeholder="Describe the recommended treatment plan, materials, timeline, and any alternatives considered&hellip;"
-            required style="resize:vertical;"></textarea>
+          <label>Low Estimate ($) *</label>
+          <input type="number" id="estimate_low" name="estimate_low" class="form-input" placeholder="2500" min="0" step="0.01" required>
+        </div>
+        <div class="form-group">
+          <label>High Estimate ($) *</label>
+          <input type="number" id="estimate_high" name="estimate_high" class="form-input" placeholder="3200" min="0" step="0.01" required>
         </div>
       </div>
-
-      <!-- Confidence Level -->
-      <div class="card">
-        <h2 class="card-title">Confidence Level</h2>
-        <p class="card-subtitle">How confident are you in this estimate based on the available case information?</p>
-        <div class="form-group">
-          <div class="confidence-group">
-            <div class="confidence-option">
-              <input type="radio" id="conf_high" name="confidence_level" value="high" checked>
-              <label for="conf_high">
-                <span class="conf-icon">&#9679;</span>
-                High Confidence
-                <span class="conf-sub">Ready to proceed</span>
-              </label>
-            </div>
-            <div class="confidence-option">
-              <input type="radio" id="conf_moderate" name="confidence_level" value="moderate">
-              <label for="conf_moderate">
-                <span class="conf-icon">&#9681;</span>
-                Moderate Confidence
-                <span class="conf-sub">Minor clarifications needed</span>
-              </label>
-            </div>
-            <div class="confidence-option">
-              <input type="radio" id="conf_evaluation" name="confidence_level" value="evaluation">
-              <label for="conf_evaluation">
-                <span class="conf-icon">&#9711;</span>
-                Needs In-Office Evaluation
-                <span class="conf-sub">In-person review required</span>
-              </label>
-            </div>
-          </div>
-        </div>
+      <div class="form-group">
+        <label>Treatment Approach *</label>
+        <textarea id="treatment_approach" name="treatment_approach" class="form-input" rows="4" placeholder="Describe the recommended treatment plan..."></textarea>
       </div>
-
-      <!-- Estimated Pricing -->
-      <div class="card">
-        <h2 class="card-title">Estimated Pricing</h2>
-        <p class="card-subtitle">Provide your best fee range based on the case details.</p>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label for="estimate_low">Low Estimate ($) *</label>
-            <input type="number" id="estimate_low" name="estimate_low" class="form-input"
-              placeholder="e.g. 1800" min="0" step="0.01" required>
-          </div>
-          <div class="form-group">
-            <label for="estimate_high">High Estimate ($) *</label>
-            <input type="number" id="estimate_high" name="estimate_high" class="form-input"
-              placeholder="e.g. 3200" min="0" step="0.01" required>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="payment_options">Payment Options (Optional)</label>
-          <input type="text" id="payment_options" name="payment_options" class="form-input"
-            placeholder="e.g., CareCredit, in-house payment plans, HSA/FSA accepted">
-        </div>
-
-        <div class="form-group">
-          <label for="availability_notes">Availability Notes (Optional)</label>
-          <input type="text" id="availability_notes" name="availability_notes" class="form-input"
-            placeholder="e.g., Available next week, Monday–Friday, same-week consult possible">
-        </div>
+      <div class="form-group">
+        <label>Payment Options (Optional)</label>
+        <input type="text" id="payment_options" name="payment_options" class="form-input" placeholder="e.g., CareCredit, Payment Plans">
       </div>
-
-      <!-- Why Choose Our Office -->
-      <div class="card">
-        <h2 class="card-title">Why Choose Our Office?</h2>
-        <p class="card-subtitle">Help the patient understand what sets your practice apart.</p>
-
-        <div class="helper-chips" aria-label="Suggested topics">
-          <span class="helper-chip" onclick="appendChip('Experience & credentials')">&#127891; Experience</span>
-          <span class="helper-chip" onclick="appendChip('Advanced technology & equipment')">&#128187; Technology</span>
-          <span class="helper-chip" onclick="appendChip('Premium materials used')">&#128142; Materials</span>
-          <span class="helper-chip" onclick="appendChip('Warranty on restorations')">&#128273; Warranty</span>
-          <span class="helper-chip" onclick="appendChip('Sedation options available')">&#128164; Sedation</span>
-          <span class="helper-chip" onclick="appendChip('Flexible financing available')">&#128176; Financing</span>
-        </div>
-
-        <div class="form-group">
-          <label for="why_choose_us">Your Practice Differentiators (Optional)</label>
-          <textarea id="why_choose_us" name="why_choose_us" class="form-input" rows="4"
-            placeholder="Tell the patient why your office is the best choice for this treatment — experience, technology, materials, warranty, sedation options, financing&hellip;"
-            style="resize:vertical;"></textarea>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label for="submitted_by_name">Your Name *</label>
-            <input type="text" id="submitted_by_name" name="submitted_by_name" class="form-input"
-              placeholder="Dr. Jane Smith" required>
-          </div>
-          <div class="form-group">
-            <label for="submitted_by_role">Your Role *</label>
-            <input type="text" id="submitted_by_role" name="submitted_by_role" class="form-input"
-              placeholder="DDS, Treatment Coordinator, etc." required>
-          </div>
-        </div>
+      <div class="form-group">
+        <label>Availability Notes (Optional)</label>
+        <input type="text" id="availability_notes" name="availability_notes" class="form-input" placeholder="e.g., Available next week, Monday-Friday">
       </div>
-
-    </form>
-
-    <!-- Disclaimer -->
-    <div class="disclaimer-block">
-      <p>
-        <strong>Clinical Disclaimer:</strong>
-        All estimates must be confirmed in-office. This estimate reflects your professional opinion and may change after clinical evaluation. Treatment fees and plans are subject to change following an in-person examination and diagnostic review.
-      </p>
     </div>
 
+    <div class="card">
+      <div class="card-title">Submitting Office Contact</div>
+      <div class="form-group">
+        <label>Your Name *</label>
+        <input type="text" id="submitted_by_name" name="submitted_by_name" class="form-input" placeholder="Dr. Jane Smith" required>
+      </div>
+      <div class="form-group">
+        <label>Your Role *</label>
+        <input type="text" id="submitted_by_role" name="submitted_by_role" class="form-input" placeholder="DDS, Treatment Coordinator, etc." required>
+      </div>
+      <div class="form-group">
+        <label>Why Choose Our Office? (Optional)</label>
+        <textarea id="why_choose_us" class="form-input" rows="3" placeholder="Highlight what makes your office the right choice..."></textarea>
+      </div>
+    </div>
   </div>
 
   <!-- Actions Bar -->
@@ -659,10 +555,14 @@
     <button type="button" id="submitBtn" class="btn btn-primary" onclick="handleSubmit()">Submit for Doctor Approval</button>
   </div>
 
-  <script>
-    var SUPABASE_URL = 'https://fxfwytxfeuwsbeapiyqw.supabase.co';
-    var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ4Znd5dHhmZXV3c2JlYXBpeXF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQ2NTk3MjksImV4cCI6MjA1MDIzNTcyOX0.anZxOWzcVyobPx8hW_DUpdIl1IAWeE-ANXpZq-ysXvI';
-    var supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+
+    const SUPABASE_URL = 'https://fxfwytxfeuwsbeapiyqw.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ4Znd5dHhmZXV3c2JlYXBpeXF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQ2NTk3MjksImV4cCI6MjA1MDIzNTcyOX0.anZxOWzcVyobPx8hW_DUpdIl1IAWeE-ANXpZq-ysXvI';
+    const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
     /* ── Case data ── */
     var CASE_DATA = {
@@ -730,40 +630,16 @@
       return new URLSearchParams(window.location.search).get(name);
     }
 
-    /* ── Populate case summary ── */
-    var caseId = getQueryParam('case_id');
-    var banner = document.getElementById('caseInfoBanner');
-    var caseRecord = caseId ? CASE_DATA[caseId] : null;
+    const caseId = getQueryParam('case_id');
+    const banner = document.getElementById('caseInfoBanner');
 
-    if (caseRecord) {
-      document.getElementById('csProcedure').textContent = caseRecord.procedure;
-      document.getElementById('csCategory').textContent = caseRecord.category + ' • Case ' + caseId;
-      document.getElementById('csScore').textContent = '★ ' + caseRecord.score + ' / 10';
-      document.getElementById('csLocation').textContent = caseRecord.location;
-      document.getElementById('csValue').textContent = caseRecord.value;
-      document.getElementById('csScoreDetail').textContent = caseRecord.score + ' / 10';
-
-      var urgencyEl = document.getElementById('csUrgency');
-      var u = caseRecord.urgency;
-      if (u === 'Urgent') {
-        urgencyEl.innerHTML = '<span class="badge-urgent">Urgent</span>';
-      } else if (u === 'Emergency') {
-        urgencyEl.innerHTML = '<span class="badge-emergency">Emergency</span>';
-      } else {
-        urgencyEl.innerHTML = '<span class="badge-routine">Routine</span>';
-      }
-
-      banner.textContent = 'Submitting estimate for ' + caseRecord.procedure + ' — ' + caseId;
-
-    } else if (caseId) {
-      document.getElementById('csProcedure').textContent = 'Case ' + caseId;
-      document.getElementById('csCategory').textContent = 'Case details not available';
+    if (caseId && UUID_REGEX.test(caseId)) {
       banner.textContent = 'Submitting estimate for Case ID: ' + caseId;
 
     } else {
       banner.style.background = '#fef2f2';
       banner.style.borderLeftColor = '#ef4444';
-      banner.textContent = 'Warning: No case_id in URL. Access this page from Patient Cases.';
+      banner.textContent = 'Warning: No valid case_id in URL. Access this page from Patient Cases.';
     }
 
     /* ── Apply template ── */
@@ -801,25 +677,28 @@
 
     /* ── Submit ── */
     async function handleSubmit() {
-      var submitBtn = document.getElementById('submitBtn');
+      console.log('[DEBUG] handleSubmit() triggered');
+
+      const submitBtn = document.getElementById('submitBtn');
+      if (submitBtn && submitBtn.disabled) return;
       submitBtn.disabled = true;
       submitBtn.textContent = 'Submitting…';
 
-      if (!caseId) {
-        alert('Error: No case_id provided. Please access this page from a valid patient case.');
+      if (!caseId || !UUID_REGEX.test(caseId)) {
+        alert('Error: No valid case_id provided. Please access this page from a valid patient case.');
         submitBtn.disabled = false;
         submitBtn.textContent = 'Submit for Doctor Approval';
         return;
       }
 
-      var low = parseFloat(document.getElementById('estimate_low').value) || 0;
-      var high = parseFloat(document.getElementById('estimate_high').value) || 0;
-      var treatment = document.getElementById('treatment_approach').value.trim();
-      var submittedByName = document.getElementById('submitted_by_name').value.trim();
-      var submittedByRole = document.getElementById('submitted_by_role').value.trim();
-      var paymentOptions = document.getElementById('payment_options').value.trim();
-      var availabilityNotes = document.getElementById('availability_notes').value.trim();
-      var whyChooseUs = document.getElementById('why_choose_us').value.trim();
+      const low = parseFloat(document.getElementById('estimate_low').value) || 0;
+      const high = parseFloat(document.getElementById('estimate_high').value) || 0;
+      const treatment = document.getElementById('treatment_approach').value.trim();
+      const submittedByName = document.getElementById('submitted_by_name').value.trim();
+      const submittedByRole = document.getElementById('submitted_by_role').value.trim();
+      const paymentOptions = document.getElementById('payment_options').value.trim();
+      const availabilityNotes = document.getElementById('availability_notes').value.trim();
+      const whyChooseUs = document.getElementById('why_choose_us').value.trim();
 
       if (!low || !high || !treatment || !submittedByName || !submittedByRole) {
         alert('Please fill in all required fields.');
@@ -828,7 +707,7 @@
         return;
       }
 
-      var payload = {
+      const payload = {
         patient_case_id: caseId,
         office_id: null,
         submitted_by_name: submittedByName,
@@ -843,24 +722,39 @@
       };
 
       try {
-        var result = await supabaseClient
+        const result = await supabaseClient
           .from('estimates')
           .insert([payload])
           .select();
 
-        if (result.error) throw result.error;
+        if (result.error) {
+          console.error('Supabase insert error:', result.error);
+          alert('Submission failed: ' + result.error.message);
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Submit for Doctor Approval';
+          return;
+        }
 
         if (typeof gtag === 'function') {
           gtag('event', 'submit_for_doctor_approval');
         }
 
-        window.location.href = 'estimate-submitted.html';
+        window.location.href = 'estimate-submitted.html?case_id=' + encodeURIComponent(caseId);
+
       } catch (err) {
-        alert('Error submitting estimate: ' + (err.message || 'Unknown error. Please try again.'));
+        console.error('Unexpected submission error:', err);
+        alert('Unexpected error: ' + err.message);
         submitBtn.disabled = false;
         submitBtn.textContent = 'Submit for Doctor Approval';
       }
     }
+
+    // Expose to onclick attribute
+    window.handleSubmit = handleSubmit;
+    const submitBtnEl = document.getElementById('submitBtn');
+if (submitBtnEl) {
+  submitBtnEl.addEventListener('click', handleSubmit);
+}
   </script>
 
 </body>
