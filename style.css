@@ -614,3 +614,34 @@ p {
 .final-cta {
   color: #ffffff;
 }
+/* ===== TARGETED FIX: READY TO EXPLORE SECTION ===== */
+.ready-section,
+.ready-to-explore,
+.cta-bottom,
+.cta-light {
+  background: #f8fafc !important;
+}
+
+.ready-section h2,
+.ready-section h3,
+.ready-section p,
+.ready-to-explore h2,
+.ready-to-explore h3,
+.ready-to-explore p,
+.cta-bottom h2,
+.cta-bottom h3,
+.cta-bottom p,
+.cta-light h2,
+.cta-light h3,
+.cta-light p {
+  color: #0f172a !important;
+}
+
+.ready-section .btn,
+.ready-to-explore .btn,
+.cta-bottom .btn,
+.cta-light .btn {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
+  color: #ffffff !important;
+  border: none !important;
+}
