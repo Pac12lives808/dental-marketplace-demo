@@ -104,11 +104,12 @@ main {
   margin-bottom: 20px;
 }
 
-.hero-logo img {
-  width: 140px;
-  max-width: 80%;
+.hero-brand-logo {
+  width: min(820px, 95vw);
+  max-width: none;
   height: auto;
-  opacity: 0.95;
+  display: block;
+  margin: 0 auto 24px;
 }
 
 .hero-content {
