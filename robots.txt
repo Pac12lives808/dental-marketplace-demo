@@ -15,3 +15,5 @@ Allow: /
 
 User-agent: Google-Extended
 Allow: /
+
+Sitemap: https://dentaldashpro.com/sitemap.xml
