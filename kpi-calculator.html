@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PLK6GWSVB4"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-PLK6GWSVB4');
+    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Practice KPI Calculator | Dental Dash Pro</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      margin: 0;
+      background: #f8f9fc;
+      color: #0f172a;
+      line-height: 1.7;
+    }
+    .container { max-width: 1100px; margin: auto; padding: 0 20px; }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, #0b1020 0%, #2563eb 100%);
+      color: white;
+      text-align: center;
+      padding: 80px 20px 60px;
+    }
+    .hero h1 { font-size: 2.75rem; font-weight: 800; margin-bottom: 16px; letter-spacing: -0.03em; }
+    .hero p { font-size: 1.15rem; max-width: 680px; margin: 0 auto; opacity: 0.92; }
+
+    /* Calculator Section */
+    .calc-section { padding: 60px 20px; }
+    .calc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    /* Inputs Panel */
+    .inputs-panel, .results-panel {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 36px 32px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+    }
+    .inputs-panel h2, .results-panel h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+      color: #0f172a;
+    }
+    .field { margin-bottom: 20px; }
+    .field label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 6px;
+    }
+    .field input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      font-size: 15px;
+      background: #fff;
+      color: #0f172a;
+    }
+    .field input:focus { outline: none; border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+    .field .hint { font-size: 12px; color: #94a3b8; margin-top: 4px; }
+
+    /* Results */
+    .kpi-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+    .kpi-card:last-child { margin-bottom: 0; }
+    .kpi-label { font-size: 13px; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 4px; }
+    .kpi-value { font-size: 1.75rem; font-weight: 800; color: #2563eb; }
+    .kpi-note { font-size: 12px; color: #94a3b8; margin-top: 4px; }
+
+    /* CTA */
+    .cta-section {
+      background: #0f172a;
+      color: white;
+      text-align: center;
+      padding: 80px 20px;
+    }
+    .cta-section h2 { font-size: 2rem; font-weight: 700; margin-bottom: 16px; }
+    .cta-section p { color: #94a3b8; font-size: 1.05rem; max-width: 600px; margin: 0 auto 32px; }
+    .btn {
+      display: inline-block;
+      padding: 16px 32px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: all 0.2s;
+    }
+    .btn-primary { background: #2563eb; color: white; }
+    .btn-primary:hover { background: #1d4ed8; }
+    .btn-secondary { border: 2px solid white; color: white; margin-left: 12px; }
+    .btn-secondary:hover { background: rgba(255,255,255,0.1); }
+
+    /* Footer */
+    .site-footer { background: #0f172a; color: white; padding: 60px 20px; border-top: 1px solid #1e293b; }
+    .footer-columns {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+      max-width: 1100px;
+      margin: auto;
+    }
+    .site-footer h4 { margin-bottom: 12px; color: white; }
+    .site-footer p { color: #94a3b8; font-size: 14px; }
+    .site-footer a { display: block; color: #cbd5f5; margin: 6px 0; text-decoration: none; font-size: 14px; }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2rem; }
+      .calc-grid { grid-template-columns: 1fr; }
+      .cta-section .btn { display: block; margin: 10px auto; max-width: 300px; }
+      .btn-secondary { margin-left: 0; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <div class="container">
+        <h1>Practice KPI Calculator</h1>
+        <p>Estimate the key performance indicators for your dental practice when you join Dental Dash Pro. See projected patient acquisition cost, case acceptance value, and return on investment.</p>
+      </div>
+    </section>
+
+    <section class="calc-section">
+      <div class="calc-grid">
+        <!-- Inputs -->
+        <div class="inputs-panel">
+          <h2>Your Practice Numbers</h2>
+
+          <div class="field">
+            <label for="monthlyPlan">Monthly Plan Cost ($)</label>
+            <input type="number" id="monthlyPlan" value="299" min="0" step="1">
+            <p class="hint">Your Dental Dash Pro subscription (Launch $299, Growth $749, Leader $1,000)</p>
+          </div>
+
+          <div class="field">
+            <label for="newPatients">Estimated New Patients / Month</label>
+            <input type="number" id="newPatients" value="10" min="0" step="1">
+            <p class="hint">Patients who schedule a consultation through the platform</p>
+          </div>
+
+          <div class="field">
+            <label for="acceptanceRate">Case Acceptance Rate (%)</label>
+            <input type="number" id="acceptanceRate" value="60" min="0" max="100" step="1">
+            <p class="hint">Percentage of consultations that convert to accepted treatment</p>
+          </div>
+
+          <div class="field">
+            <label for="avgCaseValue">Average Case Value ($)</label>
+            <input type="number" id="avgCaseValue" value="1200" min="0" step="1">
+            <p class="hint">Average revenue per accepted treatment case</p>
+          </div>
+
+          <div class="field">
+            <label for="lifetimeVisits">Avg. Lifetime Visits per Patient</label>
+            <input type="number" id="lifetimeVisits" value="8" min="1" step="1">
+            <p class="hint">Total visits over the patient relationship (cleanings, follow-ups, etc.)</p>
+          </div>
+
+          <div class="field">
+            <label for="visitRevenue">Avg. Revenue per Visit ($)</label>
+            <input type="number" id="visitRevenue" value="250" min="0" step="1">
+            <p class="hint">Average revenue generated per patient visit</p>
+          </div>
+        </div>
+
+        <!-- Results -->
+        <div class="results-panel">
+          <h2>Projected KPIs</h2>
+
+          <div class="kpi-card">
+            <div class="kpi-label">Patient Acquisition Cost</div>
+            <div class="kpi-value" id="kpiPAC">$29.90</div>
+            <div class="kpi-note">Monthly plan cost &divide; new patients per month</div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-label">Accepted Cases / Month</div>
+            <div class="kpi-value" id="kpiAccepted">6</div>
+            <div class="kpi-note">New patients &times; acceptance rate</div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-label">Monthly Case Revenue</div>
+            <div class="kpi-value" id="kpiMonthlyRev">$7,200</div>
+            <div class="kpi-note">Accepted cases &times; average case value</div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-label">Patient Lifetime Value</div>
+            <div class="kpi-value" id="kpiLTV">$2,000</div>
+            <div class="kpi-note">Lifetime visits &times; revenue per visit</div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-label">Monthly ROI</div>
+            <div class="kpi-value" id="kpiROI">2,308%</div>
+            <div class="kpi-note">(Monthly case revenue &minus; plan cost) &divide; plan cost &times; 100</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <div class="container">
+        <h2>Ready to Grow Your Practice?</h2>
+        <p>Join Dental Dash Pro and start connecting with patients who are actively seeking treatment in your area.</p>
+        <a href="office-signup.html" class="btn btn-primary">Apply to Join</a>
+        <a href="for-dentists.html" class="btn btn-secondary">Learn More</a>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="footer-columns">
+        <div>
+          <h4>Dental Dash Pro</h4>
+          <p>Professional second opinions and treatment estimates.</p>
+        </div>
+        <div>
+          <h4>Company</h4>
+          <a href="for-dentists.html">For Dentists</a>
+          <a href="faq.html">FAQ</a>
+        </div>
+        <div>
+          <h4>Legal</h4>
+          <a href="provider-participation-agreement.html">Provider Agreement</a>
+          <a href="terms.html">Terms of Service</a>
+          <a href="privacy-policy.html">Privacy Policy</a>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <p>support@dentaldashpro.com</p>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    (function () {
+      var fields = ['monthlyPlan', 'newPatients', 'acceptanceRate', 'avgCaseValue', 'lifetimeVisits', 'visitRevenue'];
+      var els = {};
+      fields.forEach(function (id) {
+        els[id] = document.getElementById(id);
+        els[id].addEventListener('input', calculate);
+      });
+
+      function fmt(n) {
+        return n.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 2 });
+      }
+
+      function calculate() {
+        var plan = parseFloat(els.monthlyPlan.value) || 0;
+        var patients = parseFloat(els.newPatients.value) || 0;
+        var rate = (parseFloat(els.acceptanceRate.value) || 0) / 100;
+        var caseVal = parseFloat(els.avgCaseValue.value) || 0;
+        var visits = parseFloat(els.lifetimeVisits.value) || 0;
+        var perVisit = parseFloat(els.visitRevenue.value) || 0;
+
+        var pac = patients > 0 ? plan / patients : 0;
+        var accepted = patients * rate;
+        var monthlyRev = accepted * caseVal;
+        var ltv = visits * perVisit;
+        var roi = plan > 0 ? ((monthlyRev - plan) / plan) * 100 : 0;
+
+        document.getElementById('kpiPAC').textContent = fmt(pac);
+        document.getElementById('kpiAccepted').textContent = Math.round(accepted * 10) / 10;
+        document.getElementById('kpiMonthlyRev').textContent = fmt(monthlyRev);
+        document.getElementById('kpiLTV').textContent = fmt(ltv);
+        document.getElementById('kpiROI').textContent = roi.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '%';
+      }
+
+      calculate();
+    })();
+  </script>
+</body>
+</html>
