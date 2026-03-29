@@ -267,8 +267,16 @@
         els[id].addEventListener('input', calculate);
       });
 
-      function fmt(n) {
+      function fmtCurrency(n) {
         return n.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 2 });
+      }
+
+      function fmtNumber(n, decimals) {
+        return n.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: decimals || 0 });
+      }
+
+      function fmtPercent(n) {
+        return fmtNumber(n, 0) + '%';
       }
 
       function calculate() {
@@ -285,11 +293,11 @@
         var ltv = visits * perVisit;
         var roi = plan > 0 ? ((monthlyRev - plan) / plan) * 100 : 0;
 
-        document.getElementById('kpiPAC').textContent = fmt(pac);
-        document.getElementById('kpiAccepted').textContent = Math.round(accepted * 10) / 10;
-        document.getElementById('kpiMonthlyRev').textContent = fmt(monthlyRev);
-        document.getElementById('kpiLTV').textContent = fmt(ltv);
-        document.getElementById('kpiROI').textContent = roi.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '%';
+        document.getElementById('kpiPAC').textContent = fmtCurrency(pac);
+        document.getElementById('kpiAccepted').textContent = fmtNumber(accepted, 1);
+        document.getElementById('kpiMonthlyRev').textContent = fmtCurrency(monthlyRev);
+        document.getElementById('kpiLTV').textContent = fmtCurrency(ltv);
+        document.getElementById('kpiROI').textContent = fmtPercent(roi);
       }
 
       calculate();
