@@ -8,8 +8,8 @@
       --brand-blue-hover: #1D4ED8;
 
       /* Backgrounds */
-      --bg-dark: ##0B1020;
-      --bg-dark-2: ##121A2F;
+      --bg-dark: #0B1020;
+      --bg-dark-2: #121A2F;
       --surface: #F8F9FC;
       --surface-card: #FFFFFF;
 
@@ -572,76 +572,4 @@ footer p {
   color: #555;
   margin-bottom: 40px;
 }
-/* ===== SAFE COLOR FIX PATCH ===== */
 
-/* Fix white-on-white text */
-.hero-title,
-.hero-subtitle,
-.final-cta h2,
-.final-cta p {
-  color: #ffffff !important;
-}
-
-/* Ensure normal sections are dark text */
-section,
-.container,
-.container-box {
-  color: #0f172a;
-}
-
-/* Fix any faded/low contrast text */
-p {
-  color: #475569;
-}
-
-/* Make cards clearly visible */
-.card,
-.step-card,
-.benefit-card,
-.plan {
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-}
-
-/* Fix buttons visibility */
-.btn-secondary {
-  background: #ffffff;
-  color: #2563eb;
-  border: 2px solid #2563eb;
-}
-
-/* Fix ghost text in gradients */
-.final-cta {
-  color: #ffffff;
-}
-/* ===== TARGETED FIX: READY TO EXPLORE SECTION ===== */
-.ready-section,
-.ready-to-explore,
-.cta-bottom,
-.cta-light {
-  background: #f8fafc !important;
-}
-
-.ready-section h2,
-.ready-section h3,
-.ready-section p,
-.ready-to-explore h2,
-.ready-to-explore h3,
-.ready-to-explore p,
-.cta-bottom h2,
-.cta-bottom h3,
-.cta-bottom p,
-.cta-light h2,
-.cta-light h3,
-.cta-light p {
-  color: #0f172a !important;
-}
-
-.ready-section .btn,
-.ready-to-explore .btn,
-.cta-bottom .btn,
-.cta-light .btn {
-  background: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
-  color: #ffffff !important;
-  border: none !important;
-}
