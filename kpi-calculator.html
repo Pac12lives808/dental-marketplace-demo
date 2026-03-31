@@ -292,6 +292,10 @@
         var monthlyRev = accepted * caseVal;
         var ltv = visits * perVisit;
         var roi = plan > 0 ? ((monthlyRev - plan) / plan) * 100 : 0;
+                  gtag('event', 'calculate_kpi', {
+                                  monthly_loss: plan,
+                                  yearly_loss: plan * 12
+                                              });
 
         document.getElementById('kpiPAC').textContent = fmtCurrency(pac);
         document.getElementById('kpiAccepted').textContent = fmtNumber(accepted, 1);
