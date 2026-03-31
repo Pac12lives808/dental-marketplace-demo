@@ -8,8 +8,8 @@
       --brand-blue-hover: #1D4ED8;
 
       /* Backgrounds */
-      --bg-dark: ##0B1020;
-      --bg-dark-2: ##121A2F;
+      --bg-dark: #0B1020;
+      --bg-dark-2: #121A2F;
       --surface: #F8F9FC;
       --surface-card: #FFFFFF;
 
@@ -121,14 +121,14 @@ main {
     font-size: 3.25rem;
     font-weight: 800;
     line-height: 1.15;
-    color: #0f172a;
+        color: #ffffff;
     margin-bottom: 24px;
     letter-spacing: -0.04em;
 }
 
 .hero-subtitle {
     font-size: 1.25rem;
-    color: #475569;
+        color: rgba(255, 255, 255, 0.88);
     line-height: 1.7;
     margin-bottom: 36px;
     font-weight: 400;
@@ -572,76 +572,102 @@ footer p {
   color: #555;
   margin-bottom: 40px;
 }
-/* ===== SAFE COLOR FIX PATCH ===== */
-
-/* Fix white-on-white text */
-.hero-title,
-.hero-subtitle,
-.final-cta h2,
-.final-cta p {
-  color: #ffffff !important;
+.logo-text {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: white;
+  letter-spacing: -0.02em;
+  margin-bottom: 10px;
+}
+/* ===== HERO POLISH UPGRADE ===== */
+.hero-content {
+  max-width: 980px;
+  margin: 0 auto;
+  text-align: center;
 }
 
-/* Ensure normal sections are dark text */
-section,
-.container,
-.container-box {
-  color: #0f172a;
+.hero-title {
+  max-width: 980px;
+  margin: 0 auto 24px;
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.05em;
 }
 
-/* Fix any faded/low contrast text */
-p {
-  color: #475569;
+.hero-subtitle {
+  max-width: 900px;
+  margin: 0 auto 40px;
+  font-size: 1.35rem;
+  line-height: 1.7;
 }
 
-/* Make cards clearly visible */
-.card,
-.step-card,
-.benefit-card,
-.plan {
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
+.hero-buttons {
+  margin-top: 12px;
+  align-items: center;
 }
 
-/* Fix buttons visibility */
-.btn-secondary {
-  background: #ffffff;
-  color: #2563eb;
-  border: 2px solid #2563eb;
+.hero-buttons .btn {
+  min-width: 260px;
+  justify-content: center;
+  text-align: center;
 }
 
-/* Fix ghost text in gradients */
-.final-cta {
+.logo-text {
+  font-size: 1.35rem;
+  font-weight: 700;
   color: #ffffff;
+  letter-spacing: -0.03em;
+  margin-bottom: 18px;
 }
-/* ===== TARGETED FIX: READY TO EXPLORE SECTION ===== */
-.ready-section,
-.ready-to-explore,
-.cta-bottom,
-.cta-light {
-  background: #f8fafc !important;
+.hero-brand-logo {
+  width: min(820px, 95vw);
+  max-width: none;
+  height: auto;
+  display: block;
+  margin: 0 auto 24px;
 }
-
-.ready-section h2,
-.ready-section h3,
-.ready-section p,
-.ready-to-explore h2,
-.ready-to-explore h3,
-.ready-to-explore p,
-.cta-bottom h2,
-.cta-bottom h3,
-.cta-bottom p,
-.cta-light h2,
-.cta-light h3,
-.cta-light p {
-  color: #0f172a !important;
+.hero-logo img {
+  width: min(820px, 95vw) !important;
+  max-width: none !important;
+  height: auto;
+  display: block;
+  margin: 0 auto 24px;
+}
+/* ===== PREMIUM UPGRADE ===== */
+body {
+  font-family: 'Inter', sans-serif;
 }
 
-.ready-section .btn,
-.ready-to-explore .btn,
-.cta-bottom .btn,
-.cta-light .btn {
-  background: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
-  color: #ffffff !important;
-  border: none !important;
+.hero-title {
+  font-family: 'Satoshi', sans-serif;
+  font-weight: 900;
+  font-size: clamp(2.8rem, 5vw, 4.5rem);
+  line-height: 1.05;
+  color: #ffffff;
+  letter-spacing: -0.04em;
+}
+
+.section-title {
+  font-family: 'Satoshi', sans-serif;
+  font-weight: 800;
+}
+
+.hero {
+  padding: 120px 0 140px;
+  background: radial-gradient(circle at 50% 20%, rgba(255,255,255,0.08), transparent 40%),
+              linear-gradient(135deg, #0B1020 0%, #1D4ED8 100%);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  box-shadow: 0 10px 30px rgba(37,99,235,0.5);
+  border-radius: 14px;
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 40px rgba(37,99,235,0.6);
+}
+.header-container {
+  text-align: center;
 }
