@@ -203,19 +203,19 @@
 <script type="module">
   import { supabase } from "./supabase-config.js";
 
-  const form = document.getElementById("officeForm");
+  const form = document.getElementById("signupForm");
   const submitBtn = document.getElementById("submitBtn");
-  const errorBox = document.getElementById("errorBox");
+  const errorMsg = document.getElementById("errorMsg");
 
   function showError(msg) {
-    errorBox.textContent = msg;
-    errorBox.style.display = "block";
+    errorMsg.textContent = msg;
+    errorMsg.style.display = "block";
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   function clearError() {
-    errorBox.textContent = "";
-    errorBox.style.display = "none";
+    errorMsg.textContent = "";
+    errorMsg.style.display = "none";
   }
 
   form.addEventListener("submit", async (e) => {
