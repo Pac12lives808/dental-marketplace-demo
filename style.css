@@ -732,3 +732,48 @@ body {
     font-size: 14px;
   }
 }
+
+
+/* ===== HERO CENTER FIX ===== */
+
+.hero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.hero-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 80px 20px 60px;
+}
+
+.hero h1,
+.hero h2 {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero p {
+  max-width: 700px;
+  margin: 0 auto 20px;
+  text-align: center;
+}
+
+.cta-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+
+.hero small,
+.hero .subtext {
+  display: block;
+  text-align: center;
+  margin-top: 16px;
+  opacity: 0.8;
+}
