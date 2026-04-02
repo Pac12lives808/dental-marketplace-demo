@@ -797,3 +797,34 @@ header {
   margin-top: 0;
   padding-top: 0;
 }
+
+/* ===== GLOBAL NAVBAR (SAFE) ===== */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background: transparent;
+  padding: 16px 24px;
+}
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+}
+.nav-logo {
+  height: 32px;
+  width: auto;
+  cursor: pointer;
+  opacity: 0.9;
+  transition: opacity 0.2s ease;
+}
+.nav-logo:hover {
+  opacity: 1;
+}
+/* prevent content from hiding under fixed header */
+body {
+  padding-top: 70px;
+}
