@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Staff Overtime Risk Estimator | Dental Dash Pro</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}
+.top-bar{background:rgba(15,23,42,0.95);border-bottom:1px solid rgba(255,255,255,0.06);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(12px);position:sticky;top:0;z-index:50}
+.top-bar a{color:#94a3b8;text-decoration:none;font-size:0.85rem;font-weight:500;transition:color 0.2s}
+.top-bar a:hover{color:#38bdf8}
+.logo-area{display:flex;align-items:center;gap:10px}
+.logo-area svg{width:28px;height:28px}
+.logo-area span{font-weight:700;font-size:1rem;color:#f1f5f9;letter-spacing:-0.02em}
+.container{max-width:960px;margin:0 auto;padding:40px 20px 80px}
+.hero{text-align:center;margin-bottom:48px}
+.hero-badge{display:inline-block;background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.2);color:#fbbf24;font-size:0.75rem;font-weight:600;padding:5px 14px;border-radius:100px;margin-bottom:16px;letter-spacing:0.04em;text-transform:uppercase}
+.hero h1{font-size:2.2rem;font-weight:800;color:#f8fafc;letter-spacing:-0.03em;line-height:1.2;margin-bottom:12px}
+.hero p{color:#94a3b8;font-size:1.05rem;max-width:580px;margin:0 auto;line-height:1.6}
+.card{background:rgba(30,41,59,0.5);border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:28px;margin-bottom:24px;backdrop-filter:blur(8px)}
+.card-header{display:flex;align-items:center;gap:10px;margin-bottom:20px}
+.card-header .icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem}
+.icon-amber{background:rgba(251,191,36,0.12);color:#fbbf24}
+.icon-blue{background:rgba(56,189,248,0.12);color:#38bdf8}
+.icon-purple{background:rgba(139,92,246,0.12);color:#a78bfa}
+.card-header h2{font-size:1.1rem;font-weight:700;color:#f1f5f9}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:640px){.form-grid{grid-template-columns:1fr}}
+.form-group{margin-bottom:0}
+.form-group label{display:block;font-size:0.78rem;font-weight:600;color:#94a3b8;margin-bottom:7px;text-transform:uppercase;letter-spacing:0.04em}
+.form-group input,.form-group select{width:100%;background:rgba(15,23,42,0.6);border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#e2e8f0;font-family:'Inter',sans-serif;font-size:0.9rem;padding:11px 14px;transition:border-color 0.2s}
+.form-group input:focus,.form-group select:focus{outline:none;border-color:#38bdf8}
+.form-group select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2394a3b8' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
+.form-group .hint{font-size:0.72rem;color:#475569;margin-top:4px}
+.staff-rows{margin-top:12px}
+.staff-row{display:grid;grid-template-columns:2fr 1fr 1fr 1fr auto;gap:10px;align-items:end;margin-bottom:10px;padding:14px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04);border-radius:10px}
+@media(max-width:768px){.staff-row{grid-template-columns:1fr 1fr;gap:8px}.staff-row .form-group:first-child{grid-column:1/-1}}
+.staff-row .form-group{margin-bottom:0}
+.staff-row .form-group label{font-size:0.7rem;margin-bottom:4px}
+.staff-row .form-group input,.staff-row .form-group select{padding:9px 12px;font-size:0.85rem}
+.btn-remove{background:none;border:1px solid rgba(248,113,113,0.2);color:#f87171;width:34px;height:34px;border-radius:8px;cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center;transition:all 0.2s;margin-bottom:1px}
+.btn-remove:hover{background:rgba(248,113,113,0.1);border-color:#f87171}
+.btn-add{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.04);border:1px dashed rgba(255,255,255,0.12);color:#94a3b8;font-family:'Inter',sans-serif;font-size:0.82rem;font-weight:500;padding:10px 18px;border-radius:8px;cursor:pointer;transition:all 0.2s;margin-top:8px}
+.btn-add:hover{border-color:rgba(56,189,248,0.3);color:#38bdf8;background:rgba(56,189,248,0.04)}
+.btn-calculate{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;font-family:'Inter',sans-serif;font-size:0.95rem;font-weight:600;padding:13px 32px;border:none;border-radius:10px;cursor:pointer;transition:all 0.25s;margin-top:8px}
+.btn-calculate:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(245,158,11,0.3)}
+.center-btn{text-align:center;margin-top:20px}
+#results{display:none}
+.score-ring{width:160px;height:160px;margin:0 auto 20px;position:relative}
+.score-ring svg{transform:rotate(-90deg)}
+.score-ring circle{fill:none;stroke-width:10}
+.score-ring .bg{stroke:rgba(255,255,255,0.06)}
+.score-ring .fill{stroke-linecap:round;transition:stroke-dashoffset 1s ease}
+.score-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}
+.score-number{font-size:2.2rem;font-weight:800;line-height:1}
+.score-label-sm{font-size:0.72rem;color:#94a3b8;font-weight:500;margin-top:2px}
+.risk-level{text-align:center;margin-bottom:28px}
+.risk-level .badge{display:inline-block;padding:6px 18px;border-radius:100px;font-size:0.82rem;font-weight:700;letter-spacing:0.02em}
+.risk-low-badge{background:rgba(52,211,153,0.12);color:#34d399;border:1px solid rgba(52,211,153,0.2)}
+.risk-med-badge{background:rgba(251,191,36,0.12);color:#fbbf24;border:1px solid rgba(251,191,36,0.2)}
+.risk-high-badge{background:rgba(248,113,113,0.12);color:#f87171;border:1px solid rgba(248,113,113,0.2)}
+.risk-critical-badge{background:rgba(239,68,68,0.15);color:#ef4444;border:1px solid rgba(239,68,68,0.25)}
+.staff-results{margin-top:24px}
+.sr-row{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:8px;padding:12px 16px;border-radius:8px;font-size:0.85rem;align-items:center}
+@media(max-width:768px){.sr-row{grid-template-columns:1fr 1fr;gap:6px;padding:10px 12px}.sr-row .sr-name{grid-column:1/-1}}
+.sr-header{color:#64748b;font-weight:600;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.06em;border-bottom:1px solid rgba(255,255,255,0.06);margin-bottom:4px}
+.sr-row:not(.sr-header):nth-child(odd){background:rgba(255,255,255,0.02)}
+.sr-name{font-weight:600;color:#f1f5f9}
+.sr-risk{font-weight:700;font-size:0.78rem;padding:3px 10px;border-radius:6px;display:inline-block;text-align:center}
+.sr-low{background:rgba(52,211,153,0.1);color:#34d399}
+.sr-med{background:rgba(251,191,36,0.1);color:#fbbf24}
+.sr-high{background:rgba(248,113,113,0.1);color:#f87171}
+.cost-card{background:linear-gradient(135deg,rgba(248,113,113,0.08),rgba(239,68,68,0.06));border:1px solid rgba(248,113,113,0.12);border-radius:12px;padding:24px;text-align:center;margin-top:24px}
+.cost-card .cost-label{font-size:0.78rem;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:4px}
+.cost-card .cost-value{font-size:2rem;font-weight:800;color:#f87171}
+.cost-card .cost-sub{font-size:0.82rem;color:#94a3b8;margin-top:6px}
+.recs-list{list-style:none;margin-top:20px}
+.recs-list li{padding:12px 16px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:8px;font-size:0.88rem;color:#cbd5e1;margin-bottom:8px;display:flex;align-items:flex-start;gap:10px;line-height:1.5}
+.recs-list li .rec-icon{flex-shrink:0;font-size:0.9rem}
+.cta-box{background:linear-gradient(135deg,rgba(251,191,36,0.08),rgba(245,158,11,0.06));border:1px solid rgba(251,191,36,0.15);border-radius:14px;padding:28px;text-align:center;margin-top:28px}
+.cta-box h3{font-size:1.1rem;font-weight:700;color:#f1f5f9;margin-bottom:8px}
+.cta-box p{color:#94a3b8;font-size:0.88rem;margin-bottom:16px;line-height:1.5}
+.cta-link{display:inline-block;background:linear-gradient(135deg,#0ea5e9,#2563eb);color:#fff;font-weight:600;font-size:0.88rem;padding:10px 24px;border-radius:8px;text-decoration:none;transition:all 0.2s}
+.cta-link:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(14,165,233,0.25)}
+.section-title{font-size:0.95rem;font-weight:700;color:#f1f5f9;margin:24px 0 12px;display:flex;align-items:center;gap:8px}
+.section-title .dot{width:6px;height:6px;border-radius:50%;background:#fbbf24}
+footer{text-align:center;padding:32px 20px;color:#475569;font-size:0.78rem;border-top:1px solid rgba(255,255,255,0.04)}
+footer a{color:#38bdf8;text-decoration:none}
+@media(max-width:640px){.hero h1{font-size:1.6rem}.container{padding:28px 16px 60px}.card{padding:20px}.score-ring{width:130px;height:130px}.score-number{font-size:1.8rem}.cost-card .cost-value{font-size:1.6rem}}
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="logo-area">
+    <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="32" height="32" rx="8" fill="#0ea5e9" fill-opacity="0.15"/>
+      <path d="M16 6C12.5 6 10 9 10 13c0 3 1.5 5.5 3 7.5 1 1.3 2 2.5 3 4 1-1.5 2-2.7 3-4 1.5-2 3-4.5 3-7.5 0-4-2.5-7-6-7z" stroke="#38bdf8" stroke-width="1.8" fill="none"/>
+      <circle cx="16" cy="13" r="2.5" fill="#38bdf8"/>
+    </svg>
+    <span>Dental Dash Pro</span>
+  </div>
+  <a href="https://dentaldashpro.com">&larr; Back to Main Site</a>
+</div>
+
+<div class="container">
+  <div class="hero">
+    <div class="hero-badge">Free Estimator</div>
+    <h1>Staff Overtime Risk Estimator</h1>
+    <p>Enter your team's schedule data and get an instant burnout and overtime risk score — plus actionable recommendations to optimize staffing.</p>
+  </div>
+
+  <div id="input-section">
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-blue">&#128197;</div>
+        <h2>Practice Schedule</h2>
+      </div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Days open per week</label>
+          <select id="daysOpen">
+            <option value="4">4 days</option>
+            <option value="5" selected>5 days</option>
+            <option value="6">6 days</option>
+            <option value="7">7 days</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Hours per day (office)</label>
+          <input type="number" id="hoursPerDay" value="9" min="6" max="14" step="0.5">
+          <div class="hint">Include early open + close time</div>
+        </div>
+        <div class="form-group">
+          <label>Avg patients per day</label>
+          <input type="number" id="patientsPerDay" value="25" min="5" max="100" step="1">
+        </div>
+        <div class="form-group">
+          <label>Avg emergency add-ons / week</label>
+          <input type="number" id="emergencies" value="4" min="0" max="30" step="1">
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-amber">&#128101;</div>
+        <h2>Staff Members</h2>
+      </div>
+      <div class="staff-rows" id="staff-rows">
+        <div class="staff-row" data-index="0">
+          <div class="form-group"><label>Role</label>
+            <select class="staff-role"><option value="hygienist">Hygienist</option><option value="assistant">Dental Assistant</option><option value="front_desk">Front Desk</option><option value="office_manager">Office Manager</option><option value="associate">Associate Dentist</option></select>
+          </div>
+          <div class="form-group"><label>Hrs / Week</label><input type="number" class="staff-hours" value="40" min="8" max="60" step="1"></div>
+          <div class="form-group"><label>Hourly Rate</label><input type="number" class="staff-rate" value="42" min="10" max="200" step="1"></div>
+          <div class="form-group"><label>Tenure</label>
+            <select class="staff-tenure"><option value="new">< 1 year</option><option value="mid" selected>1-3 years</option><option value="senior">3+ years</option></select>
+          </div>
+          <button class="btn-remove" onclick="removeRow(this)" title="Remove">&times;</button>
+        </div>
+        <div class="staff-row" data-index="1">
+          <div class="form-group"><label>Role</label>
+            <select class="staff-role"><option value="hygienist">Hygienist</option><option value="assistant" selected>Dental Assistant</option><option value="front_desk">Front Desk</option><option value="office_manager">Office Manager</option><option value="associate">Associate Dentist</option></select>
+          </div>
+          <div class="form-group"><label>Hrs / Week</label><input type="number" class="staff-hours" value="40" min="8" max="60" step="1"></div>
+          <div class="form-group"><label>Hourly Rate</label><input type="number" class="staff-rate" value="24" min="10" max="200" step="1"></div>
+          <div class="form-group"><label>Tenure</label>
+            <select class="staff-tenure"><option value="new">< 1 year</option><option value="mid" selected>1-3 years</option><option value="senior">3+ years</option></select>
+          </div>
+          <button class="btn-remove" onclick="removeRow(this)" title="Remove">&times;</button>
+        </div>
+        <div class="staff-row" data-index="2">
+          <div class="form-group"><label>Role</label>
+            <select class="staff-role"><option value="hygienist">Hygienist</option><option value="assistant">Dental Assistant</option><option value="front_desk" selected>Front Desk</option><option value="office_manager">Office Manager</option><option value="associate">Associate Dentist</option></select>
+          </div>
+          <div class="form-group"><label>Hrs / Week</label><input type="number" class="staff-hours" value="38" min="8" max="60" step="1"></div>
+          <div class="form-group"><label>Hourly Rate</label><input type="number" class="staff-rate" value="20" min="10" max="200" step="1"></div>
+          <div class="form-group"><label>Tenure</label>
+            <select class="staff-tenure"><option value="new" selected>< 1 year</option><option value="mid">1-3 years</option><option value="senior">3+ years</option></select>
+          </div>
+          <button class="btn-remove" onclick="removeRow(this)" title="Remove">&times;</button>
+        </div>
+      </div>
+      <button class="btn-add" onclick="addRow()">+ Add Staff Member</button>
+    </div>
+
+    <div class="center-btn">
+      <button class="btn-calculate" onclick="calculate()">&#9888; Calculate Risk Score</button>
+    </div>
+  </div>
+
+  <div id="results">
+    <div class="card" style="text-align:center">
+      <div class="score-ring">
+        <svg width="160" height="160" viewBox="0 0 160 160">
+          <circle class="bg" cx="80" cy="80" r="68"/>
+          <circle class="fill" id="score-circle" cx="80" cy="80" r="68" stroke="#fbbf24" stroke-dasharray="427.26" stroke-dashoffset="427.26"/>
+        </svg>
+        <div class="score-center">
+          <div class="score-number" id="score-number">0</div>
+          <div class="score-label-sm">out of 100</div>
+        </div>
+      </div>
+      <div class="risk-level"><span class="badge" id="risk-badge">Calculating...</span></div>
+    </div>
+
+    <div class="card">
+      <div class="section-title"><span class="dot"></span> Staff Breakdown</div>
+      <div class="staff-results" id="staff-results"></div>
+
+      <div class="cost-card" id="cost-card">
+        <div class="cost-label">Estimated Monthly Overtime Cost</div>
+        <div class="cost-value" id="ot-cost">$0</div>
+        <div class="cost-sub" id="ot-detail">Based on 1.5x overtime rate for hours exceeding 40/week</div>
+      </div>
+
+      <div class="section-title"><span class="dot"></span> Recommendations</div>
+      <ul class="recs-list" id="recs-list"></ul>
+    </div>
+
+    <div class="cta-box">
+      <h3>This is why practices are moving beyond referrals</h3>
+      <p>If you're seeing gaps like this, you're not alone. Most practices rely on referrals and inconsistent marketing to fill their schedule. Dental Dash Pro gives you direct access to patients who are already looking for treatment.</p>
+      <a href="/for-dentists.html" class="cta-link">See How It Works</a>
+    </div>
+  </div>
+</div>
+
+<footer>Dental Dash Pro &copy; 2026 &middot; <a href="https://dentaldashpro.com">dentaldashpro.com</a> &middot; Risk scores are estimates based on industry benchmarks. Actual risk may vary.</footer>
+
+<script>
+let rowIndex = 3;
+
+function addRow() {
+  const container = document.getElementById('staff-rows');
+  const row = document.createElement('div');
+  row.className = 'staff-row';
+  row.dataset.index = rowIndex++;
+  row.innerHTML = `
+    <div class="form-group"><label>Role</label>
+      <select class="staff-role"><option value="hygienist">Hygienist</option><option value="assistant">Dental Assistant</option><option value="front_desk">Front Desk</option><option value="office_manager">Office Manager</option><option value="associate">Associate Dentist</option></select>
+    </div>
+    <div class="form-group"><label>Hrs / Week</label><input type="number" class="staff-hours" value="40" min="8" max="60" step="1"></div>
+    <div class="form-group"><label>Hourly Rate</label><input type="number" class="staff-rate" value="25" min="10" max="200" step="1"></div>
+    <div class="form-group"><label>Tenure</label>
+      <select class="staff-tenure"><option value="new">< 1 year</option><option value="mid" selected>1-3 years</option><option value="senior">3+ years</option></select>
+    </div>
+    <button class="btn-remove" onclick="removeRow(this)" title="Remove">&times;</button>`;
+  container.appendChild(row);
+}
+
+function removeRow(btn) {
+  const rows = document.querySelectorAll('.staff-row');
+  if (rows.length > 1) btn.closest('.staff-row').remove();
+}
+
+function calculate() {
+  const daysOpen = parseInt(document.getElementById('daysOpen').value);
+  const hoursPerDay = parseFloat(document.getElementById('hoursPerDay').value);
+  const patientsPerDay = parseInt(document.getElementById('patientsPerDay').value);
+  const emergencies = parseInt(document.getElementById('emergencies').value);
+
+  const weeklyOfficeHours = daysOpen * hoursPerDay;
+  const weeklyPatients = patientsPerDay * daysOpen + emergencies;
+
+  const rows = document.querySelectorAll('.staff-row');
+  const staff = [];
+  rows.forEach(row => {
+    const role = row.querySelector('.staff-role').value;
+    const hours = parseFloat(row.querySelector('.staff-hours').value);
+    const rate = parseFloat(row.querySelector('.staff-rate').value);
+    const tenure = row.querySelector('.staff-tenure').value;
+    staff.push({ role, hours, rate, tenure });
+  });
+
+  // Role labels
+  const roleLabels = { hygienist: 'Hygienist', assistant: 'Dental Assistant', front_desk: 'Front Desk', office_manager: 'Office Manager', associate: 'Associate Dentist' };
+
+  // Workload multipliers by role
+  const workloadFactors = { hygienist: 1.3, assistant: 1.2, front_desk: 1.1, office_manager: 1.15, associate: 1.35 };
+
+  // Burnout threshold multipliers by tenure
+  const tenureFactors = { new: 1.15, mid: 1.0, senior: 0.9 };
+
+  // Patients per staff capacity benchmarks
+  const capacityPerRole = { hygienist: 8, assistant: 10, front_desk: 20, office_manager: 40, associate: 10 };
+
+  let totalScore = 0;
+  let totalOTCost = 0;
+  const staffResults = [];
+  const recs = [];
+
+  // Practice-level factors
+  let practiceRisk = 0;
+  if (daysOpen >= 6) { practiceRisk += 15; recs.push({ icon: '&#128197;', text: 'Operating 6+ days/week significantly increases burnout risk. Consider rotating staff across a 4-day work week to maintain coverage without individual overload.' }); }
+  if (hoursPerDay >= 10) { practiceRisk += 10; recs.push({ icon: '&#9200;', text: 'Long daily hours (' + hoursPerDay + 'hrs) contribute to fatigue. Staggered shifts can maintain coverage while reducing individual strain.' }); }
+  if (emergencies >= 6) { practiceRisk += 8; recs.push({ icon: '&#127973;', text: 'High emergency add-on volume (' + emergencies + '/week) disrupts schedules and adds unplanned labor. Consider dedicating one emergency block per day to contain overflow.' }); }
+
+  // Staff-level analysis
+  const roleCounts = {};
+  staff.forEach(s => { roleCounts[s.role] = (roleCounts[s.role] || 0) + 1; });
+
+  staff.forEach((s, i) => {
+    let risk = 0;
+    const roleCount = roleCounts[s.role] || 1;
+    const patientsPerPerson = weeklyPatients / roleCount;
+    const capacityRatio = patientsPerPerson / (capacityPerRole[s.role] * daysOpen);
+
+    // Hours risk
+    if (s.hours > 45) risk += 30;
+    else if (s.hours > 40) risk += 15;
+    else if (s.hours > 38) risk += 5;
+
+    // Workload risk
+    const adjustedLoad = capacityRatio * workloadFactors[s.role] * tenureFactors[s.tenure];
+    if (adjustedLoad > 1.3) risk += 25;
+    else if (adjustedLoad > 1.0) risk += 12;
+    else if (adjustedLoad > 0.85) risk += 5;
+
+    // Office hours vs scheduled hours
+    if (s.hours < weeklyOfficeHours) risk += 10;
+
+    // Tenure risk
+    if (s.tenure === 'new') risk += 10;
+
+    risk = Math.min(risk, 100);
+
+    // OT cost
+    const otHours = Math.max(s.hours - 40, 0);
+    const weeklyOT = otHours * s.rate * 1.5;
+    const monthlyOT = weeklyOT * 4.33;
+    totalOTCost += monthlyOT;
+
+    let riskLabel, riskClass;
+    if (risk >= 60) { riskLabel = 'High'; riskClass = 'sr-high'; }
+    else if (risk >= 30) { riskLabel = 'Medium'; riskClass = 'sr-med'; }
+    else { riskLabel = 'Low'; riskClass = 'sr-low'; }
+
+    staffResults.push({
+      name: roleLabels[s.role] + (roleCount > 1 ? ' #' + (staffResults.filter(sr => sr.roleKey === s.role).length + 1) : ''),
+      roleKey: s.role,
+      hours: s.hours,
+      otHours: otHours,
+      risk: risk,
+      riskLabel: riskLabel,
+      riskClass: riskClass,
+      monthlyOT: monthlyOT
+    });
+
+    totalScore += risk;
+  });
+
+  // Overall score (weighted average of staff + practice)
+  const avgStaffRisk = staff.length > 0 ? totalScore / staff.length : 0;
+  const overallScore = Math.min(Math.round(avgStaffRisk * 0.7 + practiceRisk * 0.3 + practiceRisk), 100);
+
+  // Staff-specific recs
+  const highRiskStaff = staffResults.filter(s => s.riskLabel === 'High');
+  if (highRiskStaff.length > 0) {
+    recs.push({ icon: '&#128680;', text: highRiskStaff.length + ' staff member(s) are in the high-risk zone. Prioritize schedule adjustments for: ' + highRiskStaff.map(s => s.name).join(', ') + '.' });
+  }
+
+  const otStaff = staffResults.filter(s => s.otHours > 0);
+  if (otStaff.length > 0) {
+    recs.push({ icon: '&#128176;', text: 'You have ' + otStaff.length + ' staff member(s) exceeding 40 hours/week, costing approximately $' + Math.round(totalOTCost).toLocaleString() + '/month in overtime. Consider hiring part-time support to offset peak hours.' });
+  }
+
+  if (!roleCounts.hygienist || weeklyPatients / (roleCounts.hygienist * daysOpen) > 10) {
+    recs.push({ icon: '&#129658;', text: 'Your hygienist-to-patient ratio is stretched. Adding a part-time hygienist (2-3 days) can reduce overtime across the team while increasing hygiene production.' });
+  }
+
+  if (roleCounts.front_desk === 1 && weeklyPatients > 100) {
+    recs.push({ icon: '&#128222;', text: 'A single front desk managing ' + weeklyPatients + ' patients/week is a burnout risk. Consider a part-time front desk or virtual receptionist for overflow calls.' });
+  }
+
+  if (recs.length === 0) {
+    recs.push({ icon: '&#9989;', text: 'Your current staffing levels appear well-balanced for your patient volume. Continue monitoring as patient volume grows.' });
+  }
+
+  // Render results
+  document.getElementById('input-section').style.display = 'none';
+  document.getElementById('results').style.display = 'block';
+  document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+
+  // Animate score ring
+  const circle = document.getElementById('score-circle');
+  const circumference = 427.26;
+  const offset = circumference - (overallScore / 100) * circumference;
+  let strokeColor = '#34d399';
+  if (overallScore >= 70) strokeColor = '#ef4444';
+  else if (overallScore >= 50) strokeColor = '#f87171';
+  else if (overallScore >= 30) strokeColor = '#fbbf24';
+  circle.style.stroke = strokeColor;
+  setTimeout(() => { circle.style.strokeDashoffset = offset; }, 100);
+  document.getElementById('score-number').textContent = overallScore;
+  document.getElementById('score-number').style.color = strokeColor;
+
+  // Risk badge
+  const badge = document.getElementById('risk-badge');
+  if (overallScore >= 70) { badge.textContent = 'Critical Risk'; badge.className = 'badge risk-critical-badge'; }
+  else if (overallScore >= 50) { badge.textContent = 'High Risk'; badge.className = 'badge risk-high-badge'; }
+  else if (overallScore >= 30) { badge.textContent = 'Medium Risk'; badge.className = 'badge risk-med-badge'; }
+  else { badge.textContent = 'Low Risk'; badge.className = 'badge risk-low-badge'; }
+
+  // Staff table
+  let tableHTML = `<div class="sr-row sr-header"><span>Staff Member</span><span>Hrs/Wk</span><span>OT Hrs</span><span>OT Cost</span><span>Risk</span></div>`;
+  staffResults.forEach(s => {
+    tableHTML += `<div class="sr-row">
+      <span class="sr-name">${s.name}</span>
+      <span>${s.hours}h</span>
+      <span>${s.otHours}h</span>
+      <span>$${Math.round(s.monthlyOT).toLocaleString()}/mo</span>
+      <span class="sr-risk ${s.riskClass}">${s.riskLabel}</span>
+    </div>`;
+  });
+  document.getElementById('staff-results').innerHTML = tableHTML;
+
+  document.getElementById('ot-cost').textContent = '$' + Math.round(totalOTCost).toLocaleString();
+  document.getElementById('ot-detail').textContent = totalOTCost > 0
+    ? `${otStaff.length} staff member(s) exceeding 40 hrs/week at 1.5x overtime rate`
+    : 'No staff members currently exceeding 40 hours/week';
+
+  document.getElementById('recs-list').innerHTML = recs.map(r =>
+    `<li><span class="rec-icon">${r.icon}</span>${r.text}</li>`
+  ).join('');
+}
+</script>
+</body>
+</html>

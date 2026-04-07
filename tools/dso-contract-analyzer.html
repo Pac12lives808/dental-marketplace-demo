@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DSO Contract Analyzer | Dental Dash Pro</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}
+.top-bar{background:rgba(15,23,42,0.95);border-bottom:1px solid rgba(255,255,255,0.06);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(12px);position:sticky;top:0;z-index:50}
+.top-bar a{color:#94a3b8;text-decoration:none;font-size:0.85rem;font-weight:500;transition:color 0.2s}
+.top-bar a:hover{color:#38bdf8}
+.logo-area{display:flex;align-items:center;gap:10px}
+.logo-area svg{width:28px;height:28px}
+.logo-area span{font-weight:700;font-size:1rem;color:#f1f5f9;letter-spacing:-0.02em}
+.container{max-width:960px;margin:0 auto;padding:40px 20px 80px}
+.hero{text-align:center;margin-bottom:48px}
+.hero-badge{display:inline-block;background:rgba(56,189,248,0.1);border:1px solid rgba(56,189,248,0.2);color:#38bdf8;font-size:0.75rem;font-weight:600;padding:5px 14px;border-radius:100px;margin-bottom:16px;letter-spacing:0.04em;text-transform:uppercase}
+.hero h1{font-size:2.2rem;font-weight:800;color:#f8fafc;letter-spacing:-0.03em;line-height:1.2;margin-bottom:12px}
+.hero p{color:#94a3b8;font-size:1.05rem;max-width:560px;margin:0 auto;line-height:1.6}
+.card{background:rgba(30,41,59,0.5);border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:28px;margin-bottom:24px;backdrop-filter:blur(8px)}
+.card-header{display:flex;align-items:center;gap:10px;margin-bottom:18px}
+.card-header .icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem}
+.icon-blue{background:rgba(56,189,248,0.12);color:#38bdf8}
+.icon-amber{background:rgba(251,191,36,0.12);color:#fbbf24}
+.icon-green{background:rgba(52,211,153,0.12);color:#34d399}
+.icon-red{background:rgba(248,113,113,0.12);color:#f87171}
+.card-header h2{font-size:1.1rem;font-weight:700;color:#f1f5f9}
+label{display:block;font-size:0.8rem;font-weight:600;color:#94a3b8;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.05em}
+textarea{width:100%;min-height:180px;background:rgba(15,23,42,0.6);border:1px solid rgba(255,255,255,0.1);border-radius:10px;color:#e2e8f0;font-family:'Inter',sans-serif;font-size:0.92rem;padding:16px;resize:vertical;line-height:1.65;transition:border-color 0.2s}
+textarea:focus{outline:none;border-color:#38bdf8}
+textarea::placeholder{color:#475569}
+textarea.input-error{border-color:#f87171;animation:shake 0.4s ease}
+@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-4px)}40%,80%{transform:translateX(4px)}}
+.validation-msg{display:none;color:#f87171;font-size:0.82rem;font-weight:500;margin-top:8px;padding-left:2px}
+.validation-msg.visible{display:block}
+.examples-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.example-btn{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:#94a3b8;font-size:0.78rem;font-weight:500;padding:7px 14px;border-radius:8px;cursor:pointer;transition:all 0.2s;font-family:'Inter',sans-serif}
+.example-btn:hover{background:rgba(56,189,248,0.08);border-color:rgba(56,189,248,0.25);color:#38bdf8}
+.btn-analyze{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#0ea5e9,#2563eb);color:#fff;font-family:'Inter',sans-serif;font-size:0.95rem;font-weight:600;padding:13px 32px;border:none;border-radius:10px;cursor:pointer;transition:all 0.25s;margin-top:20px}
+.btn-analyze:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(14,165,233,0.3)}
+.btn-analyze:disabled{opacity:0.5;cursor:not-allowed;transform:none;box-shadow:none}
+#results{display:none}
+.risk-banner{display:flex;align-items:center;gap:14px;padding:18px 22px;border-radius:12px;margin-bottom:22px;border:1px solid}
+.risk-low{background:rgba(52,211,153,0.08);border-color:rgba(52,211,153,0.2)}
+.risk-low .risk-label{color:#34d399}
+.risk-medium{background:rgba(251,191,36,0.08);border-color:rgba(251,191,36,0.2)}
+.risk-medium .risk-label{color:#fbbf24}
+.risk-high{background:rgba(248,113,113,0.08);border-color:rgba(248,113,113,0.2)}
+.risk-high .risk-label{color:#f87171}
+.risk-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
+.risk-low .risk-dot{background:#34d399}
+.risk-medium .risk-dot{background:#fbbf24}
+.risk-high .risk-dot{background:#f87171}
+.risk-label{font-size:1rem;font-weight:700}
+.risk-sub{font-size:0.82rem;color:#94a3b8;margin-top:2px}
+.section-title{font-size:0.95rem;font-weight:700;color:#f1f5f9;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.section-title .dot{width:6px;height:6px;border-radius:50%;background:#38bdf8}
+.summary-text{color:#cbd5e1;font-size:0.92rem;line-height:1.7;margin-bottom:24px}
+.flags-list{list-style:none;margin-bottom:24px}
+.flags-list li{padding:10px 14px;border-radius:8px;font-size:0.88rem;line-height:1.5;margin-bottom:8px;display:flex;align-items:flex-start;gap:10px}
+.flags-list li .flag-icon{flex-shrink:0;margin-top:2px;font-size:0.9rem}
+.flag-warn{background:rgba(251,191,36,0.06);border:1px solid rgba(251,191,36,0.12);color:#fde68a}
+.flag-danger{background:rgba(248,113,113,0.06);border:1px solid rgba(248,113,113,0.12);color:#fca5a5}
+.flag-info{background:rgba(56,189,248,0.06);border:1px solid rgba(56,189,248,0.12);color:#bae6fd}
+.questions-list{list-style:none;margin-bottom:24px}
+.questions-list li{padding:10px 14px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:8px;font-size:0.88rem;color:#cbd5e1;margin-bottom:6px;display:flex;align-items:flex-start;gap:10px}
+.questions-list li::before{content:"?";display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:6px;background:rgba(56,189,248,0.1);color:#38bdf8;font-weight:700;font-size:0.75rem;flex-shrink:0}
+.cta-box{background:linear-gradient(135deg,rgba(14,165,233,0.1),rgba(37,99,235,0.08));border:1px solid rgba(56,189,248,0.15);border-radius:14px;padding:28px;text-align:center;margin-top:28px}
+.cta-box h3{font-size:1.1rem;font-weight:700;color:#f1f5f9;margin-bottom:8px}
+.cta-box p{color:#94a3b8;font-size:0.88rem;margin-bottom:16px;line-height:1.5}
+.cta-link{display:inline-block;background:linear-gradient(135deg,#0ea5e9,#2563eb);color:#fff;font-weight:600;font-size:0.88rem;padding:10px 24px;border-radius:8px;text-decoration:none;transition:all 0.2s}
+.cta-link:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(14,165,233,0.25)}
+.clause-type-badge{display:inline-block;background:rgba(139,92,246,0.12);border:1px solid rgba(139,92,246,0.2);color:#c4b5fd;font-size:0.72rem;font-weight:600;padding:4px 10px;border-radius:6px;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:16px}
+footer{text-align:center;padding:32px 20px;color:#475569;font-size:0.78rem;border-top:1px solid rgba(255,255,255,0.04)}
+footer a{color:#38bdf8;text-decoration:none}
+@media(max-width:640px){.hero h1{font-size:1.6rem}.container{padding:28px 16px 60px}.card{padding:20px}.examples-row{gap:6px}.risk-banner{flex-direction:column;gap:8px;text-align:center}}
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="logo-area">
+    <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="32" height="32" rx="8" fill="#0ea5e9" fill-opacity="0.15"/>
+      <path d="M16 6C12.5 6 10 9 10 13c0 3 1.5 5.5 3 7.5 1 1.3 2 2.5 3 4 1-1.5 2-2.7 3-4 1.5-2 3-4.5 3-7.5 0-4-2.5-7-6-7z" stroke="#38bdf8" stroke-width="1.8" fill="none"/>
+      <circle cx="16" cy="13" r="2.5" fill="#38bdf8"/>
+    </svg>
+    <span>Dental Dash Pro</span>
+  </div>
+  <a href="https://dentaldashpro.com">← Back to Main Site</a>
+</div>
+
+<div class="container">
+  <div class="hero">
+    <div class="hero-badge">Free Tool</div>
+    <h1>DSO Contract Analyzer</h1>
+    <p>Paste any provider agreement clause and get an instant plain-English breakdown of what it really means — plus the questions you should be asking before signing.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="icon icon-blue">&#128196;</div>
+      <h2>Paste Your Contract Clause</h2>
+    </div>
+    <label for="clause-input">Agreement text</label>
+    <textarea id="clause-input" placeholder="Paste a clause from your DSO provider agreement here — non-compete, termination, fee schedule, IP ownership, etc."></textarea>
+    <div class="examples-row">
+      <button class="example-btn" onclick="loadExample('noncompete')">Non-Compete</button>
+      <button class="example-btn" onclick="loadExample('termination')">Termination</button>
+      <button class="example-btn" onclick="loadExample('fee')">Fee Schedule</button>
+      <button class="example-btn" onclick="loadExample('ip')">IP / Ownership</button>
+      <button class="example-btn" onclick="loadExample('restrictive')">Restrictive Covenant</button>
+      <button class="example-btn" onclick="loadExample('compensation')">Compensation</button>
+    </div>
+    <div class="validation-msg" id="validation-msg">Please paste a contract clause above.</div>
+    <button class="btn-analyze" id="analyzeBtn" onclick="analyzeClause()">
+      <span>&#9881;</span> Analyze This Clause
+    </button>
+  </div>
+
+  <div id="results">
+    <div id="risk-banner" class="risk-banner risk-medium">
+      <div class="risk-dot"></div>
+      <div>
+        <div class="risk-label" id="risk-label">Medium Risk</div>
+        <div class="risk-sub" id="risk-sub">This clause contains provisions that warrant careful review.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div id="clause-type-area"></div>
+      <div class="section-title"><span class="dot"></span> Plain-English Summary</div>
+      <div class="summary-text" id="summary-text"></div>
+
+      <div class="section-title"><span class="dot"></span> Key Flags</div>
+      <ul class="flags-list" id="flags-list"></ul>
+
+      <div class="section-title"><span class="dot"></span> Questions to Ask Before Signing</div>
+      <ul class="questions-list" id="questions-list"></ul>
+    </div>
+
+    <div class="cta-box">
+      <h3>This is why practices are moving beyond referrals</h3>
+      <p>If you're seeing gaps like this, you're not alone. Most practices rely on referrals and inconsistent marketing to fill their schedule. Dental Dash Pro gives you direct access to patients who are already looking for treatment.</p>
+      <a href="/for-dentists.html" class="cta-link">See How It Works</a>
+    </div>
+  </div>
+</div>
+
+<footer>Dental Dash Pro &copy; 2026 &middot; <a href="https://dentaldashpro.com">dentaldashpro.com</a> &middot; This tool is for educational purposes only and does not constitute legal advice.</footer>
+
+<script>
+const examples = {
+  noncompete: `Upon termination of this Agreement, for any reason, Provider agrees not to practice dentistry, either directly or indirectly, within a radius of fifteen (15) miles from any office location operated by the DSO or any of its affiliates, for a period of two (2) years following the effective date of termination. This restriction applies regardless of whether termination is initiated by the Provider or by the Organization.`,
+  termination: `Either party may terminate this Agreement upon ninety (90) days written notice. Notwithstanding the foregoing, the Organization may terminate this Agreement immediately and without notice in the event that Provider's license to practice dentistry is suspended, revoked, or restricted, or if Provider is convicted of a felony. Upon termination for any reason, Provider shall forfeit any accrued but unpaid production bonuses and shall remain bound by the non-compete and non-solicitation provisions herein.`,
+  fee: `Provider shall receive compensation equal to thirty-five percent (35%) of net collections attributable to Provider's personal production. Net collections are defined as gross collections less refunds, adjustments, write-offs, lab fees, and any amounts designated as uncollectible by the Organization. The Organization reserves the right to modify the fee schedule upon thirty (30) days written notice. Provider shall have no right to audit the Organization's billing records.`,
+  ip: `All patient records, treatment plans, marketing materials, clinical protocols, and any other documents or materials created by Provider during the term of this Agreement shall be and remain the exclusive property of the Organization. Provider hereby assigns all right, title, and interest in and to such materials to the Organization. Upon termination, Provider shall not retain copies of any patient records or proprietary materials.`,
+  restrictive: `During the term of this Agreement and for a period of eighteen (18) months following termination, Provider shall not, directly or indirectly, solicit, recruit, or hire any employee, contractor, or affiliated provider of the Organization. Provider further agrees not to solicit or accept any patient of the Organization for treatment outside of the Organization's facilities during this restricted period.`,
+  compensation: `Provider's base compensation shall be the greater of: (a) a guaranteed monthly draw of Eight Thousand Dollars ($8,000), or (b) thirty percent (30%) of net collections. In the event that net collections for any month are less than the guaranteed draw, the difference shall be treated as an advance against future earnings and shall be recoverable by the Organization through offset against subsequent compensation. The Organization may adjust the guaranteed draw amount at its sole discretion with sixty (60) days written notice.`
+};
+
+function loadExample(key) {
+  document.getElementById('clause-input').value = examples[key];
+  document.getElementById('results').style.display = 'none';
+  clearValidation();
+}
+
+function clearValidation() {
+  const ta = document.getElementById('clause-input');
+  const msg = document.getElementById('validation-msg');
+  ta.classList.remove('input-error');
+  msg.classList.remove('visible');
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('clause-input').addEventListener('input', clearValidation);
+});
+
+function analyzeClause() {
+  const ta = document.getElementById('clause-input');
+  const text = ta.value.trim();
+  if (!text) {
+    ta.classList.remove('input-error');
+    void ta.offsetWidth;
+    ta.classList.add('input-error');
+    document.getElementById('validation-msg').classList.add('visible');
+    ta.focus();
+    return;
+  }
+  clearValidation();
+
+  const btn = document.getElementById('analyzeBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span>&#9881;</span> Analyzing...';
+
+  setTimeout(() => {
+    const analysis = performAnalysis(text);
+    renderResults(analysis);
+    btn.disabled = false;
+    btn.innerHTML = '<span>&#9881;</span> Analyze This Clause';
+    document.getElementById('results').style.display = 'block';
+    document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 800);
+}
+
+function performAnalysis(text) {
+  const lower = text.toLowerCase();
+  let score = 0;
+  const flags = [];
+  const questions = [];
+  let clauseType = 'General Provision';
+  let summary = '';
+
+  // Clause type detection
+  const types = [
+    { keys: ['non-compete', 'noncompete', 'not to practice', 'radius', 'miles from'], type: 'Non-Compete / Geographic Restriction' },
+    { keys: ['terminat', 'written notice', 'upon termination', 'forfeit'], type: 'Termination Provision' },
+    { keys: ['fee schedule', 'net collections', 'production', 'compensation', 'percent', 'gross collections', 'guaranteed draw'], type: 'Compensation / Fee Schedule' },
+    { keys: ['intellectual property', 'ownership', 'exclusive property', 'assigns all right', 'patient records', 'proprietary'], type: 'IP / Ownership Rights' },
+    { keys: ['solicit', 'recruit', 'non-solicitation', 'restrictive covenant', 'restricted period'], type: 'Restrictive Covenant / Non-Solicitation' },
+    { keys: ['indemnif', 'hold harmless', 'liability', 'damages'], type: 'Indemnification / Liability' },
+    { keys: ['insurance', 'malpractice', 'tail coverage'], type: 'Insurance Provision' },
+    { keys: ['confidential', 'nda', 'non-disclosure', 'trade secret'], type: 'Confidentiality / NDA' }
+  ];
+
+  for (const t of types) {
+    if (t.keys.some(k => lower.includes(k))) { clauseType = t.type; break; }
+  }
+
+  // Risk pattern analysis
+  const riskPatterns = [
+    { pattern: /(\d+)\s*(\(\d+\))?\s*miles?/i, handler: (m) => {
+      const miles = parseInt(m[1]);
+      if (miles >= 15) { score += 3; flags.push({ level: 'danger', text: `${miles}-mile geographic restriction is aggressive. Industry standard is typically 5-10 miles. A ${miles}-mile radius could significantly limit your ability to practice in the area.` }); }
+      else if (miles >= 10) { score += 2; flags.push({ level: 'warn', text: `${miles}-mile radius is on the higher end. Consider whether this covers your entire commuting area and patient base.` }); }
+      else { score += 1; flags.push({ level: 'info', text: `${miles}-mile radius is within a common range for dental non-competes, though still worth negotiating.` }); }
+      questions.push('Can the radius be reduced to 5 miles or limited to specific office locations?');
+    }},
+    { pattern: /(\d+)\s*(\(\d+\))?\s*years?\s*(following|after|from)/i, handler: (m) => {
+      const years = parseInt(m[1]);
+      if (years >= 3) { score += 3; flags.push({ level: 'danger', text: `${years}-year post-termination restriction is unusually long. Most enforceable dental non-competes range from 1-2 years.` }); }
+      else if (years >= 2) { score += 2; flags.push({ level: 'warn', text: `${years}-year restriction period is standard but still significant. This limits your options for a substantial period.` }); }
+      else { score += 1; flags.push({ level: 'info', text: `${years}-year restriction is on the shorter and more reasonable end.` }); }
+      questions.push('Is the time restriction negotiable? Can it be reduced to 12 months?');
+    }},
+    { pattern: /regardless of.*(who|whether|reason)/i, handler: () => {
+      score += 2; flags.push({ level: 'danger', text: 'The restriction applies regardless of who initiates termination. This means even if the DSO breaches the contract or fires you without cause, you could still be bound by the restriction.' });
+      questions.push('Should the non-compete be void if the DSO terminates you without cause?');
+    }},
+    { pattern: /forfeit.*(bonus|accrued|unpaid|compensation)/i, handler: () => {
+      score += 3; flags.push({ level: 'danger', text: 'You could forfeit earned compensation upon termination. Accrued but unpaid production bonuses represent work you already performed — forfeiture clauses are a significant red flag.' });
+      questions.push('Can a clause be added requiring payment of all accrued compensation upon termination regardless of reason?');
+    }},
+    { pattern: /immediately\s*(and)?\s*without\s*notice/i, handler: () => {
+      score += 2; flags.push({ level: 'warn', text: 'The organization can terminate immediately without notice under certain conditions. Review these conditions carefully to ensure they are limited to genuinely serious events.' });
+      questions.push('What exactly triggers immediate termination? Are there any cure periods for correctable issues?');
+    }},
+    { pattern: /sole\s*discretion/i, handler: () => {
+      score += 2; flags.push({ level: 'danger', text: '"Sole discretion" gives the DSO unilateral power to make changes without your input or approval. This is one-sided language that removes your negotiating position.' });
+      questions.push('Can "sole discretion" be changed to "mutual agreement" or at minimum require good-faith discussion?');
+    }},
+    { pattern: /no\s*right\s*to\s*audit/i, handler: () => {
+      score += 3; flags.push({ level: 'danger', text: 'You have no right to audit billing records, yet your compensation is based on collections. Without audit rights, you cannot verify that you are being paid correctly.' });
+      questions.push('Can audit rights be added — even if limited to annual review of your own production records?');
+    }},
+    { pattern: /exclusive\s*property\s*of\s*the\s*(organization|company|dso)/i, handler: () => {
+      score += 2; flags.push({ level: 'warn', text: 'All materials you create become the exclusive property of the DSO. This is common for patient records (legally required) but may overreach if it includes clinical protocols or research you develop.' });
+      questions.push('Does "materials created" include clinical innovations or CE research you develop on your own time?');
+    }},
+    { pattern: /assigns?\s*all\s*right/i, handler: () => {
+      score += 2; flags.push({ level: 'warn', text: 'Broad IP assignment language transfers all intellectual property rights to the DSO. Ensure this is limited to work product created within the scope of your duties.' });
+      questions.push('Can IP assignment be narrowed to work created specifically within DSO duties during working hours?');
+    }},
+    { pattern: /shall\s*not\s*retain\s*(copies|records)/i, handler: () => {
+      score += 1; flags.push({ level: 'warn', text: 'You cannot retain copies of patient records after termination. While the DSO owns the records, you may need access for malpractice defense or board inquiries.' });
+      questions.push('Can a provision be added allowing access to records for legal defense or board inquiries after departure?');
+    }},
+    { pattern: /net\s*collections/i, handler: () => {
+      if (lower.includes('gross collections less') || lower.includes('adjustments') || lower.includes('write-offs')) {
+        score += 2; flags.push({ level: 'warn', text: 'Compensation is based on net collections with deductions for adjustments, write-offs, and lab fees. The definition of "net" can significantly reduce your effective rate. A 35% net rate could equal 25-28% of gross.' });
+        questions.push('Can you get a clear breakdown of average deductions applied to net collections over the past 12 months?');
+      }
+    }},
+    { pattern: /modify\s*(the)?\s*(fee|compensation|schedule)/i, handler: () => {
+      score += 2; flags.push({ level: 'danger', text: 'The organization can modify your fee schedule with only written notice. Your compensation structure can change without your agreement.' });
+      questions.push('Can fee schedule changes require mutual written consent rather than unilateral notice?');
+    }},
+    { pattern: /advance\s*against\s*future\s*earnings/i, handler: () => {
+      score += 2; flags.push({ level: 'danger', text: 'Guaranteed draw shortfalls are treated as an advance — essentially a loan. If your collections dip, you could accumulate debt that the DSO recovers from future paychecks.' });
+      questions.push('Is the draw a true guarantee or an advance? What happens to the accumulated balance if you leave?');
+    }},
+    { pattern: /recoverable.*offset/i, handler: () => {
+      score += 2; flags.push({ level: 'warn', text: 'The DSO can offset draw overages against future compensation, meaning a slow month could reduce future paychecks.' });
+      questions.push('Is there a cap on how much can be recovered per pay period? Is the balance forgiven upon termination?');
+    }},
+    { pattern: /solicit.*patient/i, handler: () => {
+      score += 2; flags.push({ level: 'warn', text: 'Patient non-solicitation prevents you from treating patients who may specifically want to follow you to a new practice. This can affect continuity of care.' });
+      questions.push('Are patients who independently seek you out after termination exempt from the non-solicitation clause?');
+    }},
+    { pattern: /solicit.*recruit.*hire.*employee/i, handler: () => {
+      score += 1; flags.push({ level: 'info', text: 'Employee non-solicitation is standard in healthcare. It prevents you from recruiting DSO staff to a new practice.' });
+    }},
+    { pattern: /eighteen\s*\(18\)\s*months|24\s*months|two\s*\(2\)\s*year/i, handler: () => {
+      if (!flags.some(f => f.text.includes('restriction period'))) {
+        score += 1; flags.push({ level: 'warn', text: 'The restricted period extends well beyond your termination date. Factor this into your career planning.' });
+        questions.push('Can the restricted period be shortened to 12 months?');
+      }
+    }},
+    { pattern: /affiliates?/i, handler: () => {
+      if (lower.includes('miles') || lower.includes('radius')) {
+        score += 2; flags.push({ level: 'danger', text: 'The restriction applies to ALL affiliate locations, not just where you worked. In a large DSO, this could effectively block you from practicing across an entire metro area or state.' });
+        questions.push('Can the restriction be limited to only the specific office location(s) where you personally practiced?');
+      }
+    }}
+  ];
+
+  for (const rp of riskPatterns) {
+    const match = text.match(rp.pattern);
+    if (match) rp.handler(match);
+  }
+
+  // Summary generation by clause type
+  const summaries = {
+    'Non-Compete / Geographic Restriction': 'This clause restricts where you can practice dentistry after leaving the DSO. It defines a geographic boundary and time period during which you cannot work at or open a competing practice. These provisions are common in DSO agreements but vary widely in enforceability depending on your state.',
+    'Termination Provision': 'This clause defines how either party can end the agreement, including notice periods and conditions for immediate termination. Pay close attention to what happens to your compensation and what obligations survive after the agreement ends.',
+    'Compensation / Fee Schedule': 'This clause defines how you get paid — typically as a percentage of collections or production. The specific definitions of "net collections" and what deductions apply can significantly impact your actual take-home compensation.',
+    'IP / Ownership Rights': 'This clause addresses who owns the work product, patient records, and materials created during your time with the DSO. While patient record ownership by the practice entity is standard, broad IP assignment language may capture more than intended.',
+    'Restrictive Covenant / Non-Solicitation': 'This clause limits your ability to recruit employees or solicit patients from the DSO after you leave. These restrictions can impact your transition to a new practice and your ability to maintain patient relationships.',
+    'Indemnification / Liability': 'This clause addresses who bears financial responsibility for legal claims, malpractice actions, or other liabilities arising from your work at the DSO.',
+    'Insurance Provision': 'This clause covers professional liability insurance requirements during and potentially after the term of the agreement.',
+    'Confidentiality / NDA': 'This clause defines what information is considered confidential and restricts your ability to share it during and after employment.',
+    'General Provision': 'This clause contains provisions that affect your rights and obligations under the DSO agreement. Review each element carefully to understand the practical impact on your practice.'
+  };
+  summary = summaries[clauseType] || summaries['General Provision'];
+
+  // Default flags/questions if none were found
+  if (flags.length === 0) {
+    flags.push({ level: 'info', text: 'No high-risk patterns were automatically detected. This does not mean the clause is risk-free — have a healthcare attorney review the full agreement for context-dependent risks.' });
+  }
+  if (questions.length === 0) {
+    questions.push('What is the process for modifying or negotiating this clause before signing?');
+    questions.push('How does this clause interact with other provisions in the full agreement?');
+    questions.push('Has this clause been reviewed by a healthcare attorney licensed in your state?');
+  }
+  questions.push('Is this clause enforceable under the laws of your specific state?');
+
+  // Risk level
+  let risk = 'low';
+  let riskText = 'Low Risk';
+  let riskSub = 'This clause appears relatively standard, but always have an attorney confirm.';
+  if (score >= 8) { risk = 'high'; riskText = 'High Risk'; riskSub = 'This clause contains multiple concerning provisions that could significantly impact your career and compensation.'; }
+  else if (score >= 4) { risk = 'medium'; riskText = 'Medium Risk'; riskSub = 'This clause contains provisions that warrant careful negotiation before signing.'; }
+
+  return { clauseType, risk, riskText, riskSub, summary, flags, questions };
+}
+
+function renderResults(a) {
+  const banner = document.getElementById('risk-banner');
+  banner.className = 'risk-banner risk-' + a.risk;
+  document.getElementById('risk-label').textContent = a.riskText;
+  document.getElementById('risk-sub').textContent = a.riskSub;
+  document.getElementById('clause-type-area').innerHTML = '<div class="clause-type-badge">' + a.clauseType + '</div>';
+  document.getElementById('summary-text').textContent = a.summary;
+
+  const flagsEl = document.getElementById('flags-list');
+  flagsEl.innerHTML = a.flags.map(f => {
+    const cls = f.level === 'danger' ? 'flag-danger' : f.level === 'warn' ? 'flag-warn' : 'flag-info';
+    const icon = f.level === 'danger' ? '&#9888;' : f.level === 'warn' ? '&#9888;' : '&#8505;';
+    return `<li class="${cls}"><span class="flag-icon">${icon}</span> ${f.text}</li>`;
+  }).join('');
+
+  const questionsEl = document.getElementById('questions-list');
+  questionsEl.innerHTML = a.questions.map(q => `<li>${q}</li>`).join('');
+}
+</script>
+</body>
+</html>
