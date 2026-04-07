@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Tools for Dental Practices | Dental Dash Pro</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}
+.top-bar{background:rgba(15,23,42,0.95);border-bottom:1px solid rgba(255,255,255,0.06);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(12px);position:sticky;top:0;z-index:50}
+.top-bar a{color:#94a3b8;text-decoration:none;font-size:0.85rem;font-weight:500;transition:color 0.2s}
+.top-bar a:hover{color:#38bdf8}
+.logo-area{display:flex;align-items:center;gap:10px}
+.logo-area svg{width:28px;height:28px}
+.logo-area span{font-weight:700;font-size:1rem;color:#f1f5f9;letter-spacing:-0.02em}
+.container{max-width:1060px;margin:0 auto;padding:48px 20px 80px}
+.hero{text-align:center;margin-bottom:56px}
+.hero-badge{display:inline-block;background:rgba(56,189,248,0.1);border:1px solid rgba(56,189,248,0.2);color:#38bdf8;font-size:0.75rem;font-weight:600;padding:5px 14px;border-radius:100px;margin-bottom:16px;letter-spacing:0.04em;text-transform:uppercase}
+.hero h1{font-size:2.4rem;font-weight:800;color:#f8fafc;letter-spacing:-0.03em;line-height:1.2;margin-bottom:14px}
+.hero p{color:#94a3b8;font-size:1.05rem;max-width:620px;margin:0 auto;line-height:1.65}
+.tools-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:64px}
+.tool-card{background:rgba(30,41,59,0.5);border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:32px 28px;backdrop-filter:blur(8px);transition:all 0.3s;display:flex;flex-direction:column}
+.tool-card:hover{border-color:rgba(56,189,248,0.15);transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,0.2)}
+.tool-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:18px}
+.icon-green{background:rgba(52,211,153,0.12);color:#34d399}
+.icon-blue{background:rgba(56,189,248,0.12);color:#38bdf8}
+.icon-amber{background:rgba(251,191,36,0.12);color:#fbbf24}
+.tool-card h2{font-size:1.15rem;font-weight:700;color:#f1f5f9;margin-bottom:10px;line-height:1.3}
+.tool-card p{color:#94a3b8;font-size:0.88rem;line-height:1.6;margin-bottom:20px;flex:1}
+.tool-btn{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#0ea5e9,#2563eb);color:#fff;font-family:'Inter',sans-serif;font-size:0.88rem;font-weight:600;padding:11px 22px;border:none;border-radius:9px;text-decoration:none;transition:all 0.25s;align-self:flex-start}
+.tool-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(14,165,233,0.3)}
+.tool-btn span{font-size:1rem;transition:transform 0.2s}
+.tool-btn:hover span{transform:translateX(2px)}
+.bottom-cta{background:linear-gradient(135deg,rgba(14,165,233,0.08),rgba(37,99,235,0.06));border:1px solid rgba(56,189,248,0.1);border-radius:18px;padding:48px 32px;text-align:center}
+.bottom-cta h2{font-size:1.5rem;font-weight:800;color:#f8fafc;letter-spacing:-0.02em;margin-bottom:12px;line-height:1.3}
+.bottom-cta p{color:#94a3b8;font-size:1rem;max-width:520px;margin:0 auto 24px;line-height:1.6}
+.cta-link{display:inline-block;background:linear-gradient(135deg,#0ea5e9,#2563eb);color:#fff;font-weight:600;font-size:0.95rem;padding:13px 32px;border-radius:10px;text-decoration:none;transition:all 0.25s}
+.cta-link:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(14,165,233,0.3)}
+footer{text-align:center;padding:32px 20px;color:#475569;font-size:0.78rem;border-top:1px solid rgba(255,255,255,0.04);margin-top:48px}
+footer a{color:#38bdf8;text-decoration:none}
+@media(max-width:860px){.tools-grid{grid-template-columns:1fr}.hero h1{font-size:1.8rem}.container{padding:36px 16px 60px}.bottom-cta{padding:36px 24px}.bottom-cta h2{font-size:1.3rem}}
+@media(min-width:861px) and (max-width:1024px){.tools-grid{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="logo-area">
+    <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="32" height="32" rx="8" fill="#0ea5e9" fill-opacity="0.15"/>
+      <path d="M16 6C12.5 6 10 9 10 13c0 3 1.5 5.5 3 7.5 1 1.3 2 2.5 3 4 1-1.5 2-2.7 3-4 1.5-2 3-4.5 3-7.5 0-4-2.5-7-6-7z" stroke="#38bdf8" stroke-width="1.8" fill="none"/>
+      <circle cx="16" cy="13" r="2.5" fill="#38bdf8"/>
+    </svg>
+    <span>Dental Dash Pro</span>
+  </div>
+  <a href="/index.html">&larr; Back to Dental Dash Pro</a>
+</div>
+
+<div class="container">
+  <div class="hero">
+    <div class="hero-badge">Free Resources</div>
+    <h1>Free Tools for Dental Practices</h1>
+    <p>Identify revenue gaps, understand contracts, and improve operations with simple tools built for real dental teams.</p>
+  </div>
+
+  <div class="tools-grid">
+    <div class="tool-card">
+      <div class="tool-icon icon-green">&#128200;</div>
+      <h2>Practice Revenue Leak Calculator</h2>
+      <p>Estimate how much revenue your practice may be losing each month from open chair time, no-shows, and unscheduled treatment.</p>
+      <a href="revenue-leak-calculator.html" class="tool-btn">Open Calculator <span>&rarr;</span></a>
+    </div>
+
+    <div class="tool-card">
+      <div class="tool-icon icon-blue">&#128196;</div>
+      <h2>DSO Contract Analyzer</h2>
+      <p>Paste any contract clause and get a plain-English breakdown, risk level, and key questions to ask before signing.</p>
+      <a href="dso-contract-analyzer.html" class="tool-btn">Analyze Contract <span>&rarr;</span></a>
+    </div>
+
+    <div class="tool-card">
+      <div class="tool-icon icon-amber">&#9888;</div>
+      <h2>Staff Overtime Risk Estimator</h2>
+      <p>Evaluate team workload and identify overtime and burnout risks based on your current schedule.</p>
+      <a href="staff-overtime-risk.html" class="tool-btn">Check Risk <span>&rarr;</span></a>
+    </div>
+  </div>
+
+  <div class="bottom-cta">
+    <h2>Stop relying only on referrals to fill your schedule</h2>
+    <p>Dental Dash Pro gives practices direct access to high-intent treatment cases.</p>
+    <a href="/for-dentists.html" class="cta-link">See How It Works</a>
+  </div>
+</div>
+
+<footer>Dental Dash Pro &copy; 2026 &middot; <a href="https://dentaldashpro.com">dentaldashpro.com</a></footer>
+
+</body>
+</html>
