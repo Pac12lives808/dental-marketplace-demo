@@ -1,0 +1,58 @@
+name: Generate Favicon Files
+
+on:
+  workflow_dispatch:
+
+jobs:
+  generate-favicons:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install sharp
+        run: npm install sharp
+
+      - name: Generate favicon PNGs and ICO
+        run: |
+          node -e "
+          const sharp = require('sharp');
+          const fs = require('fs');
+
+          async function generate() {
+            // Generate favicon-32x32.png
+            await sharp('DDPWHITETLogo.png')
+              .resize(32, 32, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
+              .png()
+              .toFile('favicon-32x32.png');
+            console.log('Created favicon-32x32.png');
+
+            // Generate favicon-16x16.png
+            await sharp('DDPWHITETLogo.png')
+              .resize(16, 16, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
+              .png()
+              .toFile('favicon-16x16.png');
+            console.log('Created favicon-16x16.png');
+
+            // Copy 32x32 as favicon.ico (browsers accept PNG named .ico)
+            fs.copyFileSync('favicon-32x32.png', 'favicon.ico');
+            console.log('Created favicon.ico');
+          }
+
+          generate().catch(console.error);
+          "
+
+      - name: Commit favicon files
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add favicon.ico favicon-32x32.png favicon-16x16.png
+          git diff --staged --quiet || git commit -m 'Add favicon files generated from DDPWHITETLogo.png'
+          git push
