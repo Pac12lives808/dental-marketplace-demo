@@ -271,4 +271,53 @@
     </p>
   </footer>
 </body>
+
+    <script type="module">
+import { supabase } from './supabase-config.js';
+
+const form = document.getElementById('waitlistForm');
+const submitBtn = form.querySelector('button[type="submit"]');
+const formSection = document.querySelector('.waitlist-card');
+const successSection = document.getElementById('success');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Joining...';
+  
+  const formData = new FormData(form);
+  const payload = {
+    first_name: String(formData.get('firstName') || '').trim(),
+    email: String(formData.get('email') || '').trim().toLowerCase(),
+    zip_code: String(formData.get('zipCode') || '').trim(),
+    procedure: String(formData.get('procedure') || ''),
+    timeline: String(formData.get('timeline') || ''),
+    phone: String(formData.get('phone') || '').trim() || null,
+    description: String(formData.get('description') || '').trim() || null
+  };
+  
+  // Step 1: Insert into Supabase
+  const { error } = await supabase.from('patient_waitlist').insert([payload]);
+  
+  if (error) {
+    alert('Submission failed: ' + error.message);
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Join the Waitlist';
+    return;
+  }
+  
+  // Step 2: Send email notifications via Netlify function (non-blocking)
+  fetch('/.netlify/functions/send-notification-email', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ type: 'waitlist', ...payload })
+  }).catch(() => {}); // Non-blocking - don't delay user experience
+  
+  // Step 3: Show success UI
+  gtag('event', 'join_patient_waitlist');
+  formSection.style.display = 'none';
+  successSection.style.display = 'block';
+});
+</script>
 </html>
