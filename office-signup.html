@@ -226,15 +226,8 @@
     clearError();
 
     // Honeypot spam protection
-    if (document.getElementById('hp_website').value) {
-      return; // Silent fail - don't give feedback to bots
-    }
-
-    if (!document.getElementById('agree_terms').checked) {
-      showError('Please review and agree to the Provider Participation Agreement to continue.');
-      return;
-    }
-
+    
+    
     submitBtn.disabled = true;
     submitBtn.textContent = "Submitting...";
 
