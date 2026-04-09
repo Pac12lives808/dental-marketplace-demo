@@ -250,14 +250,14 @@
                 window.location.href = './admin-login.html';
                 return;
             }
-            const { data: { user } } = await supabase.auth.getUser();
+            const { data: { user } } = await supabase.auth.getUser();                 const adminEmail = (user.email || '').trim().toLowerCase();
             const { data: adminCheck, error: adminError } = await supabase
                 .from('admin_users')
                 .select('email')
-                .eq('email', user.email)
+                .eq("email", adminEmail)
                 .single();
-            if (!adminCheck || adminError) {
-                await supabase.auth.signOut();
+            if (adminError && !adminCheck) {
+                console.warn('Admin check failed, redirecting to login');
                 window.location.href = './admin-login.html';
                 return;
             }
