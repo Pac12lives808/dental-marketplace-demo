@@ -231,20 +231,18 @@
     submitBtn.disabled = true;
     submitBtn.textContent = "Submitting...";
 
-    const fd = new FormData(form);
     const payload = {
-      full_name: String(fd.get("full_name") || "").trim(),
-      email: String(fd.get("email") || "").trim().toLowerCase(),
-      phone: String(fd.get("phone") || "").trim(),
-      practice_name: String(fd.get("practice_name") || "").trim(),
-      city: String(fd.get("city") || "").trim(),
-      state: String(fd.get("state") || "").trim(),
-      dental_license_number: String(fd.get("dental_license_number") || "").trim(),
-      specialty: String(fd.get("specialty") || "").trim(),
-      website: String(fd.get("website") || "").trim() || null,
-      status: "PENDING"
-    };
-
+        full_name: (document.getElementById('full_name').value || '').trim(),
+        email: (document.getElementById('email').value || '').trim().toLowerCase(),
+        phone: (document.getElementById('phone').value || '').trim(),
+        practice_name: (document.getElementById('practice_name').value || '').trim(),
+        city: (document.getElementById('city').value || '').trim(),
+        state: (document.getElementById('state').value || '').trim(),
+        dental_license_number: (document.getElementById('dental_license_number').value || '').trim(),
+        specialty: (document.getElementById('specialty').value || '').trim(),
+        website: (document.getElementById('website').value || '').trim() || null,
+        status: 'PENDING'
+      };
     const { error } = await supabase.from("office_applications").insert([payload]);
     if (error) {
       showError(error.message || "Submission failed. Please try again.");
