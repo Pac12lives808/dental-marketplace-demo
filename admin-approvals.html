@@ -261,13 +261,14 @@
                 window.location.href = './admin-login.html';
                 return;
             }
-        })();
+        loadApplications();         })();
 
         let allApps = [];
         let currentFilter = "ALL";
         let activeApp = null;
 
-        function getRelativeTime(dateString) {
+                function normalizeStatus(status) { return (status || '').toUpperCase(); }
+            function getRelativeTime(dateString) {
             const date = new Date(dateString);
             const now = new Date();
             const diffInSeconds = Math.floor((now - date) / 1000);
@@ -290,15 +291,15 @@
 
         function updateMetrics() {
             document.getElementById("countTotal").textContent = allApps.length;
-            document.getElementById("countPending").textContent = allApps.filter(a => a.status === 'PENDING').length;
-            document.getElementById("countApproved").textContent = allApps.filter(a => a.status === 'APPROVED').length;
-            document.getElementById("countRejected").textContent = allApps.filter(a => a.status === 'REJECTED').length;
+            document.getElementById("countPending").textContent = allApps.filter(a => normalizeStatus(a.status) === 'PENDING').length;
+            document.getElementById("countApproved").textContent = allApps.filter(a => normalizeStatus(a.status) === 'APPROVED').length;
+            document.getElementById("countRejected").textContent = allApps.filter(a => normalizeStatus(a.status) === 'REJECTED').length;
         }
 
         function renderTable() {
             const searchTerm = document.getElementById("searchInput").value.toLowerCase();
             const filtered = allApps.filter(app => {
-                const matchesStatus = currentFilter === "ALL" || app.status === currentFilter;
+                const matchesStatus = currentFilter === "ALL" || normalizeStatus(app.status) === currentFilter;
                 const matchesSearch = !searchTerm || 
                     app.practice_name.toLowerCase().includes(searchTerm) ||
                     app.full_name.toLowerCase().includes(searchTerm) ||
@@ -309,7 +310,7 @@
             const body = document.getElementById("appsBody");
             body.innerHTML = "";
             filtered.forEach(app => {
-                const isUrgent = app.status === 'PENDING' && (new Date() - new Date(app.created_at)) > (3 * 24 * 60 * 60 * 1000);
+                const isUrgent = normalizeStatus(app.status) === 'PENDING' && (new Date() - new Date(app.created_at)) > (3 * 24 * 60 * 60 * 1000);
                 const isDuplicate = allApps.some(other => 
                     other.id !== app.id && (other.email === app.email || other.dental_license_number === app.dental_license_number)
                 );
@@ -320,7 +321,7 @@
                     <td><strong>${app.practice_name}</strong><br><small style="color:var(--text-muted)">${app.specialty}</small></td>
                     <td>${app.full_name}<br><small style="color:var(--text-muted)">${app.email}</small>${isDuplicate ? '<br><span class="duplicate-tag">POSSIBLE DUPLICATE</span>' : ''}</td>
                     <td>${app.city}, ${app.state}</td>
-                    <td><span class="badge badge-${app.status}">${app.status}</span></td>
+                    <td><span class="badge badge-${normalizeStatus(app.status)}">${normalizeStatus(app.status)}</span></td>
                     <td><button class="btn btn-primary btn-sm review-btn" data-id="${app.id}">Review</button></td>
                 `;
                 body.appendChild(tr);
@@ -378,9 +379,7 @@
             if (approved.length === 0) { alert("No approved offices."); return; }
             const headers = ["practice_name", "full_name", "email", "phone", "city", "state"];
             const rows = approved.map(a => [a.practice_name, a.full_name, a.email, a.phone, a.city, a.state]);
-            let csv = headers.join(",") + "
-" + rows.map(r => r.join(",")).join("
-");
+let csv = headers.join(",") + "\n" + rows.map(r => r.join(",")).join("\n");
             const blob = new Blob([csv], { type: 'text/csv' });
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -406,7 +405,7 @@
             await supabase.auth.signOut();
             window.location.href = "./admin-login.html";
         };
-        loadApplications();
+        
     </script>
 </body>
 </html>
