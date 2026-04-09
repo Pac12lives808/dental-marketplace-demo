@@ -3,7 +3,7 @@
 
 const { Resend } = require('resend');
 
-const ADMIN_EMAIL = 'admin@dentaldashpro.com';
+const ADMIN_EMAIL = 'hello@dentaldashpro.com';
 const FROM_EMAIL  = 'Dental Dash Pro <noreply@dentaldashpro.com>';
 
 exports.handler = async (event) => {
