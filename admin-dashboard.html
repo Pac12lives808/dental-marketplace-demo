@@ -4,10 +4,10 @@
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-PLK6GWSVB4"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-PLK6GWSVB4');
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-PLK6GWSVB4');
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -35,12 +35,46 @@
             background: var(--bg-body);
             color: var(--text-main);
             min-height: 100vh;
-            padding: 40px 20px;
         }
-        .container { max-width: 1200px; margin: 0 auto; }
-        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; }
-        .header h1 { margin: 0; font-size: 1.75rem; font-weight: 700; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
         
+        .topbar { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            margin-bottom: 32px; 
+            gap: 16px; 
+            flex-wrap: wrap; 
+        }
+        .topbar h1 { margin: 0; font-size: 1.75rem; font-weight: 700; }
+        
+        .nav-links { display: flex; gap: 20px; align-items: center; }
+        .nav-link { 
+            text-decoration: none; 
+            color: var(--text-muted); 
+            font-weight: 600; 
+            font-size: 14px; 
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+        .nav-link:hover { color: var(--primary); background: rgba(0,123,255,0.05); }
+        .nav-link.active { color: var(--primary); background: rgba(0,123,255,0.1); }
+
+        .btn {
+            padding: 10px 18px;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+        }
+        .btn-dark { background: #24292e; color: #fff; }
+        .btn-dark:hover { background: #000; }
+
         /* Stats Grid */
         .stats-grid { 
             display: grid; 
@@ -57,10 +91,11 @@
         }
         .stat-label { font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; display: block; }
         .stat-value { font-size: 28px; font-weight: 700; color: var(--text-main); }
-        
+
         /* Tables */
         .section-header { margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
         .section-header h2 { margin: 0; font-size: 1.25rem; font-weight: 600; }
+        
         .card {
             background: var(--bg-card);
             border-radius: var(--radius-lg);
@@ -71,52 +106,62 @@
         }
         .table-wrap { overflow-x: auto; }
         table { width: 100%; border-collapse: collapse; text-align: left; font-size: 14px; }
-        th { background: #f8f9fa; padding: 12px 16px; font-weight: 600; color: var(--text-muted); border-bottom: 1px solid var(--border-color); }
+        th { background: #f8f9fa; padding: 12px 16px; font-weight: 600; color: var(--text-muted); border-bottom: 1px solid var(--border-color); text-transform: uppercase; font-size: 12px; }
         td { padding: 16px; border-bottom: 1px solid var(--border-color); vertical-align: middle; }
         tr:last-child td { border-bottom: none; }
-        
+
         .badge { padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
         .badge-pending { background: #fff3cd; color: #856404; }
         .badge-approved { background: #d4edda; color: #155724; }
         .badge-rejected { background: #f8d7da; color: #721c24; }
-        
+
         .btn-sm { padding: 6px 12px; font-size: 12px; font-weight: 600; border-radius: 4px; border: 1px solid var(--border-color); background: white; cursor: pointer; text-decoration: none; color: var(--text-main); }
         .btn-sm:hover { background: #f8f9fa; }
-        
+
         /* Modal */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
-        .modal-content { background: white; padding: 32px; border-radius: var(--radius-lg); max-width: 600px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; }
+        .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(2px); }
+        .modal { background: white; padding: 32px; border-radius: var(--radius-lg); max-width: 600px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; }
         .modal-close { position: absolute; top: 20px; right: 20px; font-size: 24px; cursor: pointer; border: none; background: none; }
-        .modal h3 { margin-top: 0; margin-bottom: 24px; }
+        .modal h3 { margin-top: 0; margin-bottom: 24px; font-size: 1.5rem; }
+        
         .detail-row { margin-bottom: 16px; border-bottom: 1px solid #f0f0f0; padding-bottom: 8px; }
-        .detail-label { display: block; font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
+        .detail-label { display: block; font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px; }
         .detail-value { font-size: 15px; color: var(--text-main); }
-        
+
         .empty-state { padding: 40px; text-align: center; color: var(--text-muted); font-style: italic; }
-        
+
         @media (max-width: 768px) {
-            .header { flex-direction: column; align-items: flex-start; gap: 16px; }
+            .topbar { flex-direction: column; align-items: flex-start; }
+            .nav-links { width: 100%; overflow-x: auto; padding-bottom: 8px; }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <h1>Admin Dashboard</h1>
-            <div id="user-info" style="font-size: 14px; color: var(--text-muted);"></div>
-        </div>
+        <header class="topbar">
+            <div>
+                <h1>Admin Dashboard</h1>
+                <div id="user-info" style="font-size: 14px; color: var(--text-muted); margin-top: 4px;"></div>
+            </div>
+            <nav class="nav-links">
+                <a href="./admin-dashboard.html" class="nav-link active">Dashboard</a>
+                <a href="./admin-approvals.html" class="nav-link">Office Apps</a>
+                <a href="./patient-waitlist.html" class="nav-link">Waitlist</a>
+                <button class="btn btn-dark" id="logoutBtn" style="margin-left: 10px;">Log Out</button>
+            </nav>
+        </header>
 
         <div class="stats-grid">
             <div class="stat-card">
-                <span class="stat-label">Total Office Applications</span>
+                <span class="stat-label">Total Office Apps</span>
                 <div id="stat-total-apps" class="stat-value">--</div>
             </div>
             <div class="stat-card">
-                <span class="stat-label">Pending Applications</span>
+                <span class="stat-label">Pending Apps</span>
                 <div id="stat-pending-apps" class="stat-value">--</div>
             </div>
             <div class="stat-card">
-                <span class="stat-label">Total Patient Waitlist</span>
+                <span class="stat-label">Total Waitlist</span>
                 <div id="stat-total-waitlist" class="stat-value">--</div>
             </div>
             <div class="stat-card">
@@ -127,6 +172,7 @@
 
         <div class="section-header">
             <h2>Recent Office Applications</h2>
+            <a href="./admin-approvals.html" class="btn-sm">View All</a>
         </div>
         <div class="card">
             <div class="table-wrap">
@@ -135,15 +181,14 @@
                         <tr>
                             <th>Date</th>
                             <th>Practice</th>
-                            <th>Name</th>
+                            <th>Applicant</th>
                             <th>Location</th>
-                            <th>Specialty</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody id="office-table-body">
-                        <tr><td colspan="7" class="empty-state">Loading applications...</td></tr>
+                        <tr><td colspan="6" class="empty-state">Loading applications...</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -151,6 +196,7 @@
 
         <div class="section-header">
             <h2>Recent Patient Waitlist</h2>
+            <a href="./patient-waitlist.html" class="btn-sm">View All</a>
         </div>
         <div class="card">
             <div class="table-wrap">
@@ -174,26 +220,26 @@
     </div>
 
     <!-- Detail Modal -->
-    <div id="detailModal" class="modal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeModal()">&times;</button>
+    <div id="modalOverlay" class="modal-overlay">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal()">×</button>
             <h3 id="modalTitle">Details</h3>
             <div id="modalDetails"></div>
-            <div id="modalActions" style="margin-top: 24px; display: none;">
-                <hr style="border: none; border-top: 1px solid #eee; margin-bottom: 24px;">
+            
+            <div id="modalActions" style="margin-top: 24px; display: none; padding-top: 24px; border-top: 1px solid #eee;">
                 <div style="margin-bottom: 16px;">
-                    <label class="detail-label" style="margin-bottom: 8px;">Update Status</label>
-                    <select id="statusSelect" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid var(--border-color);">
+                    <label class="detail-label">Update Status</label>
+                    <select id="statusSelect" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid var(--border-color); font-size: 14px;">
                         <option value="PENDING">PENDING</option>
                         <option value="APPROVED">APPROVED</option>
                         <option value="REJECTED">REJECTED</option>
                     </select>
                 </div>
-                <div style="margin-bottom: 16px;">
-                    <label class="detail-label" style="margin-bottom: 8px;">Internal Notes</label>
-                    <textarea id="notesInput" style="width: 100%; min-height: 80px; padding: 8px; border-radius: 4px; border: 1px solid var(--border-color); font-family: inherit;"></textarea>
+                <div style="margin-bottom: 24px;">
+                    <label class="detail-label">Internal Notes</label>
+                    <textarea id="notesInput" style="width: 100%; min-height: 100px; padding: 12px; border-radius: 6px; border: 1px solid var(--border-color); font-family: inherit; font-size: 14px; resize: none;" placeholder="Add private review notes..."></textarea>
                 </div>
-                <button id="saveBtn" class="btn-sm" style="background: var(--primary); color: white; border: none; width: 100%; padding: 10px;" onclick="saveStatus()">Save Changes</button>
+                <button onclick="saveStatus()" class="btn btn-dark" style="width: 100%; justify-content: center;">Save Changes</button>
             </div>
         </div>
     </div>
@@ -210,19 +256,21 @@
                 window.location.href = './admin-login.html';
                 return;
             }
+
             const { data: { user } } = await supabase.auth.getUser();
             const { data: adminCheck, error: adminError } = await supabase
                 .from('admin_users')
                 .select('email')
                 .eq('email', user.email)
                 .single();
-            
+
             if (!adminCheck || adminError) {
                 await supabase.auth.signOut();
                 window.location.href = './admin-login.html';
                 return;
             }
-            document.getElementById('user-info').textContent = user.email;
+
+            document.getElementById('user-info').textContent = `Logged in as: ${user.email}`;
             init();
         }
 
@@ -252,21 +300,20 @@
                 .from('office_applications')
                 .select('*')
                 .order('created_at', { ascending: false })
-                .limit(10);
+                .limit(5);
 
             const tbody = document.getElementById('office-table-body');
             if (error || !data || data.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No office applications found.</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No office applications found.</td></tr>';
                 return;
             }
 
             tbody.innerHTML = data.map(app => `
                 <tr>
                     <td>${new Date(app.created_at).toLocaleDateString()}</td>
-                    <td><strong>${app.practice_name || 'N/A'}</strong></td>
-                    <td>${app.full_name}</td>
+                    <td><strong>${app.practice_name || 'N/A'}</strong><br><small style="color:var(--text-muted)">${app.specialty || ''}</small></td>
+                    <td>${app.full_name}<br><small style="color:var(--text-muted)">${app.email}</small></td>
                     <td>${app.city || ''}, ${app.state || ''}</td>
-                    <td>${app.specialty || ''}</td>
                     <td><span class="badge badge-${(app.status || 'PENDING').toLowerCase()}">${app.status || 'PENDING'}</span></td>
                     <td><button class="btn-sm" onclick="viewApp('${app.id}')">Review</button></td>
                 </tr>
@@ -278,7 +325,7 @@
                 .from('patient_waitlist')
                 .select('*')
                 .order('created_at', { ascending: false })
-                .limit(10);
+                .limit(5);
 
             const tbody = document.getElementById('waitlist-table-body');
             if (error || !data || data.length === 0) {
@@ -289,7 +336,7 @@
             tbody.innerHTML = data.map(item => `
                 <tr>
                     <td>${new Date(item.created_at).toLocaleDateString()}</td>
-                    <td>${item.first_name}</td>
+                    <td><strong>${item.first_name}</strong><br><small style="color:var(--text-muted)">${item.email || ''}</small></td>
                     <td>${item.zip_code || 'N/A'}</td>
                     <td>${item.procedure || 'Not specified'}</td>
                     <td>${item.timeline || 'Not specified'}</td>
@@ -312,13 +359,12 @@
                 <div class="detail-row"><span class="detail-label">License #</span><span class="detail-value">${data.dental_license_number || 'N/A'}</span></div>
                 <div class="detail-row"><span class="detail-label">Location</span><span class="detail-value">${data.city}, ${data.state}</span></div>
                 <div class="detail-row"><span class="detail-label">Specialty</span><span class="detail-value">${data.specialty}</span></div>
-                <div class="detail-row"><span class="detail-label">Website</span><span class="detail-value">${data.website || '—'}</span></div>
             `;
-            
+
             document.getElementById('statusSelect').value = data.status || 'PENDING';
             document.getElementById('notesInput').value = data.review_notes || '';
             document.getElementById('modalActions').style.display = 'block';
-            document.getElementById('detailModal').style.display = 'flex';
+            document.getElementById('modalOverlay').style.display = 'flex';
         };
 
         window.viewWaitlist = async (id) => {
@@ -329,24 +375,23 @@
             document.getElementById('modalDetails').innerHTML = `
                 <div class="detail-row"><span class="detail-label">Name</span><span class="detail-value">${data.first_name}</span></div>
                 <div class="detail-row"><span class="detail-label">Email</span><span class="detail-value">${data.email}</span></div>
-                <div class="detail-row"><span class="detail-label">Phone</span><span class="detail-value">${data.phone || '—'}</span></div>
                 <div class="detail-row"><span class="detail-label">Zip Code</span><span class="detail-value">${data.zip_code}</span></div>
                 <div class="detail-row"><span class="detail-label">Procedure</span><span class="detail-value">${data.procedure || '—'}</span></div>
                 <div class="detail-row"><span class="detail-label">Timeline</span><span class="detail-value">${data.timeline || '—'}</span></div>
-                <div class="detail-row"><span class="detail-label">Description</span><span class="detail-value">${data.description || '—'}</span></div>
+                <div class="detail-row"><span class="detail-label">Description</span><span class="detail-value">${data.description || 'No description provided.'}</span></div>
             `;
             document.getElementById('modalActions').style.display = 'none';
-            document.getElementById('detailModal').style.display = 'flex';
+            document.getElementById('modalOverlay').style.display = 'flex';
         };
 
         window.closeModal = () => {
-            document.getElementById('detailModal').style.display = 'none';
+            document.getElementById('modalOverlay').style.display = 'none';
         };
 
         window.saveStatus = async () => {
             const status = document.getElementById('statusSelect').value;
             const notes = document.getElementById('notesInput').value;
-            
+
             const { error } = await supabase
                 .from('office_applications')
                 .update({ 
@@ -355,13 +400,18 @@
                     reviewed_at: new Date().toISOString()
                 })
                 .eq('id', currentReviewId);
-            
+
             if (error) {
                 alert('Error updating status: ' + error.message);
             } else {
                 closeModal();
                 init();
             }
+        };
+
+        document.getElementById('logoutBtn').onclick = async () => {
+            await supabase.auth.signOut();
+            window.location.href = './admin-login.html';
         };
 
         checkAuth();
