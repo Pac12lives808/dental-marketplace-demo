@@ -257,21 +257,12 @@
       return;
     }
 
-    // Fire-and-forget: send confirmation email via Edge Function
-    fetch('https://fxfwytxfeuwsbeapiyqw.supabase.co/functions/v1/send-application-email', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        full_name: payload.full_name,
-        email: payload.email,
-        phone: payload.phone,
-        practice_name: payload.practice_name,
-        city: payload.city,
-        state: payload.state,
-        specialty: payload.specialty,
-        dental_license_number: payload.dental_license_number
-      })
-    }).catch(() => {}); // non-blocking, do not delay redirect
+      // Send email notifications via Netlify function (non-blocking)
+  fetch('/.netlify/functions/send-notification-email', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ type: 'office_application', ...payload })
+  }).catch(() => {}); // non-blocking, do not delay redirect}).catch(() => {}); // non-blocking, do not delay redirect
 
         gtag('event', 'submit_office_application');
     window.location.href = "./office-pending.html";
