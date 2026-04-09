@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Application Received | Dental Dash Pro</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f3f4f6;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 16px;
+    }
+    .card {
+      width: 100%;
+      max-width: 600px;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+      padding: 48px 40px;
+      text-align: center;
+    }
+    .icon {
+      width: 64px;
+      height: 64px;
+      background: #eff6ff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+    }
+    .icon svg {
+      width: 32px;
+      height: 32px;
+      color: #2563eb;
+    }
+    h1 {
+      margin: 0 0 12px;
+      font-size: 28px;
+      font-weight: 700;
+      color: #111827;
+    }
+    .subheadline {
+      margin: 0 0 20px;
+      font-size: 17px;
+      color: #374151;
+      font-weight: 500;
+    }
+    .body-text {
+      margin: 0 0 28px;
+      font-size: 15px;
+      color: #6b7280;
+      line-height: 1.6;
+    }
+    .support {
+      margin: 0 0 36px;
+      font-size: 14px;
+      color: #6b7280;
+    }
+    .support a {
+      color: #2563eb;
+      text-decoration: none;
+    }
+    .support a:hover { text-decoration: underline; }
+    .buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-block;
+      padding: 13px 28px;
+      background: #2563eb;
+      color: #fff;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .btn-primary:hover { background: #1d4ed8; }
+    .btn-secondary {
+      display: inline-block;
+      padding: 13px 28px;
+      background: #fff;
+      color: #2563eb;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      border: 1.5px solid #2563eb;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-secondary:hover { background: #eff6ff; }
+    footer {
+      margin-top: 40px;
+      font-size: 13px;
+      color: #9ca3af;
+    }
+    @media (max-width: 480px) {
+      .card { padding: 36px 24px; }
+      .buttons { flex-direction: column; align-items: center; }
+      .btn-primary, .btn-secondary { width: 100%; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="icon">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    </div>
+    <h1>Application Received</h1>
+    <p class="subheadline">Thank you for applying to join Dental Dash Pro.</p>
+    <p class="body-text">
+      We've received your office application and our team will review it shortly.<br>
+      You'll hear from us within 48 hours with next steps.
+    </p>
+    <p class="support">
+      If you have any questions in the meantime, contact us at
+      <a href="mailto:hello@dentaldashpro.com">hello@dentaldashpro.com</a>.
+    </p>
+    <div class="buttons">
+      <a href="/" class="btn-primary">Return Home</a>
+      <a href="/for-dentists.html" class="btn-secondary">For Dentists</a>
+    </div>
+    <footer>&copy; 2026 Dental Dash Pro. All rights reserved.</footer>
+  </div>
+</body>
+</html>
